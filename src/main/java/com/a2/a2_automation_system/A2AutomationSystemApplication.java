@@ -1,5 +1,6 @@
 package com.a2.a2_automation_system;
 
+import com.a2.a2_automation_system.commons.Role;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -7,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class A2AutomationSystemApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(A2AutomationSystemApplication.class, args);
     }
 
