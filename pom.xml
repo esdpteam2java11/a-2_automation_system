@@ -14,7 +14,7 @@
     <name>a-2_automation_system</name>
     <description>a-2_automation_system</description>
     <properties>
-        <java.version>11</java.version>
+        <java.version>14</java.version>
     </properties>
     <dependencies>
         <dependency>
