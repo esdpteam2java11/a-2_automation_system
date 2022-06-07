@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Index</title>
+    <title>Main page</title>
 </head>
 <body>
 <div>
-    <a href="/login">Login</a>
+     <h1>Hello</h1>
+    <p>${role}</p>
 </div>
 </body>
 </html>
