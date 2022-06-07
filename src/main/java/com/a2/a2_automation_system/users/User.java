@@ -54,19 +54,21 @@ public class User implements UserDetails {
     @JoinColumn(name = "father_id")
     private User father;
 
+    @Enumerated(value = EnumType.STRING)
     @NotNull
-    private String role;
+    private Role role;
 
     private String login;
 
     private String password;
 
     @NotNull
+    @Column(name = "is_active")
     private Boolean isActive;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(this.role));
+        return List.of(new SimpleGrantedAuthority(this.role.name()));
     }
 
     @Override
