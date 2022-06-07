@@ -7,6 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Optional;
+
 @Controller
 @RequiredArgsConstructor
 public class UserController {
@@ -18,12 +20,25 @@ public class UserController {
         return "login";
     }
 
+    @GetMapping
+    public String indexPage(Authentication principal){
+        try {
+            Optional<Object> user = Optional.of(principal.getPrincipal());
+            if(user.isEmpty()){
+                return "index";
+            }
+            return "redirect:/main";
+        }catch (NullPointerException e){
+            return "index";
+        }
+    }
+
     @GetMapping("/main")
     public String getIndex(Model model, Authentication principal) {
         try {
             String role = principal.getAuthorities().stream().map(a -> a.getAuthority()).findFirst().get();
             model.addAttribute("role", role);
-            return "index";
+            return "main";
         } catch (NullPointerException e) {
             return "login";
         }
