@@ -18,7 +18,7 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping
+    @GetMapping("/main")
     public String getIndex(Model model, Authentication principal) {
         try {
             String role = principal.getAuthorities().stream().map(a -> a.getAuthority()).findFirst().get();
