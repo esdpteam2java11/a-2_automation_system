@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface UserRepository extends CrudRepository<User, Long> {
     Optional<User> findByLogin(String email);
 
-    Page<User> findAll(Pageable pageable);
+    Page<UserDTO> findAll(Pageable pageable);
 
     Page<UserDTO> findAllByRole(Pageable pageable,String role);
 
