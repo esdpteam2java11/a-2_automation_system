@@ -21,14 +21,17 @@ public class UserController {
     }
 
     @GetMapping
-    public String indexPage(Authentication principal){
+    public String indexPage(Authentication principal) {
         try {
-            Optional<Object> user = Optional.of(principal.getPrincipal());
-            if(user.isEmpty()){
+            String role = principal.getAuthorities().stream().map(a -> a.getAuthority()).findFirst().get();
+            if (role.equals("Администратор")) {
+                return "redirect:/admin";
+            }
+            if (role.isEmpty()) {
                 return "index";
             }
             return "redirect:/main";
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             return "index";
         }
     }
