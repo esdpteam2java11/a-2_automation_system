@@ -11,7 +11,12 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     Page<User> findAll(Pageable pageable);
 
-    Page<User> findAllByRole(Pageable pageable);
+    Page<UserDTO> findAllByRole(Pageable pageable,String role);
 
-    Page<User> findAllByIsActive(Pageable pageable);
+    Page<User> findAllByIsActive(Pageable pageable,boolean isActive);
+
+    Page<User>  findAllByIsActiveAndRole(Pageable pageable,boolean isActive,String role);
+
+
+
 }
