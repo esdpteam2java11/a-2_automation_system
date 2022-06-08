@@ -38,4 +38,17 @@ public class UserDTO {
     @NotNull
     @JsonProperty("is_active")
     private Boolean isActive;
+
+    public static UserDTO from(User user) {
+        return builder()
+                .id(user.getId())
+                .name(user.getName())
+                .surname(user.getSurname())
+                .phone(user.getPhone())
+                .role(user.getRole())
+                .login(user.getLogin())
+                .isActive(user.getIsActive())
+                .build();
+
+    }
 }
