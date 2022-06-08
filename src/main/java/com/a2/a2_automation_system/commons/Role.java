@@ -5,7 +5,7 @@ public enum Role {
     EMPLOYEE("Сотрудник"),
     CLIENT("Клиент");
     public final String role;
-    private Role(String role) {
+   private Role(String role) {
         this.role = role;
     }
 }
