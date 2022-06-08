@@ -57,7 +57,7 @@ public class UserController {
               @PageableDefault(sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable,
                @RequestParam() boolean isActive){
         var sort = userService.listUser(pageable,role,isActive);
-        model.addAttribute("admin",sort);
+        model.addAttribute("users",sort.getContent());
         return "admin";
     }
 }
