@@ -1,12 +1,16 @@
 package com.a2.a2_automation_system.users;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.util.Optional;
 
 @Controller
@@ -45,5 +49,15 @@ public class UserController {
         } catch (NullPointerException e) {
             return "login";
         }
+    }
+
+    @GetMapping("/admin")
+    public String getAdmin(Model model
+            , @RequestParam() String role,
+              @PageableDefault(sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable,
+               @RequestParam() boolean isActive){
+        var sort = userService.listUser(pageable,role,isActive);
+        model.addAttribute("admin",sort);
+        return "admin";
     }
 }
