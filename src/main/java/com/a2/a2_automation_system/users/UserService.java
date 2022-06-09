@@ -24,19 +24,21 @@ public class UserService implements UserDetailsService {
 
 
     public Page<UserDTO> listUser(Pageable pageable, Role role, boolean isActive) {
-        if (isActive) {
-            userRepository.findAllByIsActive(pageable, isActive).map(UserDTO::from);
-        } else if (isActive) {
-            userRepository.findAllByIsActive(pageable, isActive);
-        } else if (!role.equals(null)) {
-            userRepository.findAllByRole(pageable, role);
-        } else if (isActive && !role.equals(null)) {
-            userRepository.findAllByIsActiveAndRole(pageable, isActive, role);
-        } else if (!isActive && !role.equals(null)) {
-            userRepository.findAllByIsActiveAndRole(pageable, isActive, role);
-        }
-        return userRepository.findAll(pageable).map(UserDTO::from);
+
+        return userRepository.findAllByIsActiveAndRole(pageable,isActive,role).map(UserDTO::from);
+//        if (isActive) {
+//           return userRepository.findAllByIsActive(pageable, isActive).map(UserDTO::from);
+//        } else if (!isActive) {
+//           return userRepository.findAllByIsActive(pageable, isActive).map(UserDTO::from);
+//        }
+//        else if(role!=null){
+//            return userRepository.findAllByRole(pageable,role).map(UserDTO::from);
+//        }
+//        return userRepository.findAll(pageable).map(UserDTO::from);
     }
 
+    public Page<UserDTO> getAllUsers(Pageable pageable){
+        return  userRepository.findAll(pageable).map(UserDTO::from);
+    }
 
 }
