@@ -2,26 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript">
     </script>
-    <script src=/js/search.js"></script>
-    <title>Index</title>
+    title>Index</title>
 </head>
 <body>
 <div>
-       <label for="role_select">Роль:</label>
-        <select name="Role_name" id="role_select" >
+    <form method="get" action="/admin">
+        <label for="role_select">Роль:</label>
+        <select name="role" id="role" >
             <#list roles as role>
-                <option value="${role}" name="role">${role}</option>
+                <option value="${role}">${role}</option>
             </#list>
         </select>
         <label for="blocked">Заблокированный</label>
-        <select name="blocked" id="blocked" >
-            <option value="false" name="isActive">Заблокированый</option>
-            <option value="true" name="isActive" selected>Активный</option>
+        <select name="isActive" id="blocked" >
+            <option value="false" >Заблокированый</option>
+            <option value="true"  selected>Активный</option>
         </select>
-    <button type="button" id="search">Фильтровать</button>
+        <input type="submit" value="Искать">
+    </form>
 
     <form method="get" action="/create">
         <input type="submit" value="Создать пользователя">

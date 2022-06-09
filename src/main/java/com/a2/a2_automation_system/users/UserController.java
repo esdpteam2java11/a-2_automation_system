@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -84,23 +85,20 @@ public class UserController {
     }
 
     @GetMapping("/admin")
-    public String getAdmin(Model model, @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC,size = 1) Pageable pageable,
-                            HttpServletRequest uriBuilder) {
-        var userDTOS = userService.getAllUsers(pageable);
+    public String getAdmin(Model model,@Nullable @RequestParam() Role role,
+                           @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC,size = 1) Pageable pageable,
+                            HttpServletRequest uriBuilder, @RequestParam(required = false) boolean isActive) {
+        Page<UserDTO> page;
+        Optional<Role> optionalRole = Optional.ofNullable(role);
+        if(optionalRole.isPresent()){
+            page = userService.listUser(pageable,role,isActive);
+        }
+        else {
+            page = userService.getAllUsers(pageable);
+        }
         var uri = uriBuilder.getRequestURI();
-        constructPageable(userDTOS,propertiesService.getDefaultPageSize(),model,uri);
+        constructPageable(page,propertiesService.getDefaultPageSize(),model,uri);
       return "admin";
-    }
-
-    @GetMapping("/filter/{path}")
-    public String filterAdmin(@PathVariable String path, Model model, Pageable pageable, HttpServletRequest uriBuilder){
-        System.out.println(path);
-        var role = Role.valueOf(path.split("/")[0]);
-        var isActive = Boolean.valueOf(path.split("/")[1]) ;
-        var sort = userService.listUser(pageable, role, isActive);
-        var uri = uriBuilder.getRequestURI();
-        constructPageable(sort,propertiesService.getDefaultPageSize(),model,uri);
-        return "admin";
     }
 
 }
