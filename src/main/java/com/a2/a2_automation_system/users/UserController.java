@@ -59,6 +59,6 @@ public class UserController {
                            @RequestParam() boolean isActive) {
         var sort = userService.listUser(pageable, role, isActive);
         model.addAttribute("admin", sort);
-        return "admin";
+      return "admin";
     }
 }
