@@ -1,5 +1,6 @@
 package com.a2.a2_automation_system.users;
 
+import com.a2.a2_automation_system.commons.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,19 +23,19 @@ public class UserService implements UserDetailsService {
     }
 
 
-    public Page<UserDTO> listUser(Pageable pageable, String role, boolean isActive) {
+    public Page<UserDTO> listUser(Pageable pageable, Role role, boolean isActive) {
         if (isActive) {
-            userRepository.findAllByIsActive(pageable, isActive);
+            userRepository.findAllByIsActive(pageable, isActive).map(UserDTO::from);
         } else if (isActive) {
             userRepository.findAllByIsActive(pageable, isActive);
-        }else if(!role.equals(null)) {
-            userRepository.findAllByRole(pageable,role);
+        } else if (!role.equals(null)) {
+            userRepository.findAllByRole(pageable, role);
         } else if (isActive && !role.equals(null)) {
-            userRepository.findAllByIsActiveAndRole(pageable,isActive,role);
-        }else if (!isActive &&  !role.equals(null)) {
-            userRepository.findAllByIsActiveAndRole(pageable,isActive,role);
+            userRepository.findAllByIsActiveAndRole(pageable, isActive, role);
+        } else if (!isActive && !role.equals(null)) {
+            userRepository.findAllByIsActiveAndRole(pageable, isActive, role);
         }
-        return userRepository.findAll(pageable);
+        return userRepository.findAll(pageable).map(UserDTO::from);
     }
 
 
