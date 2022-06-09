@@ -24,13 +24,19 @@ public class UserService implements UserDetailsService {
 
 
     public Page<UserDTO> listUser(Pageable pageable, Role role, boolean isActive) {
-//        if (isActive) {
-//           return userRepository.findAllByIsActiveAndRole(pageable, isActive, role).map(UserDTO::from);
-//        } else if (!isActive) {
-//           return userRepository.findAllByIsActiveAndRole(pageable, isActive, role).map(UserDTO::from);
-//        }
+        if (isActive) {
+           return userRepository.findAllByIsActive(pageable, isActive).map(UserDTO::from);
+        } else if (!isActive) {
+           return userRepository.findAllByIsActive(pageable, isActive).map(UserDTO::from);
+        }
+        else if(role!=null){
+            return userRepository.findAllByRole(pageable,role).map(UserDTO::from);
+        }
         return userRepository.findAll(pageable).map(UserDTO::from);
     }
 
+    public Page<UserDTO> getAllUsers(Pageable pageable){
+        return  userRepository.findAll(pageable).map(UserDTO::from);
+    }
 
 }
