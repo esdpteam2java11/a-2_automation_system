@@ -1,5 +1,6 @@
 package com.a2.a2_automation_system.users;
 
+import com.a2.a2_automation_system.commons.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -53,11 +54,11 @@ public class UserController {
 
     @GetMapping("/admin")
     public String getAdmin(Model model
-            , @RequestParam() String role,
-              @PageableDefault(sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable,
-               @RequestParam() boolean isActive){
-        var sort = userService.listUser(pageable,role,isActive);
-        model.addAttribute("admin",sort);
+            , @RequestParam() Role role,
+                           @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable,
+                           @RequestParam() boolean isActive) {
+        var sort = userService.listUser(pageable, role, isActive);
+        model.addAttribute("admin", sort);
         return "admin";
     }
 }
