@@ -21,6 +21,17 @@ public class InitDatabase {
     @Bean
     CommandLineRunner init(UserRepository userRepository) {
         return (args) -> {
+            if (userRepository.findByLogin("admin1").isEmpty()) {
+                User admin = new User();
+                admin.setSurname("admin");
+                admin.setName("admin");
+                admin.setPhone("22-22-22");
+                admin.setRole(Role.ADMIN);
+                admin.setLogin("admin1");
+                admin.setPassword(passwordEncoder.encode("123"));
+                admin.setIsActive(true);
+                userRepository.save(admin);
+            }
             if (userRepository.findByLogin("manager").isEmpty()) {
                 User employee = new User();
                 employee.setSurname("managerSurname");
