@@ -54,11 +54,11 @@ public class UserController {
 
     @GetMapping("/admin")
     public String getAdmin(Model model
-            , @RequestParam() Role role,
+            , @RequestParam(required = false) Role role,
                            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable,
-                           @RequestParam() boolean isActive) {
+                           @RequestParam(required = false) boolean isActive) {
         var sort = userService.listUser(pageable, role, isActive);
-        model.addAttribute("admin", sort);
+        model.addAttribute("users", sort.getContent());
       return "admin";
     }
 }

@@ -22,8 +22,14 @@
                 <td>${user.phone}</td>
                 <td>${user.role}</td>
                 <td>${user.login}</td>
-                <td><#if user.isActive == true> <input type="radio" id="isActive" name="is" value="${user.isActive}">
-                    <#else> <input type="radio" id="isActive" name="is" value="${user.isActive}" checked></#if></td>
+                <td><#if user.isActive == true>
+                        <input type="checkbox" id="isActive" name="isActive" disabled>
+                        <#else>
+                            <input type="checkbox" id="isActive" name="isActive" checked disabled>
+                    </#if> </td>
+
+<#--                <td><#if user.isActive == true> -->
+<#--                    <#else> <input type="radio" id="isActive" name="is" value="${user.isActive}" checked></#if></td>-->
             </tr>
         </#list>
     </table>
