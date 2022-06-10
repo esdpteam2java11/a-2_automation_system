@@ -2,6 +2,7 @@ package com.a2.a2_automation_system.users;
 
 import com.a2.a2_automation_system.commons.Role;
 import com.a2.a2_automation_system.config.PropertiesService;
+import com.a2.a2_automation_system.util.PageUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -85,20 +86,13 @@ public class UserController {
     }
 
     @GetMapping("/admin")
-    public String getAdmin(Model model,@Nullable @RequestParam() Role role,
-                           @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC,size = 1) Pageable pageable,
-                            HttpServletRequest uriBuilder, @RequestParam(required = false) boolean isActive) {
-        Page<UserDTO> page;
-        Optional<Role> optionalRole = Optional.ofNullable(role);
-        if(optionalRole.isPresent()){
-            page = userService.listUser(pageable,role,isActive);
-        }
-        else {
-            page = userService.getAllUsers(pageable);
-        }
+    public String getAdmin(Model model, @RequestParam @Nullable String role,
+                           @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable,
+                           HttpServletRequest uriBuilder, @RequestParam @Nullable Boolean isActive) {
+        Page<UserDTO> page = userService.listUser(pageable, role, isActive);
         var uri = uriBuilder.getRequestURI();
-        constructPageable(page,propertiesService.getDefaultPageSize(),model,uri);
-      return "admin";
+        PageUtil.constructPageable(page, propertiesService.getDefaultPageSize(), model, uri, role, isActive);
+        return "admin";
     }
 
 }
