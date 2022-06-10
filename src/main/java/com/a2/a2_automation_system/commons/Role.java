@@ -8,4 +8,15 @@ public enum Role {
    private Role(String role) {
         this.role = role;
     }
+
+    public String getRole(){
+        return this.role;
+    }
+
+    public static Role getRoleByRoleName(String name){
+        for (Role r:Role.values()) {
+            if (r.getRole().equalsIgnoreCase(name)) return r;
+        }
+        return null;
+    }
 }

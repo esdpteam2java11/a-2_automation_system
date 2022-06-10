@@ -4,21 +4,22 @@
     <meta charset="UTF-8">
     <script type="text/javascript">
     </script>
-    title>Index</title>
+    <title>Index</title>
 </head>
 <body>
 <div>
     <form method="get" action="/admin">
         <label for="role_select">Роль:</label>
-        <select name="role" id="role" >
+        <select name="role" id="role">
+            <option value="all">Все</option>
             <#list roles as role>
                 <option value="${role}">${role}</option>
             </#list>
         </select>
-        <label for="blocked">Заблокированный</label>
-        <select name="isActive" id="blocked" >
-            <option value="false" >Заблокированый</option>
-            <option value="true"  selected>Активный</option>
+        <label for="blocked">Заблокирован</label>
+        <select name="isActive" id="blocked">
+            <option value="true">Нет</option>
+            <option value="false">Да</option>
         </select>
         <input type="submit" value="Искать">
     </form>
@@ -48,26 +49,30 @@
                 <td>${user.login}</td>
                 <td><#if user.isActive == true>
                         <input type="checkbox" id="isActive" name="isActive" disabled>
-                        <#else>
-                            <input type="checkbox" id="isActive" name="isActive" checked disabled>
+                    <#else>
+                        <input type="checkbox" id="isActive" name="isActive" checked disabled>
                     </#if> </td>
             </tr>
         </#list>
     </table>
 </div>
 <div>
-    <#if hasPrev>
-        <a id="loadPrev" href="${prevPageLink!''}"> <<< Previous page</a>
-    <#else>
-        <span id="loadPrev">Previous page</span>
-    </#if>
 
-    <#if hasNext>
-        <a id="loadNext" href="${nextPageLink!''}" data-default-page-size="${defaultPageSize!2}">Next page&gt;&gt;&gt;</a>
-    <#else>
-        <span>Next page</span>
-    </#if>
+        <#include "pagination.ftlh">
 </div>
 
+
+<script>
+    // document.getElementById("role").selectedIndex = -1;
+    document.addEventListener('DOMContentLoaded', function () {
+        var input = document.getElementById('role');
+        if (localStorage['role']) {
+            input.value = localStorage['role'];
+        }
+        input.onchange = function () {
+            localStorage['role'] = this.value;
+        }
+    });
+</script>
 </body>
 </html>
