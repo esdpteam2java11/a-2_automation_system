@@ -57,20 +57,8 @@
     </table>
 </div>
 <div>
-    <#if hasPrev>
-        <a id="loadPrev" href="${prevPageLink!''}"> <<< Previous page</a>
-    <#else>
-        <span id="loadPrev">Previous page</span>
-    </#if>
 
-    <#if hasNext>
-        <a id="loadNext" href="${nextPageLink!''}" data-default-page-size="${defaultPageSize!2}">Next
-            page&gt;&gt;&gt;</a>
-    <#else>
-        <span>Next page</span>
-    </#if>
-
-    <#--    <#include "pagination.ftlh">-->
+        <#include "pagination.ftlh">
 </div>
 
 
