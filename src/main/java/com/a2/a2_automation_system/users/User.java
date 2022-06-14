@@ -46,13 +46,11 @@ public class User implements UserDetails {
 
     private String telegram;
 
-    @ManyToOne
-    @JoinColumn(name = "mother_id")
-    private User mother;
+    @NotNull
+    @NotBlank
+    private String address;
 
-    @ManyToOne
-    @JoinColumn(name = "father_id")
-    private User father;
+    private String school;
 
     @Enumerated(value = EnumType.STRING)
     @NotNull
