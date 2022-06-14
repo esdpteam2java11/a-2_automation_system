@@ -26,6 +26,7 @@ public class InitDatabase {
                 admin.setSurname("admin");
                 admin.setName("admin");
                 admin.setPhone("22-22-22");
+                admin.setAddress("г. Бишкек, ул. Московская 25");
                 admin.setRole(Role.ADMIN);
                 admin.setLogin("admin1");
                 admin.setPassword(passwordEncoder.encode("123"));
@@ -37,6 +38,7 @@ public class InitDatabase {
                 employee.setSurname("managerSurname");
                 employee.setName("managerName");
                 employee.setPhone("22-22-22");
+                employee.setAddress("г. Бишкек, ул. Исанова 26");
                 employee.setRole(Role.EMPLOYEE);
                 employee.setLogin("manager");
                 employee.setPassword(passwordEncoder.encode("123"));
@@ -48,6 +50,7 @@ public class InitDatabase {
                 parent.setSurname("parentSurname");
                 parent.setName("parentName");
                 parent.setPhone("55-55-55");
+                parent.setAddress("г. Бишкек, ул. Советская 26");
                 parent.setRole(Role.CLIENT);
                 parent.setLogin("parent");
                 parent.setPassword(passwordEncoder.encode("123"));
@@ -59,9 +62,9 @@ public class InitDatabase {
                 student.setSurname("studentSurname");
                 student.setName("studentName");
                 student.setPhone("33-33-33");
+                student.setAddress("г. Бишкек, ул. Ахунбаева 26");
                 student.setBirthDate(new Date());
                 student.setRole(Role.CLIENT);
-                student.setFather(userRepository.findByLogin("parent").get());
                 student.setLogin("student");
                 student.setPassword(passwordEncoder.encode("123"));
                 student.setIsActive(true);
