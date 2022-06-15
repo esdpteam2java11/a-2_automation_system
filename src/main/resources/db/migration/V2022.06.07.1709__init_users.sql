@@ -9,7 +9,7 @@ CREATE TABLE users
     telegram   varchar(128),
     login      varchar(128),
     password   varchar(128),
-    birth_date DATE ,
+    birth_date timestamp ,
     role       varchar(128) NOT NULL,
     is_active  boolean      NOT NULL default true,
     mother_id  bigint REFERENCES users (id),
