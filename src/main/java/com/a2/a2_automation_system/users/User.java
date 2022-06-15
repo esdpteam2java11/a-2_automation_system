@@ -39,7 +39,7 @@ public class User implements UserDetails {
 
     private String patronymic;
 
-    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "birth_date")
     private Date birthDate;
 

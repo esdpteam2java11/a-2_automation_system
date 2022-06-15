@@ -30,6 +30,7 @@ public class UserDTO {
 
     private String patronymic;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonProperty("birth_date")
     private Date birthDate;
 
