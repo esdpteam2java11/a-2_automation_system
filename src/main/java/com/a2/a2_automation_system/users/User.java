@@ -1,10 +1,12 @@
 package com.a2.a2_automation_system.users;
 
 import com.a2.a2_automation_system.commons.Role;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -36,8 +39,9 @@ public class User implements UserDetails {
 
     private String patronymic;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "birth_date")
-    private Date birthDate ;
+    private Date birthDate;
 
     @NotBlank
     private String phone;
@@ -46,7 +50,7 @@ public class User implements UserDetails {
 
     private String telegram;
 
-    @NotNull
+    //    @NotNull
     @NotBlank
     private String address;
 
@@ -60,9 +64,10 @@ public class User implements UserDetails {
 
     private String password;
 
-    @NotNull
     @Column(name = "is_active")
-    private Boolean isActive;
+    @Builder.Default
+    private Boolean isActive = true;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -94,3 +99,4 @@ public class User implements UserDetails {
         return true;
     }
 }
+
