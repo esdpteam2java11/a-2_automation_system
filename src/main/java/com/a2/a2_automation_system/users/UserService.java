@@ -8,14 +8,19 @@ import org.springframework.data.domain.Slice;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
+    private final PasswordEncoder encoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -35,8 +40,25 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public Page<UserDTO> getAllUsers(Pageable pageable){
-        return  userRepository.findAll(pageable).map(UserDTO::from);
+    public Page<UserDTO> getAllUsers(Pageable pageable) {
+        return userRepository.findAll(pageable).map(UserDTO::from);
     }
+
+    public void addTrainer(UserDTO userDTO) {
+        User trainer = User.builder()
+                .name(userDTO.getName())
+                .surname(userDTO.getSurname())
+                .login(userDTO.getLogin())
+                .password(encoder.encode(userDTO.getPassword()))
+                .role(userDTO.getRole())
+                .address(userDTO.getAddress())
+                .phone(userDTO.getPhone())
+//                .isActive(userDTO.getIsActive())
+                .build();
+        userRepository.save(trainer);
+    }
+
+
+
 
 }

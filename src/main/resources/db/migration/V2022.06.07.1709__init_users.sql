@@ -1,6 +1,6 @@
 CREATE TABLE users
 (
-    id         bigserial    NOT NULL,
+    id         bigserial,
     name       varchar(128) NOT NULL,
     surname    varchar(128) NOT NULL,
     patronymic varchar(128),
@@ -9,7 +9,7 @@ CREATE TABLE users
     telegram   varchar(128),
     login      varchar(128),
     password   varchar(128),
-    birth_date timestamp,
+    birth_date DATE ,
     role       varchar(128) NOT NULL,
     is_active  boolean      NOT NULL default true,
     mother_id  bigint REFERENCES users (id),
