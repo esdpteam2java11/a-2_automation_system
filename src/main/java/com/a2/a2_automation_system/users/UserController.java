@@ -12,13 +12,16 @@ import org.springframework.lang.Nullable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -93,6 +96,32 @@ public class UserController {
         var uri = uriBuilder.getRequestURI();
         PageUtil.constructPageable(page, propertiesService.getDefaultPageSize(), model, uri, role, isActive);
         return "admin";
+    }
+
+
+    @GetMapping("/addTrainer")
+    public String pageRegisterCustomer(Model model) {
+
+
+
+        return "addTrainer";
+    }
+
+    @PostMapping("/addTrainer")
+    public String registerPage(@Valid UserDTO customerRequestDto,
+                               BindingResult validationResult,
+                               RedirectAttributes attributes,
+                               Model model) {
+
+        model.addAttribute("dto",customerRequestDto);
+
+        if (validationResult.hasFieldErrors()) {
+            attributes.addFlashAttribute("errors", validationResult.getFieldErrors());
+            return "redirect:/addTrainer";
+        }
+
+        userService.addTrainer(customerRequestDto);
+        return "redirect:/addTrainer";
     }
 
 }
