@@ -2,6 +2,7 @@ package com.a2.a2_automation_system.users;
 
 import com.a2.a2_automation_system.commons.Role;
 
+import com.a2.a2_automation_system.group.Group;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -67,6 +68,10 @@ public class User implements UserDetails {
     @Column(name = "is_active")
     @Builder.Default
     private Boolean isActive = true;
+
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    private Group group;
 
 
     @Override
