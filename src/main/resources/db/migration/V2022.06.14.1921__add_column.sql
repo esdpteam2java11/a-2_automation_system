@@ -1,3 +1,3 @@
-ALter table parent add column telegram varchar(255);
+ALTER TABLE parents ADD COLUMN telegram VARCHAR(255);
 
-ALter table parent add column whatsapp varchar(255)
+ALTER TABLE parents ADD COLUMN whatsapp VARCHAR(255)
