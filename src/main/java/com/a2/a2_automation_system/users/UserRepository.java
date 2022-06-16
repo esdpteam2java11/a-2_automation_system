@@ -21,4 +21,6 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long> {
     Page<User> findAllByIsActiveAndRole(Pageable pageable, boolean isActive, Role role);
 
 
+    boolean existsByLogin(String login);
+
 }

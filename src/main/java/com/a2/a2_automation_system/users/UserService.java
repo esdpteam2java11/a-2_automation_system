@@ -1,20 +1,15 @@
 package com.a2.a2_automation_system.users;
 
 import com.a2.a2_automation_system.commons.Role;
+import com.a2.a2_automation_system.exception.UserAlreadyRegisteredException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -28,7 +23,7 @@ public class UserService implements UserDetailsService {
     }
 
 
-    public Page<UserDTO> listUser(Pageable pageable, String role, Boolean isActive) {
+    public Page<UserDTO> getUsersWithFilter(Pageable pageable, String role, Boolean isActive) {
         if ((isActive != null && role != null) && !role.equals("all")) {
             return userRepository.findAllByIsActiveAndRole(pageable, isActive, Role.getRoleByRoleName(role)).map(UserDTO::from);
         } else if (isActive != null) {
@@ -44,7 +39,14 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll(pageable).map(UserDTO::from);
     }
 
+    public boolean userLoginCheck(String login) {
+        return userRepository.existsByLogin(login);
+    }
+
     public void addTrainer(UserDTO userDTO) {
+        if (userLoginCheck(userDTO.getLogin())) {
+            throw new UserAlreadyRegisteredException();
+        }
         User trainer = User.builder()
                 .name(userDTO.getName())
                 .surname(userDTO.getSurname())
@@ -53,12 +55,10 @@ public class UserService implements UserDetailsService {
                 .role(userDTO.getRole())
                 .address(userDTO.getAddress())
                 .phone(userDTO.getPhone())
-//                .isActive(userDTO.getIsActive())
+                .birthDate(userDTO.getBirthDate())
                 .build();
         userRepository.save(trainer);
     }
-
-
 
 
 }
