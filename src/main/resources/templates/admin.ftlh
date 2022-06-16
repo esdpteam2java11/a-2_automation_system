@@ -40,7 +40,7 @@
                     <td>${user.phone}</td>
                     <td>${user.role}</td>
                     <td>${user.login}</td>
-                    <td><#if user.isActive == true>
+                    <td><#if user??>
                             <input type="checkbox" id="isActive" name="isActive" disabled>
                         <#else>
                             <input type="checkbox" id="isActive" name="isActive" checked disabled>
