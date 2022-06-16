@@ -1,6 +1,8 @@
 package com.a2.a2_automation_system.util;
 
 import com.a2.a2_automation_system.commons.Role;
+import com.a2.a2_automation_system.group.Group;
+import com.a2.a2_automation_system.group.GroupRepository;
 import com.a2.a2_automation_system.users.User;
 import com.a2.a2_automation_system.users.UserRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -8,7 +10,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Configuration
 public class InitDatabase {
@@ -19,7 +23,7 @@ public class InitDatabase {
     }
 
     @Bean
-    CommandLineRunner init(UserRepository userRepository) {
+    CommandLineRunner init(UserRepository userRepository, GroupRepository groupRepository) {
         return (args) -> {
             if (userRepository.findByLogin("admin1").isEmpty()) {
                 User admin = new User();
@@ -69,6 +73,15 @@ public class InitDatabase {
                 student.setPassword(passwordEncoder.encode("123"));
                 student.setIsActive(true);
                 userRepository.save(student);
+            }
+            if (groupRepository.findAll().isEmpty()) {
+                List<Group> groups = List.of(
+                        Group.builder().name("Детская группа 1").trainer(userRepository.findByLogin("manager").orElse(null)).build(),
+                        Group.builder().name("Детская группа 2").trainer(userRepository.findByLogin("manager").orElse(null)).build(),
+                        Group.builder().name("Младшая группа").trainer(userRepository.findByLogin("manager").orElse(null)).build(),
+                        Group.builder().name("Старшая группа").trainer(userRepository.findByLogin("manager").orElse(null)).build(),
+                        Group.builder().name("Взрослая группа").trainer(userRepository.findByLogin("manager").orElse(null)).build());
+                        groupRepository.saveAll(groups);
             }
         };
     }
