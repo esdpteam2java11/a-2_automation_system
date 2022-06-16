@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
-@Table(name = "parent")
+@Table(name = "parents")
 @Builder
 @Data
 @AllArgsConstructor
