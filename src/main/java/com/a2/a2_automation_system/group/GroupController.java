@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class GroupController {
     private final GroupService groupService;
 
+    @GetMapping("/all")
+    public String getAllGroups(Model model) {
+        model.addAttribute("groups", groupService.getAllGroups());
+        return "groups";
+    }
+
 
     @GetMapping("{id}")
     public String getGroupById(@PathVariable Long id, Model model) {
