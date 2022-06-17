@@ -37,7 +37,7 @@
                         <a class="nav-link" href="#">График тренировок</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="http://localhost:8080/addTrainer">Добавить трейнера</a>
+                        <a class="nav-link" href="/add/trainer">Добавить трейнера</a>
                     </li>
 
                 </ul>
