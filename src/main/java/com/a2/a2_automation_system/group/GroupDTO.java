@@ -27,4 +27,12 @@ public class GroupDTO {
     @NotNull
     @JsonProperty("trainer_id")
     private User trainer;
+
+    public static GroupDTO from(Group group) {
+        return builder()
+                .id(group.getId())
+                .name(group.getName())
+                .trainer(group.getTrainer())
+                .build();
+    }
 }
