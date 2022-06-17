@@ -40,6 +40,10 @@
                         <a class="nav-link" href="/add/trainer">Добавить трейнера</a>
                     </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link" href="/group/all">Группы</a>
+                    </li>
+
                 </ul>
 
             </div>
