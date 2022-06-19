@@ -132,11 +132,12 @@
                         <table id="relative-table" class="table table-primary table-bordered table-hover">
                             <thead>
                             <tr>
+                                <th scope="col" STYLE="width: 5%" hidden>ID</th>
                                 <th scope="col" STYLE="width: 10%">Родство</th>
                                 <th scope="col" STYLE="width: 15%">Фамилия</th>
                                 <th scope="col" STYLE="width: 15%">Имя</th>
                                 <th scope="col" STYLE="width: 15%">Отчество</th>
-                                <th scope="col" STYLE="width: 15%">Телефон</th>
+                                <th scope="col" STYLE="width: 10%">Телефон</th>
                                 <th scope="col" STYLE="width: 10%">WhatsApp</th>
                                 <th scope="col" STYLE="width: 10%">Telegram</th>
                                 <th scope="col" STYLE="width: 10%">Логин</th>
@@ -163,7 +164,7 @@
                         <div class="modal-body">
                             <form action="" method="GET" id="search-relative-frm">
                                 <label for="myInput"></label>
-                                <input type="text" id="myInput" class="w-auto" placeholder="Поиск по ФИО">
+                                <input type="text" id="myInput" class="w-auto" placeholder="Введите фамилию">
                                 <button type="submit" id="search-relative-btn" class="btn btn-secondary">Искать</button>
                             </form>
                         </div>
@@ -181,11 +182,26 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            ...
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                            <button type="button" class="btn btn-primary">Сохранить</button>
+                            <form action="" id="add-parent" method="post">
+<#--                                <#list kinships as kinship>-->
+<#--                                    <option name="${kinship}">${kinship}</option>-->
+<#--                                </#list>-->
+                                <label for="parent-surname" class="col-form-label">Фамилия: </label>
+                                <input type="text" name="surname" class="form-control" id="parent-surname" required>
+                                <label for="parent-name" class="col-form-label">Имя: </label>
+                                <input type="text" name="name" class="form-control" id="parent-name" required>
+                                <label for="parent-patronymic" class="col-form-label">Отчество: </label>
+                                <input type="text" name="patronymic" class="form-control" id="parent-patronymic">
+                                <label for="parent-phone" class="col-form-label">Номер телефона: </label>
+                                <input type="text" name="phone" class="form-control" id="parent-phone" required>
+                                <label for="parent-whatsapp" class="col-form-label">WhatsApp: </label>
+                                <input type="text" name="whatsapp" class="form-control" id="parent-whatsapp">
+                                <label for="parent-telegram" class="col-form-label">Telegram: </label>
+                                <input type="text" name="telegram" class="form-control" id="parent-telegram">
+                                <button type="submit" class="btn btn-primary add bg-dark my-2" id="button">Добавить
+                                    родственника
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
