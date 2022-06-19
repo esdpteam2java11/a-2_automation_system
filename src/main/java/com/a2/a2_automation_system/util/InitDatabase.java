@@ -1,16 +1,15 @@
 package com.a2.a2_automation_system.util;
 
-import com.a2.a2_automation_system.commons.Role;
+import com.a2.a2_automation_system.common.Role;
 import com.a2.a2_automation_system.group.Group;
 import com.a2.a2_automation_system.group.GroupRepository;
-import com.a2.a2_automation_system.users.User;
-import com.a2.a2_automation_system.users.UserRepository;
+import com.a2.a2_automation_system.user.User;
+import com.a2.a2_automation_system.user.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

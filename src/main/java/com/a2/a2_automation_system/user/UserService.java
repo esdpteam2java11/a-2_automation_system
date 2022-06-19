@@ -1,6 +1,6 @@
-package com.a2.a2_automation_system.users;
+package com.a2.a2_automation_system.user;
 
-import com.a2.a2_automation_system.commons.Role;
+import com.a2.a2_automation_system.common.Role;
 import com.a2.a2_automation_system.exception.UserAlreadyRegisteredException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

@@ -1,6 +1,6 @@
-package com.a2.a2_automation_system.users;
+package com.a2.a2_automation_system.user;
 
-import com.a2.a2_automation_system.commons.Role;
+import com.a2.a2_automation_system.common.Role;
 
 import com.a2.a2_automation_system.group.Group;
 import lombok.AllArgsConstructor;
@@ -15,7 +15,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -51,7 +50,6 @@ public class User implements UserDetails {
 
     private String telegram;
 
-    //    @NotNull
     @NotBlank
     private String address;
 

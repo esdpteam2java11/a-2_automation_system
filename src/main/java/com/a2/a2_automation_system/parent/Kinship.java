@@ -5,7 +5,7 @@ public enum Kinship {
     FATHER("Отец"),
     MOTHER("Мать"),
     GRANDMOTHER("Бабушка"),
-    GRANDFATHER("дедушка"),
+    GRANDFATHER("Дедушка"),
     SISTER("Сестра"),
     BROTHER("Брат"),
     GUARDIAN("Опекун");

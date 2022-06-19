@@ -1,4 +1,4 @@
-package com.a2.a2_automation_system.users;
+package com.a2.a2_automation_system.user;
 
 import com.a2.a2_automation_system.config.PropertiesService;
 import com.a2.a2_automation_system.util.PageUtil;
@@ -93,6 +93,18 @@ public class UserController {
         }
         userService.addTrainer(customerRequestDto);
         return "redirect:/add/trainer";
+    }
+
+    @GetMapping("/create")
+    public String viewCreateUser(Model model) {
+        //TO DO
+        return "add_user";
+    }
+
+    @PostMapping("/create")
+    public String registerUser() {
+        //TO DO
+        return null;
     }
 
 }

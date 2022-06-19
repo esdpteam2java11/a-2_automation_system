@@ -1,4 +1,4 @@
-package com.a2.a2_automation_system.commons;
+package com.a2.a2_automation_system.common;
 
 public enum Role {
     ADMIN("Администратор"),
