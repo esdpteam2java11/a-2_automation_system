@@ -1,10 +1,8 @@
-package com.a2.a2_automation_system.users;
+package com.a2.a2_automation_system.user;
 
-import com.a2.a2_automation_system.commons.Role;
+import com.a2.a2_automation_system.common.Role;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 

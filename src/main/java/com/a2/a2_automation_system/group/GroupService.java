@@ -1,11 +1,9 @@
 package com.a2.a2_automation_system.group;
 
-import com.a2.a2_automation_system.commons.Role;
+import com.a2.a2_automation_system.common.Role;
 import com.a2.a2_automation_system.exception.GroupNotFoundException;
-import com.a2.a2_automation_system.exception.UserNotFoundException;
-import com.a2.a2_automation_system.users.User;
-import com.a2.a2_automation_system.users.UserDTO;
-import com.a2.a2_automation_system.users.UserRepository;
+import com.a2.a2_automation_system.user.UserDTO;
+import com.a2.a2_automation_system.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

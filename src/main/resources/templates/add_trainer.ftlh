@@ -4,7 +4,7 @@
     <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Добавить спортсмена</title>
+        <title>Добавить тренера</title>
         <script src="https://code.jquery.com/jquery-3.6.0.js"
                 integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     </head>
@@ -18,7 +18,7 @@
 
         <div>
             <label class="flex flex-v-center">
-                <p class="label-input-text">логин</p>
+                <p class="label-input-text">Логин</p>
                 <input type="text" name="login" value="${(dto.login)!''}">
             </label>
         </div>
@@ -28,56 +28,56 @@
         </div>
         <div>
             <label class="flex flex-v-center">
-                <p class="label-input-text">пароль</p>
+                <p class="label-input-text">Пароль</p>
                 <input type="text" class="form-control" name="password" value="${(dto.password)!''}"
                        id="input-password">
-                <button type="button" id="input-generate" class="btn btn-primary">Сгенерировать</button>
+                <button type="button" id="input-generate" class="btn btn-primary mt-2">Сгенерировать пароль</button>
             </label>
         </div>
         <div>
             <label class="flex flex-v-center">
-                <p class="label-input-text">имя</p>
+                <p class="label-input-text">Имя</p>
                 <input type="text" name="name" value="${(dto.name)!''}">
             </label>
         </div>
         <div>
             <label class="flex flex-v-center">
-                <p class="label-input-text">фамиля</p>
+                <p class="label-input-text">Фамилия</p>
                 <input type="text" name="surname" value=""${(dto.surname)!''}"">
             </label>
         </div>
         <div>
             <label class="flex flex-v-center">
-                <p class="label-input-text">очество</p>
+                <p class="label-input-text">Отчетство</p>
                 <input type="text" name="patronymic" value=""${(dto.patronymic)!''}"">
             </label>
         </div>
         <div>
             <label class="flex flex-v-center">
-                <p class="label-input-text">адрес</p>
+                <p class="label-input-text">Адрес</p>
                 <input type="text" name="address" value=""${(dto.address)!''}"">
             </label>
         </div>
         <div>
             <label class="flex flex-v-center">
-                <p class="label-input-text">телефон</p>
+                <p class="label-input-text">Телефон</p>
                 <input type="text" name="phone" value=""${(dto.phone)!''}"">
             </label>
         </div>
 
         <label class="flex flex-v-center">
-            <p class="label-input-text">дата рождения</p>
+            <p class="label-input-text">Дата рождения</p>
 
             <input type="date" name="birthDate">
         </label>
         <input type="hidden" id="role" name="role" value="EMPLOYEE">
 
         <div>
-            <button type="submit">добавить</button>
+            <button type="submit">Добавить</button>
         </div>
         <div>
             <#if dto.login??>
-                <p style="color:red">${dto.login} логин уже существует! Пожалуйста выберите другой</p>
+                <p style="color:red">${dto.login} Логин уже существует! Пожалуйста выберите другой</p>
             </#if>
             <#if errors?? >
                 <p>Входные данные с ошибками!</p>

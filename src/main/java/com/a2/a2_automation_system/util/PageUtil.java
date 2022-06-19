@@ -1,6 +1,6 @@
 package com.a2.a2_automation_system.util;
 
-import com.a2.a2_automation_system.commons.Role;
+import com.a2.a2_automation_system.common.Role;
 import org.springframework.data.domain.Page;
 import org.springframework.ui.Model;
 

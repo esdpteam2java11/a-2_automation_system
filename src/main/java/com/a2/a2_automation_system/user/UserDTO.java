@@ -1,6 +1,6 @@
-package com.a2.a2_automation_system.users;
+package com.a2.a2_automation_system.user;
 
-import com.a2.a2_automation_system.commons.Role;
+import com.a2.a2_automation_system.common.Role;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
