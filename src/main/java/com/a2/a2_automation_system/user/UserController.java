@@ -1,6 +1,7 @@
 package com.a2.a2_automation_system.user;
 
 import com.a2.a2_automation_system.config.PropertiesService;
+import com.a2.a2_automation_system.parent.Kinship;
 import com.a2.a2_automation_system.util.PageUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -104,14 +106,16 @@ public class UserController {
 
     @GetMapping("/create")
     public String viewCreateUser(Model model) {
-        //TO DO
+        model.addAttribute("kinships", Kinship.values());
         return "add_user";
     }
 
     @PostMapping("/create")
-    public String registerUser() {
-        //TO DO
-        return null;
+    public String registerUser(@RequestParam("name") String name,@RequestParam("surname") String surname,
+                               @RequestParam("p_surname") List<String> pSurnames) {
+        System.out.println("name="+name+", surname="+surname);
+        System.out.println(pSurnames);
+        return "redirect:/";
     }
 
 }
