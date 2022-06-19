@@ -121,8 +121,7 @@
                     </button>
                 </div>
                 <div class="col-lg-6">
-                    <button type="button" class="btn btn-outline-secondary my-0" data-bs-toggle="modal"
-                            data-bs-target="#addNewRelativeModal">Добавить
+                    <button type="button" class="btn btn-outline-secondary my-0" id="add-new-parent-button">Добавить
                         нового
                         родственника
                     </button>
@@ -152,81 +151,48 @@
             <button type="submit" class="btn btn-primary add bg-dark my-2" id="button">Добавить спортсмена
             </button>
         </form>
-
-
-        <!-- SearchModal -->
-        <div class="modal fade" id="searchRelativeModal" tabindex="-1" aria-labelledby="searchRelativeModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="searchRelativeModalLabel">Поиск родственника</h5>
-                        <button type="button" class="search-relative-modal-close btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="" id="search-relative-frm" method="get">
-                            <label for="surnameSearch"></label>
-                            <input type="text" id="surnameSearch" name="surnameSearch" class="w-auto"
-                                   placeholder="Введите фамилию">
-                            <button type="submit" id="search-relative-btn" class="btn btn-secondary
-                            py-0">Искать</button>
-                        </form>
-                        <table id="search-relative-table" class="table table-bordered mt-2">
-                            <thead>
-                            <tr>
-                                <th scope="col" hidden>ID</th>
-                                <th scope="col">Родство</th>
-                                <th scope="col">Фамилия</th>
-                                <th scope="col">Имя</th>
-                                <th scope="col">Отчество</th>
-                                <th scope="col">Выбрать</th>
-                            </tr>
-                            </thead>
-                            <tbody class="table-body">
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- AddModal -->
-        <div class="modal fade" id="addNewRelativeModal" tabindex="-1" aria-labelledby="addNewRelativeModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addNewRelativeModalLabel">Создание нового родственника</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                            <#--                                <#list kinships as kinship>-->
-                            <#--                                    <option name="${kinship}">${kinship}</option>-->
-                            <#--                                </#list>-->
-                            <label for="parent-surname" class="col-form-label">Фамилия: </label>
-                            <input type="text" name="surname" class="form-control" id="parent-surname" required>
-                            <label for="parent-name" class="col-form-label">Имя: </label>
-                            <input type="text" name="name" class="form-control" id="parent-name" required>
-                            <label for="parent-patronymic" class="col-form-label">Отчество: </label>
-                            <input type="text" name="patronymic" class="form-control" id="parent-patronymic">
-                            <label for="parent-phone" class="col-form-label">Номер телефона: </label>
-                            <input type="text" name="phone" class="form-control" id="parent-phone" required>
-                            <label for="parent-whatsapp" class="col-form-label">WhatsApp: </label>
-                            <input type="text" name="whatsapp" class="form-control" id="parent-whatsapp">
-                            <label for="parent-telegram" class="col-form-label">Telegram: </label>
-                            <input type="text" name="telegram" class="form-control" id="parent-telegram">
-                            <button type="submit" class="btn btn-primary add bg-dark my-2" id="button">Добавить
-                                родственника
-                            </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
     <a href="/admin" class="btn btn-outline-secondary btn-light btn-lg mx-3">Вернуться</a>
 </div>
+
+<!-- SearchModal -->
+<div class="modal fade" id="searchRelativeModal" tabindex="-1" aria-labelledby="searchRelativeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="searchRelativeModalLabel">Поиск родственника</h5>
+                <button type="button" class="search-relative-modal-close btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="" id="search-relative-frm" method="get">
+                    <label for="surnameSearch"></label>
+                    <input type="text" id="surnameSearch" name="surnameSearch" class="w-auto"
+                           placeholder="Введите фамилию">
+                    <button type="submit" id="search-relative-btn" class="btn btn-secondary
+                            py-0">Искать
+                    </button>
+                </form>
+                <table id="search-relative-table" class="table table-bordered mt-2">
+                    <thead>
+                    <tr>
+                        <th scope="col" hidden>ID</th>
+                        <th scope="col">Родство</th>
+                        <th scope="col">Фамилия</th>
+                        <th scope="col">Имя</th>
+                        <th scope="col">Отчество</th>
+                        <th scope="col">Выбрать</th>
+                    </tr>
+                    </thead>
+                    <tbody class="table-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"

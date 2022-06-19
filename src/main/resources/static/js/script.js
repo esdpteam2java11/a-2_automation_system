@@ -23,9 +23,9 @@ function generatePassword() {
 
 const searchRelativeForm = document.getElementById("search-relative-frm")
 const searchRelativeBtn = document.getElementById("search-relative-btn")
+const relativesTableBody = document.querySelector('#relative-table>.table-body')
 
 function addSelectedParent(parent) {
-    let tbody = document.querySelector('#relative-table>.table-body')
     let newTrTag = document.createElement("tr")
     newTrTag.innerHTML = `<td hidden><input type="hidden" name="id">${parent.id}</input></td>
                                   <td><input type="hidden" name="kinship">${parent.kinship}</input></td>
@@ -36,8 +36,29 @@ function addSelectedParent(parent) {
                                   <td><input type="hidden" name="whatsapp">${parent.whatsapp}</input></td>
                                   <td><input type="hidden" name="telegram">${parent.telegram}</input></td>
                                   <td><input type="hidden" name="login">${parent.login}</input></td>`
-    tbody.appendChild(newTrTag)
+    relativesTableBody.appendChild(newTrTag)
 }
+
+const addNewParentBtn = document.getElementById("add-new-parent-button")
+
+addNewParentBtn.addEventListener("click", function () {
+    let newTrTag = document.createElement("tr")
+    newTrTag.innerHTML = `<td hidden><input type="hidden" name="id">null</input></td>
+                                  <td>
+                                  <select name="kinship">
+                                  <option>Мама</option>
+                                  <option>Папа</option>
+                                  </select>
+                                  </td>
+                                  <td><input type="text" name="surname"/></td>
+                                  <td><input type="text" name="name"/></td>
+                                  <td><input type="text" name="patronymic"/></td>
+                                  <td><input type="text" name="phone"/></td>
+                                  <td><input type="text" name="whatsapp"/></td>
+                                  <td><input type="text" name="telegram"/></td>
+                                  <td><input type="text" name="login"/></td>`
+    relativesTableBody.appendChild(newTrTag)
+})
 
 searchRelativeForm.addEventListener("submit", async function (e) {
     e.preventDefault()
@@ -73,9 +94,9 @@ searchRelativeForm.addEventListener("submit", async function (e) {
     }
 })
 
-document.getElementsByClassName("search-relative-modal-close")[0].addEventListener("click", function (){
+document.getElementsByClassName("search-relative-modal-close")[0].addEventListener("click", function () {
     const searchResult = document.querySelector('#search-relative-table>.table-body')
-    while (searchResult.firstElementChild){
+    while (searchResult.firstElementChild) {
         searchResult.firstElementChild.remove()
     }
 })
