@@ -11,7 +11,9 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends PagingAndSortingRepository<User, Long> {
+
     Optional<User> findByLogin(String email);
+
     Page<User> findAll(Pageable pageable);
 
     Page<User> findAllByRole(Pageable pageable, Role role);
@@ -22,8 +24,5 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 
     boolean existsByLogin(String login);
 
-    List<User> findByRole( Role role);
-
-
-
+    List<User> findByRole(Role role);
 }

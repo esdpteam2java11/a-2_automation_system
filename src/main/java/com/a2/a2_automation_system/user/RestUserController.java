@@ -1,10 +1,11 @@
 package com.a2.a2_automation_system.user;
 
-import com.a2.a2_automation_system.config.PropertiesService;
+import com.a2.a2_automation_system.parent.ParentDTO;
+import com.a2.a2_automation_system.parent.ParentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -12,12 +13,12 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class RestUserController {
-    private final UserService userService;
-    private final PropertiesService propertiesService;
+    private final ParentService parentService;
 
-//    @GetMapping("/create/parentSearch")
-//    public List<ParentDTO> getParentsByFilter(@RequestParam @Nullable String filter){
-//        TO DO
-//        return null;
-//    }
+    @GetMapping("/create/parentSearch/{surnamePart}")
+    public List<ParentDTO> getParents(@PathVariable @Nullable String surnamePart){
+        return parentService.getParentsBySurname(surnamePart);
+    }
+
+
 }
