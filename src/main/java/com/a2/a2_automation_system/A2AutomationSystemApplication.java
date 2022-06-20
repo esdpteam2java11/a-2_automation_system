@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class A2AutomationSystemApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(A2AutomationSystemApplication.class, args);
     }
 

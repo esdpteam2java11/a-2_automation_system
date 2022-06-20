@@ -1,0 +1,3 @@
+ALTER TABLE parents ADD COLUMN telegram VARCHAR(255);
+
+ALTER TABLE parents ADD COLUMN whatsapp VARCHAR(255)
