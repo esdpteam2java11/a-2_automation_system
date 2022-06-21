@@ -64,23 +64,19 @@ public class UserController {
     @GetMapping("/admin")
     public String getAdmin(Model model, @RequestParam @Nullable String role,
                            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable,
-                           HttpServletRequest uriBuilder, @RequestParam @Nullable Boolean isActive) {
+                           HttpServletRequest uriBuilder,
+                           @RequestParam @Nullable Boolean isActive,
+                           @RequestParam(value = "search", defaultValue = "", required = false) String search) {
         Page<UserDTO> page = userService.getUsersWithFilter(pageable, role, isActive);
         String uri = uriBuilder.getRequestURI();
         PageUtil.constructPageable(page, propertiesService.getDefaultPageSize(), model, uri, role, isActive);
+        if (!search.isEmpty()) {
+            Page<UserDTO> searchUserByNameOrSurnameOrPatronymic = userService.getUserBySearch(pageable, search);
+            PageUtil.constructPageable(searchUserByNameOrSurnameOrPatronymic, propertiesService.getDefaultPageSize(), model, uri + "?" + "search=" + search, role, isActive);
+        }
         return "admin";
     }
 
-    @GetMapping("/search")
-    public String searchUsers(Model model, @RequestParam @Nullable String role,
-                              @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable,
-                              HttpServletRequest uriBuilder, @RequestParam @Nullable Boolean isActive,
-                              @RequestParam("search") String search) {
-        Page<UserDTO> searchUserByNameOrSurnameOrPatronymic = userService.getUserBySearch(pageable, search);
-        String uri = uriBuilder.getRequestURI();
-        PageUtil.constructPageable(searchUserByNameOrSurnameOrPatronymic, propertiesService.getDefaultPageSize(), model, uri + "?" + "search=" + search, role, isActive);
-        return "admin";
-    }
 
     @GetMapping("/add/trainer")
     public String pageRegisterCustomer(Model model) {
