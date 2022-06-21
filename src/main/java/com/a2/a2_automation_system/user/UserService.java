@@ -39,6 +39,10 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll(pageable).map(UserDTO::from);
     }
 
+    public Page<UserDTO> getUserBySearch(Pageable pageable, String search) {
+        return userRepository.findUserByNameOrSurnameOrPatronymic(pageable, search).map(UserDTO::from);
+    }
+
     public boolean userLoginCheck(String login) {
         return userRepository.existsByLogin(login);
     }

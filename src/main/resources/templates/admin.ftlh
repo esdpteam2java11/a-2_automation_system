@@ -15,6 +15,15 @@
                 <option value="false">Да</option>
             </select>
             <input type="submit" value="Искать">
+
+        </form>
+
+        <form action="/search" method="get">
+            <div>
+                <label for="search">Поиск по ФИО</label>
+                <input id="search" type="text" name="search" \>
+                <input type="submit" value="Искать">
+            </div>
         </form>
 
         <form method="get" action="/create">
