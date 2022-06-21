@@ -64,18 +64,21 @@ public class InitDatabase {
                 parent.setIsActive(true);
                 userRepository.save(parent);
             }
-            if (userRepository.findByLogin("student").isEmpty()) {
+            for (int i = 0; i < 100; i++) {
+            if (userRepository.findByLogin("student_" + i).isEmpty()) {
                 User student = new User();
-                student.setSurname("studentSurname");
-                student.setName("studentName");
+                student.setSurname("studentSurname_" + i);
+                student.setName("studentName_" + i);
+                student.setPatronymic("studentPatronymic_" + i);
                 student.setPhone("33-33-33");
                 student.setAddress("г. Бишкек, ул. Ахунбаева 26");
                 student.setBirthDate(new Date());
                 student.setRole(Role.CLIENT);
-                student.setLogin("student");
+                student.setLogin("student_" + i);
                 student.setPassword(passwordEncoder.encode("123"));
                 student.setIsActive(true);
                 userRepository.save(student);
+            }
             }
             if (groupRepository.findAll().isEmpty()) {
                 List<Group> groups = List.of(
@@ -84,15 +87,15 @@ public class InitDatabase {
                         Group.builder().name("Младшая группа").trainer(userRepository.findByLogin("manager").orElse(null)).build(),
                         Group.builder().name("Старшая группа").trainer(userRepository.findByLogin("manager").orElse(null)).build(),
                         Group.builder().name("Взрослая группа").trainer(userRepository.findByLogin("manager").orElse(null)).build());
-                        groupRepository.saveAll(groups);
+                groupRepository.saveAll(groups);
             }
 
             for (int i = 0; i < 10; i++) {
-                if (parentRepository.findBySurname("Parent_"+i).isEmpty()) {
+                if (parentRepository.findBySurname("Parent_" + i).isEmpty()) {
                     Parent parent = new Parent();
-                    parent.setSurname("Parent_"+i);
-                    parent.setName("Parent_"+i);
-                    parent.setPatronymic("Parent_"+i);
+                    parent.setSurname("Parent_" + i);
+                    parent.setName("Parent_" + i);
+                    parent.setPatronymic("Parent_" + i);
                     parent.setKinship(Kinship.MOTHER);
                     parent.setPhone("33-33-33");
                     parent.setTelegram("55-55-55");
