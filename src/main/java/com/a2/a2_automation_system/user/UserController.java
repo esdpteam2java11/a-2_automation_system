@@ -118,7 +118,7 @@ public class UserController {
             String role = principal.getAuthorities().stream().map(GrantedAuthority::getAuthority).findFirst().get();
             if (role.equals("ADMIN")) {
                 model.addAttribute("groups", groupService.getAllGroups());
-                return "add_user";
+                return "add_sportsman";
             } else return "main";
         } catch (NullPointerException e) {
             return "index";

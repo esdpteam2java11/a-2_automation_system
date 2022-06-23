@@ -38,9 +38,9 @@ public class Parent {
     private Kinship kinship;
 
 
-    @ManyToOne
-    @JoinColumn(name = "student_id")
-    private User student;
+//    @ManyToOne
+//    @JoinColumn(name = "student_id")
+//    private User student;
 
     private String whatsapp;
 
