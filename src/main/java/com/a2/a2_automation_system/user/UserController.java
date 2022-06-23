@@ -1,6 +1,8 @@
 package com.a2.a2_automation_system.user;
 
+import com.a2.a2_automation_system.common.Role;
 import com.a2.a2_automation_system.config.PropertiesService;
+import com.a2.a2_automation_system.group.GroupService;
 import com.a2.a2_automation_system.parent.Kinship;
 import com.a2.a2_automation_system.util.PageUtil;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +11,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.lang.Nullable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,8 +22,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.RollbackException;
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -27,6 +34,7 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
     private final PropertiesService propertiesService;
+    private final GroupService groupService;
 
 
     @GetMapping("/login")
@@ -105,17 +113,42 @@ public class UserController {
     }
 
     @GetMapping("/create")
-    public String viewCreateUser(Model model) {
-        model.addAttribute("kinships", Kinship.values());
-        return "add_user";
+    public String viewCreateUser(Model model, Authentication principal) {
+        try {
+            String role = principal.getAuthorities().stream().map(GrantedAuthority::getAuthority).findFirst().get();
+            if (role.equals("ADMIN")) {
+                model.addAttribute("groups", groupService.getAllGroups());
+                return "add_user";
+            } else return "main";
+        } catch (NullPointerException e) {
+            return "index";
+        }
     }
 
     @PostMapping("/create")
-    public String registerUser(@RequestParam("name") String name,@RequestParam("surname") String surname,
-                               @RequestParam("p_surname") List<String> pSurnames) {
-        System.out.println("name="+name+", surname="+surname);
-        System.out.println(pSurnames);
-        return "redirect:/";
-    }
+    public String registerUser(@RequestParam("surname") String surname, @RequestParam("name") String name,
+                               @RequestParam("patronymic") @Nullable String patronymic,
+                               @RequestParam("birthDate") Date birthDate,
+                               @RequestParam("growth") Double growth, @RequestParam("weight") Double weight,
+                               @RequestParam("phone") String phone, @RequestParam("whatsapp") @Nullable String whatsapp,
+                               @RequestParam("telegram") @Nullable String telegram, @RequestParam("address") String address,
+                               @RequestParam("school") @Nullable String school, @RequestParam("channels") @Nullable String channels,
+                               @RequestParam("group") Long groupId, @RequestParam("dateOfAdmission") Date dateOfAdmission,
+                               @RequestParam("login") @Nullable String login, @RequestParam("password") @Nullable String password,
 
+                               @RequestParam("p_id") @Nullable List<Long> pIds,
+                               @RequestParam("p_kinship") @Nullable List<String> pKinships,
+                               @RequestParam("p_surname") @Nullable List<String> pSurnames,
+                               @RequestParam("p_name") @Nullable List<String> pNames,
+                               @RequestParam("p_patronymic") @Nullable List<String> pPatronymics,
+                               @RequestParam("p_phone") @Nullable List<String> pPhones,
+                               @RequestParam("p_whatsapp") @Nullable List<String> pWhatsapps,
+                               @RequestParam("p_telegram") @Nullable List<String> pTelegrams) {
+
+//        userService.createSportsman(surname, name, patronymic, birthDate, growth, weight, phone, whatsapp, telegram,
+//                address, school, channels, groupId, dateOfAdmission, login, password, pIds, pKinships, pSurnames,
+//                pNames, pPatronymics, pPhones, pPhones, pWhatsapps, pTelegrams);
+
+        return "redirect:/admin";
+    }
 }

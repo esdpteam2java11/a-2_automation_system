@@ -27,34 +27,41 @@ const relativesTableBody = document.querySelector('#relative-table>.table-body')
 
 function addSelectedParent(parent) {
     let newTrTag = document.createElement("tr")
-    newTrTag.innerHTML = `<td hidden><input type="hidden" name="p_id[]" value="${parent.id}">${parent.id}</input></td>
-                                  <td><input type="hidden" name="p_kinship[]" value="${parent.kinship}">${parent.kinship}</input></td>
-                                  <td><input type="hidden" name="p_surname[]" value="${parent.surname}">${parent.surname}</input></td>
-                                  <td><input type="hidden" name="p_name[]" value="${parent.name}">${parent.name}</input></td>
-                                  <td><input type="hidden" name="p_patronymic[]" value="${parent.patronymic}">${parent.patronymic}</input></td>
-                                  <td><input type="hidden" name="p_phone[]" value="${parent.phone}">${parent.phone}</input></td>
-                                  <td><input type="hidden" name="p_whatsapp[]" value="${parent.whatsapp}">${parent.whatsapp}</input></td>
-                                  <td><input type="hidden" name="p_telegram[]" value="${parent.telegram}">${parent.telegram}</input></td>
-                                  <td><input type="hidden" name="p_login[]" value="${parent.login}">${parent.login}</input></td>`
+    newTrTag.innerHTML = `<td hidden><input type="hidden" name="p_id" value="${parent.id}">${parent.id}</input></td>
+                                  <td><input type="hidden" name="p_kinship" value="${parent.kinship}">${parent.kinship}</input></td>
+                                  <td><input type="hidden" name="p_surname" value="${parent.surname}">${parent.surname}</input></td>
+                                  <td><input type="hidden" name="p_name" value="${parent.name}">${parent.name}</input></td>
+                                  <td><input type="hidden" name="p_patronymic" value="${parent.patronymic}">${parent.patronymic}</input></td>
+                                  <td><input type="hidden" name="p_phone" value="${parent.phone}">${parent.phone}</input></td>
+                                  <td><input type="hidden" name="p_whatsapp" value="${parent.whatsapp}">${parent.whatsapp}</input></td>
+                                  <td><input type="hidden" name="p_telegram" value="${parent.telegram}">${parent.telegram}</input></td>
+                                  <td><input type="hidden" name="p_login" value="${parent.login}">${parent.login}</input></td>`
     relativesTableBody.appendChild(newTrTag)
 }
 
 const addNewParentBtn = document.getElementById("add-new-parent-button")
 
 addNewParentBtn.addEventListener("click", function () {
-    let newTrTag = document.createElement("tr")
-    newTrTag.innerHTML = `<td hidden><input type="hidden" name="p_id">null</input></td>
-                                  <td>
-                                  <select name="p_kinship[]">
-                                  </select>
+    const newTrTag = document.createElement("tr")
+    newTrTag.innerHTML = `<td class="p-0" hidden><input type="hidden" name="p_id">null</input></td>
+                                  <td class="p-0">
+                                      <select name="p_kinship" required>
+                                        <option value="FATHER">Отец</option>
+                                        <option value="MOTHER">Мать</option>
+                                        <option value="GRANDMOTHER">Бабушка</option>
+                                        <option value="GRANDFATHER">Дедушка</option>
+                                        <option value="SISTER">Сестра</option>
+                                        <option value="BROTHER">Брат</option>
+                                        <option value="GUARDIAN">Опекун</option>
+                                      </select>
                                   </td>
-                                  <td><input type="text" name="p_surname[]"/></td>
-                                  <td><input type="text" name="p_name[]"/></td>
-                                  <td><input type="text" name="p_patronymic[]"/></td>
-                                  <td><input type="text" name="p_phone[]"/></td>
-                                  <td><input type="text" name="p_whatsapp[]"/></td>
-                                  <td><input type="text" name="p_telegram[]"/></td>
-                                  <td><input type="text" name="p_login[]"/></td>`
+                                  <td class="p-0"><input type="text" name="p_surname" required/></td>
+                                  <td class="p-0"><input type="text" name="p_name" required/></td>
+                                  <td class="p-0"><input type="text" name="p_patronymic"/></td>
+                                  <td class="p-0"><input type="text" name="p_phone" required/></td>
+                                  <td class="p-0"><input type="text" name="p_whatsapp"/></td>
+                                  <td class="p-0"><input type="text" name="p_telegram"/></td>
+                                  <td class="p-0"><input type="text" name="p_login"/></td>`
     relativesTableBody.appendChild(newTrTag)
 })
 

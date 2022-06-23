@@ -13,8 +13,8 @@
     <h2 class="add-sportsman-header">Анкета спортсмена</h2>
     <div class="container col-xxl-8">
         <form action="" id="add-sportsman" method="post">
-            <div class="row g-5 border border-secondary my-3">
-                <div class="col-lg-6 mb-2">
+            <div class="row border border-secondary mb-3">
+                <div class="col-lg-4 mb-2">
                     <div class="mb-3">
                         <label for="recipient-surname" class="col-form-label">Фамилия: </label>
                         <input type="text" name="surname" class="form-control" id="recipient-surname" required>
@@ -28,7 +28,7 @@
                         <input type="text" name="patronymic" class="form-control" id="recipient-patronymic">
                     </div>
                 </div>
-                <div class="col-lg-6 mb-2">
+                <div class="col-lg-4 mb-2">
                     <div class="mb-3">
                         <label for="recipient-birthDate" class="col-form-label">Дата рождения: </label>
                         <input type="date" name="birthDate" class="form-control" id="recipient-birthDate"
@@ -36,16 +36,14 @@
                     </div>
                     <div class="mb-3">
                         <label for="recipient-growth" class="col-form-label">Рост: </label>
-                        <input type="text" name="growth" class="form-control" id="recipient-growth" required>
+                        <input type="number" step="any" name="growth" class="form-control" id="recipient-growth" required>
                     </div>
                     <div class="mb-3">
                         <label for="recipient-weight" class="col-form-label">Вес: </label>
-                        <input type="text" name="weight" class="form-control" id="recipient-weight" required>
+                        <input type="number" step="any" name="weight" class="form-control" id="recipient-weight" required>
                     </div>
                 </div>
-            </div>
-            <div class="row g-5 border border-secondary my-3">
-                <div class="col-lg-6 mb-2">
+                <div class="col-lg-4 mb-2">
                     <div class="mb-3">
                         <label for="recipient-phone" class="col-form-label">Номер телефона: </label>
                         <input type="text" name="phone" class="form-control" id="recipient-phone" required>
@@ -59,75 +57,78 @@
                         <input type="text" name="telegram" class="form-control" id="recipient-telegram">
                     </div>
                 </div>
-                <div class="col-lg-6 mb-2">
+            </div>
+            <div class="row border border-secondary mb-3">
+                <div class="col-lg-4 mb-2">
                     <div class="mb-3">
                         <label for="recipient-address" class="col-form-label">Адрес проживания: </label>
-                        <input type="text" name="address" class="form-control" id="recipient-address" required>
+                        <textarea type="text" name="address" class="form-control" id="recipient-address" rows="1"
+                                  required></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="recipient-school" class="col-form-label">Учебное заведение: </label>
-                        <input type="text" name="school" class="form-control" id="recipient-school">
+                        <textarea type="text" name="school" class="form-control" id="recipient-school"
+                                  rows="1"></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="recipient-channels" class="col-form-label">Каналы информации о клубе: </label>
-                        <input type="text" name="channels" class="form-control" id="recipient-channels">
+                        <textarea type="text" name="channels" class="form-control" id="recipient-channels"
+                                  rows="1"></textarea>
                     </div>
                 </div>
-            </div>
-            <div class="row g-5 border border-secondary my-3">
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                     <div class="mb-3">
                         <label class="col-form-label" for="group">Группа:</label>
-                        <select class="form-control" name="group" id="group">
-                            <option name="group1" selected>Группа1</option>
-                            <option name="group2">Группа2</option>
-                            <#--                            <#list groups as group>-->
-                            <#--                                <option name="${group.name}" value="0">${group.name}</option>-->
-                            <#--                            </#list>-->
+                        <select class="form-select" name="group" id="group" required>
+                            <option hidden disabled selected value> -- выберите группу --</option>
+                            <#list groups as group>
+                                <option name="${group.name}" value="${group.id}">${group.name}</option>
+                            </#list>
                         </select>
                     </div>
                     <div class="mb-3">
                         <label for="recipient-dateOfAdmission" class="col-form-label">Дата зачисления в
-                            зал: </label>
+                            группу: </label>
                         <input type="date" name="dateOfAdmission" class="form-control"
                                id="recipient-dateOfAdmission" required>
                     </div>
                     <div class="mb-3">
                         <label for="recipient-sum" class="col-form-label">Сумма оплаты: </label>
-                        <input type="number" name="sum" class="form-control"
-                               id="recipient-sum" required>
+                        <input type="number" name="sum" class="form-control" id="recipient-sum" disabled>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                     <div class="mb-3">
                         <label for="recipient-login" class="col-form-label">Логин: </label>
-                        <input type="text" name="login" class="form-control" id="recipient-login" required>
+                        <input type="text" name="login" class="form-control" id="recipient-login">
                     </div>
                     <div class="mb-3">
                         <label for="input-password" class="col-form-label">Пароль: </label>
                         <input type="text" name="password" class="form-control" id="input-password">
-                        <button type="button" id="input-generate" class="btn btn-primary mt-2">Сгенерировать
+                    </div>
+                    <div class="mb-3">
+                        <label> </label>
+                        <button type="button" id="input-generate" class="btn btn-secondary mt-2">Сгенерировать
                             пароль
                         </button>
                     </div>
-
                 </div>
             </div>
-            <div class="row g-5 border border-secondary my-3">
-                <div class="col-lg-6">
-                    <button type="button" class="btn btn-outline-secondary my-0" data-bs-toggle="modal"
+            <div class="row border border-secondary my-3">
+                <div class="col-lg-6 my-2">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
                             data-bs-target="#searchRelativeModal">Выбрать
                         родственника из списка
                     </button>
                 </div>
-                <div class="col-lg-6">
-                    <button type="button" class="btn btn-outline-secondary my-0" id="add-new-parent-button">Добавить
+                <div class="col-lg-6 my-2 text-end">
+                    <button type="button" class="btn btn-outline-secondary" id="add-new-parent-button">Добавить
                         нового
                         родственника
                     </button>
                 </div>
                 <div class="col">
-                    <div>
+                    <div class="table-responsive">
                         <table id="relative-table" class="table table-primary table-bordered table-hover">
                             <thead>
                             <tr>
@@ -148,11 +149,11 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary add bg-dark my-2" id="button">Добавить спортсмена
+            <button type="submit" class="btn btn-secondary add bg-dark my-2" id="button">Добавить спортсмена
             </button>
         </form>
     </div>
-    <a href="/admin" class="btn btn-outline-secondary btn-light btn-lg mx-3">Вернуться</a>
+    <a href="/admin" class="btn btn-outline-secondary btn-light mx-3">Вернуться</a>
 </div>
 
 <!-- SearchModal -->
@@ -193,14 +194,6 @@
     </div>
 </div>
 
-<script>
-    var kinshipsSize = '${kinships?size}';
-    var kinships = [];
-
-<#list kinships as kinship>
-    kinships.push({"${kinship}": "${kinship.kinship}"});
-</#list>
-</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>

@@ -55,6 +55,8 @@ public class User implements UserDetails {
 
     private String school;
 
+    private String channels;
+
     @Enumerated(value = EnumType.STRING)
     @NotNull
     private Role role;
