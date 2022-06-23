@@ -34,8 +34,7 @@ function addSelectedParent(parent) {
                                   <td><input type="hidden" name="p_patronymic" value="${parent.patronymic}">${parent.patronymic}</input></td>
                                   <td><input type="hidden" name="p_phone" value="${parent.phone}">${parent.phone}</input></td>
                                   <td><input type="hidden" name="p_whatsapp" value="${parent.whatsapp}">${parent.whatsapp}</input></td>
-                                  <td><input type="hidden" name="p_telegram" value="${parent.telegram}">${parent.telegram}</input></td>
-                                  <td><input type="hidden" name="p_login" value="${parent.login}">${parent.login}</input></td>`
+                                  <td><input type="hidden" name="p_telegram" value="${parent.telegram}">${parent.telegram}</input></td>`
     relativesTableBody.appendChild(newTrTag)
 }
 
@@ -60,8 +59,7 @@ addNewParentBtn.addEventListener("click", function () {
                                   <td class="p-0"><input type="text" name="p_patronymic"/></td>
                                   <td class="p-0"><input type="text" name="p_phone" required/></td>
                                   <td class="p-0"><input type="text" name="p_whatsapp"/></td>
-                                  <td class="p-0"><input type="text" name="p_telegram"/></td>
-                                  <td class="p-0"><input type="text" name="p_login"/></td>`
+                                  <td class="p-0"><input type="text" name="p_telegram"/></td>`
     relativesTableBody.appendChild(newTrTag)
 })
 

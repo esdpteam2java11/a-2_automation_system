@@ -42,7 +42,6 @@ public class Parent {
     @JoinColumn(name = "student_id")
     private User student;
 
-
     private String whatsapp;
 
     private String telegram;
