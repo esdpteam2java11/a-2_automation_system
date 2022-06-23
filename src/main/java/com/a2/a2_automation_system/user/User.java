@@ -73,7 +73,6 @@ public class User implements UserDetails {
     @JoinColumn(name = "group_id")
     private Group group;
 
-    @NotBlank
     private Date dateOfAdmission;
 
     @Override
@@ -105,5 +104,7 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }
 

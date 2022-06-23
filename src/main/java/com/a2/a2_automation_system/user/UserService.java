@@ -73,25 +73,51 @@ public class UserService implements UserDetailsService {
     }
 
 
-//    public void createSportsman(String surname, String name, String patronymic, Date birthDate,
-//                                Double growth, Double weight,
-//                                String phone, String whatsapp, String telegram, String address, String school,
-//                                String channels, Long groupId, Date dateOfAdmission, String login, String password,
-//                                List<Long> pIds, List<String> pKinships, List<String> pSurnames, List<String> pNames,
-//                                List<String> pPatronymics, List<String> pPhones, List<String> pPhones1,
-//                                List<String> pWhatsapps, List<String> pTelegrams) {
-//        User sportsman = new User();
-//        sportsman.setSurname(surname);
-//        sportsman.setName(name);
-//        sportsman.setSurname(patronymic);
-//        sportsman.setBirthDate(birthDate);
-//        sportsman.setPhone(phone);
-//        sportsman.setWhatsapp(whatsapp);
-//        sportsman.setTelegram(telegram);
-//        sportsman.setAddress(address);
-//        sportsman.setSchool(school);
-//        sportsman.setChannels(channels);
-//        sportsman.setGroup(groupRepository.findById(groupId).get());
-//        sportsman.setDateOfAdmission(dateOfAdmission);
-//    }
+    public void createSportsman(String surname, String name, String patronymic, Date birthDate,
+                                Double growth, Double weight,
+                                String phone, String whatsapp, String telegram, String address, String school,
+                                String channels, Long groupId, Date dateOfAdmission, String login, String password,
+                                List<Long> pIds, List<String> pKinships, List<String> pSurnames, List<String> pNames,
+                                List<String> pPatronymics, List<String> pPhones, List<String> pPhones1,
+                                List<String> pWhatsapps, List<String> pTelegrams) {
+
+        User sportsman = new User();
+        sportsman.setRole(Role.CLIENT);
+        setUserFields(surname, name, patronymic, birthDate, phone, whatsapp, telegram, address, school,
+                channels, groupId, dateOfAdmission, login, password, sportsman);
+        userRepository.save(sportsman);
+
+        UserParam sportsmanParam = new UserParam();
+        setUserParams(growth, weight, sportsmanParam, sportsman);
+        userParamRepository.save(sportsmanParam);
+
+
+    }
+
+    private void setUserFields(String surname, String name, String patronymic, Date birthDate,
+                               String phone, String whatsapp, String telegram, String address, String school,
+                               String channels, Long groupId, Date dateOfAdmission, String login, String password,
+                               User user) {
+        user.setSurname(surname);
+        user.setName(name);
+        user.setPatronymic(patronymic);
+        user.setBirthDate(birthDate);
+        user.setPhone(phone);
+        user.setWhatsapp(whatsapp);
+        user.setTelegram(telegram);
+        user.setAddress(address);
+        user.setSchool(school);
+        user.setChannels(channels);
+        user.setGroup(groupRepository.findById(groupId).get());
+        user.setDateOfAdmission(dateOfAdmission);
+        user.setLogin(login);
+        user.setPassword(encoder.encode(password));
+    }
+
+    private void setUserParams(Double growth, Double weight, UserParam userParam, User user) {
+        userParam.setCreationDate(new Date());
+        userParam.setUser(user);
+        userParam.setWeight(weight);
+        userParam.setHeight(growth);
+    }
 }

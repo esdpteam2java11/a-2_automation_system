@@ -12,7 +12,7 @@
 
     <h2 class="add-sportsman-header">Анкета спортсмена</h2>
     <div class="container col-xxl-8">
-        <form action="" id="add-sportsman" method="post">
+        <form action="/create" id="add-sportsman" method="post">
             <div class="row border border-secondary mb-3">
                 <div class="col-lg-4 mb-2">
                     <div class="mb-3">
