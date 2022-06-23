@@ -56,6 +56,8 @@ public class UserDTO {
     @JsonProperty("is_active")
     private Boolean isActive;
 
+    private Date dateOfAdmission;
+
     public static UserDTO from(User user) {
         return builder()
                 .id(user.getId())
@@ -72,6 +74,7 @@ public class UserDTO {
                 .login(user.getLogin())
                 .password(user.getPassword())
                 .isActive(user.getIsActive())
+                .dateOfAdmission(user.getDateOfAdmission())
                 .build();
     }
 }
