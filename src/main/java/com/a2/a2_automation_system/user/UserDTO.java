@@ -3,10 +3,7 @@ package com.a2.a2_automation_system.user;
 import com.a2.a2_automation_system.common.Role;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -41,11 +38,12 @@ public class UserDTO {
 
     private String telegram;
 
-    @NotNull
     @NotBlank
     private String address;
 
     private String school;
+
+    private String channels;
 
     @Enumerated(value = EnumType.STRING)
     @NotNull
@@ -55,8 +53,8 @@ public class UserDTO {
 
     private String password;
 
-//    @JsonProperty("is_active")
-//    private Boolean isActive;
+    @JsonProperty("is_active")
+    private Boolean isActive;
 
     public static UserDTO from(User user) {
         return builder()
@@ -73,9 +71,8 @@ public class UserDTO {
                 .role(user.getRole())
                 .login(user.getLogin())
                 .password(user.getPassword())
-//                .isActive(user.getIsActive())
+                .isActive(user.getIsActive())
                 .build();
-
     }
 }
 
