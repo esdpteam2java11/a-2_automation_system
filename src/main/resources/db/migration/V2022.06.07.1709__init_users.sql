@@ -8,6 +8,7 @@ CREATE TABLE users
     whatsapp   VARCHAR(128),
     telegram   VARCHAR(128),
     login      VARCHAR(128),
+    channels VARCHAR(128),
     password   VARCHAR(128),
     birth_date TIMESTAMP,
     role       VARCHAR(128) NOT NULL,
