@@ -1,9 +1,7 @@
 package com.a2.a2_automation_system.user;
 
-import com.a2.a2_automation_system.common.Role;
 import com.a2.a2_automation_system.config.PropertiesService;
 import com.a2.a2_automation_system.group.GroupService;
-import com.a2.a2_automation_system.parent.Kinship;
 import com.a2.a2_automation_system.util.PageUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -11,7 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.lang.Nullable;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
@@ -22,9 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
-import javax.transaction.RollbackException;
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
