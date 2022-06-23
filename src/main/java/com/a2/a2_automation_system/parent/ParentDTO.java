@@ -18,7 +18,6 @@ public class ParentDTO {
     private String kinship;
     private String whatsapp;
     private String telegram;
-    private String login ="";
 
     public static ParentDTO from(Parent parent) {
         return builder()

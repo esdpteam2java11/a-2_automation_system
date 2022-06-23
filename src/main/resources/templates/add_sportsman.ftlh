@@ -140,7 +140,6 @@
                                 <th scope="col">Телефон</th>
                                 <th scope="col">WhatsApp</th>
                                 <th scope="col">Telegram</th>
-                                <th scope="col">Логин</th>
                             </tr>
                             </thead>
                             <tbody class="table-body">
