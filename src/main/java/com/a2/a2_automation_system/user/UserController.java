@@ -1,17 +1,15 @@
 package com.a2.a2_automation_system.user;
 
-import com.a2.a2_automation_system.common.Role;
 import com.a2.a2_automation_system.config.PropertiesService;
 import com.a2.a2_automation_system.group.GroupService;
-import com.a2.a2_automation_system.parent.Kinship;
 import com.a2.a2_automation_system.util.PageUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
@@ -22,9 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
-import javax.transaction.RollbackException;
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
@@ -118,7 +114,7 @@ public class UserController {
             String role = principal.getAuthorities().stream().map(GrantedAuthority::getAuthority).findFirst().get();
             if (role.equals("ADMIN")) {
                 model.addAttribute("groups", groupService.getAllGroups());
-                return "add_user";
+                return "add_sportsman";
             } else return "main";
         } catch (NullPointerException e) {
             return "index";
@@ -128,12 +124,13 @@ public class UserController {
     @PostMapping("/create")
     public String registerUser(@RequestParam("surname") String surname, @RequestParam("name") String name,
                                @RequestParam("patronymic") @Nullable String patronymic,
-                               @RequestParam("birthDate") Date birthDate,
+                               @RequestParam("birthDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date birthDate,
                                @RequestParam("growth") Double growth, @RequestParam("weight") Double weight,
                                @RequestParam("phone") String phone, @RequestParam("whatsapp") @Nullable String whatsapp,
                                @RequestParam("telegram") @Nullable String telegram, @RequestParam("address") String address,
                                @RequestParam("school") @Nullable String school, @RequestParam("channels") @Nullable String channels,
-                               @RequestParam("group") Long groupId, @RequestParam("dateOfAdmission") Date dateOfAdmission,
+                               @RequestParam("group") Long groupId,
+                               @RequestParam("dateOfAdmission") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date dateOfAdmission,
                                @RequestParam("login") @Nullable String login, @RequestParam("password") @Nullable String password,
 
                                @RequestParam("p_id") @Nullable List<Long> pIds,
@@ -145,9 +142,9 @@ public class UserController {
                                @RequestParam("p_whatsapp") @Nullable List<String> pWhatsapps,
                                @RequestParam("p_telegram") @Nullable List<String> pTelegrams) {
 
-//        userService.createSportsman(surname, name, patronymic, birthDate, growth, weight, phone, whatsapp, telegram,
-//                address, school, channels, groupId, dateOfAdmission, login, password, pIds, pKinships, pSurnames,
-//                pNames, pPatronymics, pPhones, pPhones, pWhatsapps, pTelegrams);
+        userService.createSportsman(surname, name, patronymic, birthDate, growth, weight, phone, whatsapp, telegram,
+                address, school, channels, groupId, dateOfAdmission, login, password, pIds, pKinships, pSurnames,
+                pNames, pPatronymics, pPhones, pWhatsapps, pTelegrams);
 
         return "redirect:/admin";
     }

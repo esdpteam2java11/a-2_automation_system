@@ -28,7 +28,7 @@ const relativesTableBody = document.querySelector('#relative-table>.table-body')
 function addSelectedParent(parent) {
     let newTrTag = document.createElement("tr")
     newTrTag.innerHTML = `<td hidden><input type="hidden" name="p_id" value="${parent.id}">${parent.id}</input></td>
-                                  <td><input type="hidden" name="p_kinship" value="${parent.kinship}">${parent.kinship}</input></td>
+                                  <td><input type="hidden" name="p_kinship" value="${parent.kinshipName}">${parent.kinship}</input></td>
                                   <td><input type="hidden" name="p_surname" value="${parent.surname}">${parent.surname}</input></td>
                                   <td><input type="hidden" name="p_name" value="${parent.name}">${parent.name}</input></td>
                                   <td><input type="hidden" name="p_patronymic" value="${parent.patronymic}">${parent.patronymic}</input></td>

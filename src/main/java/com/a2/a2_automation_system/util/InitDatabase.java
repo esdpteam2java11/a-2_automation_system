@@ -1,6 +1,6 @@
 package com.a2.a2_automation_system.util;
 
-import com.a2.a2_automation_system.common.Role;
+import com.a2.a2_automation_system.user.Role;
 import com.a2.a2_automation_system.group.Group;
 import com.a2.a2_automation_system.group.GroupRepository;
 import com.a2.a2_automation_system.parent.Kinship;
@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -64,22 +63,22 @@ public class InitDatabase {
                 parent.setIsActive(true);
                 userRepository.save(parent);
             }
-            for (int i = 0; i < 100; i++) {
-            if (userRepository.findByLogin("student_" + i).isEmpty()) {
-                User student = new User();
-                student.setSurname("studentSurname_" + i);
-                student.setName("studentName_" + i);
-                student.setPatronymic("studentPatronymic_" + i);
-                student.setPhone("33-33-33");
-                student.setAddress("г. Бишкек, ул. Ахунбаева 26");
-                student.setBirthDate(new Date());
-                student.setRole(Role.CLIENT);
-                student.setLogin("student_" + i);
-                student.setPassword(passwordEncoder.encode("123"));
-                student.setIsActive(true);
-                userRepository.save(student);
-            }
-            }
+//            for (int i = 0; i < 100; i++) {
+//            if (userRepository.findByLogin("student_" + i).isEmpty()) {
+//                User student = new User();
+//                student.setSurname("studentSurname_" + i);
+//                student.setName("studentName_" + i);
+//                student.setPatronymic("studentPatronymic_" + i);
+//                student.setPhone("33-33-33");
+//                student.setAddress("г. Бишкек, ул. Ахунбаева 26");
+//                student.setBirthDate(new Date());
+//                student.setRole(Role.CLIENT);
+//                student.setLogin("student_" + i);
+//                student.setPassword(passwordEncoder.encode("123"));
+//                student.setIsActive(true);
+//                userRepository.save(student);
+//            }
+//            }
             if (groupRepository.findAll().isEmpty()) {
                 List<Group> groups = List.of(
                         Group.builder().name("Детская группа 1").trainer(userRepository.findByLogin("manager").orElse(null)).build(),

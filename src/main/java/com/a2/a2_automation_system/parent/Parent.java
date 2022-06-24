@@ -37,11 +37,6 @@ public class Parent {
     @NotNull
     private Kinship kinship;
 
-
-    @ManyToOne
-    @JoinColumn(name = "student_id")
-    private User student;
-
     private String whatsapp;
 
     private String telegram;
