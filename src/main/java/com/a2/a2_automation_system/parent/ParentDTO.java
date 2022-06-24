@@ -16,9 +16,9 @@ public class ParentDTO {
     private String patronymic;
     private String phone;
     private String kinship;
+    private String kinshipName;
     private String whatsapp;
     private String telegram;
-    private String login ="";
 
     public static ParentDTO from(Parent parent) {
         return builder()
@@ -28,6 +28,7 @@ public class ParentDTO {
                 .patronymic(parent.getPatronymic())
                 .phone(parent.getPhone())
                 .kinship(parent.getKinship().getKinship())
+                .kinshipName(parent.getKinship().name())
                 .whatsapp(parent.getWhatsapp())
                 .telegram(parent.getTelegram())
                 .build();

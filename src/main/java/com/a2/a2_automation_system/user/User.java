@@ -1,7 +1,5 @@
 package com.a2.a2_automation_system.user;
 
-import com.a2.a2_automation_system.common.Role;
-
 import com.a2.a2_automation_system.group.Group;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -55,6 +53,8 @@ public class User implements UserDetails {
 
     private String school;
 
+    private String channels;
+
     @Enumerated(value = EnumType.STRING)
     @NotNull
     private Role role;
@@ -71,6 +71,7 @@ public class User implements UserDetails {
     @JoinColumn(name = "group_id")
     private Group group;
 
+    private Date dateOfAdmission;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -101,5 +102,7 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }
 

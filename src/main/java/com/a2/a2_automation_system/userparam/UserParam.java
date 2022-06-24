@@ -33,11 +33,11 @@ public class UserParam {
     private User user;
 
     @NotNull
-    @Size(min = 10, message = "Вес должен быть больше или равно 10")
+//    @Size(min = 10, message = "Вес должен быть больше или равно 10")
     private Double weight;
 
     @NotNull
-    @Size(min = 20, message = "Рост должен быть больше или равно 20")
+//    @Size(min = 20, message = "Рост должен быть больше или равно 20")
     private Double height;
 
 

@@ -48,4 +48,9 @@ public class GroupController {
         groupService.addGroup(groupDTO);
         return "redirect:/group/add";
     }
+
+    @GetMapping("/calendar")
+    public String getCalendar() {
+        return "calendar";
+    }
 }
