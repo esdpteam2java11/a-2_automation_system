@@ -5,6 +5,8 @@ import com.a2.a2_automation_system.group.GroupRepository;
 import com.a2.a2_automation_system.parent.Kinship;
 import com.a2.a2_automation_system.parent.Parent;
 import com.a2.a2_automation_system.parent.ParentRepository;
+import com.a2.a2_automation_system.relationship.Relationship;
+import com.a2.a2_automation_system.relationship.RelationshipRepository;
 import com.a2.a2_automation_system.userparam.UserParam;
 import com.a2.a2_automation_system.userparam.UserParamRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,6 +30,7 @@ public class UserService implements UserDetailsService {
     private final UserParamRepository userParamRepository;
     private final GroupRepository groupRepository;
     private final ParentRepository parentRepository;
+    private final RelationshipRepository relationshipRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -94,7 +98,15 @@ public class UserService implements UserDetailsService {
         setUserParams(growth, weight, sportsmanParam, sportsman);
         userParamRepository.save(sportsmanParam);
 
-        setParents(pIds, pKinships, pSurnames, pNames, pPatronymics, pPhones, pWhatsapps, pTelegrams, sportsman);
+        List<Parent> parents = setParents(pIds, pKinships, pSurnames, pNames, pPatronymics, pPhones, pWhatsapps,
+                pTelegrams, sportsman);
+
+        for (Parent parent:parents) {
+            Relationship newRelationship = new Relationship();
+            newRelationship.setStudent(sportsman);
+            newRelationship.setParent(parent);
+            relationshipRepository.save(newRelationship);
+        }
     }
 
     private void setUserFields(String surname, String name, String patronymic, Date birthDate,
@@ -124,9 +136,10 @@ public class UserService implements UserDetailsService {
         userParam.setHeight(growth);
     }
 
-    private void setParents(List<Long> pIds, List<String> pKinships, List<String> pSurnames, List<String> pNames,
-                            List<String> pPatronymics, List<String> pPhones,
-                            List<String> pWhatsapps, List<String> pTelegrams, User sportsman){
+    private List<Parent> setParents(List<Long> pIds, List<String> pKinships, List<String> pSurnames, List<String> pNames,
+                                    List<String> pPatronymics, List<String> pPhones,
+                                    List<String> pWhatsapps, List<String> pTelegrams, User sportsman) {
+        List<Parent> parents = new ArrayList<>();
         for (int i = 0; i < pIds.size(); i++) {
             Parent parent;
             if (pIds.get(i) != null) {
@@ -142,6 +155,8 @@ public class UserService implements UserDetailsService {
             parent.setWhatsapp(pWhatsapps.get(i));
             parent.setTelegram(pTelegrams.get(i));
             parentRepository.save(parent);
+            parents.add(parent);
         }
+        return parents;
     }
 }

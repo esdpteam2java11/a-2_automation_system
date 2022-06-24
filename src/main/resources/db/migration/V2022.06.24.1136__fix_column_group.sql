@@ -1,0 +1,5 @@
+ALTER TABLE users
+    DROP COLUMN group_id;
+
+ALTER TABLE users
+    ADD COLUMN IF NOT EXISTS group_id BIGINT REFERENCES groups(id);
