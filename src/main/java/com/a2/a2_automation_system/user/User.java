@@ -1,7 +1,5 @@
 package com.a2.a2_automation_system.user;
 
-import com.a2.a2_automation_system.common.Role;
-
 import com.a2.a2_automation_system.group.Group;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

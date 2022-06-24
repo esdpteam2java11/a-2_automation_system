@@ -144,7 +144,7 @@ public class UserController {
 
         userService.createSportsman(surname, name, patronymic, birthDate, growth, weight, phone, whatsapp, telegram,
                 address, school, channels, groupId, dateOfAdmission, login, password, pIds, pKinships, pSurnames,
-                pNames, pPatronymics, pPhones, pPhones, pWhatsapps, pTelegrams);
+                pNames, pPatronymics, pPhones, pWhatsapps, pTelegrams);
 
         return "redirect:/admin";
     }

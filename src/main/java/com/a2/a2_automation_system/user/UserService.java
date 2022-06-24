@@ -1,8 +1,10 @@
 package com.a2.a2_automation_system.user;
 
-import com.a2.a2_automation_system.common.Role;
 import com.a2.a2_automation_system.exception.UserAlreadyRegisteredException;
 import com.a2.a2_automation_system.group.GroupRepository;
+import com.a2.a2_automation_system.parent.Kinship;
+import com.a2.a2_automation_system.parent.Parent;
+import com.a2.a2_automation_system.parent.ParentRepository;
 import com.a2.a2_automation_system.userparam.UserParam;
 import com.a2.a2_automation_system.userparam.UserParamRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +26,7 @@ public class UserService implements UserDetailsService {
     private final PasswordEncoder encoder;
     private final UserParamRepository userParamRepository;
     private final GroupRepository groupRepository;
+    private final ParentRepository parentRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -78,7 +81,7 @@ public class UserService implements UserDetailsService {
                                 String phone, String whatsapp, String telegram, String address, String school,
                                 String channels, Long groupId, Date dateOfAdmission, String login, String password,
                                 List<Long> pIds, List<String> pKinships, List<String> pSurnames, List<String> pNames,
-                                List<String> pPatronymics, List<String> pPhones, List<String> pPhones1,
+                                List<String> pPatronymics, List<String> pPhones,
                                 List<String> pWhatsapps, List<String> pTelegrams) {
 
         User sportsman = new User();
@@ -91,7 +94,7 @@ public class UserService implements UserDetailsService {
         setUserParams(growth, weight, sportsmanParam, sportsman);
         userParamRepository.save(sportsmanParam);
 
-
+        setParents(pIds, pKinships, pSurnames, pNames, pPatronymics, pPhones, pWhatsapps, pTelegrams, sportsman);
     }
 
     private void setUserFields(String surname, String name, String patronymic, Date birthDate,
@@ -119,5 +122,26 @@ public class UserService implements UserDetailsService {
         userParam.setUser(user);
         userParam.setWeight(weight);
         userParam.setHeight(growth);
+    }
+
+    private void setParents(List<Long> pIds, List<String> pKinships, List<String> pSurnames, List<String> pNames,
+                            List<String> pPatronymics, List<String> pPhones,
+                            List<String> pWhatsapps, List<String> pTelegrams, User sportsman){
+        for (int i = 0; i < pIds.size(); i++) {
+            Parent parent;
+            if (pIds.get(i) != null) {
+                parent = parentRepository.findById(pIds.get(i)).get();
+            } else {
+                parent = new Parent();
+            }
+            parent.setKinship(Kinship.valueOf(pKinships.get(i)));
+            parent.setSurname(pSurnames.get(i));
+            parent.setName(pNames.get(i));
+            parent.setPatronymic(pPatronymics.get(i));
+            parent.setPhone(pPhones.get(i));
+            parent.setWhatsapp(pWhatsapps.get(i));
+            parent.setTelegram(pTelegrams.get(i));
+            parentRepository.save(parent);
+        }
     }
 }
