@@ -1,6 +1,5 @@
 package com.a2.a2_automation_system.schedule;
 
-
 public enum DaysOfTheWeek {
     MONDAY("Понедельник"),
     TUESDAY("Вторник"),
@@ -9,6 +8,7 @@ public enum DaysOfTheWeek {
     FRIDAY("Пятница"),
     SATURDAY("Суббота"),
     SUNDAY("Воскресенье");
+
     private final String value;
 
     DaysOfTheWeek(String value) {
@@ -19,8 +19,8 @@ public enum DaysOfTheWeek {
         return value;
     }
 
-    public static DaysOfTheWeek getDaysOfTheWeek(String name){
-        for (DaysOfTheWeek r:DaysOfTheWeek.values()) {
+    public static DaysOfTheWeek getDaysOfTheWeek(String name) {
+        for (DaysOfTheWeek r : DaysOfTheWeek.values()) {
             if (r.getValue().equalsIgnoreCase(name)) return r;
         }
         return null;

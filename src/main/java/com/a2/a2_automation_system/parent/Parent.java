@@ -1,6 +1,5 @@
 package com.a2.a2_automation_system.parent;
 
-import com.a2.a2_automation_system.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,7 +28,6 @@ public class Parent {
 
     private String patronymic;
 
-
     @NotBlank
     private String phone;
 
@@ -40,5 +38,4 @@ public class Parent {
     private String whatsapp;
 
     private String telegram;
-
 }

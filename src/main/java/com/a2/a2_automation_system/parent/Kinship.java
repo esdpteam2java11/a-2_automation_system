@@ -12,7 +12,7 @@ public enum Kinship {
 
     public final String kinship;
 
-    private Kinship(String kinship) {
+    Kinship(String kinship) {
         this.kinship = kinship;
     }
 
