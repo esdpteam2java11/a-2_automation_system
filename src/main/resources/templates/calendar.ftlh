@@ -9,6 +9,12 @@
 </head>
 
 <body>
+<div>
+    <form method="get" action="calendar/create">
+        <input type="submit" value="Создать занятие">
+    </form>
+</div>
+
 <div id='calendar'></div>
 </body>
 
