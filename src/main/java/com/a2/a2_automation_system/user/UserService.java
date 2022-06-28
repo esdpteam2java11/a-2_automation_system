@@ -88,10 +88,10 @@ public class UserService implements UserDetailsService {
                                 List<String> pPatronymics, List<String> pPhones,
                                 List<String> pWhatsapps, List<String> pTelegrams) {
 
-        User sportsman = new User();
+        User sportsman = setUserFields(surname, name, patronymic, birthDate, phone, whatsapp, telegram, address, school,
+                channels, groupId, dateOfAdmission, login, password);
         sportsman.setRole(Role.CLIENT);
-        setUserFields(surname, name, patronymic, birthDate, phone, whatsapp, telegram, address, school,
-                channels, groupId, dateOfAdmission, login, password, sportsman);
+
         userRepository.save(sportsman);
 
         UserParam sportsmanParam = new UserParam();
@@ -110,24 +110,25 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    private void setUserFields(String surname, String name, String patronymic, Date birthDate,
+    private User setUserFields(String surname, String name, String patronymic, Date birthDate,
                                String phone, String whatsapp, String telegram, String address, String school,
-                               String channels, Long groupId, Date dateOfAdmission, String login, String password,
-                               User user) {
-        user.setSurname(surname);
-        user.setName(name);
-        user.setPatronymic(patronymic);
-        user.setBirthDate(birthDate);
-        user.setPhone(phone);
-        user.setWhatsapp(whatsapp);
-        user.setTelegram(telegram);
-        user.setAddress(address);
-        user.setSchool(school);
-        user.setChannels(channels);
-        user.setGroup(groupRepository.findById(groupId).get());
-        user.setDateOfAdmission(dateOfAdmission);
-        user.setLogin(login);
-        user.setPassword(encoder.encode(password));
+                               String channels, Long groupId, Date dateOfAdmission, String login, String password) {
+        return User.builder()
+                .surname(surname)
+                .name(name)
+                .patronymic(patronymic)
+                .birthDate(birthDate)
+                .phone(phone)
+                .whatsapp(whatsapp)
+                .telegram(telegram)
+                .address(address)
+                .school(school)
+                .channels(channels)
+                .group(groupRepository.findById(groupId).get())
+                .dateOfAdmission(dateOfAdmission)
+                .login(login)
+                .password(encoder.encode(password))
+                .build();
     }
 
     private void setUserParams(Double growth, Double weight, UserParam userParam, User user) {
