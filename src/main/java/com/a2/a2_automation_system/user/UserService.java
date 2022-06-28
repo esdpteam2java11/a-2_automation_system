@@ -98,14 +98,15 @@ public class UserService implements UserDetailsService {
         setUserParams(growth, weight, sportsmanParam, sportsman);
         userParamRepository.save(sportsmanParam);
 
-        List<Parent> parents = setParents(pIds, pKinships, pSurnames, pNames, pPatronymics, pPhones, pWhatsapps,
-                pTelegrams, sportsman);
-
-        for (Parent parent:parents) {
-            Relationship newRelationship = new Relationship();
-            newRelationship.setStudent(sportsman);
-            newRelationship.setParent(parent);
-            relationshipRepository.save(newRelationship);
+        if (pIds != null) {
+            List<Parent> parents = setParents(pIds, pKinships, pSurnames, pNames, pPatronymics, pPhones, pWhatsapps,
+                    pTelegrams, sportsman);
+            for (Parent parent : parents) {
+                Relationship newRelationship = new Relationship();
+                newRelationship.setStudent(sportsman);
+                newRelationship.setParent(parent);
+                relationshipRepository.save(newRelationship);
+            }
         }
     }
 

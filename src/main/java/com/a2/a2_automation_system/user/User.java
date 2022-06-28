@@ -59,6 +59,7 @@ public class User implements UserDetails {
     @NotNull
     private Role role;
 
+
     private String login;
 
     private String password;

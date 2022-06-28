@@ -18,8 +18,6 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Schedule {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,7 +34,5 @@ public class Schedule {
     @ManyToOne
     @JoinColumn(name = "group_id")
     private Group group;
-
-
 }
 

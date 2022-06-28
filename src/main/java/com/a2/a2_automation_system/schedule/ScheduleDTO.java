@@ -18,7 +18,6 @@ import java.util.Date;
 @NoArgsConstructor
 public class ScheduleDTO {
 
-
     private Long id;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
