@@ -35,12 +35,5 @@ public class ScheduleDTO {
 
     public static ScheduleDTO from(Schedule schedule) {
         return null;
-//        return builder()
-//                .id(schedule.getId())
-//                .endDate(schedule.getEventDate())
-//                .startDate(schedule.getStartDate())
-//                .group(schedule.getGroup())
-//                .build();
-
     }
 }
