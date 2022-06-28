@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
 
@@ -23,7 +24,7 @@ public class ScheduleDTO {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonProperty("event_date")
-    private Date eventDate;
+    private LocalDate eventDate;
 
     @DateTimeFormat(pattern = "HH:mm:ss")
     @JsonProperty("start_time")
