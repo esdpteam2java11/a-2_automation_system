@@ -34,12 +34,13 @@ public class ScheduleDTO {
     private Group group;
 
     public static ScheduleDTO from(Schedule schedule) {
-        return builder()
-                .id(schedule.getId())
-                .endDate(schedule.getEndDate())
-                .startDate(schedule.getStartDate())
-                .group(schedule.getGroup())
-                .build();
+        return null;
+//        return builder()
+//                .id(schedule.getId())
+//                .endDate(schedule.getEventDate())
+//                .startDate(schedule.getStartDate())
+//                .group(schedule.getGroup())
+//                .build();
 
     }
 }
