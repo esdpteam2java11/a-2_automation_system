@@ -1,4 +1,4 @@
-CREATE TABLE schedules
+CREATE TABLE IF NOT EXISTS schedules
 (
     id         BIGSERIAL,
     group_id   BIGINT NOT NULL REFERENCES groups (id),
