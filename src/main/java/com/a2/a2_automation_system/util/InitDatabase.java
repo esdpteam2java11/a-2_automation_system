@@ -1,5 +1,7 @@
 package com.a2.a2_automation_system.util;
 
+import com.a2.a2_automation_system.schedule.Schedule;
+import com.a2.a2_automation_system.schedule.ScheduleRepository;
 import com.a2.a2_automation_system.user.Role;
 import com.a2.a2_automation_system.group.Group;
 import com.a2.a2_automation_system.group.GroupRepository;
@@ -13,6 +15,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,7 +31,7 @@ public class InitDatabase {
     }
 
     @Bean
-    CommandLineRunner init(UserRepository userRepository, GroupRepository groupRepository, ParentRepository parentRepository) {
+    CommandLineRunner init(UserRepository userRepository, GroupRepository groupRepository, ParentRepository parentRepository, ScheduleRepository scheduleRepository) {
         return (args) -> {
             if (userRepository.findByLogin("admin1").isEmpty()) {
                 User admin = new User();
@@ -87,6 +93,21 @@ public class InitDatabase {
                         Group.builder().name("Старшая группа").trainer(userRepository.findByLogin("manager").orElse(null)).build(),
                         Group.builder().name("Взрослая группа").trainer(userRepository.findByLogin("manager").orElse(null)).build());
                 groupRepository.saveAll(groups);
+            }
+
+            if(scheduleRepository.findAll().isEmpty()){
+                LocalDate date = LocalDate.now();
+                LocalTime time = LocalTime.now();
+
+                List<Schedule> events = List.of(
+                        Schedule.builder().eventDate(date).startTime(time).endTime(time.plusHours(1)).group(groupRepository.findById(Long.parseLong("1")).get()).build(),
+                        Schedule.builder().eventDate(date.plusDays(2)).startTime(time).endTime(time.plusHours(1)).group(groupRepository.findById(Long.parseLong("1")).get()).build(),
+                        Schedule.builder().eventDate(date.plusDays(4)).startTime(time).endTime(time.plusHours(1)).group(groupRepository.findById(Long.parseLong("1")).get()).build(),
+                        Schedule.builder().eventDate(date.plusDays(6)).startTime(time).endTime(time.plusHours(1)).group(groupRepository.findById(Long.parseLong("1")).get()).build(),
+                        Schedule.builder().eventDate(date.plusDays(8)).startTime(time).endTime(time.plusHours(1)).group(groupRepository.findById(Long.parseLong("1")).get()).build()
+                );
+
+                scheduleRepository.saveAll(events);
             }
 
             for (int i = 0; i < 10; i++) {
