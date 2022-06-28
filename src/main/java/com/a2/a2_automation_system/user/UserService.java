@@ -100,7 +100,7 @@ public class UserService implements UserDetailsService {
 
         if (pIds != null) {
             List<Parent> parents = setParents(pIds, pKinships, pSurnames, pNames, pPatronymics, pPhones, pWhatsapps,
-                    pTelegrams, sportsman);
+                    pTelegrams);
             for (Parent parent : parents) {
                 Relationship newRelationship = new Relationship();
                 newRelationship.setStudent(sportsman);
@@ -116,18 +116,18 @@ public class UserService implements UserDetailsService {
         return User.builder()
                 .surname(surname)
                 .name(name)
-                .patronymic(patronymic)
+                .patronymic(patronymic == null || patronymic.isBlank()? null : patronymic)
                 .birthDate(birthDate)
                 .phone(phone)
-                .whatsapp(whatsapp)
-                .telegram(telegram)
+                .whatsapp(whatsapp == null || whatsapp.isBlank()? null : whatsapp)
+                .telegram(telegram == null || telegram.isBlank()? null : telegram)
                 .address(address)
-                .school(school)
-                .channels(channels)
+                .school(school == null || school.isBlank()? null : school)
+                .channels(channels == null || channels.isBlank()? null : channels)
                 .group(groupRepository.findById(groupId).get())
                 .dateOfAdmission(dateOfAdmission)
-                .login(login)
-                .password(encoder.encode(password))
+                .login(login == null || login.isBlank()? null : login)
+                .password(password == null || password.isBlank()? null : encoder.encode(password))
                 .build();
     }
 
@@ -140,7 +140,7 @@ public class UserService implements UserDetailsService {
 
     private List<Parent> setParents(List<Long> pIds, List<String> pKinships, List<String> pSurnames, List<String> pNames,
                                     List<String> pPatronymics, List<String> pPhones,
-                                    List<String> pWhatsapps, List<String> pTelegrams, User sportsman) {
+                                    List<String> pWhatsapps, List<String> pTelegrams) {
         List<Parent> parents = new ArrayList<>();
         for (int i = 0; i < pIds.size(); i++) {
             Parent parent;
@@ -152,10 +152,10 @@ public class UserService implements UserDetailsService {
             parent.setKinship(Kinship.valueOf(pKinships.get(i)));
             parent.setSurname(pSurnames.get(i));
             parent.setName(pNames.get(i));
-            parent.setPatronymic(pPatronymics.get(i));
+            parent.setPatronymic(pPatronymics.get(i) == null || pPatronymics.get(i).isBlank()? null : pPatronymics.get(i));
             parent.setPhone(pPhones.get(i));
-            parent.setWhatsapp(pWhatsapps.get(i));
-            parent.setTelegram(pTelegrams.get(i));
+            parent.setWhatsapp(pWhatsapps.get(i) == null || pWhatsapps.get(i).isBlank()? null : pWhatsapps.get(i));
+            parent.setTelegram(pTelegrams.get(i) == null || pTelegrams.get(i).isBlank()? null : pTelegrams.get(i));
             parentRepository.save(parent);
             parents.add(parent);
         }
