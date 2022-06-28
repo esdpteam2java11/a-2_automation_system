@@ -9,6 +9,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Entity
@@ -23,12 +25,16 @@ public class Schedule {
     private Long id;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "start_date")
-    private Date startDate;
+    @Column(name = "event_date")
+    private LocalDate eventDate;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "end_date")
-    private Date endDate;
+    @DateTimeFormat(pattern = "HH:mm:ss")
+    @Column(name = "start_time")
+    private LocalTime startTime;
+
+    @DateTimeFormat(pattern = "HH:mm:ss")
+    @Column(name = "end_time")
+    private LocalTime endTime;
 
     @NotNull
     @ManyToOne

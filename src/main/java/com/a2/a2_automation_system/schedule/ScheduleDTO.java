@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Data
@@ -21,12 +23,16 @@ public class ScheduleDTO {
     private Long id;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonProperty("start_date")
-    private Date startDate;
+    @JsonProperty("event_date")
+    private LocalDate eventDate;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonProperty("end_date")
-    private Date endDate;
+    @DateTimeFormat(pattern = "HH:mm:ss")
+    @JsonProperty("start_time")
+    private LocalTime startTime;
+
+    @DateTimeFormat(pattern = "HH:mm:ss")
+    @JsonProperty("end_time")
+    private LocalTime endTime;
 
     @NotNull
     @JsonProperty("group_id")
@@ -35,10 +41,10 @@ public class ScheduleDTO {
     public static ScheduleDTO from(Schedule schedule) {
         return builder()
                 .id(schedule.getId())
-                .endDate(schedule.getEndDate())
-                .startDate(schedule.getStartDate())
+                .eventDate(schedule.getEventDate())
+                .startTime(schedule.getStartTime())
+                .endTime(schedule.getEndTime())
                 .group(schedule.getGroup())
                 .build();
-
     }
 }
