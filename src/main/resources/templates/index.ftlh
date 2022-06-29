@@ -59,7 +59,7 @@
 
                                     <ul class="site-menu js-clone-nav d-none d-lg-block">
                                         <li class="has-children">
-                                            <a href="program.html">Program</a>
+                                            <a href="program.html">Программа</a>
                                             <ul class="dropdown arrow-top">
                                                 <li><a href="program.html">Body Building</a></li>
                                                 <li><a href="program.html">Morning Energy</a></li>
@@ -77,10 +77,10 @@
 
                                             </ul>
                                         </li>
-                                        <li><a href="trainers.html">Our Trainers</a></li>
-                                        <li><a href="events.html">News</a></li>
-                                        <li><a href="about.html">About</a></li>
-                                        <li><a href="contact.html">Contact</a></li>
+                                        <li><a href="trainers.html">Наши тренеры</a></li>
+                                        <li><a href="events.html">Новости</a></li>
+                                        <li><a href="about.html">О клубе</a></li>
+                                        <li><a href="contact.html">Контакты</a></li>
                                     </ul>
                                 </div>
                             </nav>
@@ -98,8 +98,8 @@
             <!-- <div class="container"> -->
             <div class="row align-items-center justify-content-center">
                 <div class="col-md-7 text-center" data-aos="fade">
-                    <h1>Welcome To Crossfits</h1>
-                    <span class="caption d-block text-white">Find The Healthy Way</span>
+                    <h1>Обдумывай тщательно, а действуй решительно.</h1>
+                    <span class="caption d-block text-white">Дзигоро Кано</span>
                 </div>
             </div>
             <!-- </div> -->
@@ -109,11 +109,27 @@
             <!-- <div class="container"> -->
             <div class="row align-items-center justify-content-center">
                 <div class="col-md-7 text-center" data-aos="fade">
-                    <h1>Optimize Your Health</h1>
-                    <span class="caption d-block text-white">Effective Program</span>
+                    <h1>Если ты упал семь раз, встань восемь.</h1>
+                    <span class="caption d-block text-white">Дзигоро Кано</span>
                 </div>
             </div>
             <!-- </div> -->
+        </div>
+    </div>
+
+    <div class="site-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <p class="mb-5"><img src="/images/logo.jpg" alt="Image" class="img-fluid"></p>
+                </div>
+                <div class="col-lg-5 ml-auto">
+                    <h2 class="site-section-heading mb-3">Спортивный клуб "A2"</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim ad, tempora incidunt accusantium. Similique magni quaerat beatae illo aliquid. Libero non ipsa nisi, corporis architecto incidunt rem repellendus asperiores numquam!</p>
+                    <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit explicabo odio officiis autem minima quibusdam.</p>
+                    <p><a href="#" class="btn btn-outline-primary py-2 px-4">Join Our Club</a></p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -176,22 +192,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="site-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <p class="mb-5"><img src="/images/img_1.jpg" alt="Image" class="img-fluid"></p>
-                </div>
-                <div class="col-lg-5 ml-auto">
-                    <h2 class="site-section-heading mb-3">The Club</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim ad, tempora incidunt accusantium. Similique magni quaerat beatae illo aliquid. Libero non ipsa nisi, corporis architecto incidunt rem repellendus asperiores numquam!</p>
-                    <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit explicabo odio officiis autem minima quibusdam.</p>
-                    <p><a href="#" class="btn btn-outline-primary py-2 px-4">Join Our Club</a></p>
                 </div>
             </div>
         </div>
