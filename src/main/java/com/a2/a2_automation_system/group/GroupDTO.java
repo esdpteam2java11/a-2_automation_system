@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.JoinColumn;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -27,11 +28,15 @@ public class GroupDTO {
     @JsonProperty("trainer_id")
     private User trainer;
 
+
+    @NotNull
+    private int sum;
     public static GroupDTO from(Group group) {
         return builder()
                 .id(group.getId())
                 .name(group.getName())
                 .trainer(group.getTrainer())
+                .sum(group.getSum())
                 .build();
     }
 }

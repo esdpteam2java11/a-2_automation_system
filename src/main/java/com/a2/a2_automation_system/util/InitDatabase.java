@@ -73,11 +73,11 @@ public class InitDatabase {
             }
             if (groupRepository.findAll().isEmpty()) {
                 List<Group> groups = List.of(
-                        Group.builder().name("Детская группа 1").trainer(userRepository.findByLogin("manager").orElse(null)).build(),
-                        Group.builder().name("Детская группа 2").trainer(userRepository.findByLogin("manager").orElse(null)).build(),
-                        Group.builder().name("Младшая группа").trainer(userRepository.findByLogin("manager").orElse(null)).build(),
-                        Group.builder().name("Старшая группа").trainer(userRepository.findByLogin("manager").orElse(null)).build(),
-                        Group.builder().name("Взрослая группа").trainer(userRepository.findByLogin("manager").orElse(null)).build());
+                        Group.builder().name("Детская группа 1").sum(3000).trainer(userRepository.findByLogin("manager").orElse(null)).build(),
+                        Group.builder().name("Детская группа 2").sum(3000).trainer(userRepository.findByLogin("manager").orElse(null)).build(),
+                        Group.builder().name("Младшая группа").sum(1000).trainer(userRepository.findByLogin("manager").orElse(null)).build(),
+                        Group.builder().name("Старшая группа").sum(3000).trainer(userRepository.findByLogin("manager").orElse(null)).build(),
+                        Group.builder().name("Взрослая группа").sum(2000).trainer(userRepository.findByLogin("manager").orElse(null)).build());
                 groupRepository.saveAll(groups);
             }
 
