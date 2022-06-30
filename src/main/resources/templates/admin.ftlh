@@ -29,7 +29,7 @@
     </div>
     <div>
 
-        <table>
+        <table class="table table-bordered align-middle">
             <tr>
                 <th>Фамилия</th>
                 <th>Имя</th>
@@ -40,13 +40,14 @@
             </tr>
             <#list users as user>
                 <tr>
-                    <td>${user.surname}</td>
-                    <td>${user.name}</td>
-                    <td>${user.phone}</td>
-                    <td>${user.role}</td>
-                    <td>${(user.login)!}</td>
+                    <#assign link = "/editSportsman/${user.id}">
+                    <td><a class="text-decoration-none text-reset" href="${link}">${user.surname}</a></td>
+                    <td><a class="text-decoration-none text-reset" href="${link}">${user.name}</a></td>
+                    <td><a class="text-decoration-none text-reset" href="${link}">${user.phone}</a></td>
+                    <td><a class="text-decoration-none text-reset" href="${link}">${user.role}</a></td>
+                    <td><a class="text-decoration-none text-reset" href="${link}">${(user.login)!}</a></td>
                     <td><#if user??>
-                            <input type="checkbox" id="isActive" name="isActive" disabled>
+                            <label for="isActive"></label><input type="checkbox" id="isActive" name="isActive" disabled>
                         <#else>
                             <input type="checkbox" id="isActive" name="isActive" checked disabled>
                         </#if> </td>
