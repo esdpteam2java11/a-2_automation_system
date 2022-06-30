@@ -5,12 +5,14 @@
         <tr>
             <th scope="col">Название группы</th>
             <th scope="col">Имя тренера</th>
+            <th scope="col">Цена</th>
         </tr>
         </thead>
         <tbody>
         <tr>
             <td>${group.name}</td>
             <td>${group.trainer.name}</td>
+            <td>${group.sum}</td>
         </tr>
         </tbody>
     </table>

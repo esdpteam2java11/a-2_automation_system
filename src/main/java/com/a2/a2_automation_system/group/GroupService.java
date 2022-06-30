@@ -20,6 +20,7 @@ public class GroupService {
         Group group = Group.builder()
                 .name(dto.getName())
                 .trainer(dto.getTrainer())
+                .sum(dto.getSum())
                 .build();
         groupRepository.save(group);
     }

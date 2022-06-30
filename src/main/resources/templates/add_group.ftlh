@@ -7,6 +7,12 @@
         </label>
     </div>
     <div>
+        <label class="flex flex-v-center">
+            <p class="label-input-text">Цена</p>
+            <input type="text" name="sum" value="${(group.sum)!''}">
+        </label>
+    </div>
+    <div>
         <select name="trainer" id="trainer">
             <#list trainers as trainer>
                 <option value="${trainer.id}">${trainer.name}</option>
