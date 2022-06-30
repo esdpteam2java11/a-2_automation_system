@@ -14,6 +14,10 @@
         <input type="submit" value="Создать занятие">
     </form>
 </div>
+<div id="group">
+   <h2>${group.name}</h2>
+    <input id="group_Id" hidden value="${group.id}" />
+</div>
 
 <div id='calendar'></div>
 </body>

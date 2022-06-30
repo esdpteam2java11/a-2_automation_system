@@ -2,20 +2,23 @@
 
 async function myFunction() {
     const linkBase = window.location.origin;
-    const res = await fetch(linkBase+'/calendar')
-    const data = await res.json()
-    draw(data)
+    const groupId = document.getElementById("group_Id");
+    console.log(groupId)
+     const res = await fetch('')
+    // const data = await res.json()
+    draw()
 }
 
 myFunction();
 
-function draw(data){
+function draw(){
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
         locale:'ru',
-        initialView: 'dayGridMonth',
-        events: data
+        //initialView: 'dayGridMonth',
+        events: "calendar/events"
     });
     calendar.render();
 }
+
