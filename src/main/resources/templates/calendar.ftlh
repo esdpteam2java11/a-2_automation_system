@@ -9,13 +9,17 @@
 </head>
 
 <body>
-<div>
-    <form method="get" action="calendar/create">
-        <input type="submit" value="Создать занятие">
+
+<div id="group">
+   <h2>${group.name}</h2>
+    <input id="group_Id" hidden value="${group.id}" />
+    <form method="get" action="calendar/create" >
+        <input type="submit" value="Создать занятие" class="fc-button fc-button-primary">
     </form>
 </div>
 
-<div id='calendar'></div>
+<div id='calendar'>
+</div>
 </body>
 
 </html>

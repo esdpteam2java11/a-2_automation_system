@@ -49,8 +49,9 @@ public class GroupController {
         return "redirect:/group/all";
     }
 
-    @GetMapping("/calendar")
-    public String getCalendar() {
+    @GetMapping("{id}/calendar")
+    public String getCalendar(@PathVariable Long id, Model model) {
+        model.addAttribute("group", groupService.getGroupById(id));
         return "calendar";
     }
 }

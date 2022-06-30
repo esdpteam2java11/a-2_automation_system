@@ -16,5 +16,19 @@
         </tr>
         </tbody>
     </table>
-    <button class="btn btn-primary">Редактировать</button>
+    <table>
+        <tr>
+            <td>
+                <button class="btn btn-primary">Редактировать</button>
+            </td>
+            <td>
+                <form method="get" action="${group.id}/calendar">
+                    <input type="submit" value="Календарь группы" class="btn btn-primary">
+                </form>
+            </td>
+        </tr>
+    </table>
+
+
+
 </@main.renderWith>

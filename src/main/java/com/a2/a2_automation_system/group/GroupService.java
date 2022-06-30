@@ -38,4 +38,8 @@ public class GroupService {
         return userRepository.findByRole(Role.EMPLOYEE).stream().map(UserDTO::from).collect(Collectors.toList());
     }
 
+    public Group getGroupByIdReturnGroup(Long id){
+        return groupRepository.findById(id).orElseThrow(() -> new GroupNotFoundException("Группа не найдена"));
+    }
+
 }
