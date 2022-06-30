@@ -144,7 +144,7 @@ public class UserService implements UserDetailsService {
         List<Parent> parents = new ArrayList<>();
         for (int i = 0; i < pIds.size(); i++) {
             Parent parent;
-            if (pIds.get(i) != null) {
+            if (pIds.get(i) != 0L) {
                 parent = parentRepository.findById(pIds.get(i)).get();
             } else {
                 parent = new Parent();
@@ -152,10 +152,11 @@ public class UserService implements UserDetailsService {
             parent.setKinship(Kinship.valueOf(pKinships.get(i)));
             parent.setSurname(pSurnames.get(i));
             parent.setName(pNames.get(i));
-            parent.setPatronymic(pPatronymics.get(i) == null || pPatronymics.get(i).isBlank()? null : pPatronymics.get(i));
+            parent.setPatronymic(pPatronymics.get(i) == null || pPatronymics.get(i).trim().isBlank()? null :
+                    pPatronymics.get(i));
             parent.setPhone(pPhones.get(i));
-            parent.setWhatsapp(pWhatsapps.get(i) == null || pWhatsapps.get(i).isBlank()? null : pWhatsapps.get(i));
-            parent.setTelegram(pTelegrams.get(i) == null || pTelegrams.get(i).isBlank()? null : pTelegrams.get(i));
+            parent.setWhatsapp(pWhatsapps.get(i) == null || pWhatsapps.get(i).trim().isBlank()? null : pWhatsapps.get(i));
+            parent.setTelegram(pTelegrams.get(i) == null || pTelegrams.get(i).trim().isBlank()? null : pTelegrams.get(i));
             parentRepository.save(parent);
             parents.add(parent);
         }

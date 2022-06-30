@@ -31,10 +31,10 @@ function addSelectedParent(parent) {
                                   <td><input type="hidden" name="p_kinship" value="${parent.kinshipName}">${parent.kinship}</input></td>
                                   <td><input type="hidden" name="p_surname" value="${parent.surname}">${parent.surname}</input></td>
                                   <td><input type="hidden" name="p_name" value="${parent.name}">${parent.name}</input></td>
-                                  <td><input type="hidden" name="p_patronymic" value="${parent.patronymic}">${parent.patronymic}</input></td>
+                                  <td><input type="hidden" name="p_patronymic" value="${parent.patronymic != null ? parent.patronymic : ""}">${parent.patronymic != null ? parent.patronymic : ""}</input></td>
                                   <td><input type="hidden" name="p_phone" value="${parent.phone}">${parent.phone}</input></td>
-                                  <td><input type="hidden" name="p_whatsapp" value="${parent.whatsapp}">${parent.whatsapp}</input></td>
-                                  <td><input type="hidden" name="p_telegram" value="${parent.telegram}">${parent.telegram}</input></td>
+                                  <td><input type="hidden" name="p_whatsapp" value="${parent.whatsapp != null ? parent.whatsapp : ""}">${parent.whatsapp != null ? parent.whatsapp : ""}</input></td>
+                                  <td><input type="hidden" name="p_telegram" value="${parent.telegram != null ? parent.telegram : ""}">${parent.telegram != null ? parent.telegram : ""}</input></td>
                                   <td>
                                         <button type="button" class="btn btn-outline-danger py-1 px-2" onclick='deleteSelectedRow(this)'>
                                             <i class="bi bi-x-square"></i>
@@ -43,7 +43,7 @@ function addSelectedParent(parent) {
     relativesTableBody.appendChild(newTrTag)
 }
 
-function deleteSelectedRow(button){
+function deleteSelectedRow(button) {
     button.closest('tr').remove()
 }
 
@@ -51,29 +51,29 @@ const addNewParentBtn = document.getElementById("add-new-parent-button")
 
 addNewParentBtn.addEventListener("click", function () {
     const newTrTag = document.createElement("tr")
-    newTrTag.innerHTML = `<td class="p-0" hidden><input type="hidden" name="p_id">null</input></td>
-                                  <td class="p-0">
-                                      <select name="p_kinship" required>
-                                        <option value="FATHER">Отец</option>
-                                        <option value="MOTHER">Мать</option>
-                                        <option value="GRANDMOTHER">Бабушка</option>
-                                        <option value="GRANDFATHER">Дедушка</option>
-                                        <option value="SISTER">Сестра</option>
-                                        <option value="BROTHER">Брат</option>
-                                        <option value="GUARDIAN">Опекун</option>
-                                      </select>
-                                  </td>
-                                  <td><input type="text" name="p_surname" required/></td>
-                                  <td><input type="text" name="p_name" required/></td>
-                                  <td><input type="text" name="p_patronymic"/></td>
-                                  <td><input type="text" name="p_phone" required/></td>
-                                  <td><input type="text" name="p_whatsapp"/></td>
-                                  <td><input type="text" name="p_telegram"/></td>
-                                  <td>
-                                        <button type="button" class="btn btn-outline-danger py-1 px-2" onclick='deleteSelectedRow(this)'>
-                                            <i class="bi bi-x-square"></i>
-                                        </button>
-                                  </td>`
+    newTrTag.innerHTML = `<td class="p-0" hidden><input type="hidden" name="p_id" value="0"/></td>
+                          <td class="p-0">
+                                <select name="p_kinship" required>
+                                    <option value="FATHER">Отец</option>
+                                    <option value="MOTHER">Мать</option>
+                                    <option value="GRANDMOTHER">Бабушка</option>
+                                    <option value="GRANDFATHER">Дедушка</option>
+                                    <option value="SISTER">Сестра</option>
+                                    <option value="BROTHER">Брат</option>
+                                    <option value="GUARDIAN">Опекун</option>
+                                </select>
+                          </td>
+                          <td><input type="text" name="p_surname" required/></td>
+                          <td><input type="text" name="p_name" required/></td>
+                          <td><input type="text" name="p_patronymic" value=" "/></td>
+                          <td><input type="text" name="p_phone" required/></td>
+                          <td><input type="text" name="p_whatsapp" value=" "/></td>
+                          <td><input type="text" name="p_telegram" value=" "/></td>
+                          <td>
+                                <button type="button" class="btn btn-outline-danger py-1 px-2" onclick='deleteSelectedRow(this)'>
+                                     <i class="bi bi-x-square"></i>
+                                </button>
+                          </td>`
     relativesTableBody.appendChild(newTrTag)
 })
 
@@ -97,7 +97,7 @@ searchRelativeForm.addEventListener("submit", async function (e) {
                                   <td>${data[i].kinship}</td>
                                   <td>${data[i].surname}</td>
                                   <td>${data[i].name}</td>
-                                  <td>${data[i].patronymic}</td>
+                                  <td>${data[i].patronymic != null ? data[i].patronymic : ""}</td>
                                   <td>
                                         <input class="form-check-input" type="checkbox" onclick='addSelectedParent(${parent})'>
                                         <label class="form-check-label" for="inlineCheckbox"></label>
