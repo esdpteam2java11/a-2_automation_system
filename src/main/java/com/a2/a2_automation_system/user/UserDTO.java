@@ -54,6 +54,8 @@ public class UserDTO {
     @JsonProperty("is_active")
     private Boolean isActive;
 
+    private Long groupId;
+
     private Date dateOfAdmission;
 
     public static UserDTO from(User user) {
@@ -72,6 +74,7 @@ public class UserDTO {
                 .login(user.getLogin())
                 .password(user.getPassword())
                 .isActive(user.getIsActive())
+                .groupId(user.getGroup() != null ? user.getGroup().getId() : null)
                 .dateOfAdmission(user.getDateOfAdmission())
                 .build();
     }

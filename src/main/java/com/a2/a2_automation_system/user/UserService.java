@@ -51,7 +51,10 @@ public class UserService implements UserDetailsService {
     }
 
     public Page<UserDTO> getAllUsers(Pageable pageable) {
-        return userRepository.findAll(pageable).map(UserDTO::from);
+        Page<User> users = userRepository.findAll(pageable);
+
+//        return userRepository.findAll(pageable).map(UserDTO::from);
+        return users.map(UserDTO::from);
     }
 
     public Page<UserDTO> getUserBySearch(Pageable pageable, String search) {
@@ -77,6 +80,10 @@ public class UserService implements UserDetailsService {
                 .birthDate(userDTO.getBirthDate())
                 .build();
         userRepository.save(trainer);
+    }
+
+    public UserDTO getUserDetails(Long id){
+        return UserDTO.from(userRepository.findById(id).get());
     }
 
 

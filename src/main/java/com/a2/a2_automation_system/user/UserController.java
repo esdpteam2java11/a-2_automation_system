@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -147,5 +148,19 @@ public class UserController {
                 pNames, pPatronymics, pPhones, pWhatsapps, pTelegrams);
 
         return "redirect:/admin";
+    }
+
+    @GetMapping("/editSportsman/{id}")
+    public String viewUserDetails(Model model, @PathVariable Long id, Authentication principal) {
+        try {
+            String role = principal.getAuthorities().stream().map(GrantedAuthority::getAuthority).findFirst().get();
+            if (role.equals("ADMIN")) {
+                model.addAttribute("groups", groupService.getAllGroups());
+                model.addAttribute("user", userService.getUserDetails(id));
+                return "edit_sportsman";
+            } else return "main";
+        } catch (NullPointerException e) {
+            return "index";
+        }
     }
 }

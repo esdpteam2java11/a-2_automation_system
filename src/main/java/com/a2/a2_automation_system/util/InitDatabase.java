@@ -55,22 +55,22 @@ public class InitDatabase {
                 employee.setIsActive(true);
                 userRepository.save(employee);
             }
-            for (int i = 0; i < 20; i++) {
-            if (userRepository.findByLogin("student_" + i).isEmpty()) {
-                User student = new User();
-                student.setSurname("studentSurname_" + i);
-                student.setName("studentName_" + i);
-                student.setPatronymic("studentPatronymic_" + i);
-                student.setPhone("33-33-33");
-                student.setAddress("г. Бишкек, ул. Ахунбаева 26");
-                student.setBirthDate(new Date());
-                student.setRole(Role.CLIENT);
-                student.setLogin("student_" + i);
-                student.setPassword(passwordEncoder.encode("123"));
-                student.setIsActive(true);
-                userRepository.save(student);
-            }
-            }
+//            for (int i = 0; i < 20; i++) {
+//                if (userRepository.findByLogin("student_" + i).isEmpty()) {
+//                    User student = new User();
+//                    student.setSurname("studentSurname_" + i);
+//                    student.setName("studentName_" + i);
+//                    student.setPatronymic("studentPatronymic_" + i);
+//                    student.setPhone("33-33-33");
+//                    student.setAddress("г. Бишкек, ул. Ахунбаева 26");
+//                    student.setBirthDate(new Date());
+//                    student.setRole(Role.CLIENT);
+//                    student.setLogin("student_" + i);
+//                    student.setPassword(passwordEncoder.encode("123"));
+//                    student.setIsActive(true);
+//                    userRepository.save(student);
+//                }
+//            }
             if (groupRepository.findAll().isEmpty()) {
                 List<Group> groups = List.of(
                         Group.builder().name("Детская группа 1").sum(3000).trainer(userRepository.findByLogin("manager").orElse(null)).build(),
@@ -81,7 +81,7 @@ public class InitDatabase {
                 groupRepository.saveAll(groups);
             }
 
-            if(scheduleRepository.findAll().isEmpty()){
+            if (scheduleRepository.findAll().isEmpty()) {
                 LocalDate date = LocalDate.now();
                 LocalTime time = LocalTime.now();
 
