@@ -34,8 +34,17 @@ function addSelectedParent(parent) {
                                   <td><input type="hidden" name="p_patronymic" value="${parent.patronymic}">${parent.patronymic}</input></td>
                                   <td><input type="hidden" name="p_phone" value="${parent.phone}">${parent.phone}</input></td>
                                   <td><input type="hidden" name="p_whatsapp" value="${parent.whatsapp}">${parent.whatsapp}</input></td>
-                                  <td><input type="hidden" name="p_telegram" value="${parent.telegram}">${parent.telegram}</input></td>`
+                                  <td><input type="hidden" name="p_telegram" value="${parent.telegram}">${parent.telegram}</input></td>
+                                  <td>
+                                        <button type="button" class="btn btn-outline-danger py-1 px-2" onclick='deleteSelectedRow(this)'>
+                                            <i class="bi bi-x-square"></i>
+                                        </button>
+                                  </td>`
     relativesTableBody.appendChild(newTrTag)
+}
+
+function deleteSelectedRow(button){
+    button.closest('tr').remove()
 }
 
 const addNewParentBtn = document.getElementById("add-new-parent-button")
@@ -54,12 +63,17 @@ addNewParentBtn.addEventListener("click", function () {
                                         <option value="GUARDIAN">Опекун</option>
                                       </select>
                                   </td>
-                                  <td class="p-0"><input type="text" name="p_surname" required/></td>
-                                  <td class="p-0"><input type="text" name="p_name" required/></td>
-                                  <td class="p-0"><input type="text" name="p_patronymic"/></td>
-                                  <td class="p-0"><input type="text" name="p_phone" required/></td>
-                                  <td class="p-0"><input type="text" name="p_whatsapp"/></td>
-                                  <td class="p-0"><input type="text" name="p_telegram"/></td>`
+                                  <td><input type="text" name="p_surname" required/></td>
+                                  <td><input type="text" name="p_name" required/></td>
+                                  <td><input type="text" name="p_patronymic"/></td>
+                                  <td><input type="text" name="p_phone" required/></td>
+                                  <td><input type="text" name="p_whatsapp"/></td>
+                                  <td><input type="text" name="p_telegram"/></td>
+                                  <td>
+                                        <button type="button" class="btn btn-outline-danger py-1 px-2" onclick='deleteSelectedRow(this)'>
+                                            <i class="bi bi-x-square"></i>
+                                        </button>
+                                  </td>`
     relativesTableBody.appendChild(newTrTag)
 })
 
