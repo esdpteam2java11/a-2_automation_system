@@ -1,21 +1,24 @@
 package com.a2.a2_automation_system.user;
 
+import com.a2.a2_automation_system.userparam.UserParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
+public class SportsmanDTO {
 
     private Long id;
 
@@ -60,7 +63,11 @@ public class UserDTO {
 
     private Date dateOfAdmission;
 
-    public static UserDTO from(User user) {
+    private Double weight;
+
+    private Double height;
+
+    public static SportsmanDTO from(User user, UserParam userParam) {
         return builder()
                 .id(user.getId())
                 .name(user.getName())
@@ -78,6 +85,8 @@ public class UserDTO {
                 .isActive(user.getIsActive())
                 .groupId(user.getGroup() != null ? user.getGroup().getId() : null)
                 .dateOfAdmission(user.getDateOfAdmission())
+                .weight(userParam.getWeight())
+                .height(userParam.getHeight())
                 .build();
     }
 }

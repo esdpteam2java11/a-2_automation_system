@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "groups")
@@ -28,4 +29,8 @@ public class Group {
     @ManyToOne
     @JoinColumn(name = "trainer_id")
     private User trainer;
+
+    @JoinColumn(name = "sum")
+    @NotNull
+    private int sum;
 }

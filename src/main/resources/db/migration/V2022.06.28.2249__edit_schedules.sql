@@ -1,0 +1,2 @@
+ALTER TABLE schedules
+ALTER COLUMN event_date TYPE DATE;

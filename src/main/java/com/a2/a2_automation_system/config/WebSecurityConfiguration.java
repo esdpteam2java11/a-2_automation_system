@@ -33,10 +33,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .clearAuthentication(true)
                 .invalidateHttpSession(true);
 
-//        http.authorizeRequests()
-//                .antMatchers("/main")
-//                .authenticated();
-
         http.authorizeRequests()
                 .anyRequest()
                 .permitAll();

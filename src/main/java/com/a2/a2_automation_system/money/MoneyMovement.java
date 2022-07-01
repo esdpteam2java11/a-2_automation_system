@@ -20,23 +20,15 @@ public class MoneyMovement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-
     @Enumerated(value = EnumType.STRING)
     @NotNull
     private TypeOfFinance typeOfFinance;
-
     @ManyToOne
     @JoinColumn(name = "counterparty_id")
     private User counterparty;
-
     @NotNull
     private Double amount;
-
-
     private String purpose;
-
-
     @NotNull
     private LocalDate date;
 }
