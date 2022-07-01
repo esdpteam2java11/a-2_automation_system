@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -37,7 +38,7 @@ public class UserService implements UserDetailsService {
         return userRepository.findByLogin(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
-    public Role getSelectedUserRole(Long id){
+    public Role getSelectedUserRole(Long id) {
         return userRepository.findById(id).get().getRole();
     }
 
@@ -83,8 +84,11 @@ public class UserService implements UserDetailsService {
         userRepository.save(trainer);
     }
 
-    public UserDTO getUserDetails(Long id){
-        return UserDTO.from(userRepository.findById(id).get());
+    public SportsmanDTO getSportsmanDetails(Long id) {
+        User sportsman = userRepository.findById(id).get();
+        Optional<UserParam> userParam = userParamRepository.findUpToDateParamsByUser(id, new Date());
+        if (userParam.isPresent()) return SportsmanDTO.from(sportsman, userParam.get());
+        else return SportsmanDTO.from(sportsman, new UserParam());
     }
 
 
@@ -124,18 +128,18 @@ public class UserService implements UserDetailsService {
         return User.builder()
                 .surname(surname)
                 .name(name)
-                .patronymic(patronymic == null || patronymic.isBlank()? null : patronymic)
+                .patronymic(patronymic == null || patronymic.isBlank() ? null : patronymic)
                 .birthDate(birthDate)
                 .phone(phone)
-                .whatsapp(whatsapp == null || whatsapp.isBlank()? null : whatsapp)
-                .telegram(telegram == null || telegram.isBlank()? null : telegram)
+                .whatsapp(whatsapp == null || whatsapp.isBlank() ? null : whatsapp)
+                .telegram(telegram == null || telegram.isBlank() ? null : telegram)
                 .address(address)
-                .school(school == null || school.isBlank()? null : school)
-                .channels(channels == null || channels.isBlank()? null : channels)
+                .school(school == null || school.isBlank() ? null : school)
+                .channels(channels == null || channels.isBlank() ? null : channels)
                 .group(groupRepository.findById(groupId).get())
                 .dateOfAdmission(dateOfAdmission)
-                .login(login == null || login.isBlank()? null : login)
-                .password(password == null || password.isBlank()? null : encoder.encode(password))
+                .login(login == null || login.isBlank() ? null : login)
+                .password(password == null || password.isBlank() ? null : encoder.encode(password))
                 .build();
     }
 
@@ -160,11 +164,11 @@ public class UserService implements UserDetailsService {
             parent.setKinship(Kinship.valueOf(pKinships.get(i)));
             parent.setSurname(pSurnames.get(i));
             parent.setName(pNames.get(i));
-            parent.setPatronymic(pPatronymics.get(i) == null || pPatronymics.get(i).trim().isBlank()? null :
+            parent.setPatronymic(pPatronymics.get(i) == null || pPatronymics.get(i).trim().isBlank() ? null :
                     pPatronymics.get(i));
             parent.setPhone(pPhones.get(i));
-            parent.setWhatsapp(pWhatsapps.get(i) == null || pWhatsapps.get(i).trim().isBlank()? null : pWhatsapps.get(i));
-            parent.setTelegram(pTelegrams.get(i) == null || pTelegrams.get(i).trim().isBlank()? null : pTelegrams.get(i));
+            parent.setWhatsapp(pWhatsapps.get(i) == null || pWhatsapps.get(i).trim().isBlank() ? null : pWhatsapps.get(i));
+            parent.setTelegram(pTelegrams.get(i) == null || pTelegrams.get(i).trim().isBlank() ? null : pTelegrams.get(i));
             parentRepository.save(parent);
             parents.add(parent);
         }

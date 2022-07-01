@@ -157,7 +157,7 @@ public class UserController {
             if (role.equals("ADMIN")) {
                 if (userService.getSelectedUserRole(id) == Role.CLIENT) {
                     model.addAttribute("groups", groupService.getAllGroups());
-                    model.addAttribute("sportsman", userService.getUserDetails(id));
+                    model.addAttribute("sportsman", userService.getSportsmanDetails(id));
                     return "edit_sportsman";
                 } else if (userService.getSelectedUserRole(id) == Role.EMPLOYEE) {
                     return "edit_trainer";
