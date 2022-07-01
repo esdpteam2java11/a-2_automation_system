@@ -1,13 +1,11 @@
 package com.a2.a2_automation_system.group;
 
+import com.a2.a2_automation_system.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -53,5 +51,20 @@ public class GroupController {
     public String getCalendar(@PathVariable Long id, Model model) {
         model.addAttribute("group", groupService.getGroupById(id));
         return "calendar";
+    }
+    @GetMapping("{id}/edit")
+    public String getEdit(Model model,@PathVariable Long id){
+        model.addAttribute("trainers", groupService.getTrainers());
+        model.addAttribute("group", groupService.getGroupById(id));
+        return "edit_group";
+    }
+
+    @PostMapping("/edit")
+    public String editGroups(@RequestParam Long id, @RequestParam String name,
+                             @RequestParam(required = false) int sum, @RequestParam User trainer){
+
+        groupService.editGroup(id,trainer,name,sum);
+
+        return "redirect:/group/all";
     }
 }
