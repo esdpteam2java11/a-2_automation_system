@@ -12,7 +12,7 @@
 <div class="container">
     <h2 class="add-sportsman-header">Редактирование анкеты спортсмена</h2>
     <div class="container col-xxl-8">
-        <form action="/editSportsman" id="add-sportsman" method="post">
+        <form action="/edit/${sportsman.id}" id="add-sportsman" method="post">
             <div class="row border border-secondary mb-3">
                 <div class="col-lg-4 mb-2">
                     <div class="mb-3">
@@ -158,7 +158,7 @@
                             <#list parents as parent>
                                 <tr>
                                     <td hidden><input type="hidden" name="p_id" value="${parent.id}"></td>
-                                    <td><input type="hidden" name="p_kinship">${parent.kinship}</input></td>
+                                    <td><input type="hidden" name="p_kinship" value="${parent.kinshipName}">${parent.kinship}</input></td>
                                     <td><input type="text" name="p_surname" value="${parent.surname}"></td>
                                     <td><input type="text" name="p_name" value="${parent.name}"></td>
                                     <td><input type="text" name="p_patronymic" value="${(parent.patronymic)!}"></td>

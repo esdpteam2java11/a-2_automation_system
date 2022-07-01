@@ -9,4 +9,5 @@ import java.util.List;
 public interface RelationshipRepository extends PagingAndSortingRepository<Relationship, Long> {
     List<Relationship> findRelationshipByStudentId(Long id);
 
+    Boolean existsByParentIdAndStudentId(Long parentId, Long studentId);
 }

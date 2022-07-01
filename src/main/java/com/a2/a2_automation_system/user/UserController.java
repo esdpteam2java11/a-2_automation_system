@@ -86,7 +86,6 @@ public class UserController {
         return "admin";
     }
 
-
     @GetMapping("/add/trainer")
     public String pageRegisterCustomer(Model model) {
         if (!model.containsAttribute("dto")) {
@@ -169,5 +168,34 @@ public class UserController {
         } catch (NullPointerException e) {
             return "index";
         }
+    }
+
+    @PostMapping("/edit/{id}")
+    public String editSportsman(@PathVariable Long id,
+                               @RequestParam("surname") String surname, @RequestParam("name") String name,
+                               @RequestParam("patronymic") @Nullable String patronymic,
+                               @RequestParam("birthDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date birthDate,
+                               @RequestParam("growth") Double growth, @RequestParam("weight") Double weight,
+                               @RequestParam("phone") String phone, @RequestParam("whatsapp") @Nullable String whatsapp,
+                               @RequestParam("telegram") @Nullable String telegram, @RequestParam("address") String address,
+                               @RequestParam("school") @Nullable String school, @RequestParam("channels") @Nullable String channels,
+                               @RequestParam("group") Long groupId,
+                               @RequestParam("dateOfAdmission") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date dateOfAdmission,
+                               @RequestParam("login") @Nullable String login, @RequestParam("password") @Nullable String password,
+
+                               @RequestParam("p_id") @Nullable List<Long> pIds,
+                               @RequestParam("p_kinship") @Nullable List<String> pKinships,
+                               @RequestParam("p_surname") @Nullable List<String> pSurnames,
+                               @RequestParam("p_name") @Nullable List<String> pNames,
+                               @RequestParam("p_patronymic") @Nullable List<String> pPatronymics,
+                               @RequestParam("p_phone") @Nullable List<String> pPhones,
+                               @RequestParam("p_whatsapp") @Nullable List<String> pWhatsapps,
+                               @RequestParam("p_telegram") @Nullable List<String> pTelegrams) {
+
+        userService.editSportsman(id, surname, name, patronymic, birthDate, growth, weight, phone, whatsapp, telegram,
+                address, school, channels, groupId, dateOfAdmission, login, password, pIds, pKinships, pSurnames,
+                pNames, pPatronymics, pPhones, pWhatsapps, pTelegrams);
+
+        return "redirect:/admin";
     }
 }

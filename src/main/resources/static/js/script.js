@@ -41,12 +41,17 @@ const relativesTableBody = document.querySelector('#relative-table>.table-body')
 
 function addSelectedParent(parent) {
     const listAddedParents = Array.from(document.getElementsByName("p_id")).map(inputElement => inputElement.value)
+    let isExists = false
 
     if (listAddedParents.length > 0) {
         for (let i = 0; i < listAddedParents.length; i++) {
-            if (listAddedParents[i]!==0 && listAddedParents[i] === parent.id) return
+            if (listAddedParents[i] == parent.id) {
+                alert("Данная запись уже занесена в таблицу!")
+                isExists = true
+            }
         }
-    } else {
+    }
+    if (!isExists) {
         let newTrTag = document.createElement("tr")
         newTrTag.innerHTML = `<td hidden><input type="hidden" name="p_id" value="${parent.id}">${parent.id}</input></td>
                                   <td><input type="hidden" name="p_kinship" value="${parent.kinshipName}">${parent.kinship}</input></td>

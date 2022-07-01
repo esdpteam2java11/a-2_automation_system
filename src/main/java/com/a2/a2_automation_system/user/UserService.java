@@ -91,7 +91,6 @@ public class UserService implements UserDetailsService {
         else return SportsmanDTO.from(sportsman, new UserParam());
     }
 
-
     public void createSportsman(String surname, String name, String patronymic, Date birthDate,
                                 Double growth, Double weight,
                                 String phone, String whatsapp, String telegram, String address, String school,
@@ -101,7 +100,7 @@ public class UserService implements UserDetailsService {
                                 List<String> pWhatsapps, List<String> pTelegrams) {
 
         User sportsman = setUserFields(surname, name, patronymic, birthDate, phone, whatsapp, telegram, address, school,
-                channels, groupId, dateOfAdmission, login, password);
+                channels, groupId, dateOfAdmission, login, password, new User());
         sportsman.setRole(Role.CLIENT);
 
         userRepository.save(sportsman);
@@ -122,25 +121,57 @@ public class UserService implements UserDetailsService {
         }
     }
 
+    public void editSportsman(Long id, String surname, String name, String patronymic, Date birthDate,
+                              Double growth, Double weight,
+                              String phone, String whatsapp, String telegram, String address, String school,
+                              String channels, Long groupId, Date dateOfAdmission, String login, String password,
+                              List<Long> pIds, List<String> pKinships, List<String> pSurnames, List<String> pNames,
+                              List<String> pPatronymics, List<String> pPhones,
+                              List<String> pWhatsapps, List<String> pTelegrams) {
+
+        User sportsman = userRepository.findById(id).get();
+        setUserFields(surname, name, patronymic, birthDate, phone, whatsapp, telegram, address,
+                school, channels, groupId, dateOfAdmission, login, password, sportsman);
+
+        userRepository.save(sportsman);
+
+        UserParam sportsmanParam = new UserParam();
+        setUserParams(growth, weight, sportsmanParam, sportsman);
+        userParamRepository.save(sportsmanParam);
+
+        if (pIds != null) {
+            List<Parent> parents = setParents(pIds, pKinships, pSurnames, pNames, pPatronymics, pPhones, pWhatsapps,
+                    pTelegrams);
+            for (Parent parent : parents) {
+                if (!relationshipRepository.existsByParentIdAndStudentId(parent.getId(), sportsman.getId())){
+                    Relationship newRelationship = new Relationship();
+                    newRelationship.setStudent(sportsman);
+                    newRelationship.setParent(parent);
+                    relationshipRepository.save(newRelationship);
+                }
+            }
+        }
+    }
+
     private User setUserFields(String surname, String name, String patronymic, Date birthDate,
                                String phone, String whatsapp, String telegram, String address, String school,
-                               String channels, Long groupId, Date dateOfAdmission, String login, String password) {
-        return User.builder()
-                .surname(surname)
-                .name(name)
-                .patronymic(patronymic == null || patronymic.isBlank() ? null : patronymic)
-                .birthDate(birthDate)
-                .phone(phone)
-                .whatsapp(whatsapp == null || whatsapp.isBlank() ? null : whatsapp)
-                .telegram(telegram == null || telegram.isBlank() ? null : telegram)
-                .address(address)
-                .school(school == null || school.isBlank() ? null : school)
-                .channels(channels == null || channels.isBlank() ? null : channels)
-                .group(groupRepository.findById(groupId).get())
-                .dateOfAdmission(dateOfAdmission)
-                .login(login == null || login.isBlank() ? null : login)
-                .password(password == null || password.isBlank() ? null : encoder.encode(password))
-                .build();
+                               String channels, Long groupId, Date dateOfAdmission, String login, String password,
+                               User sportsman) {
+        sportsman.setSurname(surname);
+        sportsman.setName(name);
+        sportsman.setPatronymic(patronymic == null || patronymic.isBlank() ? null : patronymic);
+        sportsman.setBirthDate(birthDate);
+        sportsman.setPhone(phone);
+        sportsman.setWhatsapp(whatsapp == null || whatsapp.isBlank() ? null : whatsapp);
+        sportsman.setTelegram(telegram == null || telegram.isBlank() ? null : telegram);
+        sportsman.setAddress(address);
+        sportsman.setSchool(school == null || school.isBlank() ? null : school);
+        sportsman.setChannels(channels == null || channels.isBlank() ? null : channels);
+        sportsman.setGroup(groupRepository.findById(groupId).get());
+        sportsman.setDateOfAdmission(dateOfAdmission);
+        sportsman.setLogin(login == null || login.isBlank() ? null : login);
+        sportsman.setPassword(password == null || password.isBlank() ? null : encoder.encode(password));
+        return sportsman;
     }
 
     private void setUserParams(Double growth, Double weight, UserParam userParam, User user) {
