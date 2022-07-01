@@ -150,14 +150,18 @@ public class UserController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/editSportsman/{id}")
+    @GetMapping("/edit/{id}")
     public String viewUserDetails(Model model, @PathVariable Long id, Authentication principal) {
         try {
             String role = principal.getAuthorities().stream().map(GrantedAuthority::getAuthority).findFirst().get();
             if (role.equals("ADMIN")) {
-                model.addAttribute("groups", groupService.getAllGroups());
-                model.addAttribute("user", userService.getUserDetails(id));
-                return "edit_sportsman";
+                if (userService.getSelectedUserRole(id) == Role.CLIENT) {
+                    model.addAttribute("groups", groupService.getAllGroups());
+                    model.addAttribute("sportsman", userService.getUserDetails(id));
+                    return "edit_sportsman";
+                } else if (userService.getSelectedUserRole(id) == Role.EMPLOYEE) {
+                    return "edit_trainer";
+                } else return "edit_admin";
             } else return "main";
         } catch (NullPointerException e) {
             return "index";

@@ -40,7 +40,7 @@
             </tr>
             <#list users as user>
                 <tr>
-                    <#assign link = "/editSportsman/${user.id}">
+                    <#assign link = "/edit/${user.id}">
                     <td><a class="text-decoration-none text-reset" href="${link}">${user.surname}</a></td>
                     <td><a class="text-decoration-none text-reset" href="${link}">${user.name}</a></td>
                     <td><a class="text-decoration-none text-reset" href="${link}">${user.phone}</a></td>

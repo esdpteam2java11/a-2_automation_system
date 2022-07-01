@@ -1,8 +1,22 @@
 'use strict'
 
-document.querySelector("#input-generate").addEventListener("click", function () {
-    document.querySelector("#input-password").value = (generatePassword());
-})
+const generatePassBtn = document.querySelector("#input-generate")
+const generateNewPassBtn = document.querySelector("#input-generate-newpass")
+
+if (generatePassBtn != null) {
+    generatePassBtn.addEventListener("click", function () {
+        document.querySelector("#input-password").value = (generatePassword());
+    })
+}
+
+if (generateNewPassBtn != null) {
+    generateNewPassBtn.addEventListener("click", function () {
+        const inputPassword = document.querySelector("#input-password")
+        inputPassword.value = (generatePassword())
+        inputPassword.removeAttribute("type")
+        inputPassword.setAttribute("type", "text")
+    })
+}
 
 function generatePassword() {
     let length = 8,

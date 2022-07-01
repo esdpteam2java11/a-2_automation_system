@@ -10,7 +10,7 @@
 <body>
 
 <div class="container">
-    <h2 class="add-sportsman-header">Анкета спортсмена</h2>
+    <h2 class="add-sportsman-header">Редактирование анкеты спортсмена</h2>
     <div class="container col-xxl-8">
         <form action="/editSportsman" id="add-sportsman" method="post">
             <div class="row border border-secondary mb-3">
@@ -18,24 +18,24 @@
                     <div class="mb-3">
                         <label for="recipient-surname" class="col-form-label required">Фамилия:</label>
                         <input type="text" name="surname" class="form-control" id="recipient-surname"
-                               value="${user.surname}" required>
+                               value="${sportsman.surname}" required>
                     </div>
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label required">Имя:</label>
                         <input type="text" name="name" class="form-control" id="recipient-name"
-                               value="${user.name}" required>
+                               value="${sportsman.name}" required>
                     </div>
                     <div class="mb-3">
                         <label for="recipient-patronymic" class="col-form-label">Отчество:</label>
                         <input type="text" name="patronymic" class="form-control" id="recipient-patronymic"
-                               value="${(user.patronymic)!}">
+                               value="${(sportsman.patronymic)!}">
                     </div>
                 </div>
                 <div class="col-lg-4 mb-2">
                     <div class="mb-3">
                         <label for="recipient-birthDate" class="col-form-label required">Дата рождения:</label>
                         <input type="date" name="birthDate" class="form-control" id="recipient-birthDate"
-                               value="${user.birthDate}" required>
+                               value="${sportsman.birthDate?date?iso_utc}" required>
                     </div>
                     <div class="mb-3">
                         <label for="recipient-growth" class="col-form-label required">Рост:</label>
@@ -52,17 +52,17 @@
                     <div class="mb-3">
                         <label for="recipient-phone" class="col-form-label required">Номер телефона:</label>
                         <input type="text" name="phone" class="form-control" id="recipient-phone"
-                               value="${user.phone}" required>
+                               value="${sportsman.phone}" required>
                     </div>
                     <div class="mb-3">
                         <label for="recipient-whatsapp" class="col-form-label">WhatsApp:</label>
                         <input type="text" name="whatsapp" class="form-control" id="recipient-whatsapp"
-                               value="${(user.whatsapp)!}">
+                               value="${(sportsman.whatsapp)!}">
                     </div>
                     <div class="mb-3">
                         <label for="recipient-telegram" class="col-form-label">Telegram:</label>
                         <input type="text" name="telegram" class="form-control" id="recipient-telegram"
-                               value="${(user.telegram)!}">
+                               value="${(sportsman.telegram)!}">
                     </div>
                 </div>
             </div>
@@ -71,17 +71,17 @@
                     <div class="mb-3">
                         <label for="recipient-address" class="col-form-label required">Адрес проживания:</label>
                         <textarea type="text" name="address" class="form-control" id="recipient-address" rows="1"
-                                  required>${user.address}</textarea>
+                                  required>${sportsman.address}</textarea>
                     </div>
                     <div class="mb-3">
                         <label for="recipient-school" class="col-form-label">Учебное заведение:</label>
                         <textarea type="text" name="school" class="form-control" id="recipient-school"
-                                  rows="1">${(user.school)!}</textarea>
+                                  rows="1">${(sportsman.school)!}</textarea>
                     </div>
                     <div class="mb-3">
                         <label for="recipient-channels" class="col-form-label">Каналы информации о клубе:</label>
                         <textarea type="text" name="channels" class="form-control" id="recipient-channels"
-                                  rows="1">${(user.channels)!}</textarea>
+                                  rows="1">${(sportsman.channels)!}</textarea>
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -90,7 +90,7 @@
                         <select class="form-select" name="group" id="group" required>
                             <#list groups as group>
                                 <option value="${group.id}"
-                                        <#if ((user.groupId)!)==group.id>selected</#if>>${group.name}</option>
+                                        <#if ((sportsman.groupId)!)==group.id>selected</#if>>${group.name}</option>
                             </#list>
                         </select>
                     </div>
@@ -98,7 +98,8 @@
                         <label for="recipient-dateOfAdmission" class="col-form-label required">Дата зачисления в
                             группу:</label>
                         <input type="date" name="dateOfAdmission" class="form-control"
-                               id="recipient-dateOfAdmission" value="${user.dateOfAdmission}" required>
+                               id="recipient-dateOfAdmission" value="${sportsman.dateOfAdmission?date?iso_utc}"
+                               required>
                     </div>
                     <div class="mb-3">
                         <label for="recipient-sum" class="col-form-label">Сумма оплаты:</label>
@@ -109,16 +110,16 @@
                     <div class="mb-3">
                         <label for="recipient-login" class="col-form-label">Логин:</label>
                         <input type="text" name="login" class="form-control" id="recipient-login"
-                               value="${(user.login)!}">
+                               value="${(sportsman.login)!}">
                     </div>
                     <div class="mb-3">
                         <label for="input-password" class="col-form-label">Пароль:</label>
-                        <input type="text" name="password" class="form-control" id="input-password"
-                               value="${(user.password)!}">
+                        <input type="password" name="password" class="form-control" id="input-password"
+                               value="${sportsman.password?has_content?then('******', '')}" autocomplete="on">
                     </div>
                     <div class="mb-3">
                         <label> </label>
-                        <button type="button" id="input-generate" class="btn btn-secondary mt-2">Сгенерировать
+                        <button type="button" id="input-generate-newpass" class="btn btn-secondary mt-2">Сгенерировать
                             пароль
                         </button>
                     </div>

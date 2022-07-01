@@ -37,6 +37,10 @@ public class UserService implements UserDetailsService {
         return userRepository.findByLogin(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
+    public Role getSelectedUserRole(Long id){
+        return userRepository.findById(id).get().getRole();
+    }
+
 
     public Page<UserDTO> getUsersWithFilter(Pageable pageable, String role, Boolean isActive) {
         if ((isActive != null && role != null) && !role.equals("all")) {
@@ -51,10 +55,7 @@ public class UserService implements UserDetailsService {
     }
 
     public Page<UserDTO> getAllUsers(Pageable pageable) {
-        Page<User> users = userRepository.findAll(pageable);
-
-//        return userRepository.findAll(pageable).map(UserDTO::from);
-        return users.map(UserDTO::from);
+        return userRepository.findAll(pageable).map(UserDTO::from);
     }
 
     public Page<UserDTO> getUserBySearch(Pageable pageable, String search) {
