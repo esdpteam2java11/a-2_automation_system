@@ -5,55 +5,57 @@
     <title>Добавить спортсмена</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 </head>
 <body>
 
 <div class="container">
-
     <h2 class="add-sportsman-header">Анкета спортсмена</h2>
     <div class="container col-xxl-8">
         <form action="/create" id="add-sportsman" method="post">
             <div class="row border border-secondary mb-3">
                 <div class="col-lg-4 mb-2">
                     <div class="mb-3">
-                        <label for="recipient-surname" class="col-form-label">Фамилия: </label>
+                        <label for="recipient-surname" class="col-form-label required">Фамилия:</label>
                         <input type="text" name="surname" class="form-control" id="recipient-surname" required>
                     </div>
                     <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">Имя: </label>
+                        <label for="recipient-name" class="col-form-label required">Имя:</label>
                         <input type="text" name="name" class="form-control" id="recipient-name" required>
                     </div>
                     <div class="mb-3">
-                        <label for="recipient-patronymic" class="col-form-label">Отчество: </label>
+                        <label for="recipient-patronymic" class="col-form-label">Отчество:</label>
                         <input type="text" name="patronymic" class="form-control" id="recipient-patronymic">
                     </div>
                 </div>
                 <div class="col-lg-4 mb-2">
                     <div class="mb-3">
-                        <label for="recipient-birthDate" class="col-form-label">Дата рождения: </label>
+                        <label for="recipient-birthDate" class="col-form-label required">Дата рождения:</label>
                         <input type="date" name="birthDate" class="form-control" id="recipient-birthDate"
                                required>
                     </div>
                     <div class="mb-3">
-                        <label for="recipient-growth" class="col-form-label">Рост: </label>
-                        <input type="number" step="any" name="growth" class="form-control" id="recipient-growth" required>
+                        <label for="recipient-growth" class="col-form-label required">Рост:</label>
+                        <input type="number" step="any" name="growth" class="form-control" id="recipient-growth"
+                               required>
                     </div>
                     <div class="mb-3">
-                        <label for="recipient-weight" class="col-form-label">Вес: </label>
-                        <input type="number" step="any" name="weight" class="form-control" id="recipient-weight" required>
+                        <label for="recipient-weight" class="col-form-label required">Вес:</label>
+                        <input type="number" step="any" name="weight" class="form-control" id="recipient-weight"
+                               required>
                     </div>
                 </div>
                 <div class="col-lg-4 mb-2">
                     <div class="mb-3">
-                        <label for="recipient-phone" class="col-form-label">Номер телефона: </label>
+                        <label for="recipient-phone" class="col-form-label required">Номер телефона:</label>
                         <input type="text" name="phone" class="form-control" id="recipient-phone" required>
                     </div>
                     <div class="mb-3">
-                        <label for="recipient-whatsapp" class="col-form-label">WhatsApp: </label>
+                        <label for="recipient-whatsapp" class="col-form-label">WhatsApp:</label>
                         <input type="text" name="whatsapp" class="form-control" id="recipient-whatsapp">
                     </div>
                     <div class="mb-3">
-                        <label for="recipient-telegram" class="col-form-label">Telegram: </label>
+                        <label for="recipient-telegram" class="col-form-label">Telegram:</label>
                         <input type="text" name="telegram" class="form-control" id="recipient-telegram">
                     </div>
                 </div>
@@ -61,24 +63,24 @@
             <div class="row border border-secondary mb-3">
                 <div class="col-lg-4 mb-2">
                     <div class="mb-3">
-                        <label for="recipient-address" class="col-form-label">Адрес проживания: </label>
+                        <label for="recipient-address" class="col-form-label required">Адрес проживания:</label>
                         <textarea type="text" name="address" class="form-control" id="recipient-address" rows="1"
                                   required></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="recipient-school" class="col-form-label">Учебное заведение: </label>
+                        <label for="recipient-school" class="col-form-label">Учебное заведение:</label>
                         <textarea type="text" name="school" class="form-control" id="recipient-school"
                                   rows="1"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="recipient-channels" class="col-form-label">Каналы информации о клубе: </label>
+                        <label for="recipient-channels" class="col-form-label">Каналы информации о клубе:</label>
                         <textarea type="text" name="channels" class="form-control" id="recipient-channels"
                                   rows="1"></textarea>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="mb-3">
-                        <label class="col-form-label" for="group">Группа:</label>
+                        <label class="col-form-label required" for="group">Группа:</label>
                         <select class="form-select" name="group" id="group" required>
                             <option hidden disabled selected value> -- выберите группу --</option>
                             <#list groups as group>
@@ -87,23 +89,23 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="recipient-dateOfAdmission" class="col-form-label">Дата зачисления в
-                            группу: </label>
+                        <label for="recipient-dateOfAdmission" class="col-form-label required">Дата зачисления в
+                            группу:</label>
                         <input type="date" name="dateOfAdmission" class="form-control"
                                id="recipient-dateOfAdmission" required>
                     </div>
                     <div class="mb-3">
-                        <label for="recipient-sum" class="col-form-label">Сумма оплаты: </label>
+                        <label for="recipient-sum" class="col-form-label">Сумма оплаты:</label>
                         <input type="number" name="sum" class="form-control" id="recipient-sum" disabled>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="mb-3">
-                        <label for="recipient-login" class="col-form-label">Логин: </label>
+                        <label for="recipient-login" class="col-form-label">Логин:</label>
                         <input type="text" name="login" class="form-control" id="recipient-login">
                     </div>
                     <div class="mb-3">
-                        <label for="input-password" class="col-form-label">Пароль: </label>
+                        <label for="input-password" class="col-form-label">Пароль:</label>
                         <input type="text" name="password" class="form-control" id="input-password">
                     </div>
                     <div class="mb-3">
@@ -129,7 +131,7 @@
                 </div>
                 <div class="col">
                     <div class="table-responsive">
-                        <table id="relative-table" class="table table-primary table-bordered table-hover">
+                        <table id="relative-table" class="table table-bordered align-middle">
                             <thead>
                             <tr>
                                 <th scope="col" hidden>ID</th>
@@ -140,6 +142,7 @@
                                 <th scope="col">Телефон</th>
                                 <th scope="col">WhatsApp</th>
                                 <th scope="col">Telegram</th>
+                                <th scope="col">Удалить</th>
                             </tr>
                             </thead>
                             <tbody class="table-body">
@@ -148,17 +151,20 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-secondary add bg-dark my-2" id="button">Добавить спортсмена
-            </button>
+            <div>
+                <button type="submit" class="add btn btn-outline-secondary btn-light m-2" id="button">Добавить
+                    спортсмена
+                </button>
+                <a href="/admin" class="btn btn-outline-secondary btn-light m-2">Назад</a>
+            </div>
         </form>
     </div>
-    <a href="/admin" class="btn btn-outline-secondary btn-light mx-3">Вернуться</a>
 </div>
 
 <!-- SearchModal -->
 <div class="modal fade" id="searchRelativeModal" tabindex="-1" aria-labelledby="searchRelativeModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="searchRelativeModalLabel">Поиск родственника</h5>

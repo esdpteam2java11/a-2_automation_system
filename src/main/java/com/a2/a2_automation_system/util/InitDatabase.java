@@ -14,9 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -56,20 +54,20 @@ public class InitDatabase {
                 userRepository.save(employee);
             }
             for (int i = 0; i < 20; i++) {
-            if (userRepository.findByLogin("student_" + i).isEmpty()) {
-                User student = new User();
-                student.setSurname("studentSurname_" + i);
-                student.setName("studentName_" + i);
-                student.setPatronymic("studentPatronymic_" + i);
-                student.setPhone("33-33-33");
-                student.setAddress("г. Бишкек, ул. Ахунбаева 26");
-                student.setBirthDate(new Date());
-                student.setRole(Role.CLIENT);
-                student.setLogin("student_" + i);
-                student.setPassword(passwordEncoder.encode("123"));
-                student.setIsActive(true);
-                userRepository.save(student);
-            }
+                if (userRepository.findByLogin("student_" + i).isEmpty()) {
+                    User student = new User();
+                    student.setSurname("studentSurname_" + i);
+                    student.setName("studentName_" + i);
+                    student.setPatronymic("studentPatronymic_" + i);
+                    student.setPhone("33-33-33");
+                    student.setAddress("г. Бишкек, ул. Ахунбаева 26");
+                    student.setBirthDate(new Date());
+                    student.setRole(Role.CLIENT);
+                    student.setLogin("student_" + i);
+                    student.setPassword(passwordEncoder.encode("123"));
+                    student.setIsActive(true);
+                    userRepository.save(student);
+                }
             }
             if (groupRepository.findAll().isEmpty()) {
                 List<Group> groups = List.of(
@@ -81,7 +79,7 @@ public class InitDatabase {
                 groupRepository.saveAll(groups);
             }
 
-            if(scheduleRepository.findAll().isEmpty()){
+            if (scheduleRepository.findAll().isEmpty()) {
                 LocalDate date = LocalDate.now();
                 LocalTime time = LocalTime.now();
 
