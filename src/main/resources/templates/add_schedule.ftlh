@@ -65,7 +65,7 @@
                     '<input type="date" name="dateEnd" id="dateEnd">';
 
             const br1 = document.createElement('br');
-            br1.setAttribute('id','br')
+            br1.setAttribute('id','br1')
             eventCreationForm.append(br1);
 
             const mondayLabel = document.createElement('label');
@@ -94,12 +94,31 @@
 
             wednesdayLabel.innerHTML = 'Сре:'+
                 '<input type="checkbox" name="wednesday" id="wednesday" value="Wednesday">';
+
+            const thursdayLabel = document.createElement('label');
+            thursdayLabel.setAttribute('class', 'flex flex-v-center');
+            thursdayLabel.setAttribute('id','labelThursday')
+            thursdayLabel.setAttribute('for','thursday')
+            eventCreationForm.append(thursdayLabel);
+
+            thursdayLabel.innerHTML = 'Чет:'+
+                '<input type="checkbox" name="thursday" id="thursday" value="Thursday">';
         }
         function unChecked(){
             const labelForEnd = document.getElementById('labelForEndDate');
             const br = document.getElementById('br')
+            const br1 = document.getElementById('br1')
+            const monday = document.getElementById('labelMonday');
+            const tuesday = document.getElementById('labelTuesday');
+            const wednesday = document.getElementById('labelWednesday');
+            const thursday = document.getElementById('labelThursday');
             br.remove();
             labelForEnd.remove();
+            br1.remove();
+            monday.remove();
+            tuesday.remove();
+            wednesday.remove();
+            thursday.remove();
         }
     </script>
     </body>
