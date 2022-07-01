@@ -19,7 +19,9 @@
     <table>
         <tr>
             <td>
-                <button class="btn btn-primary">Редактировать</button>
+                <form method="get" action="${group.id}/edit">
+                    <input type="submit" value="Редактировать группы" class="btn btn-primary">
+                </form>
             </td>
             <td>
                 <form method="get" action="${group.id}/calendar">
