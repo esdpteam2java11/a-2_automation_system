@@ -155,6 +155,24 @@
                             </tr>
                             </thead>
                             <tbody class="table-body">
+                            <#list parents as parent>
+                                <tr>
+                                    <td hidden><input type="hidden" name="p_id" value="${parent.id}"></td>
+                                    <td><input type="hidden" name="p_kinship">${parent.kinship}</input></td>
+                                    <td><input type="text" name="p_surname" value="${parent.surname}"></td>
+                                    <td><input type="text" name="p_name" value="${parent.name}"></td>
+                                    <td><input type="text" name="p_patronymic" value="${(parent.patronymic)!}"></td>
+                                    <td><input type="text" name="p_phone" value="${parent.phone}"></td>
+                                    <td><input type="text" name="p_whatsapp" value="${(parent.whatsapp)!}"></td>
+                                    <td><input type="text" name="p_telegram" value="${(parent.telegram)!}"></td>
+                                    <td>
+                                        <button type="button" class="btn btn-outline-danger py-1 px-2"
+                                                onclick='deleteSelectedRow(this)'>
+                                            <i class="bi bi-x-square"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </#list>
                             </tbody>
                         </table>
                     </div>

@@ -40,8 +40,15 @@ const searchRelativeBtn = document.getElementById("search-relative-btn")
 const relativesTableBody = document.querySelector('#relative-table>.table-body')
 
 function addSelectedParent(parent) {
-    let newTrTag = document.createElement("tr")
-    newTrTag.innerHTML = `<td hidden><input type="hidden" name="p_id" value="${parent.id}">${parent.id}</input></td>
+    const listAddedParents = Array.from(document.getElementsByName("p_id")).map(inputElement => inputElement.value)
+
+    if (listAddedParents.length > 0) {
+        for (let i = 0; i < listAddedParents.length; i++) {
+            if (listAddedParents[i]!==0 && listAddedParents[i] === parent.id) return
+        }
+    } else {
+        let newTrTag = document.createElement("tr")
+        newTrTag.innerHTML = `<td hidden><input type="hidden" name="p_id" value="${parent.id}">${parent.id}</input></td>
                                   <td><input type="hidden" name="p_kinship" value="${parent.kinshipName}">${parent.kinship}</input></td>
                                   <td><input type="hidden" name="p_surname" value="${parent.surname}">${parent.surname}</input></td>
                                   <td><input type="hidden" name="p_name" value="${parent.name}">${parent.name}</input></td>
@@ -54,7 +61,8 @@ function addSelectedParent(parent) {
                                             <i class="bi bi-x-square"></i>
                                         </button>
                                   </td>`
-    relativesTableBody.appendChild(newTrTag)
+        relativesTableBody.appendChild(newTrTag)
+    }
 }
 
 function deleteSelectedRow(button) {

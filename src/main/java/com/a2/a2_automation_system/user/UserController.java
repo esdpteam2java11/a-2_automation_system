@@ -2,6 +2,7 @@ package com.a2.a2_automation_system.user;
 
 import com.a2.a2_automation_system.config.PropertiesService;
 import com.a2.a2_automation_system.group.GroupService;
+import com.a2.a2_automation_system.parent.ParentService;
 import com.a2.a2_automation_system.util.PageUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -32,6 +33,7 @@ public class UserController {
     private final UserService userService;
     private final PropertiesService propertiesService;
     private final GroupService groupService;
+    private final ParentService parentService;
 
 
     @GetMapping("/login")
@@ -158,6 +160,7 @@ public class UserController {
                 if (userService.getSelectedUserRole(id) == Role.CLIENT) {
                     model.addAttribute("groups", groupService.getAllGroups());
                     model.addAttribute("sportsman", userService.getSportsmanDetails(id));
+                    model.addAttribute("parents", parentService.getParentsBySportsmanId(id));
                     return "edit_sportsman";
                 } else if (userService.getSelectedUserRole(id) == Role.EMPLOYEE) {
                     return "edit_trainer";
