@@ -125,7 +125,7 @@
                     <p class="mb-5"><img src="/images/logo_big.jpg" alt="Image" class="img-fluid"></p>
                 </div>
                 <div class="col-lg-5 ml-auto">
-                    <h2 class="site-section-heading mb-3">Спортивный клуб "A2"</h2>
+                    <h2 class="site-section-heading mb-3">Спортивный клуб "A-2"</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim ad, tempora incidunt accusantium. Similique magni quaerat beatae illo aliquid. Libero non ipsa nisi, corporis architecto incidunt rem repellendus asperiores numquam!</p>
                     <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit explicabo odio officiis autem minima quibusdam.</p>
                     <p><a href="#" class="btn btn-outline-primary py-2 px-4">Подробнее</a></p>
@@ -210,7 +210,7 @@
 
             <div class="row mb-5">
                 <div class="col-md-12">
-                    <h2 class="site-section-heading text-center">Тренеры</h2>
+                    <h2 class="site-section-heading-red text-center">Тренеры</h2>
                 </div>
             </div>
 
@@ -234,48 +234,25 @@
                             <img src="/images/person_2.jpg" alt="Image" class="img-fluid rounded-circle">
                         </div>
                         <div>
-                            <h2 class="h5">Беккулов Актилек</h2>
+                            <h2 class="h5">Актилек Беккулов</h2>
                             <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias accusantium qui optio, possimus necessitatibus voluptate aliquam velit nostrum tempora ipsam!&rdquo;</blockquote>
                             <p><a href="#" class="btn btn-outline-primary py-2 px-4">Подробнее</a></p>
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
-
     </div>
 
 
     <footer class="site-footer">
         <div class="container">
-
-
-            <div class="row">
-
-
-
-                <div class="col-md-2">
-                    <div class="col-md-12"><h3 class="footer-heading mb-4 text-white">Social Icons</h3></div>
-                    <div class="col-md-12">
-                        <p>
-                            <a href="#" class="pb-2 pr-2 pl-0"><span class="icon-facebook"></span></a>
-                            <a href="#" class="p-2"><span class="icon-twitter"></span></a>
-                            <a href="#" class="p-2"><span class="icon-instagram"></span></a>
-                            <a href="#" class="p-2"><span class="icon-vimeo"></span></a>
-
-                        </p>
-                    </div>
-                </div>
-            </div>
             <div class="row pt-5 mt-5 text-center">
                 <div class="col-md-12">
                     <p>
                         Copyright &copy; <script>document.write(new Date().getFullYear());</script> All Rights Reserved
                     </p>
                 </div>
-
             </div>
         </div>
     </footer>
