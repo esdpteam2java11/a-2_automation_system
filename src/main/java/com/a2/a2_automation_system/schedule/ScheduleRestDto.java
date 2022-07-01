@@ -14,6 +14,9 @@ public class ScheduleRestDto {
     private String title;
     private LocalDateTime start;
     private LocalDateTime end;
+    private String color;
+    private String url;
+    private String textColor;
 
     public static ScheduleRestDto from(Schedule schedule){
         LocalDateTime start = LocalDateTime.of(schedule.getEventDate(),schedule.getStartTime());
@@ -22,6 +25,9 @@ public class ScheduleRestDto {
                 .title(schedule.getGroup().getName())
                 .start(start)
                 .end(end)
+                .color("red")
+                .url("/event")
+                .textColor("red")
                 .build();
     }
 
