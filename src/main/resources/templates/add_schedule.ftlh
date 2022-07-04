@@ -7,12 +7,13 @@
         </#if>
         <div>
             <h2>Форма создания занятия или занятий для группы:</h2>
-            <h3>${(group.name)}</h3>
+            <h3>${group.name}</h3>
         </div>
         <div id="eventCreationForm">
+            <input name="group" value="${group.id}" hidden>
             <label class="flex flex-v-center" for="date">
                 Дата:
-                <input type="date" name="date" id="date" required>
+                <input type="date" name="eventStartDate" id="date" required>
             </label>
             <label class="flex flex-v-center" for="timeStart">
                 Время начала:
