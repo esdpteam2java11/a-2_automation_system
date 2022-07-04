@@ -1,11 +1,12 @@
 package com.a2.a2_automation_system.tariff;
 
 import com.a2.a2_automation_system.group.Group;
+import com.a2.a2_automation_system.money.TypeOfFinance;
+import com.a2.a2_automation_system.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 
 import javax.persistence.*;
@@ -13,25 +14,29 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
-@Table(name = "tariffs")
+@Table(name = "sportsman_payments")
 @Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Tariff {
+public class SportsmanPayment {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
 
-        @Column(name = "start_date")
-        private Date startDate;
+        @Column(name = "date")
+        private Date date;
 
         @NotNull
         @ManyToOne
-        @JoinColumn(name = "group_id")
-        private Group group;
+        @JoinColumn(name = "user_id")
+        private User user;
 
         @NotNull
         private Double amount;
+
+        @Enumerated(value = EnumType.STRING)
+        @NotNull
+        private OperationType operationType;
 
 }
