@@ -16,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ScheduleController {
     private final GroupService groupService;
+    private final ScheduleService scheduleService;
 
     @GetMapping("/group/{id}/calendar/events/create")
     public String getSchedule(@PathVariable Long id, Model model){
@@ -26,7 +27,7 @@ public class ScheduleController {
     @PostMapping("/group/{id}/calendar/events/add")
     public String createEvent(@PathVariable String id,Model model,ScheduleCreateDTO scheduleCreateDTO){
         String pathRedirect = String.format("redirect:/group/%s/calendar",id);
-        System.out.println(scheduleCreateDTO);
+        scheduleService.addEventsFromScheduleCreateDto(scheduleCreateDTO);
         return pathRedirect;
     }
 }

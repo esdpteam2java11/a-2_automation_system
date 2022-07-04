@@ -34,4 +34,15 @@ public class ScheduleService {
         return events.stream().map(ScheduleRestDto::from).collect(Collectors.toList());
 
     }
+
+    public void addEventsFromScheduleCreateDto(ScheduleCreateDTO scheduleCreateDTO){
+            if(scheduleCreateDTO.getRecurring().equals("on")){
+                if(scheduleCreateDTO.getEventStartDate().isBefore(scheduleCreateDTO.getDateEnd())){
+                    //todo
+                }
+            }
+            else {
+                //todo
+            }
+    }
 }

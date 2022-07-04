@@ -38,6 +38,8 @@ public class ScheduleCreateDTO {
 
     private String[] dayOfWeek;
 
+    private String recurring;
+
     @NotNull
     private Group group;
 
