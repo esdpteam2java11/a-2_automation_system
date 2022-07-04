@@ -1,7 +1,7 @@
 <#import "partials/admin_main.ftlh" as main />
 <@main.renderWith title="Добавить занятие">
     <body>
-    <form action="/add/event" method="post">
+    <form action="add" method="post">
         <#if _csrf??>
             <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
         </#if>
@@ -62,7 +62,7 @@
             eventCreationForm.append(endDateLabel);
 
             endDateLabel.innerHTML ='Дата окончания:'+
-                    '<input type="date" name="dateEnd" id="dateEnd">';
+                    '<input type="date" name="dateEnd" id="dateEnd" required>';
 
             const br1 = document.createElement('br');
             br1.setAttribute('id','br1')
@@ -75,7 +75,7 @@
             eventCreationForm.append(mondayLabel);
 
             mondayLabel.innerHTML = 'Пон:'+
-                '<input type="checkbox" name="monday" id="monday" value="Monday">';
+                '<input type="checkbox" name="dayOfWeek[]" id="monday" value="Monday">';
 
             const tuesdayLabel = document.createElement('label');
             tuesdayLabel.setAttribute('class', 'flex flex-v-center');
@@ -83,8 +83,8 @@
             tuesdayLabel.setAttribute('for','tuesday')
             eventCreationForm.append(tuesdayLabel);
 
-            tuesdayLabel.innerHTML = 'Вто:'+
-                '<input type="checkbox" name="tuesday" id="tuesday" value="Tuesday">';
+            tuesdayLabel.innerHTML = '&nbsp;Вто:'+
+                '<input type="checkbox" name="dayOfWeek[]" id="tuesday" value="Tuesday">';
 
             const wednesdayLabel = document.createElement('label');
             wednesdayLabel.setAttribute('class', 'flex flex-v-center');
@@ -92,8 +92,8 @@
             wednesdayLabel.setAttribute('for','wednesday')
             eventCreationForm.append(wednesdayLabel);
 
-            wednesdayLabel.innerHTML = 'Сре:'+
-                '<input type="checkbox" name="wednesday" id="wednesday" value="Wednesday">';
+            wednesdayLabel.innerHTML = '&nbsp;Сре:'+
+                '<input type="checkbox" name="dayOfWeek[]" id="wednesday" value="Wednesday">';
 
             const thursdayLabel = document.createElement('label');
             thursdayLabel.setAttribute('class', 'flex flex-v-center');
@@ -101,8 +101,39 @@
             thursdayLabel.setAttribute('for','thursday')
             eventCreationForm.append(thursdayLabel);
 
-            thursdayLabel.innerHTML = 'Чет:'+
-                '<input type="checkbox" name="thursday" id="thursday" value="Thursday">';
+            thursdayLabel.innerHTML = '&nbsp;Чет:'+
+                '<input type="checkbox" name="dayOfWeek[]" id="thursday" value="Thursday">';
+
+            const fridayLabel = document.createElement('label');
+            fridayLabel.setAttribute('class', 'flex flex-v-center');
+            fridayLabel.setAttribute('id','labelFriday')
+            fridayLabel.setAttribute('for','friday')
+            eventCreationForm.append(fridayLabel);
+
+            fridayLabel.innerHTML = '&nbsp;Пят:'+
+                '<input type="checkbox" name="dayOfWeek[]" id="friday" value="Friday">';
+
+            const saturdayLabel = document.createElement('label');
+            saturdayLabel.setAttribute('class', 'flex flex-v-center');
+            saturdayLabel.setAttribute('id','labelSaturday')
+            saturdayLabel.setAttribute('for','saturday')
+            eventCreationForm.append(saturdayLabel);
+
+            saturdayLabel.innerHTML = '&nbsp;Суб:'+
+                '<input type="checkbox" name="dayOfWeek[]" id="saturday" value="Saturday">';
+
+            const sundayLabel = document.createElement('label');
+            sundayLabel.setAttribute('class', 'flex flex-v-center');
+            sundayLabel.setAttribute('id','labelSunday')
+            sundayLabel.setAttribute('for','sunday')
+            eventCreationForm.append(sundayLabel);
+
+            sundayLabel.innerHTML = '&nbsp;Вос:'+
+                '<input type="checkbox" name="dayOfWeek[]" id="sunday" value="Sunday">';
+        }
+
+        function sendPost(){
+
         }
         function unChecked(){
             const labelForEnd = document.getElementById('labelForEndDate');
@@ -112,6 +143,9 @@
             const tuesday = document.getElementById('labelTuesday');
             const wednesday = document.getElementById('labelWednesday');
             const thursday = document.getElementById('labelThursday');
+            const friday = document.getElementById('labelFriday');
+            const saturday = document.getElementById('labelSaturday');
+            const sunday = document.getElementById('labelSunday');
             br.remove();
             labelForEnd.remove();
             br1.remove();
@@ -119,6 +153,9 @@
             tuesday.remove();
             wednesday.remove();
             thursday.remove();
+            friday.remove();
+            saturday.remove();
+            sunday.remove();
         }
     </script>
     </body>
