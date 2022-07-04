@@ -29,5 +29,6 @@ public class ScheduleController {
         String pathRedirect = String.format("redirect:/group/%s/calendar",id);
         scheduleService.addEventsFromScheduleCreateDto(scheduleCreateDTO);
         return pathRedirect;
+
     }
 }
