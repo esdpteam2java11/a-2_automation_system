@@ -1,32 +1,69 @@
-<form action="/group/add" method="post">
+<#import "partials/admin_main.ftlh" as main />
+<@main.renderWith >
+    <form action="/group/add" method="post">
+    <main class="main-color">
+        <section class="h-100">
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col">
+                        <div class="card card-registration my-4">
+                            <div class="card-body p-md-5 text-black">
+                                <h3 class="mb-4 text-uppercase text-center">Регистрация новой группы</h3>
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            <label class="form-label required" for="name_input">Название группы</label>
+                                            <input name="name" value="${(group.name)!''}" type="text" id="name_input"
+                                                   class="form-control form-control-lg" placeholder="Название группы"
+                                                   required="required"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <label class="form-label required" for="price_input">Цена</label>
+                                        <div class="form-outline">
+                                            <input name="sum" value="${(group.sum)!''}" type="number"
+                                                   id="price_input"
+                                                   class="form-control form-control-lg" placeholder="Цена"
+                                                   required="required"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <label class="form-label required" for="trainer">Выберите тренера</label>
+                                        <div class="form-outline">
+                                            <select id="trainer" name="trainer" class="select-css">
+                                                <#list trainers as trainer>
+                                                    <option value="${trainer.id}">${trainer.name}</option>
+                                                </#list>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
 
-    <div>
-        <label class="flex flex-v-center">
-            <p class="label-input-text">имя</p>
-            <input type="text" name="name" value="${(group.name)!''}">
-        </label>
-    </div>
-    <div>
-        <label class="flex flex-v-center">
-            <p class="label-input-text">Цена</p>
-            <input type="text" name="sum" value="${(group.sum)!''}">
-        </label>
-    </div>
-    <div>
-        <select name="trainer" id="trainer">
-            <#list trainers as trainer>
-                <option value="${trainer.id}">${trainer.name}</option>
-            </#list>
-        </select>
-    </div>
-    <div>
-        <button type="submit">добавить</button>
-    </div>
-    <#if errors?? >
-        <p>Входные данные с ошибками!</p>
-        <#list errors as fieldError>
-            <p>${fieldError.field} - ${fieldError.defaultMessage!'-- no message --'}</p>
-        </#list>
-    </#if>
 
-</form>
+
+                                <#if errors?? >
+                                    <p>Входные данные с ошибками!</p>
+                                    <#list errors as fieldError>
+                                        <p>${fieldError.field} - ${fieldError.defaultMessage!'-- no message --'}</p>
+                                    </#list>
+                                </#if>
+                                <div class="button">
+                                    <button type="submit" class="custom-btn btn-1">Зарегистрировать</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        </main>
+
+    </form>
+
+
+</@main.renderWith>
