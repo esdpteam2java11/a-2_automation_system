@@ -26,9 +26,10 @@ public class ScheduleRestDto {
                 .start(start)
                 .end(end)
                 .color("red")
-                .url("/event")
+                .url("calendar/event")
                 .textColor("red")
                 .build();
     }
+
 
 }
