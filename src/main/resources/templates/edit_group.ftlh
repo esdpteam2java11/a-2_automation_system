@@ -1,43 +1,94 @@
 <#import "partials/admin_main.ftlh" as main />
 <@main.renderWith >
-<form action="http://localhost:8080/group/edit" method="post" modelAttribute="group">
-    <p>Группы</p>
-    <div>
-        <select name="id" >
-            <label class="flex flex-v-center">
-                <p class="label-input-text">Группа</p>
-                <option value="${group.id}">${group.name}</option>
-            </label>
-        </select>
-    </div>
-    <div>
-        <label class="flex flex-v-center">
-            <p class="label-input-text">имя</p>
-            <input type="text" name="name" value="${(group.name)!''}">
-        </label>
-    </div>
+    <form action="/group/edit" method="post" modelAttribute="group">
+        <#if _csrf??>
+            <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
+        </#if>
+        <main class="main-color">
+            <section class="h-100">
+                <div class="container py-5 h-100">
+                    <div class="row d-flex justify-content-center align-items-center h-100">
+                        <div class="col">
+                            <div class="card card-registration my-4">
+                                <div class="card-body p-md-5 text-black">
+                                    <h3 class="mb-4 text-uppercase text-center">Изменение группы - "${group.name}"</h3>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-4">
+                                            <div class="form-outline">
+                                                <label class="form-label" for="name_input">Старое название
+                                                    группы</label>
+                                                <input value="${(group.name)!''}" id="name_input"
+                                                       class="form-control form-control-lg" disabled/>
+                                            </div>
+                                            <input type="hidden" value="${group.id}" name="id">
+                                        </div>
+                                        <div class="col-md-6 mb-4">
+                                            <div class="form-outline">
+                                                <label class="form-label required" for="new_name_input">Новое название
+                                                    группы</label>
+                                                <input type="text" value="${(group.name)!''}" name="name"
+                                                       id="new_name_input"
+                                                       class="form-control form-control-lg" required="required"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-4">
+                                            <label class="form-label" for="price_input">Старая цена</label>
+                                            <div class="form-outline">
+                                                <input value="${(group.sum)!''}" type="text"
+                                                       id="price_input"
+                                                       class="form-control form-control-lg"
+                                                       disabled/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-4">
+                                            <div class="form-outline">
+                                                <label class="form-label required" for="new_price_input">Новая
+                                                    цена</label>
+                                                <input type="number" value="${(group.sum)!''}" name="sum"
+                                                       id="new_price_input"
+                                                       class="form-control form-control-lg" required="required"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-4">
+                                            <label class="form-label" for="price_input">Старый тренер</label>
+                                            <div class="form-outline">
+                                                <input value="${(group.trainer.name)!''}" type="text"
+                                                       id="price_input"
+                                                       class="form-control form-control-lg"
+                                                       disabled/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-4">
+                                            <label class="form-label required" for="trainer">Новый тренер</label>
+                                            <div class="form-outline">
+                                                <select id="trainer" name="trainer" class="select-css">
+                                                    <#list trainers as trainer>
+                                                        <option value="${trainer.id}">${trainer.name}</option>
+                                                    </#list>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <#if errors?? >
+                                        <p>Входные данные с ошибками!</p>
+                                        <#list errors as fieldError>
+                                            <p>${fieldError.field} - ${fieldError.defaultMessage!'-- no message --'}</p>
+                                        </#list>
+                                    </#if>
+                                    <div class="button">
+                                        <button type="submit" class="custom-btn btn-1">Изменить</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
 
-    <div>
-        <label class="flex flex-v-center">
-            <p class="label-input-text">Цена</p>
-            <input type="number" name="sum" value="${(group.sum)!''}">
-        </label>
-    </div>
-    <p>Трейнеры</p>
-    <div>
-        <select name="trainer" id="trainer">
-            <label class="flex flex-v-center">
-            <p class="label-input-text">Трейнеры</p>
-            <#list trainers as trainer>
-                <option value="${trainer.id}">${trainer.name}</option>
-            </#list>
-            </label>
-        </select>
-    </div>
-    <div>
-        <button type="submit">Изменить</button>
-    </div>
-
-
-</form>
+    </form>
 </@main.renderWith>
