@@ -1,6 +1,9 @@
 <#import "partials/admin_main.ftlh" as main />
 <@main.renderWith >
     <form action="/group/add" method="post">
+     <#if _csrf??>
+                <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
+            </#if>
     <main class="main-color">
         <section class="h-100">
             <div class="container py-5 h-100">
