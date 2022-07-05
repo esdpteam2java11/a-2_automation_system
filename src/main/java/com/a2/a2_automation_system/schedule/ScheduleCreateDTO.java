@@ -43,4 +43,5 @@ public class ScheduleCreateDTO {
     @NotNull
     private Group group;
 
+
 }

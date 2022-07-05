@@ -76,7 +76,7 @@
             eventCreationForm.append(mondayLabel);
 
             mondayLabel.innerHTML = 'Пон:'+
-                '<input type="checkbox" name="dayOfWeek[]" id="monday" value="Monday">';
+                '<input type="checkbox" name="dayOfWeek[]" id="monday" value="MONDAY">';
 
             const tuesdayLabel = document.createElement('label');
             tuesdayLabel.setAttribute('class', 'flex flex-v-center');
@@ -85,7 +85,7 @@
             eventCreationForm.append(tuesdayLabel);
 
             tuesdayLabel.innerHTML = '&nbsp;Вто:'+
-                '<input type="checkbox" name="dayOfWeek[]" id="tuesday" value="Tuesday">';
+                '<input type="checkbox" name="dayOfWeek[]" id="tuesday" value="TUESDAY">';
 
             const wednesdayLabel = document.createElement('label');
             wednesdayLabel.setAttribute('class', 'flex flex-v-center');
@@ -94,7 +94,7 @@
             eventCreationForm.append(wednesdayLabel);
 
             wednesdayLabel.innerHTML = '&nbsp;Сре:'+
-                '<input type="checkbox" name="dayOfWeek[]" id="wednesday" value="Wednesday">';
+                '<input type="checkbox" name="dayOfWeek[]" id="wednesday" value="WEDNESDAY">';
 
             const thursdayLabel = document.createElement('label');
             thursdayLabel.setAttribute('class', 'flex flex-v-center');
@@ -103,7 +103,7 @@
             eventCreationForm.append(thursdayLabel);
 
             thursdayLabel.innerHTML = '&nbsp;Чет:'+
-                '<input type="checkbox" name="dayOfWeek[]" id="thursday" value="Thursday">';
+                '<input type="checkbox" name="dayOfWeek[]" id="thursday" value="THURSDAY">';
 
             const fridayLabel = document.createElement('label');
             fridayLabel.setAttribute('class', 'flex flex-v-center');
@@ -112,7 +112,7 @@
             eventCreationForm.append(fridayLabel);
 
             fridayLabel.innerHTML = '&nbsp;Пят:'+
-                '<input type="checkbox" name="dayOfWeek[]" id="friday" value="Friday">';
+                '<input type="checkbox" name="dayOfWeek[]" id="friday" value="FRIDAY">';
 
             const saturdayLabel = document.createElement('label');
             saturdayLabel.setAttribute('class', 'flex flex-v-center');
@@ -121,7 +121,7 @@
             eventCreationForm.append(saturdayLabel);
 
             saturdayLabel.innerHTML = '&nbsp;Суб:'+
-                '<input type="checkbox" name="dayOfWeek[]" id="saturday" value="Saturday">';
+                '<input type="checkbox" name="dayOfWeek[]" id="saturday" value="SATURDAY">';
 
             const sundayLabel = document.createElement('label');
             sundayLabel.setAttribute('class', 'flex flex-v-center');
@@ -130,7 +130,7 @@
             eventCreationForm.append(sundayLabel);
 
             sundayLabel.innerHTML = '&nbsp;Вос:'+
-                '<input type="checkbox" name="dayOfWeek[]" id="sunday" value="Sunday">';
+                '<input type="checkbox" name="dayOfWeek[]" id="sunday" value="SUNDAY">';
         }
 
         function sendPost(){
