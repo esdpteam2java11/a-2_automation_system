@@ -59,7 +59,7 @@
 
                                     <ul class="site-menu js-clone-nav d-none d-lg-block">
                                         <li class="has-children">
-                                            <a href="program.html">Program</a>
+                                            <a href="program.html">Программа</a>
                                             <ul class="dropdown arrow-top">
                                                 <li><a href="program.html">Body Building</a></li>
                                                 <li><a href="program.html">Morning Energy</a></li>
@@ -77,10 +77,11 @@
 
                                             </ul>
                                         </li>
-                                        <li><a href="trainers.html">Our Trainers</a></li>
-                                        <li><a href="events.html">News</a></li>
-                                        <li><a href="about.html">About</a></li>
-                                        <li><a href="contact.html">Contact</a></li>
+                                        <li><a href="trainers.html">Наши тренеры</a></li>
+                                        <li><a href="events.html">Новости</a></li>
+                                        <li><a href="about.html">О клубе</a></li>
+                                        <li><a href="contact.html">Контакты</a></li>
+                                        <li><a href="/login">Войти</a></li>
                                     </ul>
                                 </div>
                             </nav>
@@ -98,8 +99,8 @@
             <!-- <div class="container"> -->
             <div class="row align-items-center justify-content-center">
                 <div class="col-md-7 text-center" data-aos="fade">
-                    <h1>Welcome To Crossfits</h1>
-                    <span class="caption d-block text-white">Find The Healthy Way</span>
+                    <h1>Будь лучшим!</h1>
+                    <span class="caption d-block text-white">#постоянство</span>
                 </div>
             </div>
             <!-- </div> -->
@@ -109,8 +110,8 @@
             <!-- <div class="container"> -->
             <div class="row align-items-center justify-content-center">
                 <div class="col-md-7 text-center" data-aos="fade">
-                    <h1>Optimize Your Health</h1>
-                    <span class="caption d-block text-white">Effective Program</span>
+                    <h1>Верь в себя!</h1>
+                    <span class="caption d-block text-white">#постоянство</span>
                 </div>
             </div>
             <!-- </div> -->
@@ -120,8 +121,24 @@
     <div class="site-section">
         <div class="container">
             <div class="row">
+                <div class="col-lg-6">
+                    <p class="mb-5"><img src="/images/logo_big.jpg" alt="Image" class="img-fluid"></p>
+                </div>
+                <div class="col-lg-5 ml-auto">
+                    <h2 class="site-section-heading mb-3">Спортивный клуб "A-2"</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim ad, tempora incidunt accusantium. Similique magni quaerat beatae illo aliquid. Libero non ipsa nisi, corporis architecto incidunt rem repellendus asperiores numquam!</p>
+                    <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit explicabo odio officiis autem minima quibusdam.</p>
+                    <p><a href="#" class="btn btn-outline-primary py-2 px-4">Подробнее</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="site-section">
+        <div class="container">
+            <div class="row">
                 <div class="col-md-12">
-                    <h2 class="site-section-heading text-center">Popular Program</h2>
+                    <h2 class="site-section-heading text-center">Новости</h2>
                 </div>
             </div>
             <div class="row">
@@ -130,49 +147,49 @@
                         <div class="media-image">
                             <img src="/images/img_1.jpg" alt="Image" class="img-fluid">
                             <div class="media-image-body">
-                                <h2>Body Building</h2>
+                                <h2>Новость 1</h2>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, voluptate.</p>
-                                <p><a href="#" class="btn btn-primary text-white px-4"><span class="caption">Learn More</span></a></p>
+                                <p><a href="#" class="btn btn-primary text-white px-4"><span class="caption">Подробнее</span></a></p>
                             </div>
                         </div>
                         <div class="media-image">
                             <img src="/images/img_2.jpg" alt="Image" class="img-fluid">
                             <div class="media-image-body">
-                                <h2>Body Combat</h2>
+                                <h2>Новость 2</h2>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, voluptate.</p>
-                                <p><a href="#" class="btn btn-primary text-white px-4"><span class="caption">Learn More</span></a></p>
+                                <p><a href="#" class="btn btn-primary text-white px-4"><span class="caption">Подробнее</span></a></p>
                             </div>
                         </div>
                         <div class="media-image">
                             <img src="/images/img_3.jpg" alt="Image" class="img-fluid">
                             <div class="media-image-body">
-                                <h2>Push Up</h2>
+                                <h2>Новость 3</h2>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, voluptate.</p>
-                                <p><a href="#" class="btn btn-primary text-white px-4"><span class="caption">Learn More</span></a></p>
+                                <p><a href="#" class="btn btn-primary text-white px-4"><span class="caption">Подробнее</span></a></p>
                             </div>
                         </div>
                         <div class="media-image">
                             <img src="/images/img_4.jpg" alt="Image" class="img-fluid">
                             <div class="media-image-body">
-                                <h2>Weight Lifting</h2>
+                                <h2>Новость 4</h2>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, voluptate.</p>
-                                <p><a href="#" class="btn btn-primary text-white px-4"><span class="caption">Learn More</span></a></p>
+                                <p><a href="#" class="btn btn-primary text-white px-4"><span class="caption">Подробнее</span></a></p>
                             </div>
                         </div>
                         <div class="media-image">
                             <img src="/images/img_5.jpg" alt="Image" class="img-fluid">
                             <div class="media-image-body">
-                                <h2>Body Combat</h2>
+                                <h2>Новость 5</h2>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, voluptate.</p>
-                                <p><a href="#" class="btn btn-primary text-white px-4"><span class="caption">Learn More</span></a></p>
+                                <p><a href="#" class="btn btn-primary text-white px-4"><span class="caption">Подробнее</span></a></p>
                             </div>
                         </div>
                         <div class="media-image">
                             <img src="/images/img_6.jpg" alt="Image" class="img-fluid">
                             <div class="media-image-body">
-                                <h2>Body Combat</h2>
+                                <h2>Новость 6</h2>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, voluptate.</p>
-                                <p><a href="#" class="btn btn-primary text-white px-4"><span class="caption">Learn More</span></a></p>
+                                <p><a href="#" class="btn btn-primary text-white px-4"><span class="caption">Подробнее</span></a></p>
                             </div>
                         </div>
                     </div>
@@ -181,104 +198,11 @@
         </div>
     </div>
 
-    <div class="site-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <p class="mb-5"><img src="/images/img_1.jpg" alt="Image" class="img-fluid"></p>
-                </div>
-                <div class="col-lg-5 ml-auto">
-                    <h2 class="site-section-heading mb-3">The Club</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim ad, tempora incidunt accusantium. Similique magni quaerat beatae illo aliquid. Libero non ipsa nisi, corporis architecto incidunt rem repellendus asperiores numquam!</p>
-                    <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit explicabo odio officiis autem minima quibusdam.</p>
-                    <p><a href="#" class="btn btn-outline-primary py-2 px-4">Join Our Club</a></p>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="site-section bg-image" style="background-image: url('/images/bg_2.jpg'); background-attachment: fixed">
-        <div class="container">
-            <div class="row mb-5">
-                <div class="col-md-12">
-                    <h2 class="site-section-heading text-center text-white">Featured Trainer</h2>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-md-7 text-center">
-                    <img src="/images/person_3.jpg" alt="Image" class="img-fluid rounded-circle w-25 mb-4">
-                    <h2 class="h5 mb-4 text-white">Shane Green</h2>
-                    <p class="text-white mb-5 lead">&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita et aliquam fuga dicta amet ad laborum error recusandae, voluptatibus quam minima sed, saepe odio voluptatem. Sed unde hic, vitae fugiat.&rdquo;</p>
-                    <p><a href="#" class="btn btn-primary text-white">Make Me Your Trainer</a></p>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div>
-        <a href="/login">Login</a>
-    </div>
 
-    <div class="site-section">
-        <div class="container">
-            <div class="row mb-5">
-                <div class="col-md-12">
-                    <h2 class="site-section-heading text-center">Crossfit Exercises</h2>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 text-center mb-4">
-                    <div class="border p-4 text-with-icon">
-                        <span class="flaticon-weightlifting icon display-4 mb-4 d-block text-primary"></span>
-                        <h2 class="h5">Weight Lifting</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam sapiente libero</p>
-                        <p><a href="#">Learn More</a></p>
-                    </div>
-                </div>
-                <div class="col-md-4 text-center mb-4">
-                    <div class="border p-4 text-with-icon">
-                        <span class="flaticon-exercise-1 icon display-4 mb-4 d-block text-primary"></span>
-                        <h2 class="h5">Walking Exercise</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam sapiente libero</p>
-                        <p><a href="#">Learn More</a></p>
-                    </div>
-                </div>
-                <div class="col-md-4 text-center mb-4">
-                    <div class="border p-4 text-with-icon">
-                        <span class="flaticon-exercise-2 icon display-4 mb-4 d-block text-primary"></span>
-                        <h2 class="h5">Belly Crunches</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam sapiente libero</p>
-                        <p><a href="#">Learn More</a></p>
-                    </div>
-                </div>
-                <div class="col-md-4 text-center mb-4">
-                    <div class="border p-4 text-with-icon">
-                        <span class="flaticon-weightlifting-1 icon display-4 mb-4 d-block text-primary"></span>
-                        <h2 class="h5">Weight Lifting Partner</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam sapiente libero</p>
-                        <p><a href="#">Learn More</a></p>
-                    </div>
-                </div>
-                <div class="col-md-4 text-center mb-4">
-                    <div class="border p-4 text-with-icon">
-                        <span class="flaticon-exercise-3 icon display-4 mb-4 d-block text-primary"></span>
-                        <h2 class="h5">Exercise Rolling</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam sapiente libero</p>
-                        <p><a href="#">Learn More</a></p>
-                    </div>
-                </div>
-                <div class="col-md-4 text-center mb-4">
-                    <div class="border p-4 text-with-icon">
-                        <span class="flaticon-exercise icon display-4 mb-4 d-block text-primary"></span>
-                        <h2 class="h5">Lunge Plunk</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam sapiente libero</p>
-                        <p><a href="#">Learn More</a></p>
-                    </div>
-                </div>
 
-            </div>
-        </div>
-    </div>
+
 
     <div class="site-section block-14 bg-light nav-direction-white">
 
@@ -286,7 +210,7 @@
 
             <div class="row mb-5">
                 <div class="col-md-12">
-                    <h2 class="site-section-heading text-center">Testimonies</h2>
+                    <h2 class="site-section-heading-red text-center">Тренеры</h2>
                 </div>
             </div>
 
@@ -298,8 +222,9 @@
                             <img src="/images/person_1.jpg" alt="Image" class="img-fluid rounded-circle">
                         </div>
                         <div>
-                            <h2 class="h5">Katie Johnson</h2>
+                            <h2 class="h5">Арсен Камчибеков</h2>
                             <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias accusantium qui optio, possimus necessitatibus voluptate aliquam velit nostrum tempora ipsam!&rdquo;</blockquote>
+                            <p><a href="#" class="btn btn-outline-primary py-2 px-4">Подробнее</a></p>
                         </div>
                     </div>
                 </div>
@@ -309,100 +234,25 @@
                             <img src="/images/person_2.jpg" alt="Image" class="img-fluid rounded-circle">
                         </div>
                         <div>
-                            <h2 class="h5">Jane Mars</h2>
+                            <h2 class="h5">Актилек Беккулов</h2>
                             <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias accusantium qui optio, possimus necessitatibus voluptate aliquam velit nostrum tempora ipsam!&rdquo;</blockquote>
+                            <p><a href="#" class="btn btn-outline-primary py-2 px-4">Подробнее</a></p>
                         </div>
                     </div>
                 </div>
-                <div class="p-5">
-                    <div class="d-flex block-testimony">
-                        <div class="person mr-3">
-                            <img src="/images/person_3.jpg" alt="Image" class="img-fluid rounded-circle">
-                        </div>
-                        <div>
-                            <h2 class="h5">Shane Holmes</h2>
-                            <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias accusantium qui optio, possimus necessitatibus voluptate aliquam velit nostrum tempora ipsam!&rdquo;</blockquote>
-                        </div>
-                    </div>
-                </div>
-                <div class="p-5">
-                    <div class="d-flex block-testimony">
-                        <div class="person mr-3">
-                            <img src="/images/person_4.jpg" alt="Image" class="img-fluid rounded-circle">
-                        </div>
-                        <div>
-                            <h2 class="h5">Mark Johnson</h2>
-                            <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias accusantium qui optio, possimus necessitatibus voluptate aliquam velit nostrum tempora ipsam!&rdquo;</blockquote>
-                        </div>
-                    </div>
-                </div>
-
             </div>
-
         </div>
-
     </div>
 
 
     <footer class="site-footer">
         <div class="container">
-
-
-            <div class="row">
-                <div class="col-md-4">
-                    <h3 class="footer-heading mb-4 text-white">About</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat quos rem ullam, placeat amet.</p>
-                    <p><a href="#" class="btn btn-primary rounded text-white px-4">Read More</a></p>
-                </div>
-                <div class="col-md-5 ml-auto">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h3 class="footer-heading mb-4 text-white">Quick Menu</h3>
-                            <ul class="list-unstyled">
-                                <li><a href="#">Home</a></li>
-                                <li><a href="#">About</a></li>
-                                <li><a href="#">Our Trainers</a></li>
-                                <li><a href="#">News</a></li>
-                                <li><a href="#">Contacts</a></li>
-                                <li><a href="#">The Club</a></li>
-                                <li><a href="#">Privacy</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-md-6">
-                            <h3 class="footer-heading mb-4 text-white">Program</h3>
-                            <ul class="list-unstyled">
-                                <li><a href="#">Body Building</a></li>
-                                <li><a href="#">Morning Energy</a></li>
-                                <li><a href="#">Stretching</a></li>
-                                <li><a href="#">Weight Lifting</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="col-md-2">
-                    <div class="col-md-12"><h3 class="footer-heading mb-4 text-white">Social Icons</h3></div>
-                    <div class="col-md-12">
-                        <p>
-                            <a href="#" class="pb-2 pr-2 pl-0"><span class="icon-facebook"></span></a>
-                            <a href="#" class="p-2"><span class="icon-twitter"></span></a>
-                            <a href="#" class="p-2"><span class="icon-instagram"></span></a>
-                            <a href="#" class="p-2"><span class="icon-vimeo"></span></a>
-
-                        </p>
-                    </div>
-                </div>
-            </div>
             <div class="row pt-5 mt-5 text-center">
                 <div class="col-md-12">
                     <p>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy; <script>document.write(new Date().getFullYear());</script> All Rights Reserved | This template is made with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy; <script>document.write(new Date().getFullYear());</script> All Rights Reserved
                     </p>
                 </div>
-
             </div>
         </div>
     </footer>

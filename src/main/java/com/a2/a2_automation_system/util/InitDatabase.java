@@ -2,6 +2,8 @@ package com.a2.a2_automation_system.util;
 
 import com.a2.a2_automation_system.schedule.Schedule;
 import com.a2.a2_automation_system.schedule.ScheduleRepository;
+
+import com.a2.a2_automation_system.tariff.SportsmanPaymentRepository;
 import com.a2.a2_automation_system.user.Role;
 import com.a2.a2_automation_system.group.Group;
 import com.a2.a2_automation_system.group.GroupRepository;
@@ -27,7 +29,7 @@ public class InitDatabase {
     }
 
     @Bean
-    CommandLineRunner init(UserRepository userRepository, GroupRepository groupRepository, ParentRepository parentRepository, ScheduleRepository scheduleRepository) {
+    CommandLineRunner init(UserRepository userRepository, GroupRepository groupRepository, ParentRepository parentRepository, ScheduleRepository scheduleRepository, SportsmanPaymentRepository sportsmanPaymentRepository) {
         return (args) -> {
             if (userRepository.findByLogin("admin1").isEmpty()) {
                 User admin = new User();
@@ -79,6 +81,7 @@ public class InitDatabase {
                 groupRepository.saveAll(groups);
             }
 
+
             if (scheduleRepository.findAll().isEmpty()) {
                 LocalDate date = LocalDate.now();
                 LocalTime time = LocalTime.now();
@@ -93,6 +96,7 @@ public class InitDatabase {
 
                 scheduleRepository.saveAll(events);
             }
+
         };
     }
 }

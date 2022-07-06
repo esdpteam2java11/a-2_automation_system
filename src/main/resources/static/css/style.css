@@ -176,7 +176,7 @@ a:hover {
     position: absolute;
     width: 40px;
     height: 2px;
-    background: #fd7e14;
+    background: red;
 }
 
 .site-section-heading.text-center:before {
@@ -189,7 +189,20 @@ a:hover {
     position: absolute;
     width: 40px;
     height: 2px;
-    background: #fd7e14;
+    background: blue;
+}
+
+.site-section-heading-red.text-center:before {
+    content: "";
+    left: 50%;
+    top: 0;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    position: absolute;
+    width: 40px;
+    height: 2px;
+    background: red;
 }
 
 .site-footer {
@@ -473,7 +486,7 @@ a:hover {
 }
 
 .site-navbar .site-navigation .site-menu .has-children .dropdown > li > a:hover {
-    color: #fd7e14;
+    color: red;
 }
 
 .site-navbar .site-navigation .site-menu .has-children .dropdown > li.has-children > a:before {
@@ -487,7 +500,7 @@ a:hover {
 }
 
 .site-navbar .site-navigation .site-menu .has-children .dropdown > li.has-children:hover > a, .site-navbar .site-navigation .site-menu .has-children .dropdown > li.has-children:active > a, .site-navbar .site-navigation .site-menu .has-children .dropdown > li.has-children:focus > a {
-    color: #fd7e14;
+    color: red;
 }
 
 .site-navbar .site-navigation .site-menu .has-children a {
@@ -1104,7 +1117,7 @@ a:hover {
 }
 
 .block-13 .owl-dots .owl-dot.active > span, .block-14 .owl-dots .owl-dot.active > span, .block-15 .owl-dots .owl-dot.active > span {
-    background: #fd7e14;
+    background: blue;
 }
 
 .slide-one-item.home-slider .owl-nav {
