@@ -31,5 +31,7 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long> {
             " OR LOWER(u.surname) LIKE LOWER(CONCAT('%', :search,'%')) " +
             " OR LOWER(u.patronymic) LIKE LOWER(CONCAT('%', :search,'%'))")
     Page<User> findUserByNameOrSurnameOrPatronymic(Pageable pageable, @Param("search") String search);
+    @Query("select u FROM User u where u.group.id= :id")
+    List<User> findByGroup(Long id);
 
 }
