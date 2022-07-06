@@ -1,7 +1,7 @@
 <#import "partials/admin_main.ftlh" as main />
 <@main.renderWith title="Добавить занятие">
     <body>
-    <form action="add" method="post">
+    <form action="add" method="post" name="eventForm" onsubmit="return validateForm()">
         <#if _csrf??>
             <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
         </#if>
@@ -37,6 +37,25 @@
 
     </form>
     <script>
+        function validateForm() {
+            let eventStart = new Date(document.forms["eventForm"]["eventStartDate"].value);
+            let eventEnd = new Date(document.forms["eventForm"]["dateEnd"].value);
+            console.log(eventEnd);
+            if (eventEnd!== null && eventEnd < eventStart) {
+                let span = document.getElementById('messageForDate');
+                if(span!==null){
+                    span.remove();
+                }
+                const endDate = document.getElementById("labelForEndDate");
+                const createSpan = document.createElement("span");
+                createSpan.setAttribute('class','flex flex-v-center');
+                createSpan.setAttribute('style','color:red');
+                createSpan.setAttribute('id','messageForDate');
+                createSpan.innerHTML = '&nbsp;неправильная дата';
+                endDate.append(createSpan);
+                return false;
+            }
+        }
         const checkbox = document.getElementById('recurring');
         checkbox.addEventListener('click',handleClick,false);
         function handleClick(e) {

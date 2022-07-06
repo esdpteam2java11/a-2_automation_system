@@ -1,5 +1,6 @@
 package com.a2.a2_automation_system.schedule;
 
+import com.a2.a2_automation_system.exception.DateEnteredNotCorrect;
 import com.a2.a2_automation_system.group.Group;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -43,5 +44,12 @@ public class ScheduleCreateDTO {
     @NotNull
     private Group group;
 
+    public void eventStartDate(LocalDate date) {
+        if(date.isAfter(LocalDate.now())) {
+            eventStartDate = date;
+        } else {
+            throw new DateEnteredNotCorrect("Введите правильную дату");
+        }
+    }
 
 }
