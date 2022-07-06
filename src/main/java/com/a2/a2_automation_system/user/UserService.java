@@ -75,6 +75,7 @@ public class UserService implements UserDetailsService {
                 .name(userDTO.getName())
                 .surname(userDTO.getSurname())
                 .login(userDTO.getLogin())
+                .patronymic(userDTO.getPatronymic())
                 .password(encoder.encode(userDTO.getPassword()))
                 .role(userDTO.getRole())
                 .address(userDTO.getAddress())
