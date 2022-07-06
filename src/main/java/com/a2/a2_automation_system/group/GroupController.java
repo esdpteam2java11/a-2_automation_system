@@ -1,7 +1,11 @@
 package com.a2.a2_automation_system.group;
 
+
+import com.a2.a2_automation_system.tariff.SportsmanPaymentRepository;
 import com.a2.a2_automation_system.user.User;
+import com.a2.a2_automation_system.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +19,8 @@ import javax.validation.Valid;
 @RequestMapping("/group")
 public class GroupController {
     private final GroupService groupService;
+    private final UserRepository userRepository;
+    private final SportsmanPaymentRepository sportsmanPayment;
 
     @GetMapping("/all")
     public String getAllGroups(Model model) {
@@ -25,8 +31,14 @@ public class GroupController {
     @GetMapping("{id}")
     public String getGroupById(@PathVariable Long id, Model model) {
         model.addAttribute("group", groupService.getGroupById(id));
+       model.addAttribute("users",groupService.getUsersByGroup(id));
+
         return "group";
     }
+
+
+
+
 
 
     @GetMapping("/add")
