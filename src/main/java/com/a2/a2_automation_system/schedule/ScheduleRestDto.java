@@ -25,10 +25,11 @@ public class ScheduleRestDto {
                 .title(schedule.getGroup().getName())
                 .start(start)
                 .end(end)
-                .color("red")
-                .url("/event")
+                .color("#FFA500")
+                .url("calendar/event")
                 .textColor("red")
                 .build();
     }
+
 
 }
