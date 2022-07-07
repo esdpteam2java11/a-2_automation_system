@@ -1,7 +1,7 @@
 <#import "partials/admin_main.ftlh" as main />
 <@main.renderWith title="Добавить занятие">
     <body>
-    <form action="add" method="post" name="eventForm" onsubmit="return validateForm()">
+    <form action="create" method="post" name="eventForm" onsubmit="return validateForm()">
         <#if _csrf??>
             <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
         </#if>
@@ -18,13 +18,33 @@
             <br>
             <label class="flex flex-v-center" for="timeStart">
                 Время начала:
-                <input type="time" name="timeStart" id="timeStart" min="08:00" max="19:00" step="1800" required>
+                <input type="time" name="timeStart" id="timeStart" required>
             </label>
             <label class="flex flex-v-center" for="timeEnd">
                 Время конца:
-                <input type="time" name="timeEnd" id="timeEnd" min="10:00" max="21:00" step="1800" required>
+                <input type="time" name="timeEnd" id="timeEnd" required>
             </label>
+
+            <#if errorTime??>
+                <span style="color: red">
+                ${errorTime}</span>
+            </#if>
             <br>
+            <#if errorDate??>
+                <span style="color: red">
+                ${errorDate} </span><br>
+            </#if>
+            <#if errorDayOfWeek??>
+                <span style="color: red">
+                ${errorDayOfWeek} </span><br>
+            </#if>
+            <#if errors?? >
+                <p>Входные данные с ошибками!</p>
+                <#list errors as fieldError>
+                    <p>${fieldError.field} - ${fieldError.defaultMessage!'-- no message --'}</p>
+                </#list>
+            </#if>
+
             <label class="flex flex-v-center" for="recurring" id="reoccurringLabel">
                 Повторяющеяся занятие:
                 <input type="checkbox" name="recurring" id="recurring">
@@ -40,7 +60,6 @@
         function validateForm() {
             let eventStart = new Date(document.forms["eventForm"]["eventStartDate"].value);
             let eventEnd = new Date(document.forms["eventForm"]["dateEnd"].value);
-            console.log(eventEnd);
             if (eventEnd!== null && eventEnd < eventStart) {
                 let span = document.getElementById('messageForDate');
                 if(span!==null){
@@ -48,6 +67,8 @@
                 }
                 const endDate = document.getElementById("labelForEndDate");
                 const createSpan = document.createElement("span");
+                const checkbox = document.getElementsByName("dayOfWeek[]");
+                console.log(checkbox.values());
                 createSpan.setAttribute('class','flex flex-v-center');
                 createSpan.setAttribute('style','color:red');
                 createSpan.setAttribute('id','messageForDate');
