@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Date;
@@ -43,33 +45,11 @@ public class UserController {
     }
 
     @GetMapping
-    public String indexPage(Authentication principal) {
-        try {
-            String role = principal.getAuthorities().stream().map(a -> a.getAuthority()).findFirst().get();
-
-            if (role.equals("ADMIN")) {
-                return "redirect:/admin";
-            }
-            if (role.isEmpty()) {
-                return "index";
-            }
-            return "redirect:/main";
-        } catch (NullPointerException e) {
-            return "index";
-        }
+    public String getIndex() {
+        return "index";
     }
 
-    @GetMapping("/main")
-    public String getIndex(Model model, Authentication principal) {
-        try {
-            String role = principal.getAuthorities().stream().map(a -> a.getAuthority()).findFirst().get();
-            model.addAttribute("role", role);
-            return "main";
-        } catch (NullPointerException e) {
-            return "login";
-        }
-    }
-
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/admin")
     public String getAdmin(Model model, @RequestParam @Nullable String role,
                            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable,
@@ -86,6 +66,7 @@ public class UserController {
         return "admin";
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @GetMapping("/add/trainer")
     public String pageRegisterCustomer(Model model) {
         if (!model.containsAttribute("dto")) {
@@ -94,6 +75,7 @@ public class UserController {
         return "add_trainer";
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @PostMapping("/add/trainer")
     public String registerPage(@Valid UserDTO customerRequestDto,
                                BindingResult validationResult,
@@ -110,19 +92,14 @@ public class UserController {
         return "redirect:/add/trainer";
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @GetMapping("/create")
-    public String viewCreateUser(Model model, Authentication principal) {
-        try {
-            String role = principal.getAuthorities().stream().map(GrantedAuthority::getAuthority).findFirst().get();
-            if (role.equals("ADMIN")) {
-                model.addAttribute("groups", groupService.getAllGroups());
-                return "add_sportsman";
-            } else return "main";
-        } catch (NullPointerException e) {
-            return "index";
-        }
+    public String viewCreateUser(Model model) {
+        model.addAttribute("groups", groupService.getAllGroups());
+        return "add_sportsman";
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @PostMapping("/create")
     public String registerUser(@RequestParam("surname") String surname, @RequestParam("name") String name,
                                @RequestParam("patronymic") @Nullable String patronymic,
@@ -151,51 +128,44 @@ public class UserController {
         return "redirect:/admin";
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @GetMapping("/edit/{id}")
-    public String viewUserDetails(Model model, @PathVariable Long id, Authentication principal) {
-        try {
-            String role = principal.getAuthorities().stream().map(GrantedAuthority::getAuthority).findFirst().get();
-            if (role.equals("ADMIN")) {
-                if (userService.getSelectedUserRole(id) == Role.CLIENT) {
-                    model.addAttribute("groups", groupService.getAllGroups());
-                    model.addAttribute("sportsman", userService.getSportsmanDetails(id));
-                    model.addAttribute("parents", parentService.getParentsBySportsmanId(id));
-                    return "edit_sportsman";
-                } else if (userService.getSelectedUserRole(id) == Role.EMPLOYEE) {
-                    return "edit_trainer";
-                } else return "edit_admin";
-            } else return "main";
-        } catch (NullPointerException e) {
-            return "index";
-        }
+    public String viewUserDetails(Model model, @PathVariable Long id) {
+        if (userService.getSelectedUserRole(id) == Role.CLIENT) {
+            model.addAttribute("groups", groupService.getAllGroups());
+            model.addAttribute("sportsman", userService.getSportsmanDetails(id));
+            model.addAttribute("parents", parentService.getParentsBySportsmanId(id));
+            return "edit_sportsman";
+        } else return "edit_trainer";
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @PostMapping("/edit/{id}")
     public String editSportsman(@PathVariable Long id,
-                               @RequestParam("surname") String surname, @RequestParam("name") String name,
-                               @RequestParam("patronymic") @Nullable String patronymic,
-                               @RequestParam("birthDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date birthDate,
-                               @RequestParam("growth") Double growth, @RequestParam("weight") Double weight,
-                               @RequestParam("phone") String phone, @RequestParam("whatsapp") @Nullable String whatsapp,
-                               @RequestParam("telegram") @Nullable String telegram, @RequestParam("address") String address,
-                               @RequestParam("school") @Nullable String school, @RequestParam("channels") @Nullable String channels,
-                               @RequestParam("group") Long groupId,
-                               @RequestParam("dateOfAdmission") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date dateOfAdmission,
-                               @RequestParam("login") @Nullable String login, @RequestParam("password") @Nullable String password,
+                                @RequestParam("surname") String surname, @RequestParam("name") String name,
+                                @RequestParam("patronymic") @Nullable String patronymic,
+                                @RequestParam("birthDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date birthDate,
+                                @RequestParam("growth") Double growth, @RequestParam("weight") Double weight,
+                                @RequestParam("phone") String phone, @RequestParam("whatsapp") @Nullable String whatsapp,
+                                @RequestParam("telegram") @Nullable String telegram, @RequestParam("address") String address,
+                                @RequestParam("school") @Nullable String school, @RequestParam("channels") @Nullable String channels,
+                                @RequestParam("group") Long groupId,
+                                @RequestParam("dateOfAdmission") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date dateOfAdmission,
+                                @RequestParam("login") @Nullable String login, @RequestParam("password") @Nullable String password,
 
-                               @RequestParam("p_id") @Nullable List<Long> pIds,
-                               @RequestParam("p_kinship") @Nullable List<String> pKinships,
-                               @RequestParam("p_surname") @Nullable List<String> pSurnames,
-                               @RequestParam("p_name") @Nullable List<String> pNames,
-                               @RequestParam("p_patronymic") @Nullable List<String> pPatronymics,
-                               @RequestParam("p_phone") @Nullable List<String> pPhones,
-                               @RequestParam("p_whatsapp") @Nullable List<String> pWhatsapps,
-                               @RequestParam("p_telegram") @Nullable List<String> pTelegrams) {
+                                @RequestParam("p_id") @Nullable List<Long> pIds,
+                                @RequestParam("p_kinship") @Nullable List<String> pKinships,
+                                @RequestParam("p_surname") @Nullable List<String> pSurnames,
+                                @RequestParam("p_name") @Nullable List<String> pNames,
+                                @RequestParam("p_patronymic") @Nullable List<String> pPatronymics,
+                                @RequestParam("p_phone") @Nullable List<String> pPhones,
+                                @RequestParam("p_whatsapp") @Nullable List<String> pWhatsapps,
+                                @RequestParam("p_telegram") @Nullable List<String> pTelegrams) {
 
         userService.editSportsman(id, surname, name, patronymic, birthDate, growth, weight, phone, whatsapp, telegram,
                 address, school, channels, groupId, dateOfAdmission, login, password, pIds, pKinships, pSurnames,
                 pNames, pPatronymics, pPhones, pWhatsapps, pTelegrams);
 
-        return "redirect:/admin";
+        return "redirect:/edit/" + id;
     }
 }

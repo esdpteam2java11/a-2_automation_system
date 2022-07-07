@@ -6,6 +6,7 @@ import com.a2.a2_automation_system.user.User;
 import com.a2.a2_automation_system.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,22 +32,20 @@ public class GroupController {
     @GetMapping("{id}")
     public String getGroupById(@PathVariable Long id, Model model) {
         model.addAttribute("group", groupService.getGroupById(id));
-       model.addAttribute("users",groupService.getUsersByGroup(id));
+        model.addAttribute("users", groupService.getUsersByGroup(id));
 
         return "group";
     }
 
 
-
-
-
-
+    @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @GetMapping("/add")
     public String add(Model model) {
         model.addAttribute("trainers", groupService.getTrainers());
         return "add_group";
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @PostMapping("/add")
     public String addNewGroup(@Valid GroupDTO groupDTO,
                               BindingResult validationResult,
@@ -64,18 +63,21 @@ public class GroupController {
         model.addAttribute("group", groupService.getGroupById(id));
         return "calendar";
     }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @GetMapping("{id}/edit")
-    public String getEdit(Model model,@PathVariable Long id){
+    public String getEdit(Model model, @PathVariable Long id) {
         model.addAttribute("trainers", groupService.getTrainers());
         model.addAttribute("group", groupService.getGroupById(id));
         return "edit_group";
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @PostMapping("/edit")
     public String editGroups(@RequestParam Long id, @RequestParam String name,
-                             @RequestParam(required = false) int sum, @RequestParam User trainer){
+                             @RequestParam(required = false) int sum, @RequestParam User trainer) {
 
-        groupService.editGroup(id,trainer,name,sum);
+        groupService.editGroup(id, trainer, name, sum);
 
         return "redirect:/group/all";
     }
