@@ -23,20 +23,18 @@ public class ScheduleDTO {
     private Long id;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonProperty("event_date")
     private LocalDate eventDate;
 
     @DateTimeFormat(pattern = "HH:mm:ss")
-    @JsonProperty("start_time")
     private LocalTime startTime;
 
     @DateTimeFormat(pattern = "HH:mm:ss")
-    @JsonProperty("end_time")
     private LocalTime endTime;
 
     @NotNull
-    @JsonProperty("group_id")
     private Group group;
+
+    private String uniqueIdForSerial;
 
     public static ScheduleDTO from(Schedule schedule) {
         return builder()
@@ -45,6 +43,7 @@ public class ScheduleDTO {
                 .startTime(schedule.getStartTime())
                 .endTime(schedule.getEndTime())
                 .group(schedule.getGroup())
+                .uniqueIdForSerial(schedule.getUniqueIdForSerialEvent())
                 .build();
     }
 }
