@@ -81,22 +81,6 @@ public class InitDatabase {
                 groupRepository.saveAll(groups);
             }
 
-
-            if (scheduleRepository.findAll().isEmpty()) {
-                LocalDate date = LocalDate.now();
-                LocalTime time = LocalTime.now();
-
-                List<Schedule> events = List.of(
-                        Schedule.builder().eventDate(date).startTime(time).endTime(time.plusHours(1)).group(groupRepository.findById(Long.parseLong("1")).get()).build(),
-                        Schedule.builder().eventDate(date.plusDays(2)).startTime(time).endTime(time.plusHours(1)).group(groupRepository.findById(Long.parseLong("1")).get()).build(),
-                        Schedule.builder().eventDate(date.plusDays(4)).startTime(time).endTime(time.plusHours(1)).group(groupRepository.findById(Long.parseLong("1")).get()).build(),
-                        Schedule.builder().eventDate(date.plusDays(6)).startTime(time).endTime(time.plusHours(1)).group(groupRepository.findById(Long.parseLong("1")).get()).build(),
-                        Schedule.builder().eventDate(date.plusDays(8)).startTime(time).endTime(time.plusHours(1)).group(groupRepository.findById(Long.parseLong("1")).get()).build()
-                );
-
-                scheduleRepository.saveAll(events);
-            }
-
         };
     }
 }

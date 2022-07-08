@@ -5,15 +5,13 @@ import com.a2.a2_automation_system.group.GroupRepository;
 import com.a2.a2_automation_system.group.GroupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Array;
 import java.time.DayOfWeek;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,6 +35,7 @@ public class ScheduleService {
                 .startTime(scheduleDTO.getStartTime())
                 .endTime(scheduleDTO.getEndTime())
                 .group(scheduleDTO.getGroup())
+                .uniqueIdForSerialEvent(scheduleDTO.getUniqueIdForSerial())
                 .build();
         scheduleRepository.save(schedule);
     }
@@ -50,8 +49,10 @@ public class ScheduleService {
 
     }
 
+    @Transactional
     public void addEventsFromScheduleCreateDto(ScheduleCreateDTO scheduleCreateDTO){
             if(scheduleCreateDTO.getRecurring()!=null){
+                String uniqueIdForSerial = UUID.randomUUID().toString();
                 if(scheduleCreateDTO.getEventStartDate().isBefore(scheduleCreateDTO.getDateEnd())){
                    List<LocalDate> list = getDatesForDayOfWeek(scheduleCreateDTO);
                    for (LocalDate eventDate:list) {
@@ -60,6 +61,7 @@ public class ScheduleService {
                                .startTime(scheduleCreateDTO.getTimeStart())
                                .endTime(scheduleCreateDTO.getTimeEnd())
                                .group(scheduleCreateDTO.getGroup())
+                               .uniqueIdForSerial(uniqueIdForSerial)
                                .build();
                        addEventFromScheduleDTO(newScheduleDTO);
                    }
@@ -97,9 +99,9 @@ public class ScheduleService {
 
             LocalDate thisDayOfWeek = startDate.with(thisDay);
             if (startDate.isAfter(thisDayOfWeek)) {
-                startDate = thisDayOfWeek.plusWeeks(1); // start on next monday
+                startDate = thisDayOfWeek.plusWeeks(1);
             } else {
-                startDate = thisDayOfWeek; // start on this monday
+                startDate = thisDayOfWeek;
             }
             while (startDate.isBefore(endDate)) {
                 listOfDates.add(startDate);
@@ -112,5 +114,9 @@ public class ScheduleService {
             listOfDates.add(endDate);
         }
        return listOfDates;
+    }
+
+    public ScheduleDTO getEventById(Long eventId) {
+        return ScheduleDTO.from(scheduleRepository.getById(eventId));
     }
 }

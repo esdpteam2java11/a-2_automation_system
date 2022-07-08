@@ -13,4 +13,5 @@ import java.util.List;
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
     @Query("select s from Schedule s where s.group = ?1 and s.eventDate between ?2 and ?3")
     List<Schedule> getAllByGroupAndEventDateBetween(Group group, LocalDate startDate, LocalDate endDate);
+    Schedule getById(Long id);
 }
