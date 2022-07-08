@@ -127,4 +127,18 @@ public class ScheduleService {
         scheduleRepository.delete(event);
         return scheduleDTO;
     }
+
+
+    @Transactional
+    public ScheduleDTO deleteEventsInSeries(Long eventId) {
+        Schedule event = scheduleRepository.getById(eventId);
+        ScheduleDTO scheduleDTO = ScheduleDTO.from(event);
+        var scheduleList = scheduleRepository.getAllByUniqueIdForSerialEventAndEventDateIsGreaterThanEqual(event.getUniqueIdForSerialEvent(),event.getEventDate());
+        if(scheduleList.isPresent()){
+            for(Schedule ev:scheduleList.get()){
+                scheduleRepository.delete(ev);
+            }
+        }
+        return scheduleDTO;
+    }
 }
