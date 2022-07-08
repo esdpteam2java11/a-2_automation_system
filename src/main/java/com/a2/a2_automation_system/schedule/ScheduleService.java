@@ -119,4 +119,12 @@ public class ScheduleService {
     public ScheduleDTO getEventById(Long eventId) {
         return ScheduleDTO.from(scheduleRepository.getById(eventId));
     }
+
+    @Transactional
+    public ScheduleDTO deleteEventById(Long eventId) {
+        Schedule event = scheduleRepository.getById(eventId);
+        ScheduleDTO scheduleDTO = ScheduleDTO.from(event);
+        scheduleRepository.delete(event);
+        return scheduleDTO;
+    }
 }

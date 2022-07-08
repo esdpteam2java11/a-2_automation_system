@@ -26,12 +26,12 @@
                 </form>
             </td>
             <td>
-                <form method="get" action="delete">
+                <form method="get" action="${event.id}/delete">
                     <input type="submit" value="Удалить занятие" class="btn btn-primary">
                 </form>
             </td>
             <td>
-                <form method="get" action="deleteConnected">
+                <form method="get" action="${event.id}/deleteConnected">
                     <input type="submit" value="Удалить серию занятий" class="btn btn-primary">
                 </form>
             </td>

@@ -27,6 +27,15 @@ public class ScheduleController {
         return "event";
     }
 
+    @GetMapping("/group/{groupId}/calendar/event/{eventId}/delete")
+    public String deleteScheduleElement(@PathVariable Long groupId,@PathVariable Long eventId,RedirectAttributes redirectAttributes){
+        String pathRedirect = String.format("redirect:/group/%s/calendar",groupId);
+        ScheduleDTO event = scheduleService.deleteEventById(eventId);
+        String message = String.format("Удалено занятие для %s на %s", event.getGroup().getName(),event.getEventDate());
+        redirectAttributes.addFlashAttribute("message",message);
+        return pathRedirect;
+    }
+
     @GetMapping("/group/{id}/calendar/events/create")
     public String getSchedule(@PathVariable Long id, Model model){
         model.addAttribute("group", groupService.getGroupById(id));
