@@ -44,6 +44,18 @@ public class ScheduleController {
         redirectAttributes.addFlashAttribute("message",message);
         return pathRedirect;
     }
+    @PostMapping("/group/{groupId}/calendar/event/{eventId}/edit")
+    public String editScheduleElement(@PathVariable Long groupId,@PathVariable Long eventId,RedirectAttributes redirectAttributes,
+                                      @Valid ScheduleCreateDTO scheduleCreateDTO, BindingResult result){
+        String pathRedirect = String.format("redirect:/group/%s/calendar/event/%s",groupId,eventId);
+        if(scheduleCreateDTO.getTimeStart().isAfter(scheduleCreateDTO.getTimeEnd())){
+            redirectAttributes.addFlashAttribute("errorTime","Время не правильно");
+            return pathRedirect;
+        }
+        scheduleService.editEvent(scheduleCreateDTO);
+        redirectAttributes.addFlashAttribute("message","Отредактрировано");
+        return pathRedirect;
+    }
 
     @GetMapping("/group/{id}/calendar/events/create")
     public String getSchedule(@PathVariable Long id, Model model){

@@ -141,4 +141,12 @@ public class ScheduleService {
         }
         return scheduleDTO;
     }
+
+    public void editEvent(ScheduleCreateDTO scheduleCreateDTO) {
+        Schedule event = scheduleRepository.getById(scheduleCreateDTO.getId());
+        event.setEventDate(scheduleCreateDTO.getEventStartDate());
+        event.setStartTime(scheduleCreateDTO.getTimeStart());
+        event.setEndTime(scheduleCreateDTO.getTimeEnd());
+        scheduleRepository.save(event);
+    }
 }
