@@ -12,8 +12,12 @@
 
 <div id="group">
    <h2>${group.name}</h2>
+    <#if message??>
+        <span style="color: red">
+                ${message} </span><br>
+    </#if>
     <input id="group_Id" hidden value="${group.id}" />
-    <form method="get" action="calendar/create" >
+    <form method="get" action="calendar/events/create" >
         <input type="submit" value="Создать занятие" class="fc-button fc-button-primary">
     </form>
 </div>

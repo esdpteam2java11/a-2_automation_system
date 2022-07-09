@@ -40,5 +40,8 @@ public class Schedule {
     @ManyToOne
     @JoinColumn(name = "group_id")
     private Group group;
+
+    @Column(name = "unique_id_for_serial_event")
+    private String uniqueIdForSerialEvent;
 }
 

@@ -1,119 +1,127 @@
 <#import "partials/admin_main.ftlh" as main />
 <@main.renderWith >
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Добавить тренера</title>
-        <script src="https://code.jquery.com/jquery-3.6.0.js"
-                integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    </head>
-    <body>
-
     <form action="/add/trainer" method="post">
         <#if _csrf??>
             <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
         </#if>
+        <section class="h-100 add-trainer">
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col">
+                        <div class="card card-registration my-4">
+                            <div class="card-body p-md-5 text-black">
+                                <h3 class="mb-4 text-uppercase text-center">Регистрация тренера</h3>
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            <label class="form-label required" for="login_input">Логин</label>
+                                            <input name="login" value="${(dto.login)!''}" type="text" id="login_input"
+                                                   class="form-control form-control-lg" placeholder="Логин"
+                                                   required="required"/>
+                                        </div>
+                                        <#if dto.login??>
+                                            <p style="color:red">${dto.login} такой логин уже существует! Пожалуйста
+                                                выберите другой</p>
+                                        </#if>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <label class="form-label required" for="password_input">Пароль</label>
+                                        <div class="form-outline">
+                                            <input name="password" value="${(dto.password)!''}" type="text"
+                                                   id="input-password"
+                                                   class="form-control form-control-lg" placeholder="Пароль"
+                                                   required="required"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <button type="button" id="input-generate" class="button-85 button-user-create">Сгенерировать пароль
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <label class="form-label required" for="name_input">Имя</label>
+                                        <div class="form-outline">
+                                            <input name="name" value="${(dto.name)!''}" type="text" id="name_input"
+                                                   class="form-control form-control-lg" placeholder="Имя"
+                                                   required="required"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <label class="form-label required" for="surname_input">Фамилия</label>
+                                        <div class="form-outline">
+                                            <input name="surname" value="${(dto.surname)!''}" type="text"
+                                                   id="surname_input"
+                                                   class="form-control form-control-lg" placeholder="Фамилия"
+                                                   required="required"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <label class="form-label" for="patronymic_input">Отчество</label>
+                                        <div class="form-outline">
+                                            <input name="patronymic" value="${(dto.patronymic)!''}" type="text"
+                                                   id="patronymic_input"
+                                                   class="form-control form-control-lg" placeholder="Отчество"/>
+                                        </div>
+                                    </div>
+                                </div>
 
 
-        <div>
-            <label class="flex flex-v-center">
-                <p class="label-input-text">Логин</p>
-                <input type="text" name="login" value="${(dto.login)!''}">
-            </label>
-        </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label required" for="address_input">Адрес</label>
+                                    <input type="text" name="address" value="${(dto.address)!''}" id="address_input"
+                                           class="form-control form-control-lg"
+                                           placeholder="Адрес" required="required"/>
+                                </div>
 
-        <div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <label class="form-label required" for="phone_input">Телефон</label>
+                                        <div class="form-outline">
+                                            <input name="phone" value="${(dto.phone)!''}" type="text" id="phone_input"
+                                                   class="form-control form-control-lg" placeholder="Телефон"
+                                                   required="required"/>
+                                        </div>
+                                    </div>
+                                </div>
 
-        </div>
-        <div>
-            <label class="flex flex-v-center">
-                <p class="label-input-text">Пароль</p>
-                <input type="text" class="form-control" name="password" value="${(dto.password)!''}"
-                       id="input-password">
-                <button type="button" id="input-generate" class="btn btn-primary mt-2">Сгенерировать пароль</button>
-            </label>
-        </div>
-        <div>
-            <label class="flex flex-v-center">
-                <p class="label-input-text">Имя</p>
-                <input type="text" name="name" value="${(dto.name)!''}">
-            </label>
-        </div>
-        <div>
-            <label class="flex flex-v-center">
-                <p class="label-input-text">Фамилия</p>
-                <input type="text" name="surname" value=""${(dto.surname)!''}"">
-            </label>
-        </div>
-        <div>
-            <label class="flex flex-v-center">
-                <p class="label-input-text">Отчетство</p>
-                <input type="text" name="patronymic" value=""${(dto.patronymic)!''}"">
-            </label>
-        </div>
-        <div>
-            <label class="flex flex-v-center">
-                <p class="label-input-text">Адрес</p>
-                <input type="text" name="address" value=""${(dto.address)!''}"">
-            </label>
-        </div>
-        <div>
-            <label class="flex flex-v-center">
-                <p class="label-input-text">Телефон</p>
-                <input type="text" name="phone" value=""${(dto.phone)!''}"">
-            </label>
-        </div>
-
-        <label class="flex flex-v-center">
-            <p class="label-input-text">Дата рождения</p>
-
-            <input type="date" name="birthDate">
-        </label>
-        <input type="hidden" id="role" name="role" value="EMPLOYEE">
-
-        <div>
-            <button type="submit">Добавить</button>
-        </div>
-        <div>
-            <#if dto.login??>
-                <p style="color:red">${dto.login} Логин уже существует! Пожалуйста выберите другой</p>
-            </#if>
-            <#if errors?? >
-                <p>Входные данные с ошибками!</p>
-                <#list errors as fieldError>
-                    <p>${fieldError.field} - ${fieldError.defaultMessage!'-- no message --'}</p>
-                </#list>
-            </#if>
-        </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <label class="form-label required" for="birth_input">Дата рождения</label>
+                                        <div class="form-outline">
+                                            <input name="birthDate" type="date" id="birth_input"
+                                                   class="form-control form-control-lg"
+                                                   required="required"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <#if errors?? >
+                                    <p>Входные данные с ошибками!</p>
+                                    <#list errors as fieldError>
+                                        <p>${fieldError.field} - ${fieldError.defaultMessage!'-- no message --'}</p>
+                                    </#list>
+                                </#if>
+                                <input type="hidden" id="role" name="role" value="EMPLOYEE">
+                                <div class="button">
+                                    <button type="submit" class="custom-btn btn-1">Зарегистрировать</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </form>
-    </body>
-
-    </html>
-
-    <script>
-        $("#input-generate").click(function () {
-            $("#input-password").val(generatePassword());
-            return false;
-        });
-
-        function generatePassword() {
-            var length = 8,
-                charset = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~!@-#$";
-            if (window.crypto && window.crypto.getRandomValues) {
-                return Array(length)
-                    .fill(charset)
-                    .map(x => x[Math.floor(crypto.getRandomValues(new Uint32Array(1))[0] / (0xffffffff + 1) * (x.length + 1))])
-                    .join('');
-            } else {
-                res = '';
-                for (var i = 0, n = charset.length; i < length; ++i) {
-                    res += charset.charAt(Math.floor(Math.random() * n));
-                }
-                return res;
-            }
-        }
-
+    <script src="/js/generate_password_for_trainer.js">
 
     </script>
 </@main.renderWith>
