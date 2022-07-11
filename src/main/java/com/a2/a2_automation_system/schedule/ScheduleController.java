@@ -20,20 +20,46 @@ public class ScheduleController {
     private final GroupService groupService;
     private final ScheduleService scheduleService;
 
-    @GetMapping("/group/{id}/calendar/events/create")
-    public String getSchedule(@PathVariable Long id, Model model,@RequestParam(required = false) String errorTime
-    ,@RequestParam(required = false) String errorDate,@RequestParam(required = false) String errorDayOfWeek){
-        model.addAttribute("group", groupService.getGroupById(id));
-        if(errorTime!=null) {
-            model.addAttribute("errorTime", errorTime);
-        }
-        if(errorDate!=null){
-            model.addAttribute("errorDate", errorDate);
-        }
-        if(errorDayOfWeek!=null){
-            model.addAttribute("errorDayOfWeek", errorDayOfWeek);
-        }
+    @GetMapping("/group/{groupId}/calendar/event/{eventId}")
+    public String getScheduleElement(@PathVariable Long groupId,@PathVariable Long eventId,Model model){
+        model.addAttribute("group",groupService.getGroupById(groupId));
+        model.addAttribute("event",scheduleService.getEventById(eventId));
+        return "event";
+    }
 
+    @GetMapping("/group/{groupId}/calendar/event/{eventId}/delete")
+    public String deleteScheduleElement(@PathVariable Long groupId,@PathVariable Long eventId,RedirectAttributes redirectAttributes){
+        String pathRedirect = String.format("redirect:/group/%s/calendar",groupId);
+        ScheduleDTO event = scheduleService.deleteEventById(eventId);
+        String message = String.format("Удалено занятие для %s на %s", event.getGroup().getName(),event.getEventDate());
+        redirectAttributes.addFlashAttribute("message",message);
+        return pathRedirect;
+    }
+
+    @GetMapping("/group/{groupId}/calendar/event/{eventId}/deleteConnected")
+    public String deleteScheduleElements(@PathVariable Long groupId,@PathVariable Long eventId,RedirectAttributes redirectAttributes){
+        String pathRedirect = String.format("redirect:/group/%s/calendar",groupId);
+        ScheduleDTO event = scheduleService.deleteEventsInSeries(eventId);
+        String message = String.format("Удалены занятия для %s с %s", event.getGroup().getName(),event.getEventDate());
+        redirectAttributes.addFlashAttribute("message",message);
+        return pathRedirect;
+    }
+    @PostMapping("/group/{groupId}/calendar/event/{eventId}/edit")
+    public String editScheduleElement(@PathVariable Long groupId,@PathVariable Long eventId,RedirectAttributes redirectAttributes,
+                                      @Valid ScheduleCreateDTO scheduleCreateDTO, BindingResult result){
+        String pathRedirect = String.format("redirect:/group/%s/calendar/event/%s",groupId,eventId);
+        if(scheduleCreateDTO.getTimeStart().isAfter(scheduleCreateDTO.getTimeEnd())){
+            redirectAttributes.addFlashAttribute("errorTime","Время не правильно");
+            return pathRedirect;
+        }
+        scheduleService.editEvent(scheduleCreateDTO);
+        redirectAttributes.addFlashAttribute("message","Отредактрировано");
+        return pathRedirect;
+    }
+
+    @GetMapping("/group/{id}/calendar/events/create")
+    public String getSchedule(@PathVariable Long id, Model model){
+        model.addAttribute("group", groupService.getGroupById(id));
         return "add_schedule";
     }
 
@@ -41,7 +67,7 @@ public class ScheduleController {
     public String createEvent(@PathVariable String id, Model model, @Valid ScheduleCreateDTO scheduleCreateDTO, BindingResult result, RedirectAttributes attributes){
         String pathRedirect = String.format("redirect:/group/%s/calendar",id);
         if(scheduleCreateDTO.getTimeStart().isAfter(scheduleCreateDTO.getTimeEnd())){
-            attributes.addAttribute("errorTime","Время не правильно");
+            attributes.addFlashAttribute("errorTime","Время не правильно");
             return "redirect:/group/"+id+"/calendar/events/create";
         }
         if(result.hasFieldErrors()){
@@ -51,17 +77,16 @@ public class ScheduleController {
         if(scheduleCreateDTO.getRecurring()!=null){
             if(scheduleCreateDTO.getEventStartDate().isAfter(scheduleCreateDTO.getDateEnd()) ||
                     scheduleCreateDTO.getEventStartDate().isEqual(scheduleCreateDTO.getDateEnd())){
-                attributes.addAttribute("errorDate","Дата конца неправильна");
+                attributes.addFlashAttribute("errorDate","Дата конца неправильна");
                 return "redirect:/group/"+id+"/calendar/events/create";
             }
             if(scheduleCreateDTO.getDayOfWeek()==null) {
-                attributes.addAttribute("errorDayOfWeek","Выберите хотя бы один день недели");
+                attributes.addFlashAttribute("errorDayOfWeek","Выберите хотя бы один день недели");
                 return "redirect:/group/" + id + "/calendar/events/create";
             }
 
         }
         scheduleService.addEventsFromScheduleCreateDto(scheduleCreateDTO);
         return pathRedirect;
-
     }
 }

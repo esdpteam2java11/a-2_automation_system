@@ -21,12 +21,13 @@ public class ScheduleRestDto {
     public static ScheduleRestDto from(Schedule schedule){
         LocalDateTime start = LocalDateTime.of(schedule.getEventDate(),schedule.getStartTime());
         LocalDateTime end = LocalDateTime.of(schedule.getEventDate(),schedule.getEndTime());
+        String eventUrl = String.format("calendar/event/%s",schedule.getId());
         return builder()
                 .title(schedule.getGroup().getName())
                 .start(start)
                 .end(end)
                 .color("#FFA500")
-                .url("calendar/event")
+                .url(eventUrl)
                 .textColor("red")
                 .build();
     }
