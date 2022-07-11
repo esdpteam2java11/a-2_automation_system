@@ -14,7 +14,7 @@
                                 <select class="js-selectize" name="fio" id="fio">
                                     <option value=""></option>
                                     <#list users as user>
-                                        <option value="${user.id}">${user.surname}</option>
+                                        <option value="${user.id}">${user.fio}</option>
                                     </#list>
                                 </select>
                             </div>
