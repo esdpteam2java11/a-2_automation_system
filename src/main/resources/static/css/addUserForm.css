@@ -222,9 +222,11 @@ body .groups-name:hover {
 
 .main-color-groups {
     padding-top: 50px;
-    padding-bottom: 171px;
+    padding-bottom: 304px;
     background: -webkit-linear-gradient(90deg, #09022e, #ff1154);
     background: linear-gradient(90deg, #09022e, #ff1154);
+    width: 100%;
+    height: 100%;
 }
 
 .buttons-groups {

@@ -62,11 +62,11 @@
                     </tbody>
                     </#list>
                 </table>
-            </div>
-            <div>
+                <#include "partials/pagination.ftlh">
             </div>
 
-            <#include "partials/pagination.ftlh">
+
+
         </div>
     </main>
     <script>
