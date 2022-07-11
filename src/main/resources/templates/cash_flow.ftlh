@@ -44,7 +44,7 @@
                                 <div class="row m-2">
                                     <label class="col-sm-6 col-form-label" for="period-start">Период с:</label>
                                     <input type="date" name="periodStart" class="form-control col-sm-6"
-                                           id="period-start" value="${.now?date?iso_utc}">
+                                           id="period-start" value="${.now?date?iso_utc}" max="${.now?date?iso_utc}">
                                 </div>
                                 <div class="row m-2">
                                     <label class="col-sm-6 col-form-label" for="period-end">Период по:</label>
@@ -53,46 +53,24 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-center">
+                                <button type="submit" class="bn30" style="margin-top: 20px">Применить фильтры</button>
+                            </div>
+                            <div class="col-sm-4 text-center">
+                                <a href="/cash/INCOME">
+                                    <button type="button" class="bn30" style="margin-top: 20px">Приход
+                                        денег</button>
+                                </a>
+                            </div>
+                            <div class="col-sm-4 text-center">
+                                <a href="/cash/DISCHARGE">
+                                    <button type="button" class="bn30" style="margin-top: 20px">Расход денег</button>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </form>
-            </div>
-        </div>
-
-        <!-- SearchUserModal -->
-        <div class="modal fade" id="searchContractorModal" tabindex="-1" aria-labelledby="searchUserModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="searchUserModalLabel">Поиск по ФИО</h5>
-                        <button type="button" class="search-user-modal-close btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="" id="search-user-frm" method="get">
-                            <label for="searchUser"></label>
-                            <input type="text" id="searchUser" name="searchUser" class="w-auto"
-                                   placeholder="Введите текст">
-                            <button type="submit" id="search-user-btn" class="btn btn-secondary
-                            py-0">Искать
-                            </button>
-                        </form>
-                        <table id="search-user-table" class="table table-bordered mt-2">
-                            <thead>
-                            <tr>
-                                <th scope="col" hidden>ID</th>
-                                <th scope="col">Фамилия</th>
-                                <th scope="col">Имя</th>
-                                <th scope="col">Отчество</th>
-                                <th scope="col">Телефон</th>
-                                <th scope="col">Выбрать</th>
-                            </tr>
-                            </thead>
-                            <tbody class="table-body">
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
             </div>
         </div>
     </main>
