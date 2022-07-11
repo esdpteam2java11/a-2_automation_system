@@ -13,7 +13,8 @@ public class PageUtil {
     public static <T> void constructPageable(Page<T> list, int pageSize, Model model, String uri, String role,
                                              Boolean isActive) {
         if (list.hasNext()) {
-            model.addAttribute("nextPageLink", constructPageUri(uri, role, isActive, list.nextPageable().getPageNumber(),
+            model.addAttribute("nextPageLink", constructPageUri(uri, role, isActive,
+                    list.nextPageable().getPageNumber(),
                     list.nextPageable().getPageSize()));
         }
         if (list.hasPrevious()) {
@@ -22,9 +23,12 @@ public class PageUtil {
         }
 
         List<String> roles = Stream.of(Role.values()).map(Role::getRole).collect(Collectors.toList());
+        model.addAttribute("url", constructPageUri(uri, role, isActive));
+
         model.addAttribute("hasNext", list.hasNext());
         model.addAttribute("hasPrev", list.hasPrevious());
         model.addAttribute("users", list.getContent());
+        model.addAttribute("page", list);
         model.addAttribute("role", role);
         model.addAttribute("roles", roles);
         model.addAttribute("isActive", isActive);
@@ -32,7 +36,7 @@ public class PageUtil {
     }
 
     private static String constructPageUri(String uri, String role,
-                                           Boolean isActive, int page, int size) {
+                                          Boolean isActive, int page, int size) {
         if (uri.contains("search")) {
             return String.format("%s&page=%s&size=%s", uri, page, size);
         }
@@ -43,5 +47,19 @@ public class PageUtil {
         else if (role != null) return String.format("%s?role=%s&page=%s&size=%s", uri,
                 role, page, size);
         else return String.format("%s?page=%s&size=%s", uri, page, size);
+    }
+
+    private static String constructPageUri(String uri, String role,
+                                          Boolean isActive) {
+        if (uri.contains("search")) {
+            return String.format("%s&", uri);
+        }
+        if (role != null && isActive != null) return String.format("%s?role=%s&isActive=%s&", uri, role,
+                isActive);
+        else if (isActive != null) return String.format("%s?isActive=%s&", uri,
+                isActive);
+        else if (role != null) return String.format("%s?role=%s&", uri,
+                role);
+        else return String.format("%s?", uri);
     }
 }
