@@ -1,6 +1,9 @@
 package com.a2.a2_automation_system.money;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum OperationType {
     SPORTSMAN_PAYMENT("Оплата от ученика"),
 
@@ -12,13 +15,21 @@ public enum OperationType {
         this.rusValue = rusValue;
     }
 
-    public String getType(){
+    public String getRusValue() {
         return this.rusValue;
     }
 
-    public static OperationType getOperationTypeByRusValue(String rusValue){
-        for (OperationType t: OperationType.values()) {
-            if (t.getType().equalsIgnoreCase(rusValue)) return t;
+    public static List<String> getRusValues() {
+        List<String> rusValues = new ArrayList<>();
+        for (OperationType t : OperationType.values()) {
+            rusValues.add(t.getRusValue());
+        }
+        return rusValues;
+    }
+
+    public static OperationType getOperationTypeByRusValue(String rusValue) {
+        for (OperationType t : OperationType.values()) {
+            if (t.getRusValue().equalsIgnoreCase(rusValue)) return t;
         }
         return null;
     }
