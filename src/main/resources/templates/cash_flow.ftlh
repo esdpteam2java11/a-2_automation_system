@@ -44,12 +44,12 @@
                                 <div class="row m-2">
                                     <label class="col-sm-6 col-form-label" for="period-start">Период с:</label>
                                     <input type="date" name="periodStart" class="form-control col-sm-6"
-                                           id="period-start" value="${.now?date?iso_utc}" max="${.now?date?iso_utc}">
+                                           id="period-start" value="${.now?date?iso_utc}" max="${.now?date?iso_utc}" required>
                                 </div>
                                 <div class="row m-2">
                                     <label class="col-sm-6 col-form-label" for="period-end">Период по:</label>
                                     <input type="date" name="periodEnd" class="form-control col-sm-6"
-                                           id="period-end" value="${.now?date?iso_utc}">
+                                           id="period-end" value="${.now?date?iso_utc}" required>
                                 </div>
                             </div>
                         </div>
