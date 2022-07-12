@@ -25,8 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Controller
 @RequiredArgsConstructor
@@ -136,7 +134,7 @@ public class UserController {
             model.addAttribute("sportsman", userService.getSportsmanDetails(id));
             model.addAttribute("parents", parentService.getParentsBySportsmanId(id));
             return "edit_sportsman";
-        } else return "edit_trainer";
+        } else return "redirect:/edit/trainer/" + id;
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
@@ -167,5 +165,32 @@ public class UserController {
                 pNames, pPatronymics, pPhones, pWhatsapps, pTelegrams);
 
         return "redirect:/edit/" + id;
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
+    @GetMapping("/edit/trainer/{id}")
+    public String getEditTrainerPage(@PathVariable(value = "id") Long id, Model model) {
+        if (!model.containsAttribute("dto")) {
+            model.addAttribute("dto", new UserDTO());
+        }
+        model.addAttribute("dto", userService.getTrainer(id));
+        return "edit_trainer";
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
+    @PostMapping("/edit/trainer/{id}")
+    public String editTrainer(@Valid UserDTO userDTO,
+                              BindingResult bindingResult,
+                              RedirectAttributes attributes, @PathVariable(value = "id") Long id) {
+        if (userService.checkLogin(userDTO.getLogin(), id)) {
+            attributes.addFlashAttribute("dto", userDTO);
+            return "redirect:/edit/trainer/" + id;
+        }
+        if (bindingResult.hasFieldErrors()) {
+            attributes.addFlashAttribute("errors", bindingResult.getFieldErrors());
+            return "redirect:/edit/trainer/" + id;
+        }
+        userService.editTrainer(id, userDTO);
+        return "redirect:/edit/trainer/" + id;
     }
 }
