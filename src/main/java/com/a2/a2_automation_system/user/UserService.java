@@ -144,7 +144,7 @@ public class UserService implements UserDetailsService {
             List<Parent> parents = setParents(pIds, pKinships, pSurnames, pNames, pPatronymics, pPhones, pWhatsapps,
                     pTelegrams);
             for (Parent parent : parents) {
-                if (!relationshipRepository.existsByParentIdAndStudentId(parent.getId(), sportsman.getId())){
+                if (!relationshipRepository.existsByParentIdAndStudentId(parent.getId(), sportsman.getId())) {
                     Relationship newRelationship = new Relationship();
                     newRelationship.setStudent(sportsman);
                     newRelationship.setParent(parent);
@@ -205,5 +205,15 @@ public class UserService implements UserDetailsService {
             parents.add(parent);
         }
         return parents;
+    }
+
+    public void changeIsActive(Long id) {
+        var user = userRepository.findById(id).orElseThrow();
+        if (user.getIsActive()) {
+            user.setIsActive(false);
+        } else {
+            user.setIsActive(true);
+        }
+        userRepository.save(user);
     }
 }
