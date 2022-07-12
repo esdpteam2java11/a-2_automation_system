@@ -11,7 +11,7 @@
                                 <label for="fio" class="col-form-label">Поиск по ФИО:</label>
                             </div>
                             <div class="col-sm-9 pl-0">
-                                <select class="js-selectize" name="fio" id="fio">
+                                <select class="js-selectize" name="userId" id="fio">
                                     <option value=""></option>
                                     <#list users as user>
                                         <option value="${user.id}">${user.fio}</option>
@@ -26,7 +26,7 @@
                                     <select class="form-control col-sm-6" name="typeOfFinance" id="type-of-finance">
                                         <option selected value> -- все --</option>
                                         <#list typesOfFinance as typeOfFinance>
-                                            <option value="${typeOfFinance}">${typeOfFinance}</option>
+                                            <option value="${typeOfFinance}">${typeOfFinance.rusValue}</option>
                                         </#list>
                                     </select>
                                 </div>
@@ -35,7 +35,7 @@
                                     <select class="form-control col-sm-6" name="operationType" id="operation-type">
                                         <option selected value> -- все --</option>
                                         <#list operationTypes as operationType>
-                                            <option value="${operationType}">${operationType}</option>
+                                            <option value="${operationType}">${operationType.rusValue}</option>
                                         </#list>
                                     </select>
                                 </div>
@@ -60,7 +60,8 @@
                             <div class="col-sm-4 text-center">
                                 <a href="/cash/INCOME">
                                     <button type="button" class="bn30" style="margin-top: 20px">Приход
-                                        денег</button>
+                                        денег
+                                    </button>
                                 </a>
                             </div>
                             <div class="col-sm-4 text-center">
@@ -71,6 +72,46 @@
                         </div>
                     </div>
                 </form>
+
+                <div class="table-responsive">
+                    <table id="cash-flow-table" class="table table-bordered align-middle">
+                        <thead>
+                        <tr>
+                            <th scope="col" hidden>ID</th>
+                            <th scope="col">Дата</th>
+                            <th scope="col">ФИО</th>
+                            <th scope="col">Тип движения</th>
+                            <th scope="col">Вид операции</th>
+                            <th scope="col">Сумма</th>
+                            <th scope="col">Комментарий</th>
+                        </tr>
+                        </thead>
+                        <tbody class="table-body">
+                        <#if moneyMovements?size!=0>
+                            <#list moneyMovements as moneyMovement>
+                                <tr>
+                                    <#assign link = "/edit/${moneyMovement.id}">
+                                    <td><a class="text-decoration-none text-reset" href="${link}">${moneyMovement
+                                            .id}</a></td>
+                                    <td><a class="text-decoration-none text-reset" href="${link}">${moneyMovement
+                                            .date}</a></td>
+                                    <td><a class="text-decoration-none text-reset"
+                                           href="${link}">${moneyMovement.counterpartyFIO}</a></td>
+                                    <td><a class="text-decoration-none text-reset"
+                                           href="${link}">${moneyMovement.typeOfFinance}</a></td>
+                                    <td><a class="text-decoration-none text-reset"
+                                           href="${link}">${moneyMovement.operationType}</a></td>
+                                    <td><a class="text-decoration-none text-reset"
+                                           href="${link}">${moneyMovement.amount}</a></td>
+                                    <td><a class="text-decoration-none text-reset"
+                                           href="${link}">${moneyMovement.purpose}</a></td>
+                                </tr>
+                            </#list>
+                        </#if>
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
     </main>
