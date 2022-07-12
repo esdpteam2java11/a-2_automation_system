@@ -12,7 +12,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Data
 @Builder
@@ -41,12 +40,14 @@ public class MoneyMovementDTO {
     @NotNull
     private OperationType operationType;
 
-    public static MoneyMovementDTO from(MoneyMovement moneyMovement, User user) {
+    public static MoneyMovementDTO from(MoneyMovement moneyMovement) {
         return builder()
                 .id(moneyMovement.getId())
                 .date(moneyMovement.getDate())
-                .counterpartyFIO(user.getSurname() + " " + user.getName() + (user.getPatronymic() != null ?
-                        (" " + user.getPatronymic()) : ""))
+                .counterpartyFIO(moneyMovement.getCounterparty().getSurname() + " " +
+                        moneyMovement.getCounterparty().getName() +
+                        (moneyMovement.getCounterparty().getPatronymic() != null ?
+                        (" " + moneyMovement.getCounterparty().getPatronymic()) : ""))
                 .purpose(moneyMovement.getPurpose())
                 .typeOfFinance(moneyMovement.getTypeOfFinance())
                 .amount(moneyMovement.getAmount())

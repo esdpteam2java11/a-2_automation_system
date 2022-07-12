@@ -56,6 +56,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/group/all">Группы</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cash">Касса</a>
+                    </li>
                 </ul>
             </div>
             <div class="text-right mr-5">
@@ -72,7 +75,14 @@
 
     <#nested>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+    <script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://snipp.ru/cdn/microplugin.js/src/microplugin.js"></script>
+    <script src="https://snipp.ru/cdn/sifter.js/sifter.min.js"></script>
+    <script src="https://snipp.ru/cdn/selectize.js/0.12.6/dist/js/selectize.min.js"></script>
+    <script src="/js/script.js"></script>
     </body>
     </html>
 

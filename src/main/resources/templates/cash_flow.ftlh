@@ -53,7 +53,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mb-3">
                             <div class="col-sm-4 text-center">
                                 <button type="submit" class="bn30" style="margin-top: 20px">Применить фильтры</button>
                             </div>
@@ -74,7 +74,7 @@
                 </form>
 
                 <div class="table-responsive">
-                    <table id="cash-flow-table" class="table table-bordered align-middle">
+                    <table id="cash-flow-table" class="table table-striped table-hover align-middle">
                         <thead>
                         <tr>
                             <th scope="col" hidden>ID</th>
@@ -91,16 +91,15 @@
                             <#list moneyMovements as moneyMovement>
                                 <tr>
                                     <#assign link = "/edit/${moneyMovement.id}">
-                                    <td><a class="text-decoration-none text-reset" href="${link}">${moneyMovement
-                                            .id}</a></td>
+                                    <td hidden>${moneyMovement.id}</td>
                                     <td><a class="text-decoration-none text-reset" href="${link}">${moneyMovement
                                             .date}</a></td>
                                     <td><a class="text-decoration-none text-reset"
                                            href="${link}">${moneyMovement.counterpartyFIO}</a></td>
                                     <td><a class="text-decoration-none text-reset"
-                                           href="${link}">${moneyMovement.typeOfFinance}</a></td>
+                                           href="${link}">${moneyMovement.typeOfFinance.rusValue}</a></td>
                                     <td><a class="text-decoration-none text-reset"
-                                           href="${link}">${moneyMovement.operationType}</a></td>
+                                           href="${link}">${moneyMovement.operationType.rusValue}</a></td>
                                     <td><a class="text-decoration-none text-reset"
                                            href="${link}">${moneyMovement.amount}</a></td>
                                     <td><a class="text-decoration-none text-reset"
@@ -116,18 +115,4 @@
         </div>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-            crossorigin="anonymous"></script>
-    <script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://snipp.ru/cdn/microplugin.js/src/microplugin.js"></script>
-    <script src="https://snipp.ru/cdn/sifter.js/sifter.min.js"></script>
-    <script src="https://snipp.ru/cdn/selectize.js/0.12.6/dist/js/selectize.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            $('.js-selectize').selectize();
-        });
-    </script>
-    <script src="/js/script.js"></script>
 </@main.renderWith>
