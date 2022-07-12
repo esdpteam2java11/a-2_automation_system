@@ -6,7 +6,6 @@ import com.a2.a2_automation_system.tariff.SportsmanPaymentRepository;
 import com.a2.a2_automation_system.user.*;
 import com.a2.a2_automation_system.exception.GroupNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -43,22 +42,18 @@ public class GroupService {
         return userRepository.findByRole(Role.EMPLOYEE).stream().map(UserDTO::from).collect(Collectors.toList());
     }
 
-    public List<UserForGroupDTO> getUsersByGroup(Long id) {
-        List<UserForGroupDTO> userForGroupDTOList = new ArrayList<>();
+    public List<UserShortInfoDTO> getUsersByGroup(Long id) {
+        List<UserShortInfoDTO> userShortInfoDTOList = new ArrayList<>();
         var users = userRepository.findByGroup(id);
         for (User u : users
         ) {
-            UserForGroupDTO userDto = new UserForGroupDTO();
-            userDto.setId(u.getId());
-            userDto.setFio(String.format(u.getSurname() + " " + u.getName() + " " + u.getPatronymic()));
-            userDto.setPhone(u.getPhone());
-            userDto.setBirthDate(u.getBirthDate());
+            UserShortInfoDTO userDto = UserShortInfoDTO.from(u);
             Optional<SportsmanPayment> sportsmanPayment = paymentRepository.findUpToDateAmount(u.getId(), OperationType.ACCRUED.toString());
             if (sportsmanPayment.isPresent()) userDto.setAmount(sportsmanPayment.get().getAmount());
             else userDto.setAmount(0);
-            userForGroupDTOList.add(userDto);
+            userShortInfoDTOList.add(userDto);
         }
-        return userForGroupDTOList;
+        return userShortInfoDTOList;
     }
 
     public Group getGroupByIdReturnGroup(Long id) {

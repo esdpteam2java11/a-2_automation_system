@@ -13,7 +13,6 @@ import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-
 @Data
 @Builder
 @AllArgsConstructor
@@ -26,26 +25,33 @@ public class MoneyMovementDTO {
     @JsonProperty("event_date")
     private LocalDate date;
 
-    private Double amount;
-    private String purpose;
-
     @NotNull
-    @JsonProperty("counterparty_id")
-    private User counterparty;
+    private String counterpartyFIO;
+
+    private String purpose;
 
     @Enumerated(value = EnumType.STRING)
     @NotNull
     private TypeOfFinance typeOfFinance;
 
+    private Double amount;
+
+    @Enumerated(value = EnumType.STRING)
+    @NotNull
+    private OperationType operationType;
+
     public static MoneyMovementDTO from(MoneyMovement moneyMovement) {
         return builder()
                 .id(moneyMovement.getId())
-                .amount(moneyMovement.getAmount())
-                .counterparty(moneyMovement.getCounterparty())
-                .typeOfFinance(moneyMovement.getTypeOfFinance())
-                .purpose(moneyMovement.getPurpose())
                 .date(moneyMovement.getDate())
+                .counterpartyFIO(moneyMovement.getCounterparty().getSurname() + " " +
+                        moneyMovement.getCounterparty().getName() +
+                        (moneyMovement.getCounterparty().getPatronymic() != null ?
+                        (" " + moneyMovement.getCounterparty().getPatronymic()) : ""))
+                .purpose(moneyMovement.getPurpose())
+                .typeOfFinance(moneyMovement.getTypeOfFinance())
+                .amount(moneyMovement.getAmount())
+                .operationType(moneyMovement.getOperationType())
                 .build();
     }
-
 }

@@ -10,6 +10,4 @@ import java.util.Optional;
 public interface ParentRepository extends PagingAndSortingRepository<Parent, Long> {
 
     List<Parent> findAllBySurnameContainingIgnoreCase(String surnamePart);
-
-    Optional<Parent> findBySurname(String surname);
 }

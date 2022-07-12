@@ -18,10 +18,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -42,7 +40,6 @@ public class UserService implements UserDetailsService {
         return userRepository.findById(id).get().getRole();
     }
 
-
     public Page<UserDTO> getUsersWithFilter(Pageable pageable, String role, Boolean isActive) {
         if ((isActive != null && role != null) && !role.equals("all")) {
             return userRepository.findAllByIsActiveAndRole(pageable, isActive, Role.getRoleByRoleName(role)).map(UserDTO::from);
@@ -57,6 +54,11 @@ public class UserService implements UserDetailsService {
 
     public Page<UserDTO> getAllUsers(Pageable pageable) {
         return userRepository.findAll(pageable).map(UserDTO::from);
+    }
+
+    public List<UserShortInfoDTO> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        return users.stream().map(UserShortInfoDTO::from).collect(Collectors.toList());
     }
 
     public Page<UserDTO> getUserBySearch(Pageable pageable, String search) {

@@ -1,5 +1,9 @@
 'use strict'
 
+$(document).ready(function () {
+    $('.js-selectize').selectize();
+});
+
 const generatePassBtn = document.querySelector("#input-generate")
 const generateNewPassBtn = document.querySelector("#input-generate-newpass")
 
