@@ -1,6 +1,7 @@
 package com.a2.a2_automation_system.user;
 
 import com.a2.a2_automation_system.exception.UserAlreadyRegisteredException;
+import com.a2.a2_automation_system.exception.UserNotFoundException;
 import com.a2.a2_automation_system.group.GroupRepository;
 import com.a2.a2_automation_system.parent.Kinship;
 import com.a2.a2_automation_system.parent.Parent;
@@ -68,6 +69,7 @@ public class UserService implements UserDetailsService {
     public boolean userLoginCheck(String login) {
         return userRepository.existsByLogin(login);
     }
+
 
     public void addTrainer(UserDTO userDTO) {
         if (userLoginCheck(userDTO.getLogin())) {
@@ -217,5 +219,31 @@ public class UserService implements UserDetailsService {
             user.setIsActive(true);
         }
         userRepository.save(user);
+    }
+
+    public UserDTO getTrainer(Long id) {
+        return UserDTO.from(userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("Такой тренер не найден")));
+    }
+
+    public void editTrainer(Long id, UserDTO userDTO) {
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("Такой тренер не найден"));
+        user.setLogin(userDTO.getLogin());
+        user.setPassword(encoder.encode(userDTO.getPassword()));
+        user.setSurname(userDTO.getSurname());
+        user.setName(userDTO.getName());
+        user.setPatronymic(userDTO.getPatronymic());
+        user.setAddress(userDTO.getAddress());
+        user.setPhone(userDTO.getPhone());
+        user.setBirthDate(userDTO.getBirthDate());
+        userRepository.save(user);
+    }
+
+    public boolean checkLogin(String login, Long id) {
+        User user = userRepository.findById(id).orElseThrow();
+        if (user.getLogin().equals(login)) {
+            return false;
+        } else {
+            return userRepository.existsByLogin(login);
+        }
     }
 }
