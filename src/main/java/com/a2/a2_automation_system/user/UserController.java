@@ -170,11 +170,14 @@ public class UserController {
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @GetMapping("/edit/trainer/{id}")
     public String getEditTrainerPage(@PathVariable(value = "id") Long id, Model model) {
-        if (!model.containsAttribute("dto")) {
-            model.addAttribute("dto", new UserDTO());
+        if (userService.getSelectedUserRole(id) == Role.EMPLOYEE) {
+            if (!model.containsAttribute("dto")) {
+                model.addAttribute("dto", new UserDTO());
+            }
+            model.addAttribute("dto", userService.getTrainer(id));
+            return "edit_trainer";
         }
-        model.addAttribute("dto", userService.getTrainer(id));
-        return "edit_trainer";
+        return "edit_sportsman";
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")

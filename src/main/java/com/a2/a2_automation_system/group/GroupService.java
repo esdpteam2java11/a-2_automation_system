@@ -37,6 +37,12 @@ public class GroupService {
         return GroupDTO.from(groupRepository.findById(id).orElseThrow(() -> new GroupNotFoundException("Группа не найдена")));
     }
 
+    public long getCountSportsmanInGroup(Long id) {
+        return userRepository.findByGroup(id).stream()
+                .filter(User::getIsActive)
+                .count();
+    }
+
 
     public List<UserDTO> getTrainers() {
         return userRepository.findByRole(Role.EMPLOYEE).stream().map(UserDTO::from).collect(Collectors.toList());
