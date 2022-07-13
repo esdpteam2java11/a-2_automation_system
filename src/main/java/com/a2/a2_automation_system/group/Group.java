@@ -1,6 +1,5 @@
 package com.a2.a2_automation_system.group;
 
-
 import com.a2.a2_automation_system.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,4 +32,7 @@ public class Group {
     @JoinColumn(name = "sum")
     @NotNull
     private int sum;
+
+    @NotBlank
+    private String color;
 }
