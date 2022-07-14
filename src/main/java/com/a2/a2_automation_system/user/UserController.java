@@ -186,7 +186,7 @@ public class UserController {
                               BindingResult bindingResult,
                               RedirectAttributes attributes, @PathVariable(value = "id") Long id) {
         if (userService.checkLogin(userDTO.getLogin(), id)) {
-            attributes.addFlashAttribute("dto", userDTO);
+            attributes.addFlashAttribute("check", userDTO);
             return "redirect:/edit/trainer/" + id;
         }
         if (bindingResult.hasFieldErrors()) {

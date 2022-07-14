@@ -1,7 +1,8 @@
 <#import "partials/admin_main.ftlh" as main />
 <@main.renderWith>
+    <div class="container">
     <form method="post" action="${event.id}/edit" name="editEvent">
-    <table class="table">
+    <table class="table table-dark table-striped">
         <thead>
         <tr>
             <th scope="col">Занятие для</th>
@@ -28,21 +29,12 @@
             <span style="color: red">
                 ${message} </span><br>
         </#if>
-        <input type="submit" value="Редактировать занятие" class="btn btn-primary">
+        <button class="bn30 mb-2" type="submit">Редактировать занятие</button>
     </form>
-    <table>
-        <tr>
-
-            <td>
                 <form method="get" action="${event.id}/delete">
-                    <input type="submit" value="Удалить занятие" class="btn btn-primary">
+                    <button class="bn30 mb-2" type="submit">Удалить занятие</button>
                 </form>
-            </td>
-            <td>
                 <form method="get" action="${event.id}/deleteConnected">
-                    <input type="submit" value="Удалить серию занятий" class="btn btn-primary">
+                    <button class="bn30" type="submit">Удалить серию занятий</button>
                 </form>
-            </td>
-        </tr>
-    </table>
 </@main.renderWith>

@@ -2,7 +2,7 @@
 <@main.renderWith>
     <div>
         <h2 class="text-center mb-5">${group.name}</h2>
-        <table class="table">
+        <table class="table table-dark table-striped">
             <thead>
             <tr>
                 <th scope="col">Название группы</th>
@@ -32,7 +32,7 @@
         </table>
         <table class="table table-bordered align-middle">
 
-            <table class="table table-bordered align-middle">
+            <table class="table table-bordered align-middle table-dark table-striped">
                 <tr>
                     <th>ФИО</th>
                     <th>Возраст</th>
