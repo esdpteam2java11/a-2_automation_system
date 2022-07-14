@@ -114,8 +114,12 @@
         function changeButton() {
             for (let i = 0; i < isActive.length; i++) {
                 if (isActive[i].value === 'true') {
+                    buttons[i].classList.remove('block', 'btn', 'btn-primary')
+                    buttons[i].classList.add('block', 'btn', 'btn-danger')
                     buttons[i].innerHTML = 'Заблокировать'
                 } else {
+                    buttons[i].classList.remove('block', 'btn', 'btn-danger')
+                    buttons[i].classList.add('block', 'btn', 'btn-primary')
                     buttons[i].innerHTML = 'Разблокировать'
                 }
             }

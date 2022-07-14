@@ -21,6 +21,10 @@
                                         </div>
                                     </div>
                                 </div>
+                                <#if check??>
+                                    <p style="color:red">${check.login} такой логин уже существует! Пожалуйста
+                                        выберите другой</p>
+                                </#if>
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
                                         <label class="form-label required" for="password_input">Пароль</label>

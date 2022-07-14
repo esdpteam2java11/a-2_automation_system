@@ -1,29 +1,29 @@
 <#import "partials/admin_main.ftlh" as main />
+
 <@main.renderWith title="Добавить занятие">
-    <body>
     <form action="create" method="post" name="eventForm" onsubmit="return validateForm()">
         <#if _csrf??>
             <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
         </#if>
         <div>
-            <h2>Форма создания занятия или занятий для группы:</h2>
-            <h3>${group.name}</h3>
+            <h2 class="text-center mt-3 mb-3">Форма создания занятия или занятий для группы:</h2>
+            <h3 class="text-center mb-5">${group.name}</h3>
         </div>
-        <div id="eventCreationForm">
+        <div id="eventCreationForm" class="container">
             <input name="group" value="${group.id}" hidden>
-            <label class="flex flex-v-center" for="date">
-                Дата:
-                <input type="date" name="eventStartDate" id="date" min="${.now?date?iso_utc}" required>
+            <label class="flex flex-v-center required" for="date">
+                Дата начала:
             </label>
-            <br>
-            <label class="flex flex-v-center" for="timeStart">
+            <input type="date" name="eventStartDate" id="date" min="${.now?date?iso_utc}" required>
+            <label class="flex flex-v-center required" for="timeStart">
                 Время начала:
-                <input type="time" name="timeStart" id="timeStart" required>
             </label>
-            <label class="flex flex-v-center" for="timeEnd">
+            <input type="time" name="timeStart" id="timeStart" required>
+            <label class="flex flex-v-center required" for="timeEnd">
                 Время конца:
-                <input type="time" name="timeEnd" id="timeEnd" required>
             </label>
+            <input type="time" name="timeEnd" id="timeEnd" required>
+            <button class="bn30 ml-5" type="submit">Добавить</button>
 
             <#if errorTime??>
                 <span style="color: red">
@@ -46,15 +46,11 @@
             </#if>
 
             <label class="flex flex-v-center" for="recurring" id="reoccurringLabel">
-                Повторяющеяся занятие:
+                Повторяющиеся занятие:
                 <input type="checkbox" name="recurring" id="recurring">
             </label>
 
         </div>
-        <div>
-            <button type="submit">Добавить</button>
-        </div>
-
     </form>
     <script>
         function validateForm() {
@@ -203,7 +199,4 @@
             additionalDiv.remove();
         }
     </script>
-    </body>
-
-    </html>
 </@main.renderWith>
