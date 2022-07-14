@@ -29,6 +29,10 @@ public class GroupService {
         groupRepository.save(group);
     }
 
+    public Boolean isColorExist(String color) {
+        return groupRepository.existsByColor(color);
+    }
+
     public List<GroupDTO> getAllGroups() {
         return groupRepository.findAll().stream().map(GroupDTO::from).collect(Collectors.toList());
     }
