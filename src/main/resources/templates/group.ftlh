@@ -1,6 +1,6 @@
 <#import "partials/admin_main.ftlh" as main />
 <@main.renderWith>
-    <div style="background-color: #FFFFFF">
+    <div>
         <h2 class="text-center mb-5">${group.name}</h2>
         <table class="table">
             <thead>
@@ -35,7 +35,7 @@
             <table class="table table-bordered align-middle">
                 <tr>
                     <th>ФИО</th>
-                    <th>Возрост</th>
+                    <th>Возраст</th>
                     <th>Телефон</th>
                     <th>Стоимость обучения</th>
                 </tr>

@@ -68,17 +68,15 @@ label.required:after {
     width: 100%;
 }
 
+
+
 .main-color {
-    padding-top: 100px;
-}
-
-
-body {
     background: -webkit-linear-gradient(90deg, #09022e, #ff1154);
     background: linear-gradient(90deg, #09022e, #ff1154);
+    position: absolute;
+    min-width: 100%;
+    min-height: 100%;
 }
-
-
 
 .button-85 {
     margin-top: 31px;
