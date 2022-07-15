@@ -22,7 +22,6 @@ public class PageUtil {
                     list.previousPageable().getPageNumber(), list.previousPageable().getPageSize()));
         }
 
-        List<String> roles = Stream.of(Role.values()).map(Role::getRole).collect(Collectors.toList());
         model.addAttribute("url", constructPageUri(uri, role, isActive));
 
         model.addAttribute("hasNext", list.hasNext());
@@ -30,7 +29,7 @@ public class PageUtil {
         model.addAttribute("users", list.getContent());
         model.addAttribute("page", list);
         model.addAttribute("role", role);
-        model.addAttribute("roles", roles);
+        model.addAttribute("roles", Role.values());
         model.addAttribute("isActive", isActive);
         model.addAttribute("defaultPageSize", pageSize);
     }

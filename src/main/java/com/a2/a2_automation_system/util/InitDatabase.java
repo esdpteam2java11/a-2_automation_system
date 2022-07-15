@@ -73,11 +73,16 @@ public class InitDatabase {
             }
             if (groupRepository.findAll().isEmpty()) {
                 List<Group> groups = List.of(
-                        Group.builder().name("Детская группа 1").sum(3000).trainer(userRepository.findByLogin("manager").orElse(null)).build(),
-                        Group.builder().name("Детская группа 2").sum(3000).trainer(userRepository.findByLogin("manager").orElse(null)).build(),
-                        Group.builder().name("Младшая группа").sum(1000).trainer(userRepository.findByLogin("manager").orElse(null)).build(),
-                        Group.builder().name("Старшая группа").sum(3000).trainer(userRepository.findByLogin("manager").orElse(null)).build(),
-                        Group.builder().name("Взрослая группа").sum(2000).trainer(userRepository.findByLogin("manager").orElse(null)).build());
+                        Group.builder().name("Детская группа 1").sum(3000)
+                                .trainer(userRepository.findByLogin("manager").orElse(null)).color("#e03434").build(),
+                        Group.builder().name("Детская группа 2").sum(3000)
+                                .trainer(userRepository.findByLogin("manager").orElse(null)).color("#e034c4").build(),
+                        Group.builder().name("Младшая группа").sum(1000)
+                                .trainer(userRepository.findByLogin("manager").orElse(null)).color("#9e34e0").build(),
+                        Group.builder().name("Старшая группа").sum(3000)
+                                .trainer(userRepository.findByLogin("manager").orElse(null)).color("#3634e0").build(),
+                        Group.builder().name("Взрослая группа").sum(2000)
+                                .trainer(userRepository.findByLogin("manager").orElse(null)).color("#34e059").build());
                 groupRepository.saveAll(groups);
             }
 

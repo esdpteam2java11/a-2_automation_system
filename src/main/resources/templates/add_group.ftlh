@@ -35,6 +35,18 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
+                                        <label class="form-label required" for="color_input">Цвет</label>
+                                        <div class="form-outline">
+                                            <input name="color" type="color"
+                                                   id="color_input"
+                                                   class="form-control form-control-lg" placeholder="Цвет"
+                                                   value="#FFFFFF"
+                                                   required onchange="checkIfColorExists(this.value)"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
                                         <label class="form-label required" for="trainer">Выберите тренера</label>
                                         <div class="form-outline">
                                             <select id="trainer" name="trainer" class="select-css">

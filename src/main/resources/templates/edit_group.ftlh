@@ -54,6 +54,27 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6 mb-4">
+                                            <label class="form-label" for="color_input">Старый цвет</label>
+                                            <div class="form-outline">
+                                                <input value="${(group.color)!''}" type="color"
+                                                       id="color_input"
+                                                       class="form-control form-control-lg"
+                                                       disabled/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-4">
+                                            <div class="form-outline">
+                                                <label class="form-label required" for="new_color_input">Новый
+                                                    цвет</label>
+                                                <input type="color" value="#FFFFFF" name="color"
+                                                       id="new_color_input"
+                                                       class="form-control form-control-lg" required
+                                                       onchange="checkIfColorExists(this.value)"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-4">
                                             <label class="form-label" for="price_input">Старый тренер</label>
                                             <div class="form-outline">
                                                 <input value="${(group.trainer.name)!''}" type="text"

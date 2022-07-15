@@ -1,6 +1,5 @@
 package com.a2.a2_automation_system.group;
 
-
 import com.a2.a2_automation_system.user.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -8,7 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.JoinColumn;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -17,7 +15,6 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GroupDTO {
-
 
     private Long id;
 
@@ -28,6 +25,8 @@ public class GroupDTO {
     @JsonProperty("trainer_id")
     private User trainer;
 
+    @NotBlank
+    private String color;
 
     @NotNull
     private int sum;
@@ -37,6 +36,7 @@ public class GroupDTO {
                 .name(group.getName())
                 .trainer(group.getTrainer())
                 .sum(group.getSum())
+                .color(group.getColor())
                 .build();
     }
 }

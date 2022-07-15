@@ -8,7 +8,7 @@
                     <select id="role" name="role" class="select-css">
                         <option value="all">Все</option>
                         <#list roles as role>
-                            <option value="${role}">${role}</option>
+                            <option value="${role}">${role.role}</option>
                         </#list>
                     </select>
                     <label for="blocked">Заблокирован</label>
@@ -48,7 +48,7 @@
                     <td><a class="text-decoration-none text-reset" href="${link}">${user.surname}</a></td>
                     <td><a class="text-decoration-none text-reset" href="${link}">${user.name}</a></td>
                     <td><a class="text-decoration-none text-reset" href="${link}">${user.phone}</a></td>
-                    <td><a class="text-decoration-none text-reset" href="${link}">${user.role}</a></td>
+                    <td><a class="text-decoration-none text-reset" href="${link}">${user.role.role}</a></td>
                     <td><a class="text-decoration-none text-reset" href="${link}">${(user.login)!}</a></td>
                     <form id="status">
                         <td>
