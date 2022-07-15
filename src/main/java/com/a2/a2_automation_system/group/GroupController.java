@@ -1,6 +1,5 @@
 package com.a2.a2_automation_system.group;
 
-import com.a2.a2_automation_system.exception.ColorAlreadyExistsException;
 import com.a2.a2_automation_system.tariff.SportsmanPaymentRepository;
 import com.a2.a2_automation_system.user.User;
 import com.a2.a2_automation_system.user.UserRepository;
@@ -47,17 +46,13 @@ public class GroupController {
     @PostMapping("/add")
     public String addNewGroup(@Valid GroupDTO groupDTO,
                               BindingResult validationResult,
-                              RedirectAttributes attributes) throws ColorAlreadyExistsException {
+                              RedirectAttributes attributes) {
         if (validationResult.hasFieldErrors()) {
             attributes.addAttribute("errors", validationResult.getFieldErrors());
             return "redirect:/group/add";
         }
-        if (groupService.isColorExist(groupDTO.getColor())) {
-            throw new ColorAlreadyExistsException("Данный цвет уже присвоен другой группе");
-        } else {
-            groupService.addGroup(groupDTO);
-            return "redirect:/group/all";
-        }
+        groupService.addGroup(groupDTO);
+        return "redirect:/group/all";
     }
 
     @GetMapping("{id}/calendar")
@@ -77,9 +72,10 @@ public class GroupController {
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @PostMapping("/edit")
     public String editGroups(@RequestParam Long id, @RequestParam String name,
-                             @RequestParam(required = false) int sum, @RequestParam User trainer) {
+                             @RequestParam(required = false) int sum, @RequestParam String color,
+                             @RequestParam User trainer) {
 
-        groupService.editGroup(id, trainer, name, sum);
+        groupService.editGroup(id, trainer, name, sum, color);
 
         return "redirect:/group/all";
     }

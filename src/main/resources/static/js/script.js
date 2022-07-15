@@ -148,3 +148,21 @@ document.getElementsByClassName("search-relative-modal-close")[0].addEventListen
         searchResult.firstElementChild.remove()
     }
 })
+
+async function checkIfColorExists(color) {
+    let substring = '%23' + color.substring(1, 8);
+
+    const myHeaders = new Headers()
+    const requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+    }
+    const result = await fetch('/group/color?color=' + substring, requestOptions)
+    const isColorExists = await result.json()
+    console.log(isColorExists)
+
+    if (isColorExists) {
+        alert("Данный цвет уже присвоен другой группе.\nСмените пожалуйста цвет.")
+    }
+}

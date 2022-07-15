@@ -25,6 +25,7 @@ public class GroupService {
                 .name(dto.getName())
                 .trainer(dto.getTrainer())
                 .sum(dto.getSum())
+                .color(dto.getColor())
                 .build();
         groupRepository.save(group);
     }
@@ -40,7 +41,6 @@ public class GroupService {
     public GroupDTO getGroupById(Long id) {
         return GroupDTO.from(groupRepository.findById(id).orElseThrow(() -> new GroupNotFoundException("Группа не найдена")));
     }
-
 
     public List<UserDTO> getTrainers() {
         return userRepository.findByRole(Role.EMPLOYEE).stream().map(UserDTO::from).collect(Collectors.toList());
@@ -73,8 +73,6 @@ public class GroupService {
             groupRepository.save(g);
 
         });
-
-
     }
 
     public void editGroupSum(Long id, int sum) {
@@ -83,8 +81,14 @@ public class GroupService {
             g.setSum(sum);
             groupRepository.save(g);
         });
+    }
 
-
+    public void editGroupColor(Long id, String color) {
+        var group = groupRepository.findById(id);
+        group.ifPresent(g -> {
+            g.setColor(color);
+            groupRepository.save(g);
+        });
     }
 
     public void editGroupTrainer(Long id, User trainer) {
@@ -92,16 +96,13 @@ public class GroupService {
         group.ifPresent(g -> {
             g.setTrainer(trainer);
             groupRepository.save(g);
-
         });
-
-
     }
 
-    public void editGroup(Long id, User trainer, String name, int sum) {
+    public void editGroup(Long id, User trainer, String name, int sum, String color) {
         editGroupTrainer(id, trainer);
         editGroupName(id, name);
         editGroupSum(id, sum);
+        editGroupColor(id, color);
     }
-
 }
