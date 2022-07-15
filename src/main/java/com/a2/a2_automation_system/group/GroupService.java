@@ -6,7 +6,6 @@ import com.a2.a2_automation_system.tariff.SportsmanPaymentRepository;
 import com.a2.a2_automation_system.user.*;
 import com.a2.a2_automation_system.exception.GroupNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,8 +25,13 @@ public class GroupService {
                 .name(dto.getName())
                 .trainer(dto.getTrainer())
                 .sum(dto.getSum())
+                .color(dto.getColor())
                 .build();
         groupRepository.save(group);
+    }
+
+    public Boolean isColorExist(String color) {
+        return groupRepository.existsByColor(color);
     }
 
     public List<GroupDTO> getAllGroups() {
@@ -38,27 +42,28 @@ public class GroupService {
         return GroupDTO.from(groupRepository.findById(id).orElseThrow(() -> new GroupNotFoundException("Группа не найдена")));
     }
 
+    public long getCountSportsmanInGroup(Long id) {
+        return userRepository.findByGroup(id).stream()
+                .filter(User::getIsActive)
+                .count();
+    }
 
     public List<UserDTO> getTrainers() {
         return userRepository.findByRole(Role.EMPLOYEE).stream().map(UserDTO::from).collect(Collectors.toList());
     }
 
-    public List<UserForGroupDTO> getUsersByGroup(Long id) {
-        List<UserForGroupDTO> userForGroupDTOList = new ArrayList<>();
+    public List<UserShortInfoDTO> getUsersByGroup(Long id) {
+        List<UserShortInfoDTO> userShortInfoDTOList = new ArrayList<>();
         var users = userRepository.findByGroup(id);
         for (User u : users
         ) {
-            UserForGroupDTO userDto = new UserForGroupDTO();
-            userDto.setId(u.getId());
-            userDto.setFio(String.format(u.getSurname() + " " + u.getName() + " " + u.getPatronymic()));
-            userDto.setPhone(u.getPhone());
-            userDto.setBirthDate(u.getBirthDate());
+            UserShortInfoDTO userDto = UserShortInfoDTO.from(u);
             Optional<SportsmanPayment> sportsmanPayment = paymentRepository.findUpToDateAmount(u.getId(), OperationType.ACCRUED.toString());
             if (sportsmanPayment.isPresent()) userDto.setAmount(sportsmanPayment.get().getAmount());
             else userDto.setAmount(0);
-            userForGroupDTOList.add(userDto);
+            userShortInfoDTOList.add(userDto);
         }
-        return userForGroupDTOList;
+        return userShortInfoDTOList;
     }
 
     public Group getGroupByIdReturnGroup(Long id) {
@@ -74,8 +79,6 @@ public class GroupService {
             groupRepository.save(g);
 
         });
-
-
     }
 
     public void editGroupSum(Long id, int sum) {
@@ -84,8 +87,14 @@ public class GroupService {
             g.setSum(sum);
             groupRepository.save(g);
         });
+    }
 
-
+    public void editGroupColor(Long id, String color) {
+        var group = groupRepository.findById(id);
+        group.ifPresent(g -> {
+            g.setColor(color);
+            groupRepository.save(g);
+        });
     }
 
     public void editGroupTrainer(Long id, User trainer) {
@@ -93,16 +102,13 @@ public class GroupService {
         group.ifPresent(g -> {
             g.setTrainer(trainer);
             groupRepository.save(g);
-
         });
-
-
     }
 
-    public void editGroup(Long id, User trainer, String name, int sum) {
+    public void editGroup(Long id, User trainer, String name, int sum, String color) {
         editGroupTrainer(id, trainer);
         editGroupName(id, name);
         editGroupSum(id, sum);
+        editGroupColor(id, color);
     }
-
 }

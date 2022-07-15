@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/mediaelementplayer.min.css">
 
 
-
     <link rel="stylesheet" href="/fonts/flaticon/font/flaticon.css">
 
     <link rel="stylesheet" href="/css/aos.css">
@@ -27,10 +26,9 @@
     <link rel="stylesheet" href="/css/style.css">
 
 </head>
-<body style="background-image: url('/static/images/bg.jpg');">
+<body>
 
 <div class="site-wrap">
-
 
 
     <div class="site-mobile-menu">
@@ -55,32 +53,34 @@
                         <div class="col-10">
                             <nav class="site-navigation text-right" role="navigation">
                                 <div class="container">
-                                    <div class="d-inline-block d-lg-none ml-md-0 mr-auto py-3"><a href="#" class="site-menu-toggle js-menu-toggle text-black"><span class="icon-menu h3"></span></a></div>
+                                    <div class="d-inline-block d-lg-none ml-md-0 mr-auto py-3"><a href="#"
+                                                                                                  class="site-menu-toggle js-menu-toggle text-black"><span
+                                                    class="icon-menu h3"></span></a></div>
 
                                     <ul class="site-menu js-clone-nav d-none d-lg-block">
                                         <li class="has-children">
-                                            <a href="program.html">Программа</a>
+                                            <a href="#">Программа</a>
                                             <ul class="dropdown arrow-top">
-                                                <li><a href="program.html">Body Building</a></li>
-                                                <li><a href="program.html">Morning Energy</a></li>
-                                                <li><a href="program.html">Stretching</a></li>
+                                                <li><a href="#">Body Building</a></li>
+                                                <li><a href="#">Morning Energy</a></li>
+                                                <li><a href="#">Stretching</a></li>
                                                 <li class="has-children">
-                                                    <a href="program.html">Sub Menus</a>
+                                                    <a href="#">Sub Menus</a>
                                                     <ul class="dropdown">
-                                                        <li><a href="program.html">Swimming</a></li>
-                                                        <li><a href="program.html">Boxing</a></li>
-                                                        <li><a href="program.html">Running</a></li>
-                                                        <li><a href="program.html">Jogging</a></li>
+                                                        <li><a href="#">Swimming</a></li>
+                                                        <li><a href="#">Boxing</a></li>
+                                                        <li><a href="#">Running</a></li>
+                                                        <li><a href="#">Jogging</a></li>
 
                                                     </ul>
                                                 </li>
 
                                             </ul>
                                         </li>
-                                        <li><a href="trainers.html">Наши тренеры</a></li>
-                                        <li><a href="events.html">Новости</a></li>
-                                        <li><a href="about.html">О клубе</a></li>
-                                        <li><a href="contact.html">Контакты</a></li>
+                                        <li><a href="#">Наши тренеры</a></li>
+                                        <li><a href="#">Новости</a></li>
+                                        <li><a href="#">О клубе</a></li>
+                                        <li><a href="#">Контакты</a></li>
                                         <li><a href="/login">Войти</a></li>
                                     </ul>
                                 </div>
@@ -95,7 +95,8 @@
     <!-- <div style="height: 113px;"></div> -->
     <div class="slide-one-item home-slider owl-carousel">
 
-        <div class="site-blocks-cover inner-page" style="background-image: url(/images/hero_b1_1.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+        <div class="site-blocks-cover inner-page" style="background-image: url(/images/hero_b1_1.jpg);" data-aos="fade"
+             data-stellar-background-ratio="0.5">
             <!-- <div class="container"> -->
             <div class="row align-items-center justify-content-center">
                 <div class="col-md-7 text-center" data-aos="fade">
@@ -106,7 +107,8 @@
             <!-- </div> -->
         </div>
 
-        <div class="site-blocks-cover inner-page" style="background-image: url(/images/hero_bg_2.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+        <div class="site-blocks-cover inner-page" style="background-image: url(/images/hero_bg_2.jpg);" data-aos="fade"
+             data-stellar-background-ratio="0.5">
             <!-- <div class="container"> -->
             <div class="row align-items-center justify-content-center">
                 <div class="col-md-7 text-center" data-aos="fade">
@@ -121,13 +123,13 @@
     <div class="site-section">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6">
-                    <p class="mb-5"><img src="/images/logo_big.jpg" alt="Image" class="img-fluid"></p>
-                </div>
                 <div class="col-lg-5 ml-auto">
                     <h2 class="site-section-heading mb-3">Спортивный клуб "A-2"</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim ad, tempora incidunt accusantium. Similique magni quaerat beatae illo aliquid. Libero non ipsa nisi, corporis architecto incidunt rem repellendus asperiores numquam!</p>
-                    <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit explicabo odio officiis autem minima quibusdam.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim ad, tempora incidunt accusantium.
+                        Similique magni quaerat beatae illo aliquid. Libero non ipsa nisi, corporis architecto incidunt
+                        rem repellendus asperiores numquam!</p>
+                    <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit explicabo odio
+                        officiis autem minima quibusdam.</p>
                     <p><a href="#" class="btn btn-outline-primary py-2 px-4">Подробнее</a></p>
                 </div>
             </div>
@@ -149,7 +151,8 @@
                             <div class="media-image-body">
                                 <h2>Новость 1</h2>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, voluptate.</p>
-                                <p><a href="#" class="btn btn-primary text-white px-4"><span class="caption">Подробнее</span></a></p>
+                                <p><a href="#" class="btn btn-primary text-white px-4"><span
+                                                class="caption">Подробнее</span></a></p>
                             </div>
                         </div>
                         <div class="media-image">
@@ -157,7 +160,8 @@
                             <div class="media-image-body">
                                 <h2>Новость 2</h2>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, voluptate.</p>
-                                <p><a href="#" class="btn btn-primary text-white px-4"><span class="caption">Подробнее</span></a></p>
+                                <p><a href="#" class="btn btn-primary text-white px-4"><span
+                                                class="caption">Подробнее</span></a></p>
                             </div>
                         </div>
                         <div class="media-image">
@@ -165,7 +169,8 @@
                             <div class="media-image-body">
                                 <h2>Новость 3</h2>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, voluptate.</p>
-                                <p><a href="#" class="btn btn-primary text-white px-4"><span class="caption">Подробнее</span></a></p>
+                                <p><a href="#" class="btn btn-primary text-white px-4"><span
+                                                class="caption">Подробнее</span></a></p>
                             </div>
                         </div>
                         <div class="media-image">
@@ -173,7 +178,8 @@
                             <div class="media-image-body">
                                 <h2>Новость 4</h2>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, voluptate.</p>
-                                <p><a href="#" class="btn btn-primary text-white px-4"><span class="caption">Подробнее</span></a></p>
+                                <p><a href="#" class="btn btn-primary text-white px-4"><span
+                                                class="caption">Подробнее</span></a></p>
                             </div>
                         </div>
                         <div class="media-image">
@@ -181,7 +187,8 @@
                             <div class="media-image-body">
                                 <h2>Новость 5</h2>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, voluptate.</p>
-                                <p><a href="#" class="btn btn-primary text-white px-4"><span class="caption">Подробнее</span></a></p>
+                                <p><a href="#" class="btn btn-primary text-white px-4"><span
+                                                class="caption">Подробнее</span></a></p>
                             </div>
                         </div>
                         <div class="media-image">
@@ -189,7 +196,8 @@
                             <div class="media-image-body">
                                 <h2>Новость 6</h2>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, voluptate.</p>
-                                <p><a href="#" class="btn btn-primary text-white px-4"><span class="caption">Подробнее</span></a></p>
+                                <p><a href="#" class="btn btn-primary text-white px-4"><span
+                                                class="caption">Подробнее</span></a></p>
                             </div>
                         </div>
                     </div>
@@ -197,11 +205,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
 
 
     <div class="site-section block-14 bg-light nav-direction-white">
@@ -223,7 +226,10 @@
                         </div>
                         <div>
                             <h2 class="h5">Арсен Камчибеков</h2>
-                            <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias accusantium qui optio, possimus necessitatibus voluptate aliquam velit nostrum tempora ipsam!&rdquo;</blockquote>
+                            <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
+                                accusantium qui optio, possimus necessitatibus voluptate aliquam velit nostrum tempora
+                                ipsam!&rdquo;
+                            </blockquote>
                             <p><a href="#" class="btn btn-outline-primary py-2 px-4">Подробнее</a></p>
                         </div>
                     </div>
@@ -235,7 +241,10 @@
                         </div>
                         <div>
                             <h2 class="h5">Актилек Беккулов</h2>
-                            <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias accusantium qui optio, possimus necessitatibus voluptate aliquam velit nostrum tempora ipsam!&rdquo;</blockquote>
+                            <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
+                                accusantium qui optio, possimus necessitatibus voluptate aliquam velit nostrum tempora
+                                ipsam!&rdquo;
+                            </blockquote>
                             <p><a href="#" class="btn btn-outline-primary py-2 px-4">Подробнее</a></p>
                         </div>
                     </div>
@@ -250,7 +259,9 @@
             <div class="row pt-5 mt-5 text-center">
                 <div class="col-md-12">
                     <p>
-                        Copyright &copy; <script>document.write(new Date().getFullYear());</script> All Rights Reserved
+                        Copyright &copy;
+                        <script>document.write(new Date().getFullYear());</script>
+                        All Rights Reserved
                     </p>
                 </div>
             </div>

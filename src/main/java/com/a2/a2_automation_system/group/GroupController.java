@@ -1,6 +1,5 @@
 package com.a2.a2_automation_system.group;
 
-
 import com.a2.a2_automation_system.tariff.SportsmanPaymentRepository;
 import com.a2.a2_automation_system.user.User;
 import com.a2.a2_automation_system.user.UserRepository;
@@ -33,10 +32,9 @@ public class GroupController {
     public String getGroupById(@PathVariable Long id, Model model) {
         model.addAttribute("group", groupService.getGroupById(id));
         model.addAttribute("users", groupService.getUsersByGroup(id));
-
+        model.addAttribute("count", groupService.getCountSportsmanInGroup(id));
         return "group";
     }
-
 
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @GetMapping("/add")
@@ -75,9 +73,10 @@ public class GroupController {
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @PostMapping("/edit")
     public String editGroups(@RequestParam Long id, @RequestParam String name,
-                             @RequestParam(required = false) int sum, @RequestParam User trainer) {
+                             @RequestParam(required = false) int sum, @RequestParam String color,
+                             @RequestParam User trainer) {
 
-        groupService.editGroup(id, trainer, name, sum);
+        groupService.editGroup(id, trainer, name, sum, color);
 
         return "redirect:/group/all";
     }

@@ -12,6 +12,7 @@
               integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
               crossorigin="anonymous">
         <link rel="stylesheet" href="/css/bootstrap/bootstrap.css">
+        <link rel="stylesheet" href="/css/selectize.default.css">
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
                 integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
                 crossorigin="anonymous"></script>
@@ -30,6 +31,11 @@
         <script src="https://code.jquery.com/jquery-3.6.0.js"
                 integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="/css/addUserForm.css">
+        <link href="/css/fullcalendar/main.min.css" rel='stylesheet' />
+        <script src="/js/fullcalendar/main.js"> </script>
+        <script src="/js/fullcalendar/calendarShow.js"></script>
+        <script src="/js/fullcalendar/ru.js"></script>
+
         <#list styles as styleSource>
             <link rel="stylesheet" href="${styleSource}">
         </#list>
@@ -55,6 +61,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/group/all">Группы</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cash">Касса</a>
+                    </li>
                 </ul>
             </div>
             <div class="text-right mr-5">
@@ -71,7 +80,14 @@
 
     <#nested>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+    <script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://snipp.ru/cdn/microplugin.js/src/microplugin.js"></script>
+    <script src="https://snipp.ru/cdn/sifter.js/sifter.min.js"></script>
+    <script src="https://snipp.ru/cdn/selectize.js/0.12.6/dist/js/selectize.min.js"></script>
+    <script src="/js/script.js"></script>
     </body>
     </html>
 

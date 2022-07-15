@@ -1,6 +1,7 @@
 package com.a2.a2_automation_system.user;
 
 import com.a2.a2_automation_system.exception.UserAlreadyRegisteredException;
+import com.a2.a2_automation_system.exception.UserNotFoundException;
 import com.a2.a2_automation_system.group.GroupRepository;
 import com.a2.a2_automation_system.parent.Kinship;
 import com.a2.a2_automation_system.parent.Parent;
@@ -18,10 +19,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -42,7 +41,6 @@ public class UserService implements UserDetailsService {
         return userRepository.findById(id).get().getRole();
     }
 
-
     public Page<UserDTO> getUsersWithFilter(Pageable pageable, String role, Boolean isActive) {
         if ((isActive != null && role != null) && !role.equals("all")) {
             return userRepository.findAllByIsActiveAndRole(pageable, isActive, Role.getRoleByRoleName(role)).map(UserDTO::from);
@@ -59,6 +57,11 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll(pageable).map(UserDTO::from);
     }
 
+    public List<UserShortInfoDTO> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        return users.stream().map(UserShortInfoDTO::from).collect(Collectors.toList());
+    }
+
     public Page<UserDTO> getUserBySearch(Pageable pageable, String search) {
         return userRepository.findUserByNameOrSurnameOrPatronymic(pageable, search).map(UserDTO::from);
     }
@@ -66,6 +69,7 @@ public class UserService implements UserDetailsService {
     public boolean userLoginCheck(String login) {
         return userRepository.existsByLogin(login);
     }
+
 
     public void addTrainer(UserDTO userDTO) {
         if (userLoginCheck(userDTO.getLogin())) {
@@ -144,7 +148,7 @@ public class UserService implements UserDetailsService {
             List<Parent> parents = setParents(pIds, pKinships, pSurnames, pNames, pPatronymics, pPhones, pWhatsapps,
                     pTelegrams);
             for (Parent parent : parents) {
-                if (!relationshipRepository.existsByParentIdAndStudentId(parent.getId(), sportsman.getId())){
+                if (!relationshipRepository.existsByParentIdAndStudentId(parent.getId(), sportsman.getId())) {
                     Relationship newRelationship = new Relationship();
                     newRelationship.setStudent(sportsman);
                     newRelationship.setParent(parent);
@@ -205,5 +209,41 @@ public class UserService implements UserDetailsService {
             parents.add(parent);
         }
         return parents;
+    }
+
+    public void changeIsActive(Long id) {
+        var user = userRepository.findById(id).orElseThrow();
+        if (user.getIsActive()) {
+            user.setIsActive(false);
+        } else {
+            user.setIsActive(true);
+        }
+        userRepository.save(user);
+    }
+
+    public UserDTO getTrainer(Long id) {
+        return UserDTO.from(userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("Такой тренер не найден")));
+    }
+
+    public void editTrainer(Long id, UserDTO userDTO) {
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("Такой тренер не найден"));
+        user.setLogin(userDTO.getLogin());
+        user.setPassword(encoder.encode(userDTO.getPassword()));
+        user.setSurname(userDTO.getSurname());
+        user.setName(userDTO.getName());
+        user.setPatronymic(userDTO.getPatronymic());
+        user.setAddress(userDTO.getAddress());
+        user.setPhone(userDTO.getPhone());
+        user.setBirthDate(userDTO.getBirthDate());
+        userRepository.save(user);
+    }
+
+    public boolean checkLogin(String login, Long id) {
+        User user = userRepository.findById(id).orElseThrow();
+        if (user.getLogin().equals(login)) {
+            return false;
+        } else {
+            return userRepository.existsByLogin(login);
+        }
     }
 }

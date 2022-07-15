@@ -68,14 +68,15 @@ label.required:after {
     width: 100%;
 }
 
+
+
 .main-color {
     background: -webkit-linear-gradient(90deg, #09022e, #ff1154);
     background: linear-gradient(90deg, #09022e, #ff1154);
     position: absolute;
-    width: 100%;
-    height: 100%;
+    min-width: 100%;
+    min-height: 100%;
 }
-
 
 .button-85 {
     margin-top: 31px;
@@ -222,9 +223,11 @@ body .groups-name:hover {
 
 .main-color-groups {
     padding-top: 50px;
-    padding-bottom: 171px;
+    padding-bottom: 304px;
     background: -webkit-linear-gradient(90deg, #09022e, #ff1154);
     background: linear-gradient(90deg, #09022e, #ff1154);
+    width: 100%;
+    height: 100%;
 }
 
 .buttons-groups {
@@ -235,7 +238,7 @@ body .groups-name:hover {
     margin-left: 50px;
 }
 
-.add-sportsman-header {
+.add-sportsman-header .cash-flow-header{
     margin-top: 50px;
     margin-bottom: 40px;
     text-align: center;
@@ -382,6 +385,9 @@ body .groups-name:hover {
     border-radius: 8px;
 }
 
+.calendar-ref {
+    margin-left: 100px;
+}
 
 
 

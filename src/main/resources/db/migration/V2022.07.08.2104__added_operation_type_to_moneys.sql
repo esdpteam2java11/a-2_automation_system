@@ -1,0 +1,2 @@
+ALTER TABLE moneys
+    ADD COLUMN IF NOT EXISTS operation_type VARCHAR (128) NOT NULL;

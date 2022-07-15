@@ -1,6 +1,6 @@
 <#import "partials/admin_main.ftlh" as main />
 <@main.renderWith >
-    <form action="/add/trainer" method="post">
+    <form action="/edit/trainer/${dto.id}" method="post">
         <#if _csrf??>
             <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
         </#if>
@@ -10,7 +10,7 @@
                     <div class="col">
                         <div class="card card-registration my-4">
                             <div class="card-body p-md-5 text-black">
-                                <h3 class="mb-4 text-uppercase text-center">Регистрация тренера</h3>
+                                <h3 class="mb-4 text-uppercase text-center">Изменения тренера</h3>
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
@@ -19,12 +19,12 @@
                                                    class="form-control form-control-lg" placeholder="Логин"
                                                    required="required"/>
                                         </div>
-                                        <#if dto.login??>
-                                            <p style="color:red">${dto.login} такой логин уже существует! Пожалуйста
-                                                выберите другой</p>
-                                        </#if>
                                     </div>
                                 </div>
+                                <#if check??>
+                                    <p style="color:red">${check.login} такой логин уже существует! Пожалуйста
+                                        выберите другой</p>
+                                </#if>
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
                                         <label class="form-label required" for="password_input">Пароль</label>
@@ -36,7 +36,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-4">
-                                        <button type="button" id="input-generate" class="button-85 button-user-create">Сгенерировать пароль
+                                        <button type="button" id="input-generate" class="button-85 button-user-create">
+                                            Сгенерировать пароль
                                         </button>
                                     </div>
                                 </div>
@@ -100,7 +101,7 @@
                                         <div class="form-outline">
                                             <input name="birthDate" type="date" id="birth_input"
                                                    class="form-control form-control-lg"
-                                                   required="required"/>
+                                                   required="required" value="${(dto.birthDate?date?iso_local)!''}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -112,7 +113,10 @@
                                 </#if>
                                 <input type="hidden" id="role" name="role" value="EMPLOYEE">
                                 <div class="button">
-                                    <button type="submit" class="custom-btn btn-1">Зарегистрировать</button>
+                                    <button type="submit" class="custom-btn btn-1">Редактировать данные</button>
+                                    <a href="/admin">
+                                        <button type="button" class="custom-btn btn-1">Отменить</button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -121,4 +125,7 @@
             </div>
         </section>
     </form>
+    <script src="/js/generate_password_for_trainer.js">
+
+    </script>
 </@main.renderWith>

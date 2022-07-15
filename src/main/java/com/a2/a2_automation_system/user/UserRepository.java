@@ -17,6 +17,8 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 
     Page<User> findAll(Pageable pageable);
 
+    List<User> findAll();
+
     Page<User> findAllByRole(Pageable pageable, Role role);
 
     Page<User> findAllByIsActive(Pageable pageable, boolean isActive);
@@ -31,6 +33,7 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long> {
             " OR LOWER(u.surname) LIKE LOWER(CONCAT('%', :search,'%')) " +
             " OR LOWER(u.patronymic) LIKE LOWER(CONCAT('%', :search,'%'))")
     Page<User> findUserByNameOrSurnameOrPatronymic(Pageable pageable, @Param("search") String search);
+
     @Query("select u FROM User u where u.group.id= :id")
     List<User> findByGroup(Long id);
 

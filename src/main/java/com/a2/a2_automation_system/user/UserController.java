@@ -12,8 +12,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,7 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Date;
@@ -65,6 +62,7 @@ public class UserController {
         }
         return "admin";
     }
+
 
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @GetMapping("/add/trainer")
@@ -136,7 +134,7 @@ public class UserController {
             model.addAttribute("sportsman", userService.getSportsmanDetails(id));
             model.addAttribute("parents", parentService.getParentsBySportsmanId(id));
             return "edit_sportsman";
-        } else return "edit_trainer";
+        } else return "redirect:/edit/trainer/" + id;
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
@@ -167,5 +165,35 @@ public class UserController {
                 pNames, pPatronymics, pPhones, pWhatsapps, pTelegrams);
 
         return "redirect:/edit/" + id;
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
+    @GetMapping("/edit/trainer/{id}")
+    public String getEditTrainerPage(@PathVariable(value = "id") Long id, Model model) {
+        if (userService.getSelectedUserRole(id) == Role.EMPLOYEE) {
+            if (!model.containsAttribute("dto")) {
+                model.addAttribute("dto", new UserDTO());
+            }
+            model.addAttribute("dto", userService.getTrainer(id));
+            return "edit_trainer";
+        }
+        return "edit_sportsman";
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
+    @PostMapping("/edit/trainer/{id}")
+    public String editTrainer(@Valid UserDTO userDTO,
+                              BindingResult bindingResult,
+                              RedirectAttributes attributes, @PathVariable(value = "id") Long id) {
+        if (userService.checkLogin(userDTO.getLogin(), id)) {
+            attributes.addFlashAttribute("check", userDTO);
+            return "redirect:/edit/trainer/" + id;
+        }
+        if (bindingResult.hasFieldErrors()) {
+            attributes.addFlashAttribute("errors", bindingResult.getFieldErrors());
+            return "redirect:/edit/trainer/" + id;
+        }
+        userService.editTrainer(id, userDTO);
+        return "redirect:/edit/trainer/" + id;
     }
 }
