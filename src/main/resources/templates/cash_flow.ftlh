@@ -3,7 +3,7 @@
     <main class="main-color">
         <div class="container col-xxl-8 pb-2" style="background-color: white;">
             <div class="container" style="background-color: white;">
-                <h2 class="cash-flow-header text-center" style="color: black">Кассовые операции</h2>
+                <h2 class="cash-flow-header text-center mb-4 py-4" style="color: black">Кассовые операции</h2>
                 <form action="/cash" method="get">
                     <div class="border border-secondary mb-3">
                         <div class="row my-3 mx-4">
@@ -44,7 +44,8 @@
                                 <div class="row m-2">
                                     <label class="col-sm-6 col-form-label" for="period-start">Период с:</label>
                                     <input type="date" name="periodStart" class="form-control col-sm-6"
-                                           id="period-start" value="${.now?date?iso_utc}" max="${.now?date?iso_utc}" required>
+                                           id="period-start" value="${.now?date?iso_utc}" max="${.now?date?iso_utc}"
+                                           required>
                                 </div>
                                 <div class="row m-2">
                                     <label class="col-sm-6 col-form-label" for="period-end">Период по:</label>

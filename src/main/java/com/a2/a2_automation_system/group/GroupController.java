@@ -32,6 +32,7 @@ public class GroupController {
     public String getGroupById(@PathVariable Long id, Model model) {
         model.addAttribute("group", groupService.getGroupById(id));
         model.addAttribute("users", groupService.getUsersByGroup(id));
+        model.addAttribute("count", groupService.getCountSportsmanInGroup(id));
         return "group";
     }
 

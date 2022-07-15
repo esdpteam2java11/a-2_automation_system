@@ -36,6 +36,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/")
                 .clearAuthentication(true)
                 .invalidateHttpSession(true);
+        http.rememberMe().tokenValiditySeconds(2592000).key("mySecret!").rememberMeParameter("checkRememberMe");
 
         http.authorizeRequests()
                 .anyRequest()

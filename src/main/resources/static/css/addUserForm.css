@@ -69,12 +69,14 @@ label.required:after {
 }
 
 
-body {
+
+.main-color {
     background: -webkit-linear-gradient(90deg, #09022e, #ff1154);
     background: linear-gradient(90deg, #09022e, #ff1154);
+    position: absolute;
+    min-width: 100%;
+    min-height: 100%;
 }
-
-
 
 .button-85 {
     margin-top: 31px;
@@ -383,6 +385,9 @@ body .groups-name:hover {
     border-radius: 8px;
 }
 
+.calendar-ref {
+    margin-left: 100px;
+}
 
 
 
