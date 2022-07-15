@@ -10,9 +10,9 @@ services:
     depends_on:
       - db
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/esdp
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
       - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=password123
+      - SPRING_DATASOURCE_PASSWORD=qwerty
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
 
   db:
@@ -22,7 +22,7 @@ services:
       - 5432:5432
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password123
-      POSTGRES_DB: esdp
+      POSTGRES_PASSWORD: qwerty
+      POSTGRES_DB: postgres
 
 
