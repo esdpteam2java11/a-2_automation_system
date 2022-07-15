@@ -1,6 +1,5 @@
 package com.a2.a2_automation_system.money;
 
-import com.a2.a2_automation_system.user.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,7 +37,7 @@ public class MoneyMovementDTO {
 
     @Enumerated(value = EnumType.STRING)
     @NotNull
-    private OperationType operationType;
+    private ManyOperationType manyOperationType;
 
     public static MoneyMovementDTO from(MoneyMovement moneyMovement) {
         return builder()
@@ -51,7 +50,7 @@ public class MoneyMovementDTO {
                 .purpose(moneyMovement.getPurpose())
                 .typeOfFinance(moneyMovement.getTypeOfFinance())
                 .amount(moneyMovement.getAmount())
-                .operationType(moneyMovement.getOperationType())
+                .manyOperationType(moneyMovement.getManyOperationType())
                 .build();
     }
 }

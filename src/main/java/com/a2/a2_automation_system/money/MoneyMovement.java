@@ -28,6 +28,10 @@ public class MoneyMovement {
     @JoinColumn(name = "counterparty_id")
     private User counterparty;
 
+    @ManyToOne
+    @JoinColumn(name = "cashier_id")
+    private User cashier;
+
     private String purpose;
 
     @Enumerated(value = EnumType.STRING)
@@ -39,5 +43,5 @@ public class MoneyMovement {
 
     @Enumerated(value = EnumType.STRING)
     @NotNull
-    private OperationType operationType;
+    private ManyOperationType manyOperationType;
 }
