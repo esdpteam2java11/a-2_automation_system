@@ -66,6 +66,7 @@ label.required:after {
     background: linear-gradient(90deg, #09022e, #ff1154);
     position: absolute;
     width: 100%;
+    padding-top: 100px;
 }
 
 

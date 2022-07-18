@@ -24,6 +24,7 @@
             </label>
             <input type="time" name="timeEnd" id="timeEnd" required>
             <button class="bn30 ml-5" type="submit">Добавить</button>
+                <a href="/group/${group.id}/calendar" class="bn5 ml-5">Назад</a>
 
             <#if errorTime??>
                 <span style="color: red">

@@ -31,8 +31,8 @@
         <script src="https://code.jquery.com/jquery-3.6.0.js"
                 integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="/css/addUserForm.css">
-        <link href="/css/fullcalendar/main.min.css" rel='stylesheet' />
-        <script src="/js/fullcalendar/main.js"> </script>
+        <link href="/css/fullcalendar/main.min.css" rel='stylesheet'/>
+        <script src="/js/fullcalendar/main.js"></script>
         <script src="/js/fullcalendar/calendarShow.js"></script>
         <script src="/js/fullcalendar/ru.js"></script>
 
@@ -56,14 +56,18 @@
                         <a class="nav-link active" aria-current="page" href="/group/add">Добавить группу</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">График тренировок</a>
+                        <a class="nav-link" href="/add/trainer">Добавить тренера</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/group/all">Группы</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="#">График тренировок</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="/cash">Касса</a>
                     </li>
+
                 </ul>
             </div>
             <div class="text-right mr-5">

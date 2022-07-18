@@ -6,6 +6,7 @@
             <#list groups as group>
                 <tr>
                     <td class="groups-td"><a href="/group/${group.id}" class="groups-name"><p>${group.name}</p></a></td>
+                    <td style="background-color: ${group.color}"></td>
                 </tr>
             </#list>
             </tbody>
