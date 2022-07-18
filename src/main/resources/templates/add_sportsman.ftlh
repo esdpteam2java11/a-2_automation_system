@@ -3,7 +3,7 @@
     <main class="main-color-sportsman">
         <div class="container col-xxl-8" style="background-color: white;">
             <div class="container" style="background-color: white;">
-                <h2 class="add-sportsman-header" style="color: black">Регистрация спортсмена</h2>
+                <h2 class="add-sportsman-header text-center mb-5" style="color: black">Регистрация спортсмена</h2>
                 <form action="/create" id="add-sportsman" method="post">
                     <div class="row border border-secondary mb-3">
 

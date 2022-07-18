@@ -5,7 +5,6 @@ $(document).ready(function () {
 });
 
 const generatePassBtn = document.querySelector("#input-generate")
-const generateNewPassBtn = document.querySelector("#input-generate-newpass")
 
 if (generatePassBtn != null) {
     generatePassBtn.addEventListener("click", function () {
@@ -13,8 +12,8 @@ if (generatePassBtn != null) {
     })
 }
 
-if (generateNewPassBtn != null) {
-    generateNewPassBtn.addEventListener("click", function () {
+if (generatePassBtn != null) {
+    generatePassBtn.addEventListener("click", function () {
         const inputPassword = document.querySelector("#input-password")
         inputPassword.value = (generatePassword())
         inputPassword.removeAttribute("type")

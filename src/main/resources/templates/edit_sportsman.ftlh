@@ -3,7 +3,7 @@
     <main class="main-color-sportsman">
         <div class="container col-xxl-8" style="background-color: white;">
                     <div class="container">
-                        <h2 class="add-sportsman-header">Редактирование анкеты спортсмена</h2>
+                        <h2 class="add-sportsman-header text-center mb-5">Редактирование анкеты спортсмена</h2>
                 <form action="/edit/${sportsman.id}" id="add-sportsman" method="post">
                     <div class="row border border-secondary mb-3">
 

@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -55,6 +56,21 @@ public class InitDatabase {
                 employee.setIsActive(true);
                 userRepository.save(employee);
             }
+            List<Group> groups = new ArrayList<>();
+            if (groupRepository.findAll().isEmpty()) {
+                groups = List.of(
+                        Group.builder().name("Детская группа 1").sum(3000)
+                                .trainer(userRepository.findByLogin("manager").orElse(null)).color("#e03434").build(),
+                        Group.builder().name("Детская группа 2").sum(3000)
+                                .trainer(userRepository.findByLogin("manager").orElse(null)).color("#e034c4").build(),
+                        Group.builder().name("Младшая группа").sum(1000)
+                                .trainer(userRepository.findByLogin("manager").orElse(null)).color("#9e34e0").build(),
+                        Group.builder().name("Старшая группа").sum(3000)
+                                .trainer(userRepository.findByLogin("manager").orElse(null)).color("#3634e0").build(),
+                        Group.builder().name("Взрослая группа").sum(2000)
+                                .trainer(userRepository.findByLogin("manager").orElse(null)).color("#34e059").build());
+                groupRepository.saveAll(groups);
+            }
             for (int i = 0; i < 20; i++) {
                 if (userRepository.findByLogin("student_" + i).isEmpty()) {
                     User student = new User();
@@ -68,23 +84,12 @@ public class InitDatabase {
                     student.setLogin("student_" + i);
                     student.setPassword(passwordEncoder.encode("123"));
                     student.setIsActive(true);
+                    student.setGroup(groups.get(0));
+                    student.setDateOfAdmission(new Date());
                     userRepository.save(student);
                 }
             }
-            if (groupRepository.findAll().isEmpty()) {
-                List<Group> groups = List.of(
-                        Group.builder().name("Детская группа 1").sum(3000)
-                                .trainer(userRepository.findByLogin("manager").orElse(null)).color("#e03434").build(),
-                        Group.builder().name("Детская группа 2").sum(3000)
-                                .trainer(userRepository.findByLogin("manager").orElse(null)).color("#e034c4").build(),
-                        Group.builder().name("Младшая группа").sum(1000)
-                                .trainer(userRepository.findByLogin("manager").orElse(null)).color("#9e34e0").build(),
-                        Group.builder().name("Старшая группа").sum(3000)
-                                .trainer(userRepository.findByLogin("manager").orElse(null)).color("#3634e0").build(),
-                        Group.builder().name("Взрослая группа").sum(2000)
-                                .trainer(userRepository.findByLogin("manager").orElse(null)).color("#34e059").build());
-                groupRepository.saveAll(groups);
-            }
+
 
         };
     }

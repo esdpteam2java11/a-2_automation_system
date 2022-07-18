@@ -35,6 +35,7 @@
                     <button class="bn30 mb-2" type="submit">Удалить занятие</button>
                 </form>
                 <form method="get" action="${event.id}/deleteConnected">
-                    <button class="bn30" type="submit">Удалить серию занятий</button>
+                    <button class="bn30 mb-3" type="submit">Удалить серию занятий</button>
                 </form>
+    <a href="/group/${group.id}/calendar" class="bn5">Назад</a>
 </@main.renderWith>
