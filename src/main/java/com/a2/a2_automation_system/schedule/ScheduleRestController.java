@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -17,7 +19,15 @@ public class ScheduleRestController {
 
     @GetMapping("/group/{id}/calendar/events")
     public List<ScheduleRestDto> getSchedule(@RequestParam String start,@RequestParam String end,@PathVariable String id){
-        List<ScheduleRestDto> scheduleRestDtoList = scheduleService.getEventsByGroupAndDates(id,start,end);
+        List<ScheduleRestDto> scheduleRestDtoList = new ArrayList<>();
+        if(id.equals("all")){
+            scheduleRestDtoList = scheduleService.getEventsForAll(start,end);
+        }
+        else {
+            scheduleRestDtoList = scheduleService.getEventsByGroupAndDates(id, start, end);
+        }
+
         return scheduleRestDtoList;
     }
-}
+
+    }
