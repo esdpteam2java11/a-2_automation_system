@@ -149,4 +149,15 @@ public class ScheduleService {
         event.setEndTime(scheduleCreateDTO.getTimeEnd());
         scheduleRepository.save(event);
     }
+
+    public List<ScheduleRestDto> getEventsForAll(String dateStart, String dateEnd) {
+        LocalDate start = getLocalDateFromString(dateStart);
+        LocalDate end = getLocalDateFromString(dateEnd);
+        List<Schedule> events =  scheduleRepository.getSchedulesByEventDateBetween(start,end);
+        return events.stream().map(ScheduleRestDto::from).collect(Collectors.toList());
+    }
+
+    private LocalDate getLocalDateFromString(String date){
+        return LocalDate.parse(date.split("%")[0].split("T")[0]);
+    }
 }

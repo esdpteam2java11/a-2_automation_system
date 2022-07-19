@@ -62,7 +62,7 @@
                         <a class="nav-link" href="/group/all">Группы</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">График тренировок</a>
+                        <a class="nav-link" href="/group/all/calendar">График тренировок</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/cash">Касса</a>

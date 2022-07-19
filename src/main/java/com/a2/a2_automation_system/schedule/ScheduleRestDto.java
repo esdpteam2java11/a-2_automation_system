@@ -17,18 +17,22 @@ public class ScheduleRestDto {
     private String color;
     private String url;
     private String textColor;
+    private String backgroundColor;
+    private Boolean displayEventTime;
 
     public static ScheduleRestDto from(Schedule schedule){
         LocalDateTime start = LocalDateTime.of(schedule.getEventDate(),schedule.getStartTime());
         LocalDateTime end = LocalDateTime.of(schedule.getEventDate(),schedule.getEndTime());
-        String eventUrl = String.format("calendar/event/%s",schedule.getId());
+        String eventUrl = String.format("/group/%s/calendar/event/%s",schedule.getGroup().getId(),schedule.getId());
         return builder()
                 .title(schedule.getGroup().getName())
                 .start(start)
                 .end(end)
                 .color(schedule.getGroup().getColor())
                 .url(eventUrl)
-                .textColor("red")
+                .textColor(schedule.getGroup().getColor())
+                .backgroundColor(schedule.getGroup().getColor())
+                .displayEventTime(true)
                 .build();
     }
 
