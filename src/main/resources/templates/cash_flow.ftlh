@@ -100,7 +100,7 @@
                                     <td><a class="text-decoration-none text-reset"
                                            href="${link}">${moneyMovement.typeOfFinance.rusValue}</a></td>
                                     <td><a class="text-decoration-none text-reset"
-                                           href="${link}">${moneyMovement.manyOperationType.rusValue}</a></td>
+                                           href="${link}">${moneyMovement.moneyOperationType.rusValue}</a></td>
                                     <td><a class="text-decoration-none text-reset"
                                            href="${link}">${moneyMovement.amount}</a></td>
                                     <td><a class="text-decoration-none text-reset"

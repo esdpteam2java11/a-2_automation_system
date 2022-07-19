@@ -37,7 +37,7 @@ public class MoneyMovementDTO {
 
     @Enumerated(value = EnumType.STRING)
     @NotNull
-    private ManyOperationType manyOperationType;
+    private MoneyOperationType moneyOperationType;
 
     public static MoneyMovementDTO from(MoneyMovement moneyMovement) {
         return builder()
@@ -50,7 +50,7 @@ public class MoneyMovementDTO {
                 .purpose(moneyMovement.getPurpose())
                 .typeOfFinance(moneyMovement.getTypeOfFinance())
                 .amount(moneyMovement.getAmount())
-                .manyOperationType(moneyMovement.getManyOperationType())
+                .moneyOperationType(moneyMovement.getMoneyOperationType())
                 .build();
     }
 }
