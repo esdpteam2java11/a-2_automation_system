@@ -164,3 +164,21 @@ async function checkIfColorExists(color) {
         alert("Данный цвет уже присвоен другой группе.\nСмените пожалуйста цвет.")
     }
 }
+
+async function getGroupPrice(id) {
+    const myHeaders = new Headers()
+    const requestOptions = {
+        method: 'GET',
+        headers: myHeaders
+    }
+    let sum = 0;
+    if (id !== undefined) {
+        await fetch(`/group/price/${id}`, requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                sum = result;
+            })
+            .catch(error => console.log('error', error))
+    }
+    document.getElementById('recipient-sum').value = sum
+}
