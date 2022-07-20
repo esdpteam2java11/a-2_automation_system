@@ -13,4 +13,9 @@ public class RestGroupController {
     public Boolean isColorExist(@RequestParam String color) {
         return groupService.isColorExist(color);
     }
+
+    @GetMapping("/group/price/{id}")
+    public Integer getGroupPrice(@PathVariable Long id) {
+        return groupService.getGroupById(id).getSum();
+    }
 }

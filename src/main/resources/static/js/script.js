@@ -48,7 +48,7 @@ function addSelectedParent(parent) {
 
     if (listAddedParents.length > 0) {
         for (let i = 0; i < listAddedParents.length; i++) {
-            if (listAddedParents[i] == parent.id) {
+            if (listAddedParents[i] === parent.id) {
                 alert("Данная запись уже занесена в таблицу!")
                 isExists = true
             }
