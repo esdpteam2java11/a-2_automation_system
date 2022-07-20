@@ -159,7 +159,6 @@ async function checkIfColorExists(color) {
     }
     const result = await fetch('/group/color?color=' + substring, requestOptions)
     const isColorExists = await result.json()
-    console.log(isColorExists)
 
     if (isColorExists) {
         alert("Данный цвет уже присвоен другой группе.\nСмените пожалуйста цвет.")

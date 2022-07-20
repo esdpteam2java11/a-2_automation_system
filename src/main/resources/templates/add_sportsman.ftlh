@@ -3,7 +3,7 @@
     <main class="main-color-sportsman">
         <div class="container col-xxl-8" style="background-color: white;">
             <div class="container" style="background-color: white;">
-                <h2 class="add-sportsman-header text-center mb-5" style="color: black">Регистрация спортсмена</h2>
+                <h2 class="add-sportsman-header text-center mb-5 pt-3" style="color: black">Регистрация спортсмена</h2>
                 <form action="/create" id="add-sportsman" method="post">
                     <div class="row border border-secondary mb-3">
 
@@ -77,10 +77,12 @@
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="col-form-label required" for="group">Группа:</label>
-                                <select class="form-select" name="group" id="group" required>
+                                <select class="form-control" name="group" id="group"
+                                        onchange="getGroupPrice(this.selectedIndex)">
                                     <option hidden disabled selected value> -- выберите группу --</option>
                                     <#list groups as group>
-                                        <option name="${group.name}" value="${group.id}">${group.name}</option>
+                                        <option name="${group.name}" value="${group.id}"
+                                                >${group.name}</option>
                                     </#list>
                                 </select>
                             </div>
@@ -90,9 +92,17 @@
                                 <input type="date" name="dateOfAdmission" class="form-control"
                                        id="recipient-dateOfAdmission" required>
                             </div>
-                            <div class="mb-3">
-                                <label for="recipient-sum" class="col-form-label">Сумма оплаты:</label>
-                                <input type="number" name="sum" class="form-control" id="recipient-sum" disabled>
+                            <div class="mb-3 row">
+                                <div class="col-lg-6">
+                                    <label for="recipient-sum" class="col-form-label-sm required">Стоимость
+                                        занятий:</label>
+                                    <input type="number" name="sum" class="form-control" id="recipient-sum">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="recipient-sum-date" class="col-form-label-sm required">Дата начала
+                                        тарифа:</label>
+                                    <input type="date" name="date" class="form-control" id="recipient-sum-date">
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -114,10 +124,12 @@
                     <div class="row border border-secondary my-3">
                         <div class="col-lg-6 my-2">
                             <button type="button" class="bn30" data-bs-toggle="modal"
-                                    data-bs-target="#searchRelativeModal">Выбрать родственника из списка</button>
+                                    data-bs-target="#searchRelativeModal">Выбрать родственника из списка
+                            </button>
                         </div>
                         <div class="col-lg-6 my-2 text-end">
-                            <button type="button" class="bn30" id="add-new-parent-button">Добавить нового родственника</button>
+                            <button type="button" class="bn30" id="add-new-parent-button">Добавить нового родственника
+                            </button>
                         </div>
                         <div class="col">
                             <div class="table-responsive">

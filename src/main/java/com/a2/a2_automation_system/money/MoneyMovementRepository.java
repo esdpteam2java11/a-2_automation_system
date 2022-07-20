@@ -13,7 +13,7 @@ public interface MoneyMovementRepository extends JpaRepository<MoneyMovement, Lo
     @Query(value = "select * from moneys m where " +
             "(?1 is null or m.counterparty_id = ?1) and\n" +
             "(?2 is null or trim(?2)='' or m.type_of_finance = ?2) and\n" +
-            "(?3 is null or trim(?3)='' or m.many_operation_type = ?3) and\n" +
+            "(?3 is null or trim(?3)='' or m.money_operation_type = ?3) and\n" +
             "m.date>=?4 and m.date<=?5", nativeQuery = true)
     List<MoneyMovement> getMoneysByFilters(Long userId,
                                            String typeOfFinance,
