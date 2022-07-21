@@ -31,12 +31,6 @@
         <script src="https://code.jquery.com/jquery-3.6.0.js"
                 integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="/css/addUserForm.css">
-        <link href="/css/fullcalendar/main.min.css" rel='stylesheet'/>
-        <script src="/js/fullcalendar/main.js"></script>
-        <script src="/js/fullcalendar/calendarShow.js"></script>
-        <script src="/js/fullcalendar/ru.js"></script>
-        <script src="/js/ckeditor/ckeditor.js"></script>
-
         <#list styles as styleSource>
             <link rel="stylesheet" href="${styleSource}">
         </#list>
@@ -58,6 +52,9 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/group/add">Добавить группу</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/create">Регистрация спортсмена</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/add/trainer">Добавить тренера</a>
@@ -95,7 +92,6 @@
     <script src="https://snipp.ru/cdn/microplugin.js/src/microplugin.js"></script>
     <script src="https://snipp.ru/cdn/sifter.js/sifter.min.js"></script>
     <script src="https://snipp.ru/cdn/selectize.js/0.12.6/dist/js/selectize.min.js"></script>
-    <script src="/js/script.js"></script>
     </body>
     </html>
 
