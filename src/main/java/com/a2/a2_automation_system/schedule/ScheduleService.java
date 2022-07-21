@@ -160,4 +160,15 @@ public class ScheduleService {
     private LocalDate getLocalDateFromString(String date){
         return LocalDate.parse(date.split("%")[0].split("T")[0]);
     }
+
+    public String addEventTrainingProgram(String content,Long eventId) {
+        String message = "Добавлено";
+        var event = scheduleRepository.getById(eventId);
+        if(event.getTrainingProgram()!=null){
+            message = "Изменено";
+        }
+        event.setTrainingProgram(content);
+        scheduleRepository.save(event);
+        return message;
+    }
 }

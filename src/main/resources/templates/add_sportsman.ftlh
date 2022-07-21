@@ -1,5 +1,5 @@
 <#import "partials/admin_main.ftlh" as main />
-<@main.renderWith >
+<@main.renderWith scripts=["/js/script.js"]>
     <main class="main-color-sportsman">
         <div class="container col-xxl-8" style="background-color: white;">
             <div class="container" style="background-color: white;">
