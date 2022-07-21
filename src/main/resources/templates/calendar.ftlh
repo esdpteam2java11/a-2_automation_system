@@ -8,6 +8,9 @@
         </#if>
         <a href="/group/${group.id}/calendar/events/create"><button class="bn30 mb-5 my-4">Создать занятие</button></a>
     </div>
-    <div id='calendar'>
+    <div class="container">
+        <div id='calendar'>
+        </div>
     </div>
+
 </@main.renderWith>

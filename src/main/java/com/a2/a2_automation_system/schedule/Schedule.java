@@ -43,5 +43,8 @@ public class Schedule {
 
     @Column(name = "unique_id_for_serial_event")
     private String uniqueIdForSerialEvent;
+
+    @Column(name = "training_program")
+    private String trainingProgram;
 }
 
