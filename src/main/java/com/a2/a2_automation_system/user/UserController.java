@@ -108,6 +108,8 @@ public class UserController {
                                @RequestParam("school") @Nullable String school, @RequestParam("channels") @Nullable String channels,
                                @RequestParam("group") Long groupId,
                                @RequestParam("dateOfAdmission") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date dateOfAdmission,
+                               @RequestParam("sum") Double sum,
+                               @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date,
                                @RequestParam("login") @Nullable String login, @RequestParam("password") @Nullable String password,
 
                                @RequestParam("p_id") @Nullable List<Long> pIds,
@@ -120,8 +122,8 @@ public class UserController {
                                @RequestParam("p_telegram") @Nullable List<String> pTelegrams) {
 
         userService.createSportsman(surname, name, patronymic, birthDate, growth, weight, phone, whatsapp, telegram,
-                address, school, channels, groupId, dateOfAdmission, login, password, pIds, pKinships, pSurnames,
-                pNames, pPatronymics, pPhones, pWhatsapps, pTelegrams);
+                address, school, channels, groupId, dateOfAdmission, sum, date, login, password, pIds, pKinships,
+                pSurnames, pNames, pPatronymics, pPhones, pWhatsapps, pTelegrams);
 
         return "redirect:/admin";
     }

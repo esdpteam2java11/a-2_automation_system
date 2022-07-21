@@ -8,6 +8,9 @@ import com.a2.a2_automation_system.parent.Parent;
 import com.a2.a2_automation_system.parent.ParentRepository;
 import com.a2.a2_automation_system.relationship.Relationship;
 import com.a2.a2_automation_system.relationship.RelationshipRepository;
+import com.a2.a2_automation_system.tariff.OperationType;
+import com.a2.a2_automation_system.tariff.SportsmanPayment;
+import com.a2.a2_automation_system.tariff.SportsmanPaymentRepository;
 import com.a2.a2_automation_system.userparam.UserParam;
 import com.a2.a2_automation_system.userparam.UserParamRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +34,7 @@ public class UserService implements UserDetailsService {
     private final GroupRepository groupRepository;
     private final ParentRepository parentRepository;
     private final RelationshipRepository relationshipRepository;
+    private final SportsmanPaymentRepository sportsmanPaymentRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -99,7 +103,8 @@ public class UserService implements UserDetailsService {
     public void createSportsman(String surname, String name, String patronymic, Date birthDate,
                                 Double growth, Double weight,
                                 String phone, String whatsapp, String telegram, String address, String school,
-                                String channels, Long groupId, Date dateOfAdmission, String login, String password,
+                                String channels, Long groupId, Date dateOfAdmission, Double sum, Date date,
+                                String login, String password,
                                 List<Long> pIds, List<String> pKinships, List<String> pSurnames, List<String> pNames,
                                 List<String> pPatronymics, List<String> pPhones,
                                 List<String> pWhatsapps, List<String> pTelegrams) {
@@ -109,6 +114,8 @@ public class UserService implements UserDetailsService {
         sportsman.setRole(Role.CLIENT);
 
         userRepository.save(sportsman);
+
+        createSportsmanNewTariff(sum, date, sportsman);
 
         UserParam sportsmanParam = new UserParam();
         setUserParams(growth, weight, sportsmanParam, sportsman);
@@ -184,6 +191,15 @@ public class UserService implements UserDetailsService {
         userParam.setUser(user);
         userParam.setWeight(weight);
         userParam.setHeight(growth);
+    }
+
+    private void createSportsmanNewTariff(Double sum, Date date, User user) {
+        sportsmanPaymentRepository.save(SportsmanPayment.builder()
+                .amount(sum)
+                .date(date)
+                .user(user)
+                .operationType(OperationType.ACCRUED)
+                .build());
     }
 
     private List<Parent> setParents(List<Long> pIds, List<String> pKinships, List<String> pSurnames, List<String> pNames,
