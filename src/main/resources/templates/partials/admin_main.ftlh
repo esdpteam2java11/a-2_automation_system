@@ -35,9 +35,13 @@
         <script src="/js/fullcalendar/main.js"></script>
         <script src="/js/fullcalendar/calendarShow.js"></script>
         <script src="/js/fullcalendar/ru.js"></script>
+        <script src="/js/ckeditor/ckeditor.js"></script>
 
         <#list styles as styleSource>
             <link rel="stylesheet" href="${styleSource}">
+        </#list>
+        <#list scripts as scriptSource>
+            <script type="text/javascript" src="${scriptSource}"></script>
         </#list>
     </head>
     <body>

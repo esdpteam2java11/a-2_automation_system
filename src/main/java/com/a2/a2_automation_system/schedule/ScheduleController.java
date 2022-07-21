@@ -26,6 +26,14 @@ public class ScheduleController {
         model.addAttribute("event",scheduleService.getEventById(eventId));
         return "event";
     }
+    @PostMapping("/group/{groupId}/calendar/event/{eventId}/trainingProgram")
+    public String addTrainingProgram(@PathVariable Long groupId,@PathVariable Long eventId, @RequestParam String content,RedirectAttributes redirectAttributes){
+        String message = scheduleService.addEventTrainingProgram(content,eventId);
+        String pathRedirect = String.format("redirect:/group/%s/calendar/event/%s",groupId,eventId);
+        redirectAttributes.addFlashAttribute("programMessage",message);
+        return pathRedirect;
+
+    }
 
     @GetMapping("/group/{groupId}/calendar/event/{eventId}/delete")
     public String deleteScheduleElement(@PathVariable Long groupId,@PathVariable Long eventId,RedirectAttributes redirectAttributes){
