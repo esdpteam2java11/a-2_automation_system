@@ -1,5 +1,5 @@
 <#import "partials/admin_main.ftlh" as main />
-<@main.renderWith>
+<@main.renderWith scripts=["/js/ckeditor/ckeditor.js"]>
     <div class="container">
     <form method="post" action="${event.id}/edit" name="editEvent">
     <table class="table table-dark table-striped">
@@ -53,7 +53,7 @@
                 <script type="text/javascript">
                     CKEDITOR.replace('content');
                 </script>
-                <button type="submit" class="bn30 mb-3">Отправить</button>
+                <button type="submit" class="mt-3 bn30 mb-3">Отправить</button>
             </div>
         </form>
 
