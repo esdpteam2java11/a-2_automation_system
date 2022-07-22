@@ -4,14 +4,14 @@ package com.a2.a2_automation_system.money;
 import java.util.ArrayList;
 import java.util.List;
 
-public enum ManyOperationType {
+public enum MoneyOperationType {
     SPORTSMAN_PAYMENT("Оплата от ученика"),
 
     OTHER_OPERATIONS("Прочие операции");
 
     public final String rusValue;
 
-    ManyOperationType(String rusValue) {
+    MoneyOperationType(String rusValue) {
         this.rusValue = rusValue;
     }
 
@@ -21,14 +21,14 @@ public enum ManyOperationType {
 
     public static List<String> getRusValues() {
         List<String> rusValues = new ArrayList<>();
-        for (ManyOperationType t : ManyOperationType.values()) {
+        for (MoneyOperationType t : MoneyOperationType.values()) {
             rusValues.add(t.getRusValue());
         }
         return rusValues;
     }
 
-    public static ManyOperationType getOperationTypeByRusValue(String rusValue) {
-        for (ManyOperationType t : ManyOperationType.values()) {
+    public static MoneyOperationType getOperationTypeByRusValue(String rusValue) {
+        for (MoneyOperationType t : MoneyOperationType.values()) {
             if (t.getRusValue().equalsIgnoreCase(rusValue)) return t;
         }
         return null;

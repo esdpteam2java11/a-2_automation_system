@@ -43,5 +43,5 @@ public class MoneyMovement {
 
     @Enumerated(value = EnumType.STRING)
     @NotNull
-    private ManyOperationType manyOperationType;
+    private MoneyOperationType moneyOperationType;
 }

@@ -3,7 +3,6 @@ package com.a2.a2_automation_system.money;
 import com.a2.a2_automation_system.tariff.OperationType;
 import com.a2.a2_automation_system.tariff.SportsmanPayment;
 import com.a2.a2_automation_system.tariff.SportsmanPaymentRepository;
-import com.a2.a2_automation_system.user.User;
 import com.a2.a2_automation_system.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,7 +25,8 @@ public class MoneyMovementsService {
         return moneyMovements.stream().map(MoneyMovementDTO::from).collect(Collectors.toList());
     }
 
-    public void addMoneyMovement(String cashier, String typeOfFinance, LocalDate date, Double amount, String purpose, Long counterparty, String manyOperationType, List<Date> dateSportsman,
+    public void addMoneyMovement(String cashier, String typeOfFinance, LocalDate date, Double amount, String purpose,
+                                 Long counterparty, String moneyOperationType, List<Date> dateSportsman,
                                  List<Double> amountSportsman) {
 
 
@@ -35,7 +35,7 @@ public class MoneyMovementsService {
                 .date(date)
                 .purpose(purpose)
                 .counterparty(userRepository.findById(counterparty).get())
-                .manyOperationType(ManyOperationType.valueOf(manyOperationType))
+                .moneyOperationType(MoneyOperationType.valueOf(moneyOperationType))
                 .typeOfFinance(TypeOfFinance.valueOf(typeOfFinance))
                 .cashier(userRepository.findByLogin(cashier).get())
                 .build();

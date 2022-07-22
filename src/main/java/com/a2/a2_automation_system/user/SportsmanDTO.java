@@ -1,5 +1,6 @@
 package com.a2.a2_automation_system.user;
 
+import com.a2.a2_automation_system.tariff.SportsmanPayment;
 import com.a2.a2_automation_system.userparam.UserParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -67,7 +68,11 @@ public class SportsmanDTO {
 
     private Double height;
 
-    public static SportsmanDTO from(User user, UserParam userParam) {
+    private Double amount;
+
+    private Date tariffDate;
+
+    public static SportsmanDTO from(User user, UserParam userParam, SportsmanPayment sportsmanPayment) {
         return builder()
                 .id(user.getId())
                 .name(user.getName())
@@ -87,6 +92,8 @@ public class SportsmanDTO {
                 .dateOfAdmission(user.getDateOfAdmission())
                 .weight(userParam.getWeight())
                 .height(userParam.getHeight())
+                .amount(sportsmanPayment.getAmount())
+                .tariffDate(sportsmanPayment.getDate())
                 .build();
     }
 }

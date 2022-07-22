@@ -32,7 +32,7 @@ public class MoneyMovementController {
                                     @RequestParam(value = "periodEnd", required = false) @DateTimeFormat(iso =
                                             DateTimeFormat.ISO.DATE) LocalDate periodEnd) {
         model.addAttribute("typesOfFinance", TypeOfFinance.values());
-        model.addAttribute("operationTypes", ManyOperationType.values());
+        model.addAttribute("operationTypes", MoneyOperationType.values());
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("moneyMovements", moneyMovementsService.getMoneysByFilters(userId, typeOfFinance,
                 operationType, periodStart, periodEnd));
@@ -45,7 +45,7 @@ public class MoneyMovementController {
     public String createIncome(Model model) {
 
         model.addAttribute("users", userService.getAllUsers());
-        model.addAttribute("operationTypes", ManyOperationType.values());
+        model.addAttribute("operationTypes", MoneyOperationType.values());
         return "add_income";
     }
 
@@ -57,7 +57,7 @@ public class MoneyMovementController {
                                @RequestParam("amount") Double amount,
                                @RequestParam("purpose") @Nullable String purpose,
                                @RequestParam("counterparty") @Nullable Long counterparty,
-                               @RequestParam("manyOperationType") @Nullable String manyOperationType,
+                               @RequestParam("moneyOperationType") @Nullable String moneyOperationType,
 
 
 
@@ -65,7 +65,8 @@ public class MoneyMovementController {
                                @RequestParam("amountSportsman") @Nullable List<Double> amountsSportsman
                               ) {
 
-        moneyMovementsService.addMoneyMovement(principal.getName(),typeOfFinance,date,amount,purpose,counterparty,manyOperationType,datesSportsman,amountsSportsman);
+        moneyMovementsService.addMoneyMovement(principal.getName(),typeOfFinance,date,amount,purpose,counterparty,
+                moneyOperationType,datesSportsman,amountsSportsman);
 
         return "redirect:/cash";
     }
