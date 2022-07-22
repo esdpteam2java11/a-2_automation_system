@@ -3,6 +3,9 @@ package com.a2.a2_automation_system.schedule;
 import com.a2.a2_automation_system.group.Group;
 import com.a2.a2_automation_system.group.GroupRepository;
 import com.a2.a2_automation_system.group.GroupService;
+import com.a2.a2_automation_system.visit.Visit;
+import com.a2.a2_automation_system.visit.VisitDto;
+import com.a2.a2_automation_system.visit.VisitRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +22,7 @@ import java.util.stream.Collectors;
 public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
     private final GroupService groupService;
+    private final VisitRepository visitRepository;
 
     public void addEventFromScheduleCreateDTO(ScheduleCreateDTO scheduleCreateDTO){
         Schedule schedule = Schedule.builder()
@@ -120,6 +124,11 @@ public class ScheduleService {
         return ScheduleDTO.from(scheduleRepository.getById(eventId));
     }
 
+    public List<VisitDto> getUsersWhoCame(Long eventId) {
+        return visitRepository.findAllByScheduleId(eventId).stream().map(VisitDto::from).collect(Collectors.toList());
+    }
+
+
     @Transactional
     public ScheduleDTO deleteEventById(Long eventId) {
         Schedule event = scheduleRepository.getById(eventId);
@@ -148,5 +157,27 @@ public class ScheduleService {
         event.setStartTime(scheduleCreateDTO.getTimeStart());
         event.setEndTime(scheduleCreateDTO.getTimeEnd());
         scheduleRepository.save(event);
+    }
+
+    public List<ScheduleRestDto> getEventsForAll(String dateStart, String dateEnd) {
+        LocalDate start = getLocalDateFromString(dateStart);
+        LocalDate end = getLocalDateFromString(dateEnd);
+        List<Schedule> events =  scheduleRepository.getSchedulesByEventDateBetween(start,end);
+        return events.stream().map(ScheduleRestDto::from).collect(Collectors.toList());
+    }
+
+    private LocalDate getLocalDateFromString(String date){
+        return LocalDate.parse(date.split("%")[0].split("T")[0]);
+    }
+
+    public String addEventTrainingProgram(String content,Long eventId) {
+        String message = "Добавлено";
+        var event = scheduleRepository.getById(eventId);
+        if(event.getTrainingProgram()!=null){
+            message = "Изменено";
+        }
+        event.setTrainingProgram(content);
+        scheduleRepository.save(event);
+        return message;
     }
 }

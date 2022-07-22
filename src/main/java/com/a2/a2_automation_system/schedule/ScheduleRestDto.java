@@ -11,24 +11,27 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ScheduleRestDto {
+    private Long id;
     private String title;
     private LocalDateTime start;
     private LocalDateTime end;
     private String color;
     private String url;
-    private String textColor;
+    private Boolean allDay;
 
     public static ScheduleRestDto from(Schedule schedule){
         LocalDateTime start = LocalDateTime.of(schedule.getEventDate(),schedule.getStartTime());
         LocalDateTime end = LocalDateTime.of(schedule.getEventDate(),schedule.getEndTime());
-        String eventUrl = String.format("calendar/event/%s",schedule.getId());
+        String title = String.format("%s %s",schedule.getStartTime(),schedule.getGroup().getName());
+        String eventUrl = String.format("/group/%s/calendar/event/%s",schedule.getGroup().getId(),schedule.getId());
         return builder()
-                .title(schedule.getGroup().getName())
+                .id(schedule.getId())
+                .title(title)
                 .start(start)
                 .end(end)
-                .color("#FFA500")
+                .color(schedule.getGroup().getColor())
                 .url(eventUrl)
-                .textColor("red")
+                .allDay(true)
                 .build();
     }
 

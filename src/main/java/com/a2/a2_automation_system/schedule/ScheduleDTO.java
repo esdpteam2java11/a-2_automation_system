@@ -36,6 +36,8 @@ public class ScheduleDTO {
 
     private String uniqueIdForSerial;
 
+    private String trainingProgram;
+
     public static ScheduleDTO from(Schedule schedule) {
         return builder()
                 .id(schedule.getId())
@@ -44,6 +46,7 @@ public class ScheduleDTO {
                 .endTime(schedule.getEndTime())
                 .group(schedule.getGroup())
                 .uniqueIdForSerial(schedule.getUniqueIdForSerialEvent())
+                .trainingProgram(schedule.getTrainingProgram())
                 .build();
     }
 }

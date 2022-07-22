@@ -1,6 +1,6 @@
 package com.a2.a2_automation_system.visit;
 
-import com.a2.a2_automation_system.group.Group;
+import com.a2.a2_automation_system.schedule.Schedule;
 import com.a2.a2_automation_system.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,8 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "visits")
@@ -28,9 +26,8 @@ public class Visit {
     private User student;
 
     @ManyToOne
-    @JoinColumn(name = "group_id")
-    private Group group;
+    @JoinColumn(name = "schedule_id")
+    private Schedule schedule;
 
-    @NotNull
-    private LocalDate date;
+
 }

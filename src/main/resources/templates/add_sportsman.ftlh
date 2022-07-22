@@ -3,7 +3,7 @@
     <main class="main-color-sportsman">
         <div class="container col-xxl-8" style="background-color: white;">
             <div class="container" style="background-color: white;">
-                <h2 class="add-sportsman-header" style="color: black">Регистрация спортсмена</h2>
+                <h2 class="add-sportsman-header text-center mb-5 pt-3" style="color: black">Регистрация спортсмена</h2>
                 <form action="/create" id="add-sportsman" method="post">
                     <div class="row border border-secondary mb-3">
 
@@ -30,12 +30,14 @@
                             </div>
                             <div class="mb-3">
                                 <label for="recipient-growth" class="col-form-label required">Рост:</label>
-                                <input type="number" step="any" name="growth" class="form-control" id="recipient-growth"
+                                <input type="number" step="0.01" min="0" name="growth" class="form-control"
+                                       id="recipient-growth"
                                        required>
                             </div>
                             <div class="mb-3">
                                 <label for="recipient-weight" class="col-form-label required">Вес:</label>
-                                <input type="number" step="any" name="weight" class="form-control" id="recipient-weight"
+                                <input type="number" step="0.01" min="0" name="weight" class="form-control"
+                                       id="recipient-weight"
                                        required>
                             </div>
                         </div>
@@ -77,10 +79,12 @@
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="col-form-label required" for="group">Группа:</label>
-                                <select class="form-select" name="group" id="group" required>
+                                <select class="form-control" name="group" id="group"
+                                        onchange="getGroupPrice(this.value)">
                                     <option hidden disabled selected value> -- выберите группу --</option>
                                     <#list groups as group>
-                                        <option name="${group.name}" value="${group.id}">${group.name}</option>
+                                        <option name="${group.name}" value="${group.id}"
+                                        >${group.name}</option>
                                     </#list>
                                 </select>
                             </div>
@@ -90,9 +94,19 @@
                                 <input type="date" name="dateOfAdmission" class="form-control"
                                        id="recipient-dateOfAdmission" required>
                             </div>
-                            <div class="mb-3">
-                                <label for="recipient-sum" class="col-form-label">Сумма оплаты:</label>
-                                <input type="number" name="sum" class="form-control" id="recipient-sum" disabled>
+                            <div class="mb-3 row">
+                                <div class="col-lg-6">
+                                    <label for="recipient-sum" class="col-form-label-sm required">Стоимость
+                                        занятий:</label>
+                                    <input type="number" name="sum" min="0" class="form-control"
+                                           id="recipient-sum" required>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="recipient-sum-date" class="col-form-label-sm required">Дата начала
+                                        тарифа:</label>
+                                    <input type="date" name="date" class="form-control" id="recipient-sum-date"
+                                           required>
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -114,10 +128,12 @@
                     <div class="row border border-secondary my-3">
                         <div class="col-lg-6 my-2">
                             <button type="button" class="bn30" data-bs-toggle="modal"
-                                    data-bs-target="#searchRelativeModal">Выбрать родственника из списка</button>
+                                    data-bs-target="#searchRelativeModal">Выбрать родственника из списка
+                            </button>
                         </div>
                         <div class="col-lg-6 my-2 text-end">
-                            <button type="button" class="bn30" id="add-new-parent-button">Добавить нового родственника</button>
+                            <button type="button" class="bn30" id="add-new-parent-button">Добавить нового родственника
+                            </button>
                         </div>
                         <div class="col">
                             <div class="table-responsive">
@@ -156,17 +172,19 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="searchRelativeModalLabel">Поиск родственника</h5>
-                        <button type="button" class="search-relative-modal-close btn-close" data-bs-dismiss="modal"
+                        <button type="button" class="search-relative-modal-close btn-close p-2" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form action="" id="search-relative-frm" method="get">
-                            <label for="surnameSearch"></label>
-                            <input type="text" id="surnameSearch" name="surnameSearch" class="w-auto"
-                                   placeholder="Введите фамилию">
-                            <button type="submit" id="search-relative-btn" class="btn btn-secondary
-                            py-0">Искать
-                            </button>
+                            <div class="row mx-0">
+                                <label for="surnameSearch"></label>
+                                <input type="text" id="surnameSearch" name="surnameSearch" class="form-control w-auto"
+                                       placeholder="Введите фамилию">
+                                <button type="submit" id="search-relative-btn" class="btn btn-secondary
+                            py-0 mx-3">Искать
+                                </button>
+                            </div>
                         </form>
                         <table id="search-relative-table" class="table table-bordered mt-2">
                             <thead>
@@ -187,4 +205,8 @@
             </div>
         </div>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+    <script src="/js/script.js"></script>
 </@main.renderWith>

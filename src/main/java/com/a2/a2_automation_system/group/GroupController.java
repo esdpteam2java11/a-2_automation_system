@@ -62,6 +62,11 @@ public class GroupController {
         return "calendar";
     }
 
+    @GetMapping("all/calendar")
+    public String getCalendar(Model model) {
+        return "calendar_all_events";
+    }
+
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @GetMapping("{id}/edit")
     public String getEdit(Model model, @PathVariable Long id) {

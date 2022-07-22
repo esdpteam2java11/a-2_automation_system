@@ -113,6 +113,7 @@
                                 <input type="hidden" id="role" name="role" value="EMPLOYEE">
                                 <div class="button">
                                     <button type="submit" class="custom-btn btn-1">Зарегистрировать</button>
+                                    <a href="/admin" class="ml-5 bn5">Назад</a>
                                 </div>
                             </div>
                         </div>
