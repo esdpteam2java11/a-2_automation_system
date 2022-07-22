@@ -30,12 +30,13 @@
                             </div>
                             <div class="mb-3">
                                 <label for="recipient-growth" class="col-form-label required">Рост:</label>
-                                <input type="number" step="any" name="growth" class="form-control" id="recipient-growth"
+                                <input type="number" step="0.01" min="0" name="growth" class="form-control"
+                                       id="recipient-growth"
                                        required>
                             </div>
                             <div class="mb-3">
                                 <label for="recipient-weight" class="col-form-label required">Вес:</label>
-                                <input type="number" step="any" name="weight" class="form-control" id="recipient-weight"
+                                <input type="number" step="0.01" min="0" name="weight" class="form-control" id="recipient-weight"
                                        required>
                             </div>
                         </div>
@@ -78,7 +79,7 @@
                             <div class="mb-3">
                                 <label class="col-form-label required" for="group">Группа:</label>
                                 <select class="form-control" name="group" id="group"
-                                        onchange="getGroupPrice(this.selectedIndex)">
+                                        onchange="getGroupPrice(this.value)">
                                     <option hidden disabled selected value> -- выберите группу --</option>
                                     <#list groups as group>
                                         <option name="${group.name}" value="${group.id}"
@@ -96,12 +97,13 @@
                                 <div class="col-lg-6">
                                     <label for="recipient-sum" class="col-form-label-sm required">Стоимость
                                         занятий:</label>
-                                    <input type="number" name="sum" class="form-control" id="recipient-sum">
+                                    <input type="number" name="sum" min="0" class="form-control"
+                                           id="recipient-sum" required>
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="recipient-sum-date" class="col-form-label-sm required">Дата начала
                                         тарифа:</label>
-                                    <input type="date" name="date" class="form-control" id="recipient-sum-date">
+                                    <input type="date" name="date" class="form-control" id="recipient-sum-date" required>
                                 </div>
                             </div>
                         </div>

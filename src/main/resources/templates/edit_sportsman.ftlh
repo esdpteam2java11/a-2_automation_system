@@ -32,13 +32,14 @@
                             </div>
                             <div class="mb-3">
                                 <label for="recipient-growth" class="col-form-label required">Рост:</label>
-                                <input type="number" step="any" name="growth" class="form-control" id="recipient-growth"
-                                       value="${(sportsman.height)!}" required>
+                                <input type="number" step="0.01" min="0" name="growth" class="form-control" id="recipient-growth"
+                                       value="${(sportsman.height?c)!}" required>
                             </div>
                             <div class="mb-3">
                                 <label for="recipient-weight" class="col-form-label required">Вес:</label>
-                                <input type="number" step="any" name="weight" class="form-control" id="recipient-weight"
-                                       value="${(sportsman.weight)!}" required>
+                                <input type="number" step="0.01" min="0" name="weight" class="form-control"
+                                       id="recipient-weight"
+                                       value="${(sportsman.weight?c)!}" required>
                             </div>
                         </div>
                         <div class="col-lg-4 mb-2">
@@ -82,7 +83,8 @@
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="col-form-label required" for="group">Группа:</label>
-                                <select class="form-select" name="group" id="group" required>
+                                <select class="form-control" name="group" id="group"
+                                        onchange="getGroupPrice(this.value)" required>
                                     <#list groups as group>
                                         <option value="${group.id}"
                                                 <#if ((sportsman.groupId)!)==group.id>selected</#if>>${group.name}</option>
@@ -96,9 +98,20 @@
                                        id="recipient-dateOfAdmission" value="${sportsman.dateOfAdmission?date?iso_utc}"
                                        required>
                             </div>
-                            <div class="mb-3">
-                                <label for="recipient-sum" class="col-form-label">Сумма оплаты:</label>
-                                <input type="number" name="sum" class="form-control" id="recipient-sum" disabled>
+                            <div class="mb-3 row">
+                                <div class="col-lg-6">
+                                    <label for="recipient-sum" class="col-form-label-sm required">Стоимость
+                                        занятий:</label>
+                                    <input type="number" min="0" name="sum" class="form-control"
+                                           id="recipient-sum"
+                                           value="${sportsman.amount?c}" required>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="recipient-sum-date" class="col-form-label-sm required">Дата начала
+                                        тарифа:</label>
+                                    <input type="date" name="date" class="form-control" id="recipient-sum-date"
+                                           value="${sportsman.tariffDate?date?iso_utc}" required>
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-4">

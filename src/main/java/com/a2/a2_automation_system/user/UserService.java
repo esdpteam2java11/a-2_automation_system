@@ -94,10 +94,12 @@ public class UserService implements UserDetailsService {
     }
 
     public SportsmanDTO getSportsmanDetails(Long id) {
-        User sportsman = userRepository.findById(id).get();
+        User sportsman = userRepository.findById(id).orElseThrow();
         Optional<UserParam> userParam = userParamRepository.findUpToDateParamsByUser(id, new Date());
-        if (userParam.isPresent()) return SportsmanDTO.from(sportsman, userParam.get());
-        else return SportsmanDTO.from(sportsman, new UserParam());
+        SportsmanPayment sportsmanPayment = sportsmanPaymentRepository.findUpToDateAmount(id,
+                OperationType.ACCRUED.toString()).orElseThrow();
+        if (userParam.isPresent()) return SportsmanDTO.from(sportsman, userParam.get(), sportsmanPayment);
+        else return SportsmanDTO.from(sportsman, new UserParam(), sportsmanPayment);
     }
 
     public void createSportsman(String surname, String name, String patronymic, Date birthDate,
