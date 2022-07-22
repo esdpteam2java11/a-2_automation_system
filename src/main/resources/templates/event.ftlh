@@ -37,7 +37,30 @@
                 <form method="get" action="${event.id}/deleteConnected">
                     <button class="bn30 mb-3" type="submit">Удалить серию занятий</button>
                 </form>
-    <a href="/group/${group.id}/calendar" class="bn5">Назад</a>
+        <h3>Программа занятий</h3>
+        <#if programMessage??>
+            <span style="color: red">
+                ${programMessage} </span><br>
+        </#if>
+
+        <form action="${event.id}/trainingProgram" method="post">
+            <div>
+      <textarea cols="80" rows="10" id="content" name="content">
+          <#if event.trainingProgram??>
+              ${event.trainingProgram}
+          </#if>
+      </textarea>
+                <script type="text/javascript">
+                    CKEDITOR.replace('content');
+                </script>
+                <button type="submit" class="bn30 mb-3">Отправить</button>
+            </div>
+        </form>
+
+        <form method="get" action="/group/${group.id}/calendar">
+            <button class="bn30 mb-3" type="submit">Назад</button>
+        </form>
+
 
     <#list visit as v>
         <input hidden class="qwe" name="id" value="${v.student.id}">
