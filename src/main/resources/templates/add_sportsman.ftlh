@@ -1,5 +1,5 @@
 <#import "partials/admin_main.ftlh" as main />
-<@main.renderWith scripts=["/js/script.js"]>
+<@main.renderWith >
     <main class="main-color-sportsman">
         <div class="container col-xxl-8" style="background-color: white;">
             <div class="container" style="background-color: white;">
@@ -36,7 +36,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="recipient-weight" class="col-form-label required">Вес:</label>
-                                <input type="number" step="0.01" min="0" name="weight" class="form-control" id="recipient-weight"
+                                <input type="number" step="0.01" min="0" name="weight" class="form-control"
+                                       id="recipient-weight"
                                        required>
                             </div>
                         </div>
@@ -83,7 +84,7 @@
                                     <option hidden disabled selected value> -- выберите группу --</option>
                                     <#list groups as group>
                                         <option name="${group.name}" value="${group.id}"
-                                                >${group.name}</option>
+                                        >${group.name}</option>
                                     </#list>
                                 </select>
                             </div>
@@ -103,7 +104,8 @@
                                 <div class="col-lg-6">
                                     <label for="recipient-sum-date" class="col-form-label-sm required">Дата начала
                                         тарифа:</label>
-                                    <input type="date" name="date" class="form-control" id="recipient-sum-date" required>
+                                    <input type="date" name="date" class="form-control" id="recipient-sum-date"
+                                           required>
                                 </div>
                             </div>
                         </div>
@@ -170,17 +172,19 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="searchRelativeModalLabel">Поиск родственника</h5>
-                        <button type="button" class="search-relative-modal-close btn-close" data-bs-dismiss="modal"
+                        <button type="button" class="search-relative-modal-close btn-close p-2" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form action="" id="search-relative-frm" method="get">
-                            <label for="surnameSearch"></label>
-                            <input type="text" id="surnameSearch" name="surnameSearch" class="w-auto"
-                                   placeholder="Введите фамилию">
-                            <button type="submit" id="search-relative-btn" class="btn btn-secondary
-                            py-0">Искать
-                            </button>
+                            <div class="row mx-0">
+                                <label for="surnameSearch"></label>
+                                <input type="text" id="surnameSearch" name="surnameSearch" class="form-control w-auto"
+                                       placeholder="Введите фамилию">
+                                <button type="submit" id="search-relative-btn" class="btn btn-secondary
+                            py-0 mx-3">Искать
+                                </button>
+                            </div>
                         </form>
                         <table id="search-relative-table" class="table table-bordered mt-2">
                             <thead>
@@ -201,4 +205,8 @@
             </div>
         </div>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+    <script src="/js/script.js"></script>
 </@main.renderWith>

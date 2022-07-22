@@ -1,9 +1,9 @@
 <#import "partials/admin_main.ftlh" as main />
-<@main.renderWith >
+<@main.renderWith>
     <main class="main-color-sportsman">
         <div class="container col-xxl-8" style="background-color: white;">
-                    <div class="container">
-                        <h2 class="add-sportsman-header text-center mb-5">Редактирование анкеты спортсмена</h2>
+            <div class="container">
+                <h2 class="add-sportsman-header text-center mb-5">Редактирование анкеты спортсмена</h2>
                 <form action="/edit/${sportsman.id}" id="add-sportsman" method="post">
                     <div class="row border border-secondary mb-3">
 
@@ -32,7 +32,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="recipient-growth" class="col-form-label required">Рост:</label>
-                                <input type="number" step="0.01" min="0" name="growth" class="form-control" id="recipient-growth"
+                                <input type="number" step="0.01" min="0" name="growth" class="form-control"
+                                       id="recipient-growth"
                                        value="${(sportsman.height?c)!}" required>
                             </div>
                             <div class="mb-3">
@@ -136,10 +137,12 @@
                     <div class="row border border-secondary my-3">
                         <div class="col-lg-6 my-2">
                             <button type="button" class="bn30" data-bs-toggle="modal"
-                                    data-bs-target="#searchRelativeModal">Выбрать родственника из списка</button>
+                                    data-bs-target="#searchRelativeModal">Выбрать родственника из списка
+                            </button>
                         </div>
                         <div class="col-lg-6 my-2 text-end">
-                            <button type="button" class="bn30" id="add-new-parent-button">Добавить нового родственника</button>
+                            <button type="button" class="bn30" id="add-new-parent-button">Добавить нового родственника
+                            </button>
                         </div>
                         <div class="col">
                             <div class="table-responsive">
@@ -160,17 +163,19 @@
                                     <tbody class="table-body">
                                     <#list parents as parent>
                                         <tr>
-                                            <td hidden><input type="hidden" name="p_id" value="${parent.id}"></td>
-                                            <td><input type="hidden" name="p_kinship"
+                                            <td class="p-0" hidden><input type="hidden" name="p_id" value="${parent
+                                                .id}"></td>
+                                            <td class="text-center p-0 m-0"><input class="form-control" type="hidden"
+                                                                        name="p_kinship"
                                                        value="${parent.kinshipName}">${parent.kinship}</input></td>
-                                            <td><input type="text" name="p_surname" value="${parent.surname}"></td>
-                                            <td><input type="text" name="p_name" value="${parent.name}"></td>
-                                            <td><input type="text" name="p_patronymic" value="${(parent.patronymic)!}">
+                                            <td class="p-0 m-0"><input class="form-control" type="text" name="p_surname" value="${parent.surname}"></td>
+                                            <td class="p-0 m-0"><input class="form-control" type="text" name="p_name" value="${parent.name}"></td>
+                                            <td class="p-0 m-0"><input class="form-control" type="text" name="p_patronymic" value="${(parent.patronymic)!}">
                                             </td>
-                                            <td><input type="text" name="p_phone" value="${parent.phone}"></td>
-                                            <td><input type="text" name="p_whatsapp" value="${(parent.whatsapp)!}"></td>
-                                            <td><input type="text" name="p_telegram" value="${(parent.telegram)!}"></td>
-                                            <td>
+                                            <td class="p-0 m-0"><input class="form-control" type="text" name="p_phone" value="${parent.phone}"></td>
+                                            <td class="p-0 m-0"><input class="form-control" type="text" name="p_whatsapp" value="${(parent.whatsapp)!}"></td>
+                                            <td class="p-0 m-0"><input class="form-control" type="text" name="p_telegram" value="${(parent.telegram)!}"></td>
+                                            <td class="text-center p-0 m-0">
                                                 <button type="button" class="btn btn-outline-danger py-1 px-2"
                                                         onclick='deleteSelectedRow(this)'>
                                                     <i class="bi bi-x-square"></i>
@@ -198,17 +203,19 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="searchRelativeModalLabel">Поиск родственника</h5>
-                        <button type="button" class="search-relative-modal-close btn-close" data-bs-dismiss="modal"
+                        <button type="button" class="search-relative-modal-close btn-close p-2" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form action="" id="search-relative-frm" method="get">
-                            <label for="surnameSearch"></label>
-                            <input type="text" id="surnameSearch" name="surnameSearch" class="w-auto"
-                                   placeholder="Введите фамилию">
-                            <button type="submit" id="search-relative-btn" class="btn btn-secondary
-                            py-0">Искать
-                            </button>
+                            <div class="row mx-0">
+                                <label for="surnameSearch"></label>
+                                <input type="text" id="surnameSearch" name="surnameSearch" class="form-control w-auto"
+                                       placeholder="Введите фамилию">
+                                <button type="submit" id="search-relative-btn" class="btn btn-secondary
+                            py-0 mx-3">Искать
+                                </button>
+                            </div>
                         </form>
                         <table id="search-relative-table" class="table table-bordered mt-2">
                             <thead>
