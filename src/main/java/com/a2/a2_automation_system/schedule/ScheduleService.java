@@ -3,6 +3,9 @@ package com.a2.a2_automation_system.schedule;
 import com.a2.a2_automation_system.group.Group;
 import com.a2.a2_automation_system.group.GroupRepository;
 import com.a2.a2_automation_system.group.GroupService;
+import com.a2.a2_automation_system.visit.Visit;
+import com.a2.a2_automation_system.visit.VisitDto;
+import com.a2.a2_automation_system.visit.VisitRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +22,7 @@ import java.util.stream.Collectors;
 public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
     private final GroupService groupService;
+    private final VisitRepository visitRepository;
 
     public void addEventFromScheduleCreateDTO(ScheduleCreateDTO scheduleCreateDTO){
         Schedule schedule = Schedule.builder()
@@ -119,6 +123,11 @@ public class ScheduleService {
     public ScheduleDTO getEventById(Long eventId) {
         return ScheduleDTO.from(scheduleRepository.getById(eventId));
     }
+
+    public List<VisitDto> getUsersWhoCame(Long eventId) {
+        return visitRepository.findAllByScheduleId(eventId).stream().map(VisitDto::from).collect(Collectors.toList());
+    }
+
 
     @Transactional
     public ScheduleDTO deleteEventById(Long eventId) {
