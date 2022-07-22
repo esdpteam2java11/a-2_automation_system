@@ -138,7 +138,8 @@ public class UserService implements UserDetailsService {
     public void editSportsman(Long id, String surname, String name, String patronymic, Date birthDate,
                               Double growth, Double weight,
                               String phone, String whatsapp, String telegram, String address, String school,
-                              String channels, Long groupId, Date dateOfAdmission, String login, String password,
+                              String channels, Long groupId, Date dateOfAdmission, Double sum, Date date,
+                              String login, String password,
                               List<Long> pIds, List<String> pKinships, List<String> pSurnames, List<String> pNames,
                               List<String> pPatronymics, List<String> pPhones,
                               List<String> pWhatsapps, List<String> pTelegrams) {
@@ -148,6 +149,8 @@ public class UserService implements UserDetailsService {
                 school, channels, groupId, dateOfAdmission, login, password, sportsman);
 
         userRepository.save(sportsman);
+
+        createSportsmanNewTariff(sum, date, sportsman);
 
         UserParam sportsmanParam = new UserParam();
         setUserParams(growth, weight, sportsmanParam, sportsman);
