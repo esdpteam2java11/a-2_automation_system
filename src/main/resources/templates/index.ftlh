@@ -77,6 +77,7 @@
 
                                             </ul>
                                         </li>
+                                        <li><a href="/admin">Админка</a></li>
                                         <li><a href="#">Наши тренеры</a></li>
                                         <li><a href="#">Новости</a></li>
                                         <li><a href="#">О клубе</a></li>

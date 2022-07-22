@@ -43,11 +43,11 @@ public class UserService implements UserDetailsService {
 
     public Page<UserDTO> getUsersWithFilter(Pageable pageable, String role, Boolean isActive) {
         if ((isActive != null && role != null) && !role.equals("all")) {
-            return userRepository.findAllByIsActiveAndRole(pageable, isActive, Role.getRoleByRoleName(role)).map(UserDTO::from);
+            return userRepository.findAllByIsActiveAndRole(pageable, isActive, Role.valueOf(role)).map(UserDTO::from);
         } else if (isActive != null) {
             return userRepository.findAllByIsActive(pageable, isActive).map(UserDTO::from);
         } else if (role != null) {
-            return userRepository.findAllByRole(pageable, Role.getRoleByRoleName(role)).map(UserDTO::from);
+            return userRepository.findAllByRole(pageable, Role.valueOf(role)).map(UserDTO::from);
         } else {
             return userRepository.findAll(pageable).map(UserDTO::from);
         }
