@@ -46,6 +46,11 @@ public class UserController {
         return "index";
     }
 
+    @GetMapping("/questions")
+    public String getQuestions() {
+        return "questions";
+    }
+
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/admin")
     public String getAdmin(Model model, @RequestParam @Nullable String role,
