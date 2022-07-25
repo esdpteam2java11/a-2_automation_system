@@ -81,6 +81,7 @@
                                         <li><a href="#">Наши тренеры</a></li>
                                         <li><a href="#">Новости</a></li>
                                         <li><a href="#">О клубе</a></li>
+                                        <li><a href="/questions">Вопросы</a></li>
                                         <li><a href="#">Контакты</a></li>
                                         <li><a href="/login">Войти</a></li>
                                     </ul>
