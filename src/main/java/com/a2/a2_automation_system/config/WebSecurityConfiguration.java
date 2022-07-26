@@ -29,7 +29,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
                 .loginPage("/login")
-                .failureUrl("/login?error=true");
+                .failureUrl("/login?error=true")
+                .defaultSuccessUrl("/default-page",true);
+
 
         http.logout()
                 .logoutUrl("/logout")
@@ -53,4 +55,5 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authoritiesByUsernameQuery(fetchRolesQuery)
                 .dataSource(dataSource);
     }
+
 }

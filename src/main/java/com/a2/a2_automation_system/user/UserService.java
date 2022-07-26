@@ -267,4 +267,9 @@ public class UserService implements UserDetailsService {
             return userRepository.existsByLogin(login);
         }
     }
+
+    public User getUserByUsername(String username) {
+        var user = userRepository.findByLogin(username);
+        return user.get();
+    }
 }

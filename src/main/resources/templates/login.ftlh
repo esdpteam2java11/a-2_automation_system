@@ -27,6 +27,9 @@
                                 <#if error!false >
                                     <p style="color:red">Неправильный логин или пароль!</p>
                                 </#if>
+                                <#if errorMessage?? >
+                                    <p style="color:red">${errorMessage}</p>
+                                </#if>
                                 <div class="form-outline form-white mb-4">
                                     <label class="form-label" for="typeEmailX">Логин</label>
                                     <input type="text" name="username" id="typeEmailX"

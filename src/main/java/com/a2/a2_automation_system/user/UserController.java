@@ -10,21 +10,26 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.security.auth.message.AuthException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.FORBIDDEN;
 
 @Controller
 @RequiredArgsConstructor
@@ -35,9 +40,13 @@ public class UserController {
     private final ParentService parentService;
 
 
+
     @GetMapping("/login")
     public String login(@RequestParam(required = false, defaultValue = "false") Boolean error, Model model) {
         model.addAttribute("error", error);
+//        if (isAuthenticated()) {
+//            return "redirect:admin";
+//        }
         return "login";
     }
 
@@ -51,7 +60,7 @@ public class UserController {
         return "questions";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @GetMapping("/admin")
     public String getAdmin(Model model, @RequestParam @Nullable String role,
                            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable,
@@ -204,5 +213,58 @@ public class UserController {
         }
         userService.editTrainer(id, userDTO);
         return "redirect:/edit/trainer/" + id;
+    }
+
+    @GetMapping("/main")
+    public String getMainPage(HttpServletRequest request){
+        String username =  request.getRemoteUser();
+        if(isAuthenticated()){
+           User user = userService.getUserByUsername(username);
+           if(user.getRole().equals(Role.ADMIN)||user.getRole().equals(Role.EMPLOYEE)){
+               return "redirect:admin";
+           }
+           else{
+               return "redirect:/sportsman_cabinet";
+           }
+        }
+        return "redirect:login";
+    }
+    @GetMapping("main_login")
+    public String getMainLoginPage(HttpServletRequest request){
+        String username =  request.getRemoteUser();
+        if(isAuthenticated()){
+            User user = userService.getUserByUsername(username);
+            if(user.getRole().equals(Role.ADMIN)||user.getRole().equals(Role.EMPLOYEE)){
+                return "redirect:admin";
+            }
+            else{
+                return "redirect:/sportsman_cabinet";
+            }
+        }
+        return "redirect:login";
+    }
+
+
+    @PreAuthorize("hasAuthority('CLIENT')")
+    @GetMapping("/sportsman_cabinet")
+    public String getSportsmanPage(Model model,HttpServletRequest request){
+        User user = userService.getUserByUsername(request.getRemoteUser());
+        model.addAttribute("sportsman",user);
+        return "sportsman_cabinet";
+    }
+    private boolean isAuthenticated() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || AnonymousAuthenticationToken.class.
+                isAssignableFrom(authentication.getClass())) {
+            return false;
+        }
+        return authentication.isAuthenticated();
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(FORBIDDEN)
+    private String handleForbidden(Model model){
+        model.addAttribute("errorMessage","У вас нет доступа");
+            return "login";
     }
 }
