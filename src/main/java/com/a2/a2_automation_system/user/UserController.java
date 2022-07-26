@@ -258,6 +258,8 @@ public class UserController {
         }
         return authentication.isAuthenticated();
     }
+    @GetMapping("/calendar_sportsman/all/")
+    public String getAllCalendarForSportsman(Model model){return "calendar_all_events_sportsman_view";}
 
     @ExceptionHandler(AccessDeniedException.class)
     @ResponseStatus(FORBIDDEN)

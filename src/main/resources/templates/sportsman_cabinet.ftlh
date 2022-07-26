@@ -1,4 +1,4 @@
-<#import "partials/admin_main.ftlh" as main />
+<#import "partials/sportsman_main.ftlh" as main />
 <@main.renderWith scripts=["/js/ckeditor/ckeditor.js"]>
    <h2>Здравствуйту ${sportsman.name}</h2>
 
