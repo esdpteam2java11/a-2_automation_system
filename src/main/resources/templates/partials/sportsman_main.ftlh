@@ -42,8 +42,11 @@
     <body>
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
-            <img src="/images/logo.JPG" alt="" width="30" height="24">
-            <a class="nav-link disabled">Navbar</a>
+            <a class="nav-link" href="/">
+                <img src="/images/logo.JPG" alt="" width="30" height="24">
+            </a>
+
+            <a class="nav-link" href="/sportsman_cabinet">Кабинет</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -52,7 +55,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="/group/">График тренировок группы</a>
+                        <a class="nav-link" href="/calendar_sportsman/${sportsman.groupId}/">График тренировок группы</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/calendar_sportsman/all/">График тренировок всех</a>
