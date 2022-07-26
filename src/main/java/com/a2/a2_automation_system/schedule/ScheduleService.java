@@ -181,4 +181,19 @@ public class ScheduleService {
         scheduleRepository.save(event);
         return message;
     }
+
+    public List<ScheduleRestDtoForSportsman> getEventsForAllSportsman(String dateStart, String dateEnd) {
+        LocalDate start = getLocalDateFromString(dateStart);
+        LocalDate end = getLocalDateFromString(dateEnd);
+        List<Schedule> events =  scheduleRepository.getSchedulesByEventDateBetween(start,end);
+        return events.stream().map(ScheduleRestDtoForSportsman::from).collect(Collectors.toList());
+    }
+
+    public List<ScheduleRestDtoForSportsman> getEventsByGroupAndDatesForSportsman(String groupId, String dateStart, String dateEnd) {
+        LocalDate start = getLocalDateFromString(dateStart);
+        LocalDate end = getLocalDateFromString(dateEnd);
+        Group group = groupService.getGroupByIdReturnGroup(Long.parseLong(groupId));
+        List<Schedule> events =  scheduleRepository.getAllByGroupAndEventDateBetween(group,start,end);
+        return events.stream().map(ScheduleRestDtoForSportsman::from).collect(Collectors.toList());
+    }
 }
