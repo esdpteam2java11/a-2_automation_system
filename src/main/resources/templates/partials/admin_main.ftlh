@@ -69,6 +69,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/cash">Касса</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/news">Создать новость</a>
+                    </li>
 
                 </ul>
             </div>

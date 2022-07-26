@@ -2,6 +2,7 @@ package com.a2.a2_automation_system.user;
 
 import com.a2.a2_automation_system.config.PropertiesService;
 import com.a2.a2_automation_system.group.GroupService;
+import com.a2.a2_automation_system.news.NewsService;
 import com.a2.a2_automation_system.parent.ParentService;
 import com.a2.a2_automation_system.util.PageUtil;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +39,7 @@ public class UserController {
     private final PropertiesService propertiesService;
     private final GroupService groupService;
     private final ParentService parentService;
+    private final NewsService newsService;
 
 
 
@@ -51,7 +53,8 @@ public class UserController {
     }
 
     @GetMapping
-    public String getIndex() {
+    public String getIndex(Model model) {
+        model.addAttribute("news", newsService.getAllNews());
         return "index";
     }
 

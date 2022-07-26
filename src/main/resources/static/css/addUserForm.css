@@ -70,7 +70,6 @@ label.required:after {
 }
 
 
-
 .main-color {
     background: -webkit-linear-gradient(90deg, #09022e, #ff1154);
     background: linear-gradient(90deg, #09022e, #ff1154);
@@ -239,7 +238,7 @@ body .groups-name:hover {
     margin-left: 50px;
 }
 
-.add-sportsman-header .cash-flow-header{
+.add-sportsman-header .cash-flow-header {
     margin-top: 50px;
     margin-bottom: 40px;
     text-align: center;
@@ -388,6 +387,18 @@ body .groups-name:hover {
 
 .calendar-ref {
     margin-left: 100px;
+}
+
+.add-news {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 20px;
+}
+
+.add {
+    font-size: 15px;
+    width: 400px;
 }
 
 
