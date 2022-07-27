@@ -237,7 +237,7 @@ public class UserController {
                return "redirect:admin";
            }
            else{
-               return "redirect:/sportsman_cabinet";
+               return "redirect:/sportsman_cabinet/";
            }
         }
         return "redirect:login";
@@ -250,7 +250,7 @@ public class UserController {
                 return "redirect:admin";
             }
             else{
-                return "redirect:/sportsman_cabinet";
+                return "redirect:/sportsman_cabinet/";
             }
         }
         return "redirect:login";
@@ -258,7 +258,7 @@ public class UserController {
 
 
     @PreAuthorize("hasAuthority('CLIENT')")
-    @GetMapping("/sportsman_cabinet")
+    @GetMapping("/sportsman_cabinet/")
     public String getSportsmanPage(Model model,HttpServletRequest request){
         User user = userService.getUserByUsername(request.getRemoteUser());
         model.addAttribute("sportsman",user);
