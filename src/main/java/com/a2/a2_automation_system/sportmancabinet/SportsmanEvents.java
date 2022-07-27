@@ -36,4 +36,7 @@ public class SportsmanEvents {
     @Column(name="food")
     private String food;
 
+    @Column(name = "unique_id_for_serial_event")
+    private String uniqueIdForSerialEvent;
+
 }
