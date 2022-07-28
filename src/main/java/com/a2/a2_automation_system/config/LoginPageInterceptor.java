@@ -26,7 +26,7 @@ public class LoginPageInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         if ("/login".equals(urlPathHelper.getLookupPathForRequest(request)) && isAuthenticated()) {
                 String encodedRedirectURL = response.encodeRedirectURL(
-                        request.getContextPath() + "/main_login");
+                        request.getContextPath() + "/main");
                 response.setStatus(HttpStatus.TEMPORARY_REDIRECT.value());
                 response.setHeader("Location", encodedRedirectURL);
                 return false;

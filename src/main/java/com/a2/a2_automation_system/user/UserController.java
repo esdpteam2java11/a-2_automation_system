@@ -241,20 +241,6 @@ public class UserController {
         }
         return "redirect:login";
     }
-    @GetMapping("main_login")
-    public String getMainLoginPage(HttpServletRequest request){
-        String username =  request.getRemoteUser();
-        if(isAuthenticated()){
-            User user = userService.getUserByUsername(username);
-            if(user.getRole().equals(Role.ADMIN)||user.getRole().equals(Role.EMPLOYEE)){
-                return "redirect:admin";
-            }
-            else{
-                return "redirect:/sportsman_cabinet";
-            }
-        }
-        return "redirect:login";
-    }
 
 
     @PreAuthorize("hasAuthority('CLIENT')")
