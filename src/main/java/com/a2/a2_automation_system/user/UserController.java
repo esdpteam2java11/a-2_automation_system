@@ -242,25 +242,12 @@ public class UserController {
         }
         return "redirect:login";
     }
-    @GetMapping("main_login")
-    public String getMainLoginPage(HttpServletRequest request){
-        if(isAuthenticated()){
-            User user = userService.getUserByUsername(request.getRemoteUser());
-            if(user.getRole().equals(Role.ADMIN)||user.getRole().equals(Role.EMPLOYEE)){
-                return "redirect:admin";
-            }
-            else{
-                return "redirect:/sportsman_cabinet/";
-            }
-        }
-        return "redirect:login";
-    }
 
 
     @PreAuthorize("hasAuthority('CLIENT')")
     @GetMapping("/sportsman_cabinet/")
     public String getSportsmanPage(Model model,HttpServletRequest request){
-        User user = userService.getUserByUsername(request.getRemoteUser());
+        UserDTO user = UserDTO.from(userService.getUserByUsername(request.getRemoteUser()));
         model.addAttribute("sportsman",user);
         return "sportsman_cabinet";
     }
@@ -286,6 +273,14 @@ public class UserController {
         model.addAttribute("group",groupDTO);
         model.addAttribute("sportsman",userDTO);
         return "calendar_for_sportsman";
+    }
+    @GetMapping("/calendar_sportsman/{id}/attendance/")
+    public String getAttendanceCalendarForSportsman(Model model,@PathVariable String id,HttpServletRequest request){
+        UserDTO userDTO = UserDTO.from(userService.getUserByUsername(request.getRemoteUser()));
+        GroupDTO groupDTO = groupService.getGroupById(Long.parseLong(id));
+        model.addAttribute("group",groupDTO);
+        model.addAttribute("sportsman",userDTO);
+        return "calendar_for_sportsman_attendance";
     }
 
     @ExceptionHandler(AccessDeniedException.class)
