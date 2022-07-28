@@ -18,6 +18,7 @@ public class ScheduleRestDtoForSportsman {
     private LocalDateTime end;
     private String color;
     private Boolean allDay;
+    private String textColor;
 
     public static ScheduleRestDtoForSportsman from(Schedule schedule){
         LocalDateTime start = LocalDateTime.of(schedule.getEventDate(),schedule.getStartTime());
@@ -32,6 +33,5 @@ public class ScheduleRestDtoForSportsman {
                 .allDay(true)
                 .build();
     }
-
 
 }

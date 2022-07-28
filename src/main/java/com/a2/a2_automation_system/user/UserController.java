@@ -1,6 +1,8 @@
 package com.a2.a2_automation_system.user;
 
 import com.a2.a2_automation_system.config.PropertiesService;
+import com.a2.a2_automation_system.group.Group;
+import com.a2.a2_automation_system.group.GroupDTO;
 import com.a2.a2_automation_system.group.GroupService;
 import com.a2.a2_automation_system.news.NewsService;
 import com.a2.a2_automation_system.parent.ParentService;
@@ -31,7 +33,6 @@ import java.util.Date;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.FORBIDDEN;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Controller
 @RequiredArgsConstructor
@@ -241,6 +242,19 @@ public class UserController {
         }
         return "redirect:login";
     }
+    @GetMapping("main_login")
+    public String getMainLoginPage(HttpServletRequest request){
+        if(isAuthenticated()){
+            User user = userService.getUserByUsername(request.getRemoteUser());
+            if(user.getRole().equals(Role.ADMIN)||user.getRole().equals(Role.EMPLOYEE)){
+                return "redirect:admin";
+            }
+            else{
+                return "redirect:/sportsman_cabinet";
+            }
+        }
+        return "redirect:login";
+    }
 
 
     @PreAuthorize("hasAuthority('CLIENT')")
@@ -258,8 +272,21 @@ public class UserController {
         }
         return authentication.isAuthenticated();
     }
+
     @GetMapping("/calendar_sportsman/all/")
-    public String getAllCalendarForSportsman(Model model){return "calendar_all_events_sportsman_view";}
+    public String getAllCalendarForSportsman(Model model,HttpServletRequest request){
+        UserDTO userDTO = UserDTO.from(userService.getUserByUsername(request.getRemoteUser()));
+        model.addAttribute("sportsman",userDTO);
+        return "calendar_all_events_sportsman_view";
+    }
+    @GetMapping("/calendar_sportsman/{id}/")
+    public String getAllCalendarForSportsman(Model model,@PathVariable String id,HttpServletRequest request){
+        UserDTO userDTO = UserDTO.from(userService.getUserByUsername(request.getRemoteUser()));
+        GroupDTO groupDTO = groupService.getGroupById(Long.parseLong(id));
+        model.addAttribute("group",groupDTO);
+        model.addAttribute("sportsman",userDTO);
+        return "calendar_for_sportsman";
+    }
 
     @ExceptionHandler(AccessDeniedException.class)
     @ResponseStatus(FORBIDDEN)
@@ -267,6 +294,4 @@ public class UserController {
         model.addAttribute("errorMessage","У вас нет доступа");
             return "login";
     }
-
-
 }
