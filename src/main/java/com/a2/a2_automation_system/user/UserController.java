@@ -1,6 +1,8 @@
 package com.a2.a2_automation_system.user;
 
 import com.a2.a2_automation_system.config.PropertiesService;
+import com.a2.a2_automation_system.group.Group;
+import com.a2.a2_automation_system.group.GroupDTO;
 import com.a2.a2_automation_system.group.GroupService;
 import com.a2.a2_automation_system.news.NewsService;
 import com.a2.a2_automation_system.parent.ParentService;
@@ -32,7 +34,6 @@ import java.util.Date;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.FORBIDDEN;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Controller
 @RequiredArgsConstructor
