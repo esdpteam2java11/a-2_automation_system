@@ -1,5 +1,6 @@
 package com.a2.a2_automation_system.schedule;
 
+import com.a2.a2_automation_system.exception.ResourceNotFoundException;
 import com.a2.a2_automation_system.group.Group;
 import com.a2.a2_automation_system.group.GroupRepository;
 import com.a2.a2_automation_system.group.GroupService;
@@ -121,7 +122,7 @@ public class ScheduleService {
     }
 
     public ScheduleDTO getEventById(Long eventId) {
-        return ScheduleDTO.from(scheduleRepository.getById(eventId));
+        return ScheduleDTO.from(scheduleRepository.findById(eventId) .orElseThrow(() -> new ResourceNotFoundException("Такой задачи с таким id нет")));
     }
 
     public List<VisitDto> getUsersWhoCame(Long eventId) {

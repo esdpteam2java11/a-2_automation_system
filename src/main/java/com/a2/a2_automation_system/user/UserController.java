@@ -31,6 +31,7 @@ import java.util.Date;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.FORBIDDEN;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Controller
 @RequiredArgsConstructor
@@ -104,7 +105,7 @@ public class UserController {
             return "redirect:/add/trainer";
         }
         userService.addTrainer(customerRequestDto);
-        return "redirect:/add/trainer";
+        return "redirect:/admin";
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
@@ -136,8 +137,12 @@ public class UserController {
                                @RequestParam("p_patronymic") @Nullable List<String> pPatronymics,
                                @RequestParam("p_phone") @Nullable List<String> pPhones,
                                @RequestParam("p_whatsapp") @Nullable List<String> pWhatsapps,
-                               @RequestParam("p_telegram") @Nullable List<String> pTelegrams) {
-
+                               @RequestParam("p_telegram") @Nullable List<String> pTelegrams,
+                               RedirectAttributes attributes) {
+        if (userService.userLoginCheck(login)) {
+            attributes.addFlashAttribute("login", login);
+            return "redirect:/create";
+        }
         userService.createSportsman(surname, name, patronymic, birthDate, growth, weight, phone, whatsapp, telegram,
                 address, school, channels, groupId, dateOfAdmission, sum, date, login, password, pIds, pKinships,
                 pSurnames, pNames, pPatronymics, pPhones, pWhatsapps, pTelegrams);
@@ -179,13 +184,17 @@ public class UserController {
                                 @RequestParam("p_patronymic") @Nullable List<String> pPatronymics,
                                 @RequestParam("p_phone") @Nullable List<String> pPhones,
                                 @RequestParam("p_whatsapp") @Nullable List<String> pWhatsapps,
-                                @RequestParam("p_telegram") @Nullable List<String> pTelegrams) {
-
+                                @RequestParam("p_telegram") @Nullable List<String> pTelegrams,
+                                RedirectAttributes attributes) {
+        if (userService.checkLogin(login, id)) {
+            attributes.addFlashAttribute("login", login);
+            return "redirect:/edit/" + id;
+        }
         userService.editSportsman(id, surname, name, patronymic, birthDate, growth, weight, phone, whatsapp, telegram,
                 address, school, channels, groupId, dateOfAdmission, sum, date, login, password, pIds, pKinships,
                 pSurnames, pNames, pPatronymics, pPhones, pWhatsapps, pTelegrams);
 
-        return "redirect:/edit/" + id;
+        return "redirect:/admin";
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
@@ -215,7 +224,7 @@ public class UserController {
             return "redirect:/edit/trainer/" + id;
         }
         userService.editTrainer(id, userDTO);
-        return "redirect:/edit/trainer/" + id;
+        return "redirect:/admin";
     }
 
     @GetMapping("/main")
@@ -270,4 +279,6 @@ public class UserController {
         model.addAttribute("errorMessage","У вас нет доступа");
             return "login";
     }
+
+
 }
