@@ -254,4 +254,11 @@ public class UserController {
         return authentication.isAuthenticated();
     }
 
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(FORBIDDEN)
+    private String handleForbidden(Model model){
+        model.addAttribute("errorMessage","У вас нет доступа");
+        return "login";
+    }
+
 }
