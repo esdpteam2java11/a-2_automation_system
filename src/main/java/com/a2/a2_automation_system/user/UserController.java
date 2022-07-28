@@ -238,7 +238,7 @@ public class UserController {
                return "redirect:admin";
            }
            else{
-               return "redirect:/sportsman_cabinet";
+               return "redirect:/sportsman_cabinet/";
            }
         }
         return "redirect:login";
@@ -246,9 +246,9 @@ public class UserController {
 
 
     @PreAuthorize("hasAuthority('CLIENT')")
-    @GetMapping("/sportsman_cabinet")
+    @GetMapping("/sportsman_cabinet/")
     public String getSportsmanPage(Model model,HttpServletRequest request){
-        User user = userService.getUserByUsername(request.getRemoteUser());
+        UserDTO user = UserDTO.from(userService.getUserByUsername(request.getRemoteUser()));
         model.addAttribute("sportsman",user);
         return "sportsman_cabinet";
     }
@@ -260,8 +260,21 @@ public class UserController {
         }
         return authentication.isAuthenticated();
     }
+
     @GetMapping("/calendar_sportsman/all/")
-    public String getAllCalendarForSportsman(Model model){return "calendar_all_events_sportsman_view";}
+    public String getAllCalendarForSportsman(Model model,HttpServletRequest request){
+        UserDTO userDTO = UserDTO.from(userService.getUserByUsername(request.getRemoteUser()));
+        model.addAttribute("sportsman",userDTO);
+        return "calendar_all_events_sportsman_view";
+    }
+    @GetMapping("/calendar_sportsman/{id}/")
+    public String getAllCalendarForSportsman(Model model,@PathVariable String id,HttpServletRequest request){
+        UserDTO userDTO = UserDTO.from(userService.getUserByUsername(request.getRemoteUser()));
+        GroupDTO groupDTO = groupService.getGroupById(Long.parseLong(id));
+        model.addAttribute("group",groupDTO);
+        model.addAttribute("sportsman",userDTO);
+        return "calendar_for_sportsman";
+    }
 
     @ExceptionHandler(AccessDeniedException.class)
     @ResponseStatus(FORBIDDEN)
