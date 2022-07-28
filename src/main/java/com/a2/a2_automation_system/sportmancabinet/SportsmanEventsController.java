@@ -2,27 +2,34 @@ package com.a2.a2_automation_system.sportmancabinet;
 
 import com.a2.a2_automation_system.group.GroupDTO;
 import com.a2.a2_automation_system.group.GroupService;
+import com.a2.a2_automation_system.schedule.ScheduleCreateDTO;
+import com.a2.a2_automation_system.user.User;
 import com.a2.a2_automation_system.user.UserDTO;
 import com.a2.a2_automation_system.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-
-import static org.springframework.http.HttpStatus.FORBIDDEN;
+import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
 public class SportsmanEventsController {
     private final UserService userService;
     private final GroupService groupService;
+    private final SportsmanEventsService sportsmanEventsService;
 
     @PreAuthorize("hasAuthority('CLIENT')")
     @GetMapping("/sportsman_cabinet/")
@@ -31,12 +38,14 @@ public class SportsmanEventsController {
         model.addAttribute("sportsman",user);
         return "sportsman_cabinet";
     }
+
     @GetMapping("/calendar_sportsman/all/")
     public String getAllCalendarForSportsman(Model model,HttpServletRequest request){
         UserDTO userDTO = UserDTO.from(userService.getUserByUsername(request.getRemoteUser()));
         model.addAttribute("sportsman",userDTO);
         return "calendar_all_events_sportsman_view";
     }
+
     @GetMapping("/calendar_sportsman/{id}/")
     public String getAllCalendarForSportsman(Model model, @PathVariable String id, HttpServletRequest request){
         UserDTO userDTO = UserDTO.from(userService.getUserByUsername(request.getRemoteUser()));
@@ -54,10 +63,37 @@ public class SportsmanEventsController {
         return "calendar_for_sportsman_attendance";
     }
 
-    @ExceptionHandler(AccessDeniedException.class)
-    @ResponseStatus(FORBIDDEN)
-    private String handleForbidden(Model model){
-        model.addAttribute("errorMessage","У вас нет доступа");
-        return "login";
+    @GetMapping("/sportsman_cabinet/create")
+    public String getAddEventPageForSportsman(Model model,HttpServletRequest request, RedirectAttributes attributes){
+        if(request.getRemoteUser()==null){
+            attributes.addFlashAttribute("errorMessage", "Зайдите в систему");
+            return "redirect:/login";
+        }
+        UserDTO userDTO = UserDTO.from(userService.getUserByUsername(request.getRemoteUser()));
+            model.addAttribute("sportsman", userDTO);
+            return "add_event_for_sportsman";
     }
+
+    @PostMapping("/sportsman_cabinet/create")
+    public String addEventForSportsman(Model model, HttpServletRequest request, @Valid SportsmanEventCreateDTO sportsmanEventCreateDTO, BindingResult result, RedirectAttributes attributes){
+        if (result.hasFieldErrors()) {
+            attributes.addFlashAttribute("errors", result.getFieldErrors());
+            return "redirect:/sportsman_cabinet/create";
+        }
+        if (sportsmanEventCreateDTO.getRecurring() != null) {
+            if (sportsmanEventCreateDTO.getDayOfWeek() == null) {
+                attributes.addFlashAttribute("errorDayOfWeek", "Выберите хотя бы один день недели");
+                return "redirect:/sportsman_cabinet/create";
+            }
+        }
+        Optional<User> user = Optional.ofNullable(userService.getUserByUsername(request.getRemoteUser()));
+        if(user.isPresent()){
+        sportsmanEventsService.createEventsFromScheduleCreateDto(sportsmanEventCreateDTO,user.get());
+        return "redirect:/sportsman_cabinet/";
+        }else {
+            attributes.addFlashAttribute("errorMessage", "Зайдите в систему");
+           return "redirect:login";
+        }
+    }
+
 }
