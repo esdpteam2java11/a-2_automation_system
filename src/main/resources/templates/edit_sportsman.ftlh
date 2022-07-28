@@ -121,6 +121,10 @@
                                 <input type="text" name="login" class="form-control" id="recipient-login"
                                        value="${(sportsman.login)!}">
                             </div>
+                            <#if login??>
+                                <p style="color:red">${login} такой логин уже существует! Пожалуйста
+                                    выберите другой</p>
+                            </#if>
                             <div class="mb-3">
                                 <label for="input-password" class="col-form-label required">Пароль:</label>
                                 <input type="password" name="password" class="form-control" id="input-password"
