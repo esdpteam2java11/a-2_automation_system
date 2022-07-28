@@ -82,7 +82,7 @@
                                                 <a href="/benefit">Что вы приобретаете? </a>
 
                                             </li>
-                                            <li><a href="#">Новости</a></li>
+                                            <li><a href="/news/all">Новости</a></li>
                                             <li><a href="/club">О клубе</a></li>
                                             <li><a href="/questions">Вопросы</a></li>
                                             <li><a href="/login">Войти</a></li>

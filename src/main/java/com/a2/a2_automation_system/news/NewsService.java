@@ -1,7 +1,10 @@
 package com.a2.a2_automation_system.news;
 
+import com.a2.a2_automation_system.exception.NewsNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,7 +38,11 @@ public class NewsService {
         }
     }
 
-    public List<NewsDTO> getAllNews() {
-        return newsRepository.findAll().stream().map(NewsDTO::from).collect(Collectors.toList());
+    public Page<NewsDTO> getAllNews(Pageable pageable) {
+        return newsRepository.findAll(pageable).map(NewsDTO::from);
+    }
+
+    public NewsDTO getOneNews(Long id) {
+        return NewsDTO.from(newsRepository.findById(id).orElseThrow(() -> new NewsNotFoundException("Такую новость не нашел")));
     }
 }
