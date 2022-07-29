@@ -96,4 +96,24 @@ public class SportsmanEventsController {
         }
     }
 
+
+    @PostMapping("sportsman_cabinet/event/{eventId}/edit")
+    public String editScheduleElement( @Valid SportsmanEventCreateDTO sportsmanEventCreateDTO, @PathVariable Long eventId, RedirectAttributes redirectAttributes, BindingResult result) {
+        String pathRedirect = String.format("redirect:sportsman_cabinet/calendar/event/%s", eventId);
+        sportsmanEventsService.editEvent(sportsmanEventCreateDTO,eventId);
+        redirectAttributes.addFlashAttribute("message", "Отредактрировано");
+        return pathRedirect;
+    }
+
+    @GetMapping("sportsman_cabinet/event/{id}")
+    public String getEventPage(Model model,@PathVariable String id,HttpServletRequest request){
+        SportsmanEventsDTO sportsmanEventsDTO = sportsmanEventsService.getEventById(Long.parseLong(id));
+        UserDTO userDTO = UserDTO.from(userService.getUserByUsername(request.getRemoteUser()));
+        model.addAttribute("sportsman",userDTO);
+        model.addAttribute("event",sportsmanEventsDTO);
+        return "sportsman_event";
+    }
+
+
+
 }

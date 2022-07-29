@@ -26,7 +26,7 @@ public class SportsmanEventsRestDTO {
                 .title(sportsmanEvents.getSportsman().getName())
                 .start(sportsmanEvents.getEventDate())
                 .allDay(true)
-                .url("/")
+                .url("event/"+sportsmanEvents.getId())
                 .color("blue")
                 .build();
     }

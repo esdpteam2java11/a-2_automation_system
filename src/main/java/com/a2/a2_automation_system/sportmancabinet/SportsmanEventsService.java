@@ -110,4 +110,14 @@ public class SportsmanEventsService {
         }
         return listOfDates;
     }
+
+    public SportsmanEventsDTO getEventById(Long id){
+        return SportsmanEventsDTO.from(sportsmanEventsRepository.getSportsmanEventsById(id));
+    }
+
+    public void editEvent(SportsmanEventCreateDTO sportsmanEventCreateDTO,Long id) {
+       var event = sportsmanEventsRepository .getSportsmanEventsById(id);
+       event.setEventDate(sportsmanEventCreateDTO.getEventDate());
+        sportsmanEventsRepository.save(event);
+    }
 }
