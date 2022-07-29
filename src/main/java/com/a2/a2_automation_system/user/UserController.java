@@ -2,29 +2,36 @@ package com.a2.a2_automation_system.user;
 
 import com.a2.a2_automation_system.config.PropertiesService;
 import com.a2.a2_automation_system.group.GroupService;
+import com.a2.a2_automation_system.news.NewsService;
 import com.a2.a2_automation_system.parent.ParentService;
 import com.a2.a2_automation_system.util.PageUtil;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.Target;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.security.auth.message.AuthException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.FORBIDDEN;
 
 @Controller
 @RequiredArgsConstructor
@@ -33,20 +40,31 @@ public class UserController {
     private final PropertiesService propertiesService;
     private final GroupService groupService;
     private final ParentService parentService;
+    private final NewsService newsService;
+
 
 
     @GetMapping("/login")
     public String login(@RequestParam(required = false, defaultValue = "false") Boolean error, Model model) {
         model.addAttribute("error", error);
+//        if (isAuthenticated()) {
+//            return "redirect:admin";
+//        }
         return "login";
     }
 
     @GetMapping
-    public String getIndex() {
+    public String getIndex(Model model) {
+        model.addAttribute("news", newsService.getAllNews());
         return "index";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/questions")
+    public String getQuestions() {
+        return "questions";
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @GetMapping("/admin")
     public String getAdmin(Model model, @RequestParam @Nullable String role,
                            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable,
@@ -87,7 +105,7 @@ public class UserController {
             return "redirect:/add/trainer";
         }
         userService.addTrainer(customerRequestDto);
-        return "redirect:/add/trainer";
+        return "redirect:/admin";
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
@@ -119,8 +137,12 @@ public class UserController {
                                @RequestParam("p_patronymic") @Nullable List<String> pPatronymics,
                                @RequestParam("p_phone") @Nullable List<String> pPhones,
                                @RequestParam("p_whatsapp") @Nullable List<String> pWhatsapps,
-                               @RequestParam("p_telegram") @Nullable List<String> pTelegrams) {
-
+                               @RequestParam("p_telegram") @Nullable List<String> pTelegrams,
+                               RedirectAttributes attributes) {
+        if (userService.userLoginCheck(login)) {
+            attributes.addFlashAttribute("login", login);
+            return "redirect:/create";
+        }
         userService.createSportsman(surname, name, patronymic, birthDate, growth, weight, phone, whatsapp, telegram,
                 address, school, channels, groupId, dateOfAdmission, sum, date, login, password, pIds, pKinships,
                 pSurnames, pNames, pPatronymics, pPhones, pWhatsapps, pTelegrams);
@@ -162,13 +184,17 @@ public class UserController {
                                 @RequestParam("p_patronymic") @Nullable List<String> pPatronymics,
                                 @RequestParam("p_phone") @Nullable List<String> pPhones,
                                 @RequestParam("p_whatsapp") @Nullable List<String> pWhatsapps,
-                                @RequestParam("p_telegram") @Nullable List<String> pTelegrams) {
-
+                                @RequestParam("p_telegram") @Nullable List<String> pTelegrams,
+                                RedirectAttributes attributes) {
+        if (userService.checkLogin(login, id)) {
+            attributes.addFlashAttribute("login", login);
+            return "redirect:/edit/" + id;
+        }
         userService.editSportsman(id, surname, name, patronymic, birthDate, growth, weight, phone, whatsapp, telegram,
                 address, school, channels, groupId, dateOfAdmission, sum, date, login, password, pIds, pKinships,
                 pSurnames, pNames, pPatronymics, pPhones, pWhatsapps, pTelegrams);
 
-        return "redirect:/edit/" + id;
+        return "redirect:/admin";
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
@@ -198,6 +224,50 @@ public class UserController {
             return "redirect:/edit/trainer/" + id;
         }
         userService.editTrainer(id, userDTO);
-        return "redirect:/edit/trainer/" + id;
+        return "redirect:/admin";
     }
+
+    @GetMapping("/main")
+    public String getMainPage(HttpServletRequest request){
+        String username =  request.getRemoteUser();
+        if(isAuthenticated()){
+           User user = userService.getUserByUsername(username);
+           if(user.getRole().equals(Role.ADMIN)||user.getRole().equals(Role.EMPLOYEE)){
+               return "redirect:admin";
+           }
+           else{
+               return "redirect:/sportsman_cabinet/";
+           }
+        }
+        return "redirect:login";
+    }
+    @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
+   @GetMapping("/sportsman_story")
+    public String getSportsmanStory(Model model,@RequestParam(value = "userId") @Nullable Long userId) {
+        var userParam = userService.getUserParam(userId);
+        var userPayment = userService.getUserPayment(userId);
+        model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("sportsmanParam", userParam);
+        model.addAttribute("sportsmanPayment", userPayment);
+        return "sportsman_story";
+    }
+
+
+    private boolean isAuthenticated() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || AnonymousAuthenticationToken.class.
+                isAssignableFrom(authentication.getClass())) {
+            return false;
+        }
+        return authentication.isAuthenticated();
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(FORBIDDEN)
+    private String handleForbidden(Model model){
+        model.addAttribute("errorMessage","У вас нет доступа");
+        return "login";
+    }
+
+
 }

@@ -113,7 +113,12 @@
                             <div class="mb-3">
                                 <label for="recipient-login" class="col-form-label required">Логин:</label>
                                 <input type="text" name="login" class="form-control" id="recipient-login">
+                                <#if login??>
+                                    <p style="color:red">${login} такой логин уже существует! Пожалуйста
+                                        выберите другой</p>
+                                </#if>
                             </div>
+
                             <div class="mb-3">
                                 <label for="input-password" class="col-form-label required">Пароль:</label>
                                 <input type="text" name="password" class="form-control" id="input-password">

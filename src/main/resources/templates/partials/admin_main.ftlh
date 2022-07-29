@@ -43,7 +43,7 @@
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
             <img src="/images/logo.JPG" alt="" width="30" height="24">
-            <a class="nav-link disabled">Navbar</a>
+            <a class="nav-link" href="/">Главная</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -69,6 +69,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/cash">Касса</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/news">Создать новость</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/sportsman_story">История спортсмена</a>
+                    </li>
+
 
                 </ul>
             </div>

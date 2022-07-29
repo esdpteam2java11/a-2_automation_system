@@ -32,6 +32,7 @@ public class PageUtil {
         model.addAttribute("roles", Role.values());
         model.addAttribute("isActive", isActive);
         model.addAttribute("defaultPageSize", pageSize);
+       // model.addAttribute("admin",user);
     }
 
     private static String constructPageUri(String uri, String role,
@@ -60,5 +61,9 @@ public class PageUtil {
         else if (role != null) return String.format("%s?role=%s&", uri,
                 role);
         else return String.format("%s?", uri);
+    }
+
+    public static String constructPageUri(String uri, int page, int size) {
+        return String.format("%s?page=%s&size=%s", uri, page, size);
     }
 }

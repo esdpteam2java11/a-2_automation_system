@@ -65,7 +65,7 @@ class UserServiceTest {
         Page<User> page = new PageImpl<>(apis);
         Mockito.when(this.userRepository.findAll(Mockito.any(Pageable.class)))
                 .thenReturn(page);
-       Page<UserDTO> apiPageResp  = userService.getAllUsers(page.getPageable());
+        Page<UserDTO> apiPageResp  = userService.getAllUsers(page.getPageable());
         assertEquals(2L, apiPageResp.getTotalElements());
         Mockito.verify(this.userRepository, Mockito.times(1))
                 .findAll(Mockito.any(Pageable.class));

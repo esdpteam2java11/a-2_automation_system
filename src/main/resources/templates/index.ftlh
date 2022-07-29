@@ -1,97 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Index</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<#import "partials/index_navbar.ftlh" as main />
+<#import "partials/footer.ftlh" as footer />
+<@main.renderWith >
 
-    <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700|Work+Sans:300,400,700" rel="stylesheet">
-    <link rel="stylesheet" href="/fonts/icomoon/style.css">
-
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/magnific-popup.css">
-    <link rel="stylesheet" href="/css/jquery-ui.css">
-    <link rel="stylesheet" href="/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="/css/animate.css">
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/mediaelementplayer.min.css">
-
-
-    <link rel="stylesheet" href="/fonts/flaticon/font/flaticon.css">
-
-    <link rel="stylesheet" href="/css/aos.css">
-
-    <link rel="stylesheet" href="/css/style.css">
-
-</head>
-<body>
-
-<div class="site-wrap">
-
-
-    <div class="site-mobile-menu">
-        <div class="site-mobile-menu-header">
-            <div class="site-mobile-menu-close mt-3">
-                <span class="icon-close2 js-menu-toggle"></span>
-            </div>
-        </div>
-        <div class="site-mobile-menu-body"></div>
-    </div> <!-- .site-mobile-menu -->
-
-
-    <div class="site-navbar-wrap js-site-navbar bg-white">
-
-        <div class="container">
-            <div class="site-navbar bg-light">
-                <div class="py-1">
-                    <div class="row align-items-center">
-                        <div class="col-2">
-                            <a href="/"><img src="/images/logo.JPG" alt=""></a>
-                        </div>
-                        <div class="col-10">
-                            <nav class="site-navigation text-right" role="navigation">
-                                <div class="container">
-                                    <div class="d-inline-block d-lg-none ml-md-0 mr-auto py-3"><a href="#"
-                                                                                                  class="site-menu-toggle js-menu-toggle text-black"><span
-                                                    class="icon-menu h3"></span></a></div>
-
-                                    <ul class="site-menu js-clone-nav d-none d-lg-block">
-                                        <li class="has-children">
-                                            <a href="#">Программа</a>
-                                            <ul class="dropdown arrow-top">
-                                                <li><a href="#">Body Building</a></li>
-                                                <li><a href="#">Morning Energy</a></li>
-                                                <li><a href="#">Stretching</a></li>
-                                                <li class="has-children">
-                                                    <a href="#">Sub Menus</a>
-                                                    <ul class="dropdown">
-                                                        <li><a href="#">Swimming</a></li>
-                                                        <li><a href="#">Boxing</a></li>
-                                                        <li><a href="#">Running</a></li>
-                                                        <li><a href="#">Jogging</a></li>
-
-                                                    </ul>
-                                                </li>
-
-                                            </ul>
-                                        </li>
-                                        <li><a href="/admin">Админка</a></li>
-                                        <li><a href="#">Наши тренеры</a></li>
-                                        <li><a href="#">Новости</a></li>
-                                        <li><a href="#">О клубе</a></li>
-                                        <li><a href="#">Контакты</a></li>
-                                        <li><a href="/login">Войти</a></li>
-                                    </ul>
-                                </div>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- <div style="height: 113px;"></div> -->
     <div class="slide-one-item home-slider owl-carousel">
@@ -124,14 +34,21 @@
     <div class="site-section">
         <div class="container">
             <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                    <img class="card-img-top" src="/images/img_1.jpg" alt="Card image cap">
+
+                </div>
                 <div class="col-lg-5 ml-auto">
                     <h2 class="site-section-heading mb-3">Спортивный клуб "A-2"</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim ad, tempora incidunt accusantium.
-                        Similique magni quaerat beatae illo aliquid. Libero non ipsa nisi, corporis architecto incidunt
-                        rem repellendus asperiores numquam!</p>
-                    <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit explicabo odio
-                        officiis autem minima quibusdam.</p>
-                    <p><a href="#" class="btn btn-outline-primary py-2 px-4">Подробнее</a></p>
+                    <p>Спортивный клуб функционирует с августа 2020 года и специализируется по двум основным
+                        направлениям: самбо и дзюдо.
+                        По выростным критериям, группы разделены на 4 категории:
+                        Детская группа: от 7-9 лет;
+                        Младшая группа: от 10-13 лет;
+                        Старшая группа: с 14 по 18 лет;
+                        Взрослая группа: с 19 лет.
+                    </p>
+                    <p><a href="/club" class="btn btn-outline-primary py-2 px-4">Подробнее</a></p>
                 </div>
             </div>
         </div>
@@ -141,70 +58,32 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h2 class="site-section-heading text-center">Новости</h2>
+                    <h2 class="site-section-heading text-center mb-3">Новости</h2>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12 block-13 nav-direction-white">
-                    <div class="nonloop-block-13 owl-carousel">
-                        <div class="media-image">
-                            <img src="/images/img_1.jpg" alt="Image" class="img-fluid">
-                            <div class="media-image-body">
-                                <h2>Новость 1</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, voluptate.</p>
-                                <p><a href="#" class="btn btn-primary text-white px-4"><span
-                                                class="caption">Подробнее</span></a></p>
-                            </div>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <#list news as new>
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="/upload/${new.image}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">${new.title}</h5>
+                            <p class="card-text hide-text">${new.description}</p>
+                            <p><a href="/news/${new.id}" class="btn btn-primary text-white px-4"><span
+                                            class="caption">Подробнее</span></a></p>
                         </div>
-                        <div class="media-image">
-                            <img src="/images/img_2.jpg" alt="Image" class="img-fluid">
-                            <div class="media-image-body">
-                                <h2>Новость 2</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, voluptate.</p>
-                                <p><a href="#" class="btn btn-primary text-white px-4"><span
-                                                class="caption">Подробнее</span></a></p>
-                            </div>
-                        </div>
-                        <div class="media-image">
-                            <img src="/images/img_3.jpg" alt="Image" class="img-fluid">
-                            <div class="media-image-body">
-                                <h2>Новость 3</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, voluptate.</p>
-                                <p><a href="#" class="btn btn-primary text-white px-4"><span
-                                                class="caption">Подробнее</span></a></p>
-                            </div>
-                        </div>
-                        <div class="media-image">
-                            <img src="/images/img_4.jpg" alt="Image" class="img-fluid">
-                            <div class="media-image-body">
-                                <h2>Новость 4</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, voluptate.</p>
-                                <p><a href="#" class="btn btn-primary text-white px-4"><span
-                                                class="caption">Подробнее</span></a></p>
-                            </div>
-                        </div>
-                        <div class="media-image">
-                            <img src="/images/img_5.jpg" alt="Image" class="img-fluid">
-                            <div class="media-image-body">
-                                <h2>Новость 5</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, voluptate.</p>
-                                <p><a href="#" class="btn btn-primary text-white px-4"><span
-                                                class="caption">Подробнее</span></a></p>
-                            </div>
-                        </div>
-                        <div class="media-image">
-                            <img src="/images/img_6.jpg" alt="Image" class="img-fluid">
-                            <div class="media-image-body">
-                                <h2>Новость 6</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, voluptate.</p>
-                                <p><a href="#" class="btn btn-primary text-white px-4"><span
-                                                class="caption">Подробнее</span></a></p>
-                            </div>
+                        <div class="card-footer">
+                            <small class="text-muted">${new.date?datetime("yyyy-MM-dd")?string("dd MMMM yyyy")}</small>
                         </div>
                     </div>
                 </div>
+                </#list>
             </div>
+
+
+
         </div>
+    </div>
     </div>
 
 
@@ -227,11 +106,11 @@
                         </div>
                         <div>
                             <h2 class="h5">Арсен Камчибеков</h2>
-                            <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
-                                accusantium qui optio, possimus necessitatibus voluptate aliquam velit nostrum tempora
-                                ipsam!&rdquo;
+                            <blockquote>&ldquo;Арсен Камчибеков, является мастером спорта КР,
+                                имеет специализированное образование в области физической культуры и спорта,
+                                также является преподавателем и заведующим кафедрой СБЕС КГАФКиС.&rdquo;
                             </blockquote>
-                            <p><a href="#" class="btn btn-outline-primary py-2 px-4">Подробнее</a></p>
+                            <p><a href="/trainer1" class="btn btn-outline-primary py-2 px-4">Подробнее</a></p>
                         </div>
                     </div>
                 </div>
@@ -242,11 +121,10 @@
                         </div>
                         <div>
                             <h2 class="h5">Актилек Беккулов</h2>
-                            <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
-                                accusantium qui optio, possimus necessitatibus voluptate aliquam velit nostrum tempora
-                                ipsam!&rdquo;
+                            <blockquote>&ldquo;Является тренером спортивного клуба «А-2» с 2020 года.
+                                Имеет специализированное образование в области физической культуры и спорта&rdquo;
                             </blockquote>
-                            <p><a href="#" class="btn btn-outline-primary py-2 px-4">Подробнее</a></p>
+                            <p><a href="/trainer2" class="btn btn-outline-primary py-2 px-4">Подробнее</a></p>
                         </div>
                     </div>
                 </div>
@@ -255,34 +133,8 @@
     </div>
 
 
-    <footer class="site-footer">
-        <div class="container">
-            <div class="row pt-5 mt-5 text-center">
-                <div class="col-md-12">
-                    <p>
-                        Copyright &copy;
-                        <script>document.write(new Date().getFullYear());</script>
-                        All Rights Reserved
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
-</div>
+    <@footer.renderWith>
 
-<script src="/js/jquery-3.3.1.min.js"></script>
-<script src="/js/jquery-migrate-3.0.1.min.js"></script>
-<script src="/js/jquery-ui.js"></script>
-<script src="/js/popper.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/owl.carousel.min.js"></script>
-<script src="/js/jquery.stellar.min.js"></script>
-<script src="/js/jquery.countdown.min.js"></script>
-<script src="/js/jquery.magnific-popup.min.js"></script>
-<script src="/js/bootstrap-datepicker.min.js"></script>
-<script src="/js/aos.js"></script>
-
-<script src="/js/main.js"></script>
-
-</body>
-</html>
+    </@footer.renderWith>
+    </div>
+</@main.renderWith>
