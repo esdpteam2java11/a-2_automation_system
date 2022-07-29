@@ -1,8 +1,6 @@
 package com.a2.a2_automation_system.user;
 
 import com.a2.a2_automation_system.config.PropertiesService;
-import com.a2.a2_automation_system.group.Group;
-import com.a2.a2_automation_system.group.GroupDTO;
 import com.a2.a2_automation_system.group.GroupService;
 import com.a2.a2_automation_system.news.NewsService;
 import com.a2.a2_automation_system.parent.ParentService;
@@ -242,6 +240,16 @@ public class UserController {
            }
         }
         return "redirect:login";
+    }
+    @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
+   @GetMapping("/sportsman_story")
+    public String getSportsmanStory(Model model,@RequestParam(value = "userId") @Nullable Long userId) {
+        var userParam = userService.getUserParam(userId);
+        var userPayment = userService.getUserPayment(userId);
+        model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("sportsmanParam", userParam);
+        model.addAttribute("sportsmanPayment", userPayment);
+        return "sportsman_story";
     }
 
 
