@@ -1,16 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Questions</title>
-    <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/questions.css">
-</head>
-<body>
+<#import "partials/index_navbar.ftlh" as main />
+<#import "partials/footer.ftlh" as footer />
+<@main.renderWith >
 <main>
-    <h1 class="faq-heading">Часто задаваемые вопросы</h1>
+    <h1 class="faq-heading mt-5">Часто задаваемые вопросы</h1>
     <section class="faq-container">
         <div class="faq-one">
             <h1 class="faq-page">Со скольки лет можно начать заниматься Самбо и Дзюдо?</h1>
@@ -64,5 +56,6 @@
         });
     }
 </script>
-</body>
-</html>
+    <@footer.renderWith>
+    </@footer.renderWith>
+</@main.renderWith>

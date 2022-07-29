@@ -62,4 +62,8 @@ public class PageUtil {
                 role);
         else return String.format("%s?", uri);
     }
+
+    public static String constructPageUri(String uri, int page, int size) {
+        return String.format("%s?page=%s&size=%s", uri, page, size);
+    }
 }

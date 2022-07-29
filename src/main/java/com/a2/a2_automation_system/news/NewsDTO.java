@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -26,7 +27,7 @@ public class NewsDTO {
     private String image;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate date;
+    private LocalDateTime date;
 
     public static NewsDTO from(News news) {
         return NewsDTO.builder()
