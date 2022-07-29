@@ -236,7 +236,7 @@ public class UserController {
                return "redirect:admin";
            }
            else{
-               return "redirect:/sportsman_cabinet/";
+               return "redirect:/sportsman_cabinet";
            }
         }
         return "redirect:login";
@@ -268,5 +268,6 @@ public class UserController {
         model.addAttribute("errorMessage","У вас нет доступа");
         return "login";
     }
+
 
 }
