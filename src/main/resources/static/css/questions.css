@@ -47,9 +47,6 @@ body{
     float: right;
     margin-left: 5px;
 }
-.active:after {
-    content: "\2796";
-}
 
 h1 {
     text-align: center;

@@ -3,8 +3,6 @@
 <@main.renderWith >
 
 
-
-
     <!-- <div style="height: 113px;"></div> -->
     <div class="slide-one-item home-slider owl-carousel">
 
@@ -63,72 +61,27 @@
                     <h2 class="site-section-heading text-center mb-3">Новости</h2>
                 </div>
             </div>
-            <#--            <div class="row">-->
-            <#--                <div class="col-md-12 block-13 nav-direction-white">-->
-            <#--                    <div class="nonloop-block-13 owl-carousel">-->
-            <#--                        <div class="media-image">-->
-            <#--                            <img src="/images/img_1.jpg" alt="Image" class="img-fluid">-->
-            <#--                            <div class="media-image-body">-->
-            <#--                                <h2>Новость 1</h2>-->
-            <#--                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, voluptate.</p>-->
-            <#--                                <p><a href="#" class="btn btn-primary text-white px-4"><span-->
-            <#--                                                class="caption">Подробнее</span></a></p>-->
-            <#--                            </div>-->
-            <#--                        </div>-->
-            <#--                        <div class="media-image">-->
-            <#--                            <img src="/images/img_2.jpg" alt="Image" class="img-fluid">-->
-            <#--                            <div class="media-image-body">-->
-            <#--                                <h2>Новость 2</h2>-->
-            <#--                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, voluptate.</p>-->
-            <#--                                <p><a href="#" class="btn btn-primary text-white px-4"><span-->
-            <#--                                                class="caption">Подробнее</span></a></p>-->
-            <#--                            </div>-->
-            <#--                        </div>-->
-            <#--                        <div class="media-image">-->
-            <#--                            <img src="/images/img_3.jpg" alt="Image" class="img-fluid">-->
-            <#--                            <div class="media-image-body">-->
-            <#--                                <h2>Новость 3</h2>-->
-            <#--                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, voluptate.</p>-->
-            <#--                                <p><a href="#" class="btn btn-primary text-white px-4"><span-->
-            <#--                                                class="caption">Подробнее</span></a></p>-->
-            <#--                            </div>-->
-            <#--                        </div>-->
-            <#--                        <div class="media-image">-->
-            <#--                            <img src="/images/img_4.jpg" alt="Image" class="img-fluid">-->
-            <#--                            <div class="media-image-body">-->
-            <#--                                <h2>Новость 4</h2>-->
-            <#--                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, voluptate.</p>-->
-            <#--                                <p><a href="#" class="btn btn-primary text-white px-4"><span-->
-            <#--                                                class="caption">Подробнее</span></a></p>-->
-            <#--                            </div>-->
-            <#--                        </div>-->
-            <#--                        <div class="media-image">-->
-            <#--                            <img src="/images/img_5.jpg" alt="Image" class="img-fluid">-->
-            <#--                            <div class="media-image-body">-->
-            <#--                                <h2>Новость 5</h2>-->
-            <#--                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, voluptate.</p>-->
-            <#--                                <p><a href="" class="btn btn-primary text-white px-4"><span-->
-            <#--                                                class="caption">Подробнее</span></a></p>-->
-            <#--                            </div>-->
-            <#--                        </div>-->
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <#list news as new>
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="/upload/${new.image}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">${new.title}</h5>
+                            <p class="card-text hide-text">${new.description}</p>
+                            <p><a href="/news/${new.id}" class="btn btn-primary text-white px-4"><span
+                                            class="caption">Подробнее</span></a></p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">${new.date?datetime("yyyy-MM-dd")?string("dd MMMM yyyy")}</small>
+                        </div>
+                    </div>
+                </div>
+                </#list>
+            </div>
 
-            <#--                        </div>-->
-            <#--                    </div>-->
-            <#--                </div>-->
-<#--            <div class="row">-->
-<#--                <div class="nonloop-block-13 owl-carousel">-->
-<#--                    <#list news as new>-->
-<#--                        <div class="media-image">-->
-<#--                            <a href="/news/${new.id}"><img src="/upload/${new.image}" alt="Image" class="img-fluid"></a>-->
-<#--                            <div class="media-image-body">-->
-<#--                                <a href="/news/${new.id}"><h2>${new.title}</h2></a>-->
-<#--                                <p>${new.description}</p>-->
-<#--                                <p>${new.date}</p>-->
-<#--                            </div>-->
-<#--                        </div>-->
-<#--                    </#list>-->
-<#--                </div>-->
-<#--            </div>-->
+
+
         </div>
     </div>
     </div>

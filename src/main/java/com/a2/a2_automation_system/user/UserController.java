@@ -54,8 +54,8 @@ public class UserController {
     }
 
     @GetMapping
-    public String getIndex(Model model, Pageable pageable) {
-        model.addAttribute("news", newsService.getAllNews(pageable));
+    public String getIndex(Model model) {
+        model.addAttribute("news", newsService.getAllNews());
         return "index";
     }
 

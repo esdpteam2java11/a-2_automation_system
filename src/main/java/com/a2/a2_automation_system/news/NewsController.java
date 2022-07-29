@@ -1,5 +1,6 @@
 package com.a2.a2_automation_system.news;
 
+import com.a2.a2_automation_system.util.PageUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,8 +41,21 @@ public class NewsController {
                              @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC)
                                      Pageable pageable, HttpServletRequest uriBuilder) {
         Page<NewsDTO> allNews = newsService.getAllNews(pageable);
-        model.addAttribute("news", allNews);
-        model.addAttribute("url", uriBuilder.getRequestURL());
+        if (allNews.hasNext()) {
+            model.addAttribute("nextPageLink", PageUtil.constructPageUri(uriBuilder.getRequestURL().toString(),
+                    allNews.nextPageable().getPageNumber(),
+                    allNews.nextPageable().getPageSize()));
+        }
+        if (allNews.hasPrevious()) {
+            model.addAttribute("prevPageLink", PageUtil.constructPageUri(uriBuilder.getRequestURL().toString(),
+                    allNews.previousPageable().getPageNumber(),
+                    allNews.previousPageable().getPageSize()));
+        }
+        model.addAttribute("url", uriBuilder.getRequestURL() + "?");
+        model.addAttribute("page", allNews);
+        model.addAttribute("hasNext", allNews.hasNext());
+        model.addAttribute("hasPrev", allNews.hasPrevious());
+        model.addAttribute("defaultPageSize", allNews.getTotalElements());
         return "all_news";
     }
 }

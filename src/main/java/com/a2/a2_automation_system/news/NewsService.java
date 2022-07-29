@@ -11,6 +11,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,7 +30,7 @@ public class NewsService {
                 .title(newsDTO.getTitle())
                 .description(newsDTO.getDescription())
                 .image(fileName)
-                .date(LocalDate.now())
+                .date(LocalDateTime.now())
                 .build());
         try {
             FileUploadUtil.saveFile(fileName, path, file);
@@ -40,6 +42,14 @@ public class NewsService {
 
     public Page<NewsDTO> getAllNews(Pageable pageable) {
         return newsRepository.findAll(pageable).map(NewsDTO::from);
+    }
+
+    public List<NewsDTO> getAllNews() {
+        return newsRepository.findAll().stream()
+                .map(NewsDTO::from)
+                .sorted(Comparator.comparing(NewsDTO::getDate).reversed())
+                .limit(3)
+                .collect(Collectors.toList());
     }
 
     public NewsDTO getOneNews(Long id) {
