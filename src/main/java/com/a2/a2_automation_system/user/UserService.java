@@ -10,8 +10,10 @@ import com.a2.a2_automation_system.relationship.Relationship;
 import com.a2.a2_automation_system.relationship.RelationshipRepository;
 import com.a2.a2_automation_system.tariff.OperationType;
 import com.a2.a2_automation_system.tariff.SportsmanPayment;
+import com.a2.a2_automation_system.tariff.SportsmanPaymentDTO;
 import com.a2.a2_automation_system.tariff.SportsmanPaymentRepository;
 import com.a2.a2_automation_system.userparam.UserParam;
+import com.a2.a2_automation_system.userparam.UserParamDTO;
 import com.a2.a2_automation_system.userparam.UserParamRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -272,4 +274,13 @@ public class UserService implements UserDetailsService {
         var user = userRepository.findByLogin(username);
         return user.get();
     }
+
+    public List<UserParamDTO> getUserParam(Long id) {
+        return userParamRepository.findByUserId(id).stream().map(UserParamDTO::from).collect(Collectors.toList());
+    }
+
+    public List<SportsmanPaymentDTO> getUserPayment(Long id) {
+        return sportsmanPaymentRepository.findByUserId(id).stream().map(SportsmanPaymentDTO::from).collect(Collectors.toList());
+    }
+
 }

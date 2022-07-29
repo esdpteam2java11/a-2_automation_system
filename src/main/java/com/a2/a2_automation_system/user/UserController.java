@@ -6,6 +6,7 @@ import com.a2.a2_automation_system.news.NewsService;
 import com.a2.a2_automation_system.parent.ParentService;
 import com.a2.a2_automation_system.util.PageUtil;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.Target;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -265,6 +266,21 @@ public class UserController {
         model.addAttribute("errorMessage","У вас нет доступа");
             return "login";
     }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
+    @GetMapping("/sportsman_story")
+    public String getSportsmanStory(Model model,@RequestParam(value = "userId") @Nullable Long userId){
+
+      var userParam =  userService.getUserParam(userId);
+      var userPayment = userService.getUserPayment(userId);
+
+        model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("sportsmanParam",userParam);
+        model.addAttribute("sportsmanPayment",userPayment);
+
+        return "sportsman_story";
+    }
+
 
 
 }

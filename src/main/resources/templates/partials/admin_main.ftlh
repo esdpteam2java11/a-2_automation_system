@@ -72,6 +72,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/news">Создать новость</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/sportsman_story">История спортсмена</a>
+                    </li>
+
 
                 </ul>
             </div>
