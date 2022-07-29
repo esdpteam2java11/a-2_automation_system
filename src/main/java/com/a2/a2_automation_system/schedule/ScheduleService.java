@@ -4,6 +4,8 @@ import com.a2.a2_automation_system.exception.ResourceNotFoundException;
 import com.a2.a2_automation_system.group.Group;
 import com.a2.a2_automation_system.group.GroupRepository;
 import com.a2.a2_automation_system.group.GroupService;
+import com.a2.a2_automation_system.user.User;
+import com.a2.a2_automation_system.user.UserService;
 import com.a2.a2_automation_system.visit.Visit;
 import com.a2.a2_automation_system.visit.VisitDto;
 import com.a2.a2_automation_system.visit.VisitRepository;
@@ -24,6 +26,7 @@ public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
     private final GroupService groupService;
     private final VisitRepository visitRepository;
+    private final UserService userService;
 
     public void addEventFromScheduleCreateDTO(ScheduleCreateDTO scheduleCreateDTO){
         Schedule schedule = Schedule.builder()
@@ -180,5 +183,44 @@ public class ScheduleService {
         event.setTrainingProgram(content);
         scheduleRepository.save(event);
         return message;
+    }
+
+    public List<ScheduleRestDtoForSportsman> getEventsForAllSportsman(String dateStart, String dateEnd) {
+        LocalDate start = getLocalDateFromString(dateStart);
+        LocalDate end = getLocalDateFromString(dateEnd);
+        List<Schedule> events =  scheduleRepository.getSchedulesByEventDateBetween(start,end);
+        return events.stream().map(ScheduleRestDtoForSportsman::from).collect(Collectors.toList());
+    }
+
+    public List<ScheduleRestDtoForSportsman> getEventsByGroupAndDatesForSportsman(String groupId, String dateStart, String dateEnd) {
+        LocalDate start = getLocalDateFromString(dateStart);
+        LocalDate end = getLocalDateFromString(dateEnd);
+        Group group = groupService.getGroupByIdReturnGroup(Long.parseLong(groupId));
+        List<Schedule> events =  scheduleRepository.getAllByGroupAndEventDateBetween(group,start,end);
+        return events.stream().map(ScheduleRestDtoForSportsman::from).collect(Collectors.toList());
+    }
+
+    public List<ScheduleRestDtoForSportsman> getEventsByGroupAndDatesForSportsmanAndMarkAttendance(String groupId, String dateStart, String dateEnd,String username){
+        User user = userService.getUserByUsername(username);
+        LocalDate start = getLocalDateFromString(dateStart);
+        LocalDate end = getLocalDateFromString(dateEnd);
+        Group group = groupService.getGroupByIdReturnGroup(Long.parseLong(groupId));
+        List<Schedule> events =  scheduleRepository.getAllByGroupAndEventDateBetween(group,start,end);
+        List<Visit> visits = visitRepository.getAllByStudent(user);
+        List<ScheduleRestDtoForSportsman> eventsDTO = events.stream().map(ScheduleRestDtoForSportsman::from).collect(Collectors.toList());
+        List<ScheduleRestDtoForSportsman> modifiedEventsDto = new ArrayList<>();
+        if(visits.size()>0) {
+            for (ScheduleRestDtoForSportsman event : eventsDTO) {
+                for (Visit visit : visits) {
+                    if (visit.getSchedule().getId() == event.getId()) {
+                        String title = String.format("%s %s", event.getStart().toString().split("T")[1], "Присутствовал");
+                        event.setTitle(title);
+                    }
+                }
+                modifiedEventsDto.add(event);
+            }
+            return modifiedEventsDto;
+        }
+        return eventsDTO;
     }
 }

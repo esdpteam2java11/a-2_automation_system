@@ -32,7 +32,6 @@ import java.util.Date;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.FORBIDDEN;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Controller
 @RequiredArgsConstructor
@@ -237,20 +236,23 @@ public class UserController {
                return "redirect:admin";
            }
            else{
-               return "redirect:/sportsman_cabinet";
+               return "redirect:/sportsman_cabinet/";
            }
         }
         return "redirect:login";
     }
-
-
-    @PreAuthorize("hasAuthority('CLIENT')")
-    @GetMapping("/sportsman_cabinet")
-    public String getSportsmanPage(Model model,HttpServletRequest request){
-        User user = userService.getUserByUsername(request.getRemoteUser());
-        model.addAttribute("sportsman",user);
-        return "sportsman_cabinet";
+    @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
+   @GetMapping("/sportsman_story")
+    public String getSportsmanStory(Model model,@RequestParam(value = "userId") @Nullable Long userId) {
+        var userParam = userService.getUserParam(userId);
+        var userPayment = userService.getUserPayment(userId);
+        model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("sportsmanParam", userParam);
+        model.addAttribute("sportsmanPayment", userPayment);
+        return "sportsman_story";
     }
+
+
     private boolean isAuthenticated() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || AnonymousAuthenticationToken.class.
@@ -264,23 +266,8 @@ public class UserController {
     @ResponseStatus(FORBIDDEN)
     private String handleForbidden(Model model){
         model.addAttribute("errorMessage","У вас нет доступа");
-            return "login";
+        return "login";
     }
-
-    @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
-    @GetMapping("/sportsman_story")
-    public String getSportsmanStory(Model model,@RequestParam(value = "userId") @Nullable Long userId){
-
-      var userParam =  userService.getUserParam(userId);
-      var userPayment = userService.getUserPayment(userId);
-
-        model.addAttribute("users", userService.getAllUsers());
-        model.addAttribute("sportsmanParam",userParam);
-        model.addAttribute("sportsmanPayment",userPayment);
-
-        return "sportsman_story";
-    }
-
 
 
 }

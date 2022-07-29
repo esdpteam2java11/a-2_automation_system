@@ -15,5 +15,6 @@ public interface VisitRepository extends CrudRepository<Visit, Long> {
     Visit findByStudentAndSchedule(User user, Schedule schedule);
 
     List<Visit> findAllByScheduleId(Long eventId);
+    List<Visit> getAllByStudent(User studentId);
 
 }

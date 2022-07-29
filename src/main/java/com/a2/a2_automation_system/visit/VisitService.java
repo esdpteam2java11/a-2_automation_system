@@ -9,6 +9,8 @@ import com.a2.a2_automation_system.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class VisitService {
@@ -30,5 +32,6 @@ public class VisitService {
                 .schedule(byEventDate)
                 .build());
     }
+
 
 }
