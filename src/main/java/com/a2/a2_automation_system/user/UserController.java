@@ -236,7 +236,7 @@ public class UserController {
                return "redirect:admin";
            }
            else{
-               return "redirect:/sportsman_cabinet";
+               return "redirect:/sportsman_cabinet/";
            }
         }
         return "redirect:login";
