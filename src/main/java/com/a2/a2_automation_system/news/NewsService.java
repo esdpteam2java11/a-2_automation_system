@@ -55,4 +55,26 @@ public class NewsService {
     public NewsDTO getOneNews(Long id) {
         return NewsDTO.from(newsRepository.findById(id).orElseThrow(() -> new NewsNotFoundException("Такую новость не нашел")));
     }
+
+    public void editNews(Long id, NewsDTO newsDTO, MultipartFile file) {
+        News news = newsRepository.findById(id).orElseThrow(() -> new NewsNotFoundException("Такую новость не нашел"));
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        String path = "upload";
+        news.setDate(LocalDateTime.now());
+        news.setTitle(newsDTO.getTitle());
+        news.setDescription(newsDTO.getDescription());
+        news.setImage(fileName);
+        newsRepository.save(news);
+        try {
+            FileUploadUtil.saveFile(fileName, path, file);
+        } catch (IOException e) {
+            e.printStackTrace();
+            log.error("Did not find the file");
+        }
+    }
+
+    public void delete(Long id) {
+        News news = newsRepository.findById(id).orElseThrow(() -> new NewsNotFoundException("Такую новость не нашел"));
+        newsRepository.delete(news);
+    }
 }
