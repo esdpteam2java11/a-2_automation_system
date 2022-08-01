@@ -3,7 +3,7 @@
     <h1 class="text-center mt-3">Создать новость</h1>
     <form action="/news" class="row g-3" id="place" method="post" enctype="multipart/form-data">
         <div class="col-auto add-news">
-            <div class="mb-3">
+            <div class="mb-3" style="display: inline-block;">
                 <label for="recipient-title" class="col-form-label">Заголовок: </label>
                 <input type="text" name="title" class="form-control text-center" id="recipient-title" required>
             </div>
