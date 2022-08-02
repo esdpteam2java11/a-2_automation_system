@@ -2,6 +2,8 @@ package com.a2.a2_automation_system.sportmancabinet;
 
 import com.a2.a2_automation_system.exception.ResourceNotFoundException;
 
+import com.a2.a2_automation_system.schedule.Schedule;
+import com.a2.a2_automation_system.schedule.ScheduleDTO;
 import com.a2.a2_automation_system.user.User;
 import com.a2.a2_automation_system.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -126,5 +128,19 @@ public class SportsmanEventsService {
         sportsmanEventsRepository.delete(event);
         return sportsmanEventsDTO;
     }
+
+    @Transactional
+    public SportsmanEventsDTO deleteEventsInSeries(Long eventId) {
+        SportsmanEvents event = sportsmanEventsRepository.getSportsmanEventsById(eventId);
+        SportsmanEventsDTO sportsmanEventsDTO = SportsmanEventsDTO.from(event);
+        var sportsmanEventsList = sportsmanEventsRepository.getAllByUniqueIdForSerialEventAndEventDateIsGreaterThanEqual(event.getUniqueIdForSerialEvent(),event.getEventDate());
+        if(sportsmanEventsList.isPresent()){
+            for(SportsmanEvents ev:sportsmanEventsList.get()){
+                sportsmanEventsRepository.delete(ev);
+            }
+        }
+        return sportsmanEventsDTO;
+    }
+
 
 }
