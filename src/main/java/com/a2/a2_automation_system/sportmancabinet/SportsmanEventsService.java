@@ -1,10 +1,7 @@
 package com.a2.a2_automation_system.sportmancabinet;
 
-import com.a2.a2_automation_system.group.Group;
-import com.a2.a2_automation_system.schedule.Schedule;
-import com.a2.a2_automation_system.schedule.ScheduleCreateDTO;
-import com.a2.a2_automation_system.schedule.ScheduleDTO;
-import com.a2.a2_automation_system.schedule.ScheduleRestDto;
+import com.a2.a2_automation_system.exception.ResourceNotFoundException;
+
 import com.a2.a2_automation_system.user.User;
 import com.a2.a2_automation_system.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -112,7 +109,8 @@ public class SportsmanEventsService {
     }
 
     public SportsmanEventsDTO getEventById(Long id){
-        return SportsmanEventsDTO.from(sportsmanEventsRepository.getSportsmanEventsById(id));
+        return SportsmanEventsDTO.from(sportsmanEventsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Такой задачи с таким id нет")));
+
     }
 
     public void editEvent(SportsmanEventCreateDTO sportsmanEventCreateDTO,Long id) {
@@ -120,4 +118,13 @@ public class SportsmanEventsService {
        event.setEventDate(sportsmanEventCreateDTO.getEventDate());
         sportsmanEventsRepository.save(event);
     }
+
+    @Transactional
+    public SportsmanEventsDTO deleteEventById(Long eventId) {
+        SportsmanEvents event = sportsmanEventsRepository.getSportsmanEventsById(eventId);
+        SportsmanEventsDTO sportsmanEventsDTO = SportsmanEventsDTO.from(event);
+        sportsmanEventsRepository.delete(event);
+        return sportsmanEventsDTO;
+    }
+
 }

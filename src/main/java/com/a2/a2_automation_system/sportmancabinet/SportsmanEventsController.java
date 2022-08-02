@@ -2,7 +2,7 @@ package com.a2.a2_automation_system.sportmancabinet;
 
 import com.a2.a2_automation_system.group.GroupDTO;
 import com.a2.a2_automation_system.group.GroupService;
-import com.a2.a2_automation_system.schedule.ScheduleCreateDTO;
+
 import com.a2.a2_automation_system.user.User;
 import com.a2.a2_automation_system.user.UserDTO;
 import com.a2.a2_automation_system.user.UserService;
@@ -113,6 +113,17 @@ public class SportsmanEventsController {
         model.addAttribute("event",sportsmanEventsDTO);
         return "sportsman_event";
     }
+
+    @PreAuthorize("hasAuthority('CLIENT')")
+    @GetMapping("sportsman_cabinet/event/{eventId}/delete")
+    public String deleteScheduleElement(@PathVariable Long eventId, RedirectAttributes redirectAttributes) {
+        String pathRedirect = String.format("redirect:/sportsman_cabinet/ ");
+        SportsmanEventsDTO event = sportsmanEventsService.deleteEventById(eventId);
+        String message = String.format("Удалено занятие для %s на %s", event.getSportsman().getName(), event.getEventDate());
+        redirectAttributes.addFlashAttribute("message", message);
+        return pathRedirect;
+    }
+
 
 
 
