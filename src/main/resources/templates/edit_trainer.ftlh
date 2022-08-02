@@ -106,9 +106,9 @@
                                     </div>
                                 </div>
                                 <#if errors?? >
-                                    <p>Входные данные с ошибками!</p>
+                                    <p style="color: red">Входные данные с ошибками!</p>
                                     <#list errors as fieldError>
-                                        <p>${fieldError.field} - ${fieldError.defaultMessage!'-- no message --'}</p>
+                                        <p style="color: red">${fieldError.field} - ${fieldError.defaultMessage!'-- no message --'}</p>
                                     </#list>
                                 </#if>
                                 <input type="hidden" id="role" name="role" value="EMPLOYEE">
