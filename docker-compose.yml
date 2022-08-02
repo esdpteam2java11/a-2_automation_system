@@ -22,9 +22,6 @@ services:
       - db-data:/var/lib/postgresql/data
     ports:
       - 5432:5432
-      volumes:
-      db-data:
-      driver: local
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: qwerty
