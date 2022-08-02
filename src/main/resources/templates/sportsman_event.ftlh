@@ -12,7 +12,7 @@
         <tbody>
         <tr>
             <td>${event.sportsman.name}</td>
-            <td><input type="date"  name="eventStartDate" value="${event.eventDate}" min="${.now?date?iso_utc}"></td>
+            <td><input type="date"  name="eventDate" value="${event.eventDate}" min="${.now?date?iso_utc}"></td>
         </tr>
         </tbody>
     </table>
@@ -20,13 +20,13 @@
             <span style="color: red">
                 ${message} </span><br>
         </#if>
-        <button class="bn30 mb-2" type="submit">Редактировать занятие</button>
+        <button class="bn30 mb-2" type="submit">Редактировать заметку</button>
     </form>
                 <form method="get" action="${event.id}/delete">
                     <button class="bn30 mb-2" type="submit">Удалить заметку</button>
                 </form>
                 <form method="get" action="${event.id}/deleteConnected">
-                    <button class="bn30 mb-3" type="submit">Удалить серию занятий</button>
+                    <button class="bn30 mb-3" type="submit">Удалить серию заметок</button>
                 </form>
         <h3>Программа занятий</h3>
         <#if programMessage??>

@@ -100,7 +100,7 @@ public class SportsmanEventsController {
 
     @PostMapping("sportsman_cabinet/event/{eventId}/edit")
     public String editScheduleElement( @Valid SportsmanEventCreateDTO sportsmanEventCreateDTO, @PathVariable Long eventId, RedirectAttributes redirectAttributes, BindingResult result) {
-        String pathRedirect = String.format("redirect:sportsman_cabinet/calendar/event/%s", eventId);
+        String pathRedirect = String.format("redirect:/sportsman_cabinet/event/"+eventId);
         sportsmanEventsService.editEvent(sportsmanEventCreateDTO,eventId);
         redirectAttributes.addFlashAttribute("message", "Отредактрировано");
         return pathRedirect;
@@ -118,9 +118,9 @@ public class SportsmanEventsController {
     @PreAuthorize("hasAuthority('CLIENT')")
     @GetMapping("sportsman_cabinet/event/{eventId}/delete")
     public String deleteScheduleElement(@PathVariable Long eventId, RedirectAttributes redirectAttributes) {
-        String pathRedirect = String.format("redirect:/sportsman_cabinet/ ");
+        String pathRedirect = String.format("redirect:/sportsman_cabinet/");
         SportsmanEventsDTO event = sportsmanEventsService.deleteEventById(eventId);
-        String message = String.format("Удалено заметки для %s на %s", event.getSportsman().getName(), event.getEventDate());
+        String message = String.format("Удалена заметка для %s на %s", event.getSportsman().getName(), event.getEventDate());
         redirectAttributes.addFlashAttribute("message", message);
         return pathRedirect;
     }
@@ -129,9 +129,9 @@ public class SportsmanEventsController {
 
     @GetMapping("sportsman_cabinet/event/{eventId}/deleteConnected")
     public String deleteScheduleElements(@PathVariable Long eventId, RedirectAttributes redirectAttributes) {
-        String pathRedirect = String.format("redirect:/sportsman_cabinet/ ");
+        String pathRedirect = String.format("redirect:/sportsman_cabinet/");
         SportsmanEventsDTO event = sportsmanEventsService.deleteEventsInSeries(eventId);
-        String message = String.format("Удалено заметки для %s на %s", event.getSportsman().getName(), event.getEventDate());
+        String message = String.format("Удалены заметки для %s с %s", event.getSportsman().getName(), event.getEventDate());
         redirectAttributes.addFlashAttribute("message", message);
         return pathRedirect;
     }
