@@ -6,7 +6,6 @@
          <span style="color: red">
                 ${message} </span><br>
       </#if>
-
       <a href="/sportsman_cabinet/create"><button class="bn30 mb-5 my-4">Создать занятие</button></a>
    </div>
    <div class="container">
