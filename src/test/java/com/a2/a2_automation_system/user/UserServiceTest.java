@@ -1,14 +1,27 @@
 package com.a2.a2_automation_system.user;
 
+import com.a2.a2_automation_system.group.Group;
+import com.a2.a2_automation_system.group.GroupRepository;
+import com.a2.a2_automation_system.parent.ParentRepository;
+import com.a2.a2_automation_system.relationship.RelationshipRepository;
+import com.a2.a2_automation_system.tariff.SportsmanPayment;
+import com.a2.a2_automation_system.tariff.SportsmanPaymentRepository;
+import com.a2.a2_automation_system.userparam.UserParam;
+import com.a2.a2_automation_system.userparam.UserParamDTO;
+import com.a2.a2_automation_system.userparam.UserParamRepository;
 import org.assertj.core.api.Assertions;
+import org.junit.Assert;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.stubbing.OngoingStubbing;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,6 +40,25 @@ class UserServiceTest {
 
     @Mock
     private UserRepository userRepository;
+
+    @Mock
+    private UserParamRepository userParamRepository;
+
+    @Mock
+    private SportsmanPaymentRepository paymentRepository;
+    @Mock
+    private RelationshipRepository relationshipRepository;
+
+    @Mock
+    private GroupRepository groupRepository;
+    @Mock
+    private ParentRepository parentRepository;
+
+    @Mock
+    private PasswordEncoder passwordEncoder;
+
+
+    private User user;
 
 
     @Test
@@ -65,9 +97,36 @@ class UserServiceTest {
         Page<User> page = new PageImpl<>(apis);
         Mockito.when(this.userRepository.findAll(Mockito.any(Pageable.class)))
                 .thenReturn(page);
-        Page<UserDTO> apiPageResp  = userService.getAllUsers(page.getPageable());
+        Page<UserDTO> apiPageResp = userService.getAllUsers(page.getPageable());
         assertEquals(2L, apiPageResp.getTotalElements());
         Mockito.verify(this.userRepository, Mockito.times(1))
                 .findAll(Mockito.any(Pageable.class));
+    }
+
+
+    @Test
+    public void tesGetUserParam() {
+
+
+        User user = new User(1L, "studentName_1", "studentSurname_1", "studentPatronymic_1", new Date(), "33-33-33", null, null, "г. Бишкек, ул. Ахунбаева 26", null, null, Role.CLIENT, "student_1", "123", true, Group.builder().build(), new Date());
+        List<UserParam> userParamList = List.of(new UserParam());
+
+        Mockito.when(userParamRepository.findByUserId(1L)).thenReturn(userParamList);
+
+
+        Assertions.assertThat(userParamList);
+    }
+
+
+    @Test
+    public void tesGetUserPayment() {
+
+        User user = new User(1L, "studentName_1", "studentSurname_1", "studentPatronymic_1", new Date(), "33-33-33", null, null, "г. Бишкек, ул. Ахунбаева 26", null, null, Role.CLIENT, "student_1", "123", true, Group.builder().build(), new Date());
+        List<SportsmanPayment> sportsmanPayments = List.of(new SportsmanPayment());
+
+        Mockito.when(paymentRepository.findByUserId(1L)).thenReturn(sportsmanPayments);
+
+
+        Assertions.assertThat(sportsmanPayments);
     }
 }
