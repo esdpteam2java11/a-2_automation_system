@@ -5,8 +5,8 @@
     <table class="table table-dark table-striped">
         <thead>
         <tr>
-            <th scope="col">Занятие для</th>
-            <th scope="col">Дата занятия</th>
+            <th scope="col">Заметка для</th>
+            <th scope="col">Дата заметки</th>
         </tr>
         </thead>
         <tbody>
@@ -47,7 +47,7 @@
                 <button type="submit" class="mt-3 bn30 mb-3">Отправить</button>
             </div>
         </form>
-    <h3>Диета для занятий</h3>
+    <h3>Диета дня</h3>
     <#if programMessage??>
         <span style="color: red">
                 ${programMessage} </span><br>
