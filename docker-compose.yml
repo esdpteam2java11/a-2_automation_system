@@ -26,5 +26,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: qwerty
       POSTGRES_DB: postgres
-
+      
+volumes:
+    db-data:
 
