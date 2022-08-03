@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
@@ -48,8 +49,9 @@ public class UserController {
     }
 
     @GetMapping
-    public String getIndex(Model model) {
+    public String getIndex(Model model, HttpServletResponse response) {
         model.addAttribute("news", newsService.getAllNews());
+        response.setHeader("Cache-Control", "no-transform, public, max-age=604800");
         return "index";
     }
 
