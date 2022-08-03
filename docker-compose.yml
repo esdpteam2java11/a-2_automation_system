@@ -10,9 +10,9 @@ services:
     depends_on:
       - db
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=qwerty
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgresDB
+      - SPRING_DATASOURCE_USERNAME=postgresUser
+      - SPRING_DATASOURCE_PASSWORD=postgresPassword
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
 
   db:
@@ -23,9 +23,9 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: qwerty
-      POSTGRES_DB: postgres
+      POSTGRES_USER: postgresUser
+      POSTGRES_PASSWORD: postgresPassword
+      POSTGRES_DB: postgresDB
       
 volumes:
     db-data:
