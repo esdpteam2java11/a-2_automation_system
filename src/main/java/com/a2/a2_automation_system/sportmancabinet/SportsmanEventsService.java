@@ -146,4 +146,28 @@ public class SportsmanEventsService {
     }
 
 
+    public String addEventTrainingProgram(String content,Long eventId) {
+        String message = "Добавлено";
+        var event = sportsmanEventsRepository.getSportsmanEventsById(eventId);
+        if(event.getTrainingProgram()!=null){
+            message = "Изменено";
+        }
+        event.setTrainingProgram(content);
+        sportsmanEventsRepository.save(event);
+        return message;
+    }
+
+    public String addEventFood(String contentFood,Long eventId) {
+        String message = "Добавлено";
+        var event = sportsmanEventsRepository.getSportsmanEventsById(eventId);
+        if(event.getFood()!=null){
+            message = "Изменено";
+        }
+        event.setFood(contentFood);
+        sportsmanEventsRepository.save(event);
+        return message;
+    }
+
+
+
 }

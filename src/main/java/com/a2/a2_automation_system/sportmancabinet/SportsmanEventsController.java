@@ -19,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -134,6 +135,24 @@ public class SportsmanEventsController {
         String message = String.format("Удалены заметки для %s с %s", event.getSportsman().getName(), event.getEventDate());
         redirectAttributes.addFlashAttribute("message", message);
         return pathRedirect;
+    }
+
+    @PostMapping("/sportsman_cabinet/event/{eventId}/trainingProgram")
+    public String addTrainingProgram( @PathVariable Long eventId, @RequestParam String content, RedirectAttributes redirectAttributes){
+        String message = sportsmanEventsService.addEventTrainingProgram(content,eventId);
+        String pathRedirect = String.format("redirect:/sportsman_cabinet/event/"+eventId);
+        redirectAttributes.addFlashAttribute("programMessage",message);
+        return pathRedirect;
+
+    }
+
+    @PostMapping("/sportsman_cabinet/event/{eventId}/food")
+    public String addFood(@PathVariable Long eventId, @RequestParam String contentFood,RedirectAttributes redirectAttributes){
+        String message = sportsmanEventsService.addEventFood(contentFood,eventId);
+        String pathRedirect = String.format("redirect:/sportsman_cabinet/event/"+eventId);
+        redirectAttributes.addFlashAttribute("programMessageFood",message);
+        return pathRedirect;
+
     }
 
 }

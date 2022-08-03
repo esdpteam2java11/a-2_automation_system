@@ -61,9 +61,9 @@
             </div>
         </form>
     <h3>Диета дня</h3>
-    <#if programMessage??>
+    <#if programMessageFood??>
         <span style="color: red">
-                ${programMessage} </span><br>
+                ${programMessageFood} </span><br>
     </#if>
 
     <form action="${event.id}/food" method="post">
