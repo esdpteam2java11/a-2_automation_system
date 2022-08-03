@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
@@ -32,6 +33,11 @@ public class SportsmanEvents {
 
     @Column(name="training_program")
     private String trainingProgram;
+
+    @NotNull
+    @Column(name="title")
+    private String title;
+
 
     @Column(name="food")
     private String food;

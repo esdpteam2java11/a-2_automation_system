@@ -26,4 +26,7 @@ public class SportsmanEventCreateDTO {
     private String[] dayOfWeek;
     private String recurring;
 
+    private String title;
+
+
 }

@@ -9,7 +9,15 @@
             <h2 class="text-center mt-3 mb-3">Форма создания занятия или занятий для спортсмена:</h2>
             <h3 class="text-center mb-5">${sportsman.name}</h3>
         </div>
+
+
         <div id="eventCreationForm" class="container">
+
+            <label class="flex flex-v-center required" for="date">
+                Заголовок заметки:
+            </label>
+            <input class="text-center mt-3 mb-3" type="text" name="title" required="required"/>
+
             <label class="flex flex-v-center required" for="date">
                 Дата:
             </label>

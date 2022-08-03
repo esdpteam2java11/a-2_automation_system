@@ -39,6 +39,7 @@ public class SportsmanEventsService {
                 .eventDate(sportsmanEventsDTO.getEventDate())
                 .sportsman(sportsmanEventsDTO.getSportsman())
                 .food(sportsmanEventsDTO.getFood())
+                .title(sportsmanEventsDTO.getTitle())
                 .trainingProgram(sportsmanEventsDTO.getTrainingProgram())
                 .uniqueIdForSerialEvent(sportsmanEventsDTO.getUniqueIdForSerialEvent())
                 .build();
@@ -54,6 +55,7 @@ public class SportsmanEventsService {
                     SportsmanEventsDTO sportsmanEventsDTO = SportsmanEventsDTO.builder()
                             .eventDate(eventDate)
                             .sportsman(user)
+                            .title(sportsmanEventCreateDTO.getTitle())
                             .uniqueIdForSerialEvent(uniqueIdForSerial)
                             .build();
                     addEventFromSportsmanEventsDTO(sportsmanEventsDTO);
@@ -63,6 +65,7 @@ public class SportsmanEventsService {
             SportsmanEventsDTO sportsmanEventsDTO = SportsmanEventsDTO.builder()
                     .eventDate(sportsmanEventCreateDTO.getEventDate())
                     .sportsman(user)
+                    .title(sportsmanEventCreateDTO.getTitle())
                     .build();
             addEventFromSportsmanEventsDTO(sportsmanEventsDTO);
         }
