@@ -15,6 +15,9 @@
             <div class="mb-3">
                 <label for="formFile" class="form-label">Фотография</label>
                 <input class="form-control" name="file" type="file" id="formFile" required>
+                <#if error?? >
+                    <p style="color:red">${error}</p>
+                </#if>
             </div>
             <button type="submit" class="custom-btn btn-1 text-center" id="button">Добавить новость</button>
         </div>
