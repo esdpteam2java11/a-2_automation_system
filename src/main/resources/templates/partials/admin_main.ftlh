@@ -42,7 +42,7 @@
     <body>
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
-            <img src="/images/logo.JPG" alt="" width="30" height="24">
+            <img src="/images/log.JPG" alt="" width="30" height="24">
             <a class="nav-link" href="/">Главная</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
