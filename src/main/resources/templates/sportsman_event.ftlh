@@ -5,6 +5,19 @@
     <table class="table table-dark table-striped">
         <thead>
         <tr>
+            <th scope="col">Заголовок заметки</th>
+        <tbody>
+        <tr>
+            <td>${event.title}</td>
+            <td></td>
+
+        </tr>
+        </tbody>
+        </tr>
+        </thead>
+
+        <thead>
+        <tr>
             <th scope="col">Заметка для</th>
             <th scope="col">Дата заметки</th>
         </tr>
