@@ -75,7 +75,7 @@
                                             <th scope="col" style="width: 30%">Удалить запись</th>
                                         </tr>
                                         </thead>
-                                        <tbody class="table-body">
+                                        <tbody class="table-body" onchange="setTotalSum()">
                                         </tbody>
                                     </table>
                                 </div>

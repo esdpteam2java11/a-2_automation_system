@@ -192,6 +192,7 @@ async function getGroupPrice(id) {
 
 
 //-----------------------------------------------------------------------------------------
+const sportsmanPaymentDetailsTableBody = document.querySelector('#payment-period>.table-body')
 
 function showDetails(value) {
     const sportsmanPaymentDetails = document.getElementById('sportsman-payment-details')
@@ -203,21 +204,36 @@ function showDetails(value) {
     } else {
         sportsmanPaymentDetails.style.display = 'none'
         incomeSum.removeAttribute('disabled')
+        incomeSum.value = 0
+        while (sportsmanPaymentDetailsTableBody.firstChild) {
+            sportsmanPaymentDetailsTableBody.firstElementChild.remove()
+        }
     }
 }
-
-const sportsmanPaymentDetailsTableBody = document.querySelector('#payment-period>.table-body')
 
 function addNewPaymentDetail() {
     const newTrTag = document.createElement("tr")
     newTrTag.innerHTML = `<td ><input class="form-control" type="date" name="dateSportsman" required/></td>
-                  <td ><input class="form-control sum" type="number" name="amountSportsman" required/></td>
-                  <td>
-                      <button type="button" class="btn btn-outline-danger py-1 px-2" 
-                        onclick='deleteSelectedRow(this)'>
-                        <i class="bi bi-x-square"></i>
-                      </button>
-                  </td>`
+                          <td >
+                                <input class="form-control sum" type="number" 
+                                name="amountSportsman" min="1" required/>
+                          </td>
+                          <td>
+                                <button type="button" class="btn btn-outline-danger py-1 px-2" 
+                                    onclick='deleteSelectedRow(this); setTotalSum()'>
+                                        <i class="bi bi-x-square"></i>
+                                </button>
+                          </td>`
     sportsmanPaymentDetailsTableBody.appendChild(newTrTag)
+}
+
+function setTotalSum() {
+    let incomeSum = document.getElementById('income-sum')
+    let tableSums = document.getElementsByClassName('sum')
+    let total = 0
+    for (let i = 0; i < tableSums.length; i++) {
+        total += Number(tableSums[i].value)
+    }
+    incomeSum.value = total
 }
 
