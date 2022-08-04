@@ -32,7 +32,7 @@
                                        for="income-sum">Сумма</label>
                                 <input name="amount" type="number" id="income-sum"
                                        class="form-control" placeholder="Сумма"
-                                       required="required"/>
+                                       min="1" required="required"/>
                             </div>
                         </div>
                         <div class="col-md-8 mb-4">

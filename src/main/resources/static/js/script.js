@@ -200,10 +200,10 @@ function showDetails(value) {
 
     if (value === "SPORTSMAN_PAYMENT") {
         sportsmanPaymentDetails.style.display = 'block'
-        incomeSum.setAttribute('disabled', 'true')
+        incomeSum.setAttribute('readonly', 'readonly')
     } else {
         sportsmanPaymentDetails.style.display = 'none'
-        incomeSum.removeAttribute('disabled')
+        incomeSum.removeAttribute('readonly')
         incomeSum.value = 0
         while (sportsmanPaymentDetailsTableBody.firstChild) {
             sportsmanPaymentDetailsTableBody.firstElementChild.remove()

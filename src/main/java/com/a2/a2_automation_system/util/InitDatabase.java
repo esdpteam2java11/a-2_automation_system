@@ -1,9 +1,8 @@
 package com.a2.a2_automation_system.util;
 
-import com.a2.a2_automation_system.schedule.Schedule;
 import com.a2.a2_automation_system.schedule.ScheduleRepository;
 
-import com.a2.a2_automation_system.tariff.SportsmanPaymentRepository;
+import com.a2.a2_automation_system.sportsmanpayments.SportsmanPaymentRepository;
 import com.a2.a2_automation_system.user.Role;
 import com.a2.a2_automation_system.group.Group;
 import com.a2.a2_automation_system.group.GroupRepository;
@@ -15,8 +14,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

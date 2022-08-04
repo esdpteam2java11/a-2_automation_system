@@ -1,6 +1,6 @@
 package com.a2.a2_automation_system.user;
 
-import com.a2.a2_automation_system.tariff.SportsmanPayment;
+import com.a2.a2_automation_system.sportsmanpayments.SportsmanPayment;
 import com.a2.a2_automation_system.userparam.UserParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

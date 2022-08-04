@@ -1,8 +1,8 @@
 package com.a2.a2_automation_system.money;
 
-import com.a2.a2_automation_system.tariff.OperationType;
-import com.a2.a2_automation_system.tariff.SportsmanPayment;
-import com.a2.a2_automation_system.tariff.SportsmanPaymentRepository;
+import com.a2.a2_automation_system.sportsmanpayments.OperationType;
+import com.a2.a2_automation_system.sportsmanpayments.SportsmanPayment;
+import com.a2.a2_automation_system.sportsmanpayments.SportsmanPaymentRepository;
 import com.a2.a2_automation_system.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,10 +25,9 @@ public class MoneyMovementsService {
         return moneyMovements.stream().map(MoneyMovementDTO::from).collect(Collectors.toList());
     }
 
-    public void addMoneyMovement(String cashier, String typeOfFinance, LocalDate date, Double amount, String purpose,
-                                 Long counterparty, String moneyOperationType, List<Date> dateSportsman,
-                                 List<Double> amountSportsman) {
-
+    public void addMoneyMovement(String cashier, String typeOfFinance, String moneyOperationType, LocalDate date,
+                                 Double amount, Long counterparty, String purpose,
+                                 List<Date> dateSportsman, List<Double> amountSportsman) {
 
         MoneyMovement movement = MoneyMovement.builder()
                 .amount(amount)
@@ -51,15 +50,6 @@ public class MoneyMovementsService {
                                  .date(dateSportsman.get(i))
                                  .build());
              }
-
          }
-
-
     }
-
-
-
-
-
-
 }
