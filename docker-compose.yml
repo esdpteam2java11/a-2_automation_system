@@ -5,6 +5,8 @@ services:
     build:
       context: .
     container_name: app
+    volumes:
+      - a2app:/home/deployuser/a2app
     ports:
       - 8080:8080
     depends_on:
@@ -29,4 +31,6 @@ services:
       
 volumes:
     db-data:
+    a2app:
+        external: true
 
