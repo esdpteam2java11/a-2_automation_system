@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum MoneyOperationType {
-    SPORTSMAN_PAYMENT("Оплата от ученика"),
-
+    SPORTSMAN_PAYMENT("Оплата ученика"),
     OTHER_OPERATIONS("Прочие операции");
 
     public final String rusValue;

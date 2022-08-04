@@ -22,15 +22,15 @@
                             </div>
                             <div>
                                 <label class="col-form-label required"
-                                       for="income-date">Дата</label>
+                                       for="payment-date">Дата</label>
                                 <input name="date" type="date"
                                        class="form-control" placeholder="Дата"
-                                       id="income-date" required="required"/>
+                                       id="payment-date" required="required"/>
                             </div>
                             <div>
                                 <label class="col-form-label required"
-                                       for="income-sum">Сумма</label>
-                                <input name="amount" type="number" id="income-sum"
+                                       for="payment-sum">Сумма</label>
+                                <input name="amount" type="number" id="payment-sum"
                                        class="form-control" placeholder="Сумма"
                                        min="1" required="required"/>
                             </div>
@@ -92,7 +92,7 @@
 
                     </div>
                     <div class="button">
-                        <button type="submit" id="create-income-btn" class="custom-btn btn-1">Сохранить</button>
+                        <button type="submit" id="create-payment-btn" class="custom-btn btn-1">Сохранить</button>
                         <a href="/cash" class="bn5 ml-5">Отменить</a>
                     </div>
                 </form>

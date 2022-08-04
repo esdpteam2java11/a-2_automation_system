@@ -6,7 +6,6 @@ import java.util.List;
 
 public enum TypeOfFinance {
     INCOME("Приход"),
-
     DISCHARGE("Расход");
 
     public final String rusValue;

@@ -190,21 +190,20 @@ async function getGroupPrice(id) {
     document.getElementById('recipient-sum').value = sum
 }
 
+//-------------------------------------------------------------------------------------------------------
 
-//-----------------------------------------------------------------------------------------
 const sportsmanPaymentDetailsTableBody = document.querySelector('#payment-period>.table-body')
+const paymentSum = document.getElementById('payment-sum')
 
 function showDetails(value) {
     const sportsmanPaymentDetails = document.getElementById('sportsman-payment-details')
-    const incomeSum = document.getElementById('income-sum')
-
     if (value === "SPORTSMAN_PAYMENT") {
         sportsmanPaymentDetails.style.display = 'block'
-        incomeSum.setAttribute('readonly', 'readonly')
+        paymentSum.setAttribute('readonly', 'readonly')
     } else {
         sportsmanPaymentDetails.style.display = 'none'
-        incomeSum.removeAttribute('readonly')
-        incomeSum.value = 0
+        paymentSum.removeAttribute('readonly')
+        paymentSum.value = 0
         while (sportsmanPaymentDetailsTableBody.firstChild) {
             sportsmanPaymentDetailsTableBody.firstElementChild.remove()
         }
@@ -228,12 +227,11 @@ function addNewPaymentDetail() {
 }
 
 function setTotalSum() {
-    let incomeSum = document.getElementById('income-sum')
     let tableSums = document.getElementsByClassName('sum')
     let total = 0
     for (let i = 0; i < tableSums.length; i++) {
         total += Number(tableSums[i].value)
     }
-    incomeSum.value = total
+    paymentSum.value = total
 }
 
