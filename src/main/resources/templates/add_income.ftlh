@@ -5,14 +5,15 @@
         <div class="container col-xxl-8" style="background-color: white;">
             <div class="container" style="background-color: white;">
                 <h3 class="mb-5 pt-3 text-center">Приход денег</h3>
-                <form action="/cash/INCOME" id="add-sportsman" method="post">
+                <form action="/cash/INCOME" id="income" method="post">
                     <div class="row">
                         <div class="col-md-4 mb-4">
                             <div>
                                 <label class="col-form-label required"
                                        for="money-operation-type">Вид операции:</label>
                                 <select class="form-control" name="moneyOperationType"
-                                        id="money-operation-type">
+                                        id="money-operation-type"
+                                        onchange="showDetails(this.value)">
                                     <option hidden disabled selected value> -- выберите операцию --</option>
                                     <#list operationTypes as operationType>
                                         <option value="${operationType}">${operationType.rusValue}</option>
@@ -54,33 +55,30 @@
                             </div>
                         </div>
                     </div>
-                    <div class="button">
-                        <button type="submit" id="button" class="custom-btn btn-1">Сохранить</button>
-                    </div>
 
-                    <div id="spotsmanPaymentDetails" style="display: none">
-                        <div class="text-center mb-5">
-                            <button type="button" class="custom-btn btn-1" id="add-new">Добавить новую
-                                запись
-                            </button>
-                        </div>
-                        <div class="col">
-                            <div class="col-lg-4">
-                                <div class="mb-3">
-                                    <table id="relative-table"
-                                           class="table table-bordered align-middle">
+                    <div id="sportsman-payment-details" style="display: none">
+                        <div class="d-flex flex-column">
+                            <div class="mb-3 d-flex justify-content-end">
+                                <button type="button" class="bn30 mx-2"
+                                        id="add-sportsman-payment"
+                                        onclick="addNewPaymentDetail()">Добавить период оплаты
+                                </button>
+                            </div>
+                            <div class="mb-3 d-flex justify-content-end">
+                                <div class="col col-lg-8 px-2">
+                                    <table id="payment-period"
+                                           class="table table-bordered align-middle text-center">
                                         <thead>
                                         <tr>
-                                            <th scope="col">Дата</th>
-                                            <th scope="col">Сумма</th>
-                                            <th scope="col">Удалить</th>
+                                            <th scope="col" style="width: 35%">Дата</th>
+                                            <th scope="col" style="width: 35%">Сумма</th>
+                                            <th scope="col" style="width: 30%">Удалить запись</th>
                                         </tr>
                                         </thead>
                                         <tbody class="table-body">
                                         </tbody>
                                     </table>
                                 </div>
-
                             </div>
                         </div>
 
@@ -91,6 +89,11 @@
                                     - ${fieldError.defaultMessage!'-- no message --'}</p>
                             </#list>
                         </#if>
+
+                    </div>
+                    <div class="button">
+                        <button type="submit" id="create-income-btn" class="custom-btn btn-1">Сохранить</button>
+                        <a href="/cash" class="bn5 ml-5">Отменить</a>
                     </div>
                 </form>
             </div>
