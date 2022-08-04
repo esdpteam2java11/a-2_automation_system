@@ -13,6 +13,9 @@
                     </select>
 
                     <button type="submit" class="bn30" style="margin-top: 20px">Искать</button>
+                    <a href="/admin">
+                        <button type="button" class="bn30">Назад</button>
+                    </a>
                 </form>
 
 
@@ -72,7 +75,6 @@
                 </tbody>
                 </#list>
             </table>
-
 
 
         </div>

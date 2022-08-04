@@ -15,10 +15,8 @@
             <a href="/group/add">
                 <button type="button"  class="button-85">Добавить группу</button>
             </a>
-            <a href="#">
-                <button type="button" class="button-85">Отметить посещения</button>
-            </a>
-            <a href="/">
+
+            <a href="/admin">
                 <button type="button" class="button-85">Назад</button>
             </a>
         </div>

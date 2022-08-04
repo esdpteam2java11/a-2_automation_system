@@ -20,6 +20,9 @@
                 </#if>
             </div>
             <button type="submit" class="custom-btn btn-1 text-center" id="button">Добавить новость</button>
+            <a href="/admin">
+                <button type="button" class="button-85 ml-5">Назад</button>
+            </a>
         </div>
     </form>
 </@main.renderWith>
