@@ -4,6 +4,7 @@ import com.a2.a2_automation_system.exception.ResourceNotFoundException;
 
 import com.a2.a2_automation_system.schedule.Schedule;
 import com.a2.a2_automation_system.schedule.ScheduleDTO;
+import com.a2.a2_automation_system.schedule.ScheduleRepository;
 import com.a2.a2_automation_system.user.User;
 import com.a2.a2_automation_system.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 public class SportsmanEventsService {
     private final SportsmanEventsRepository sportsmanEventsRepository;
     private final UserService userService;
+    private final ScheduleRepository scheduleRepository;
 
     public List<SportsmanEventsRestDTO> getEventsBySportsmanAndDates(String username, String dateStart, String dateEnd){
         LocalDate start = LocalDate.parse(dateStart.split("%")[0].split("T")[0]);
@@ -167,6 +169,11 @@ public class SportsmanEventsService {
         sportsmanEventsRepository.save(event);
         return message;
     }
+
+    public ScheduleDTO getEventByID(Long eventId) {
+        return ScheduleDTO.from(scheduleRepository.findById(eventId) .orElseThrow(() -> new ResourceNotFoundException("Такой задачи с таким id нет")));
+    }
+
 
 
 
