@@ -1,6 +1,4 @@
-package com.a2.a2_automation_system.tariff;
-
-import com.a2.a2_automation_system.money.TypeOfFinance;
+package com.a2.a2_automation_system.sportsmanpayments;
 
 public enum OperationType {
     ACCRUED("Начислено "),

@@ -44,8 +44,9 @@
                                 <div class="row m-2">
                                     <label class="col-sm-6 col-form-label" for="period-start">Период с:</label>
                                     <input type="date" name="periodStart" class="form-control col-sm-6"
-                                           id="period-start" value="${.now?date?iso_utc}" max="${.now?date?iso_utc}"
-                                           required>
+                                           id="period-start" value="${(.now?long - (86400000*6))
+                                    ?number_to_date?iso_utc}" max="${
+                                    .now?date?iso_utc}" required>
                                 </div>
                                 <div class="row m-2">
                                     <label class="col-sm-6 col-form-label" for="period-end">Период по:</label>
@@ -115,5 +116,5 @@
             </div>
         </div>
     </main>
-
+    <script src="/js/script.js"></script>
 </@main.renderWith>

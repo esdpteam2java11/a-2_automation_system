@@ -1,7 +1,5 @@
-package com.a2.a2_automation_system.tariff;
+package com.a2.a2_automation_system.sportsmanpayments;
 
-import com.a2.a2_automation_system.group.Group;
-import com.a2.a2_automation_system.money.TypeOfFinance;
 import com.a2.a2_automation_system.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
