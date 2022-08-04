@@ -115,5 +115,5 @@
             </div>
         </div>
     </main>
-
+    <script src="/js/script.js"></script>
 </@main.renderWith>
