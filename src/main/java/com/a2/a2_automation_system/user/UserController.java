@@ -6,13 +6,11 @@ import com.a2.a2_automation_system.news.NewsService;
 import com.a2.a2_automation_system.parent.ParentService;
 import com.a2.a2_automation_system.util.PageUtil;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.annotations.Target;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,11 +23,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.security.auth.message.AuthException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 
@@ -43,19 +42,16 @@ public class UserController {
     private final NewsService newsService;
 
 
-
     @GetMapping("/login")
     public String login(@RequestParam(required = false, defaultValue = "false") Boolean error, Model model) {
         model.addAttribute("error", error);
-//        if (isAuthenticated()) {
-//            return "redirect:admin";
-//        }
         return "login";
     }
 
     @GetMapping
-    public String getIndex(Model model) {
+    public String getIndex(Model model, HttpServletResponse response) {
         model.addAttribute("news", newsService.getAllNews());
+        response.setHeader("Cache-Control", "no-transform, public, max-age=604800");
         return "index";
     }
 
@@ -143,12 +139,27 @@ public class UserController {
             attributes.addFlashAttribute("login", login);
             return "redirect:/create";
         }
+        if (!Pattern.matches("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$", phone) && !Pattern.matches("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$", whatsapp)
+        && !whatsapp.isEmpty()) {
+            attributes.addFlashAttribute("errorPhone", "Введите цифры в номер телефона");
+            attributes.addFlashAttribute("errorWhatsapp", "Введите цифры в Whatsapp");
+            return "redirect:/create";
+        }
+        if (!Pattern.matches("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$", phone)) {
+            attributes.addFlashAttribute("errorPhone", "Введите цифры в номер телефона");
+            return "redirect:/create";
+        }
+        if (!Pattern.matches("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$", whatsapp)) {
+            attributes.addFlashAttribute("errorWhatsapp", "Введите цифры в WhatsApp");
+            return "redirect:/create";
+        }
         userService.createSportsman(surname, name, patronymic, birthDate, growth, weight, phone, whatsapp, telegram,
                 address, school, channels, groupId, dateOfAdmission, sum, date, login, password, pIds, pKinships,
                 pSurnames, pNames, pPatronymics, pPhones, pWhatsapps, pTelegrams);
 
         return "redirect:/admin";
     }
+
 
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @GetMapping("/edit/{id}")
@@ -190,6 +201,21 @@ public class UserController {
             attributes.addFlashAttribute("login", login);
             return "redirect:/edit/" + id;
         }
+        boolean validatePhone = Pattern.matches("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$", phone);
+        boolean validateWhatsapp = Pattern.matches("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$", whatsapp);
+        if (!validatePhone && !validateWhatsapp && !whatsapp.isEmpty()) {
+            attributes.addFlashAttribute("errorPhone", "Введите цифры в номер телефона");
+            attributes.addFlashAttribute("errorWhatsapp", "Введите цифры в Whatsapp");
+            return "redirect:/edit/" + id;
+        }
+        if (!validatePhone) {
+            attributes.addFlashAttribute("errorPhone", "Введите цифры в номер телефона");
+            return "redirect:/edit/" + id;
+        }
+        if (!validateWhatsapp) {
+            attributes.addFlashAttribute("errorWhatsapp", "Введите цифры в WhatsApp");
+            return "redirect:/edit/" + id;
+        }
         userService.editSportsman(id, surname, name, patronymic, birthDate, growth, weight, phone, whatsapp, telegram,
                 address, school, channels, groupId, dateOfAdmission, sum, date, login, password, pIds, pKinships,
                 pSurnames, pNames, pPatronymics, pPhones, pWhatsapps, pTelegrams);
@@ -228,22 +254,22 @@ public class UserController {
     }
 
     @GetMapping("/main")
-    public String getMainPage(HttpServletRequest request){
-        String username =  request.getRemoteUser();
-        if(isAuthenticated()){
-           User user = userService.getUserByUsername(username);
-           if(user.getRole().equals(Role.ADMIN)||user.getRole().equals(Role.EMPLOYEE)){
-               return "redirect:admin";
-           }
-           else{
-               return "redirect:/sportsman_cabinet/";
-           }
+    public String getMainPage(HttpServletRequest request) {
+        String username = request.getRemoteUser();
+        if (isAuthenticated()) {
+            User user = userService.getUserByUsername(username);
+            if (user.getRole().equals(Role.ADMIN) || user.getRole().equals(Role.EMPLOYEE)) {
+                return "redirect:admin";
+            } else {
+                return "redirect:/sportsman_cabinet/";
+            }
         }
         return "redirect:login";
     }
+
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
-   @GetMapping("/sportsman_story")
-    public String getSportsmanStory(Model model,@RequestParam(value = "userId") @Nullable Long userId) {
+    @GetMapping("/sportsman_story")
+    public String getSportsmanStory(Model model, @RequestParam(value = "userId") @Nullable Long userId) {
         var userParam = userService.getUserParam(userId);
         var userPayment = userService.getUserPayment(userId);
         model.addAttribute("users", userService.getAllUsers());
@@ -264,8 +290,8 @@ public class UserController {
 
     @ExceptionHandler(AccessDeniedException.class)
     @ResponseStatus(FORBIDDEN)
-    private String handleForbidden(Model model){
-        model.addAttribute("errorMessage","У вас нет доступа");
+    private String handleForbidden(Model model) {
+        model.addAttribute("errorMessage", "У вас нет доступа");
         return "login";
     }
 

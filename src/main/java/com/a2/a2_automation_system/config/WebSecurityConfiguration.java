@@ -31,7 +31,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .failureUrl("/login?error=true")
                 .defaultSuccessUrl("/default-page",true);
-
+        http
+                .headers(headers -> headers
+                        .cacheControl(cache -> cache.disable())
+                );
 
         http.logout()
                 .logoutUrl("/logout")

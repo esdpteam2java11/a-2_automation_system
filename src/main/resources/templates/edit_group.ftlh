@@ -102,7 +102,7 @@
                                     </#if>
                                     <div class="button">
                                         <button type="submit" class="custom-btn btn-1">Изменить</button>
-                                        <a href="/">
+                                        <a href="/group/${(group.id)!''}">
                                             <button type="button" class="button-85 ml-5">Назад</button>
                                         </a>
                                     </div>

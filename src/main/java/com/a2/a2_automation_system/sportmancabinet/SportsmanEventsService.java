@@ -1,10 +1,10 @@
 package com.a2.a2_automation_system.sportmancabinet;
 
-import com.a2.a2_automation_system.group.Group;
+import com.a2.a2_automation_system.exception.ResourceNotFoundException;
+
 import com.a2.a2_automation_system.schedule.Schedule;
-import com.a2.a2_automation_system.schedule.ScheduleCreateDTO;
 import com.a2.a2_automation_system.schedule.ScheduleDTO;
-import com.a2.a2_automation_system.schedule.ScheduleRestDto;
+import com.a2.a2_automation_system.schedule.ScheduleRepository;
 import com.a2.a2_automation_system.user.User;
 import com.a2.a2_automation_system.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 public class SportsmanEventsService {
     private final SportsmanEventsRepository sportsmanEventsRepository;
     private final UserService userService;
+    private final ScheduleRepository scheduleRepository;
 
     public List<SportsmanEventsRestDTO> getEventsBySportsmanAndDates(String username, String dateStart, String dateEnd){
         LocalDate start = LocalDate.parse(dateStart.split("%")[0].split("T")[0]);
@@ -40,6 +41,7 @@ public class SportsmanEventsService {
                 .eventDate(sportsmanEventsDTO.getEventDate())
                 .sportsman(sportsmanEventsDTO.getSportsman())
                 .food(sportsmanEventsDTO.getFood())
+                .title(sportsmanEventsDTO.getTitle())
                 .trainingProgram(sportsmanEventsDTO.getTrainingProgram())
                 .uniqueIdForSerialEvent(sportsmanEventsDTO.getUniqueIdForSerialEvent())
                 .build();
@@ -55,6 +57,7 @@ public class SportsmanEventsService {
                     SportsmanEventsDTO sportsmanEventsDTO = SportsmanEventsDTO.builder()
                             .eventDate(eventDate)
                             .sportsman(user)
+                            .title(sportsmanEventCreateDTO.getTitle())
                             .uniqueIdForSerialEvent(uniqueIdForSerial)
                             .build();
                     addEventFromSportsmanEventsDTO(sportsmanEventsDTO);
@@ -64,6 +67,7 @@ public class SportsmanEventsService {
             SportsmanEventsDTO sportsmanEventsDTO = SportsmanEventsDTO.builder()
                     .eventDate(sportsmanEventCreateDTO.getEventDate())
                     .sportsman(user)
+                    .title(sportsmanEventCreateDTO.getTitle())
                     .build();
             addEventFromSportsmanEventsDTO(sportsmanEventsDTO);
         }
@@ -112,7 +116,8 @@ public class SportsmanEventsService {
     }
 
     public SportsmanEventsDTO getEventById(Long id){
-        return SportsmanEventsDTO.from(sportsmanEventsRepository.getSportsmanEventsById(id));
+        return SportsmanEventsDTO.from(sportsmanEventsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Такой задачи с таким id нет")));
+
     }
 
     public void editEvent(SportsmanEventCreateDTO sportsmanEventCreateDTO,Long id) {
@@ -120,4 +125,56 @@ public class SportsmanEventsService {
        event.setEventDate(sportsmanEventCreateDTO.getEventDate());
         sportsmanEventsRepository.save(event);
     }
+
+    @Transactional
+    public SportsmanEventsDTO deleteEventById(Long eventId) {
+        SportsmanEvents event = sportsmanEventsRepository.getSportsmanEventsById(eventId);
+        SportsmanEventsDTO sportsmanEventsDTO = SportsmanEventsDTO.from(event);
+        sportsmanEventsRepository.delete(event);
+        return sportsmanEventsDTO;
+    }
+
+    @Transactional
+    public SportsmanEventsDTO deleteEventsInSeries(Long eventId) {
+        SportsmanEvents event = sportsmanEventsRepository.getSportsmanEventsById(eventId);
+        SportsmanEventsDTO sportsmanEventsDTO = SportsmanEventsDTO.from(event);
+        var sportsmanEventsList = sportsmanEventsRepository.getAllByUniqueIdForSerialEventAndEventDateIsGreaterThanEqual(event.getUniqueIdForSerialEvent(),event.getEventDate());
+        if(sportsmanEventsList.isPresent()){
+            for(SportsmanEvents ev:sportsmanEventsList.get()){
+                sportsmanEventsRepository.delete(ev);
+            }
+        }
+        return sportsmanEventsDTO;
+    }
+
+
+    public String addEventTrainingProgram(String content,Long eventId) {
+        String message = "Добавлено";
+        var event = sportsmanEventsRepository.getSportsmanEventsById(eventId);
+        if(event.getTrainingProgram()!=null){
+            message = "Изменено";
+        }
+        event.setTrainingProgram(content);
+        sportsmanEventsRepository.save(event);
+        return message;
+    }
+
+    public String addEventFood(String contentFood,Long eventId) {
+        String message = "Добавлено";
+        var event = sportsmanEventsRepository.getSportsmanEventsById(eventId);
+        if(event.getFood()!=null){
+            message = "Изменено";
+        }
+        event.setFood(contentFood);
+        sportsmanEventsRepository.save(event);
+        return message;
+    }
+
+    public ScheduleDTO getEventByID(Long eventId) {
+        return ScheduleDTO.from(scheduleRepository.findById(eventId) .orElseThrow(() -> new ResourceNotFoundException("Такой задачи с таким id нет")));
+    }
+
+
+
+
 }

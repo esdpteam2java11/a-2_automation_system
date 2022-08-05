@@ -2,7 +2,8 @@ package com.a2.a2_automation_system.sportmancabinet;
 
 import com.a2.a2_automation_system.group.GroupDTO;
 import com.a2.a2_automation_system.group.GroupService;
-import com.a2.a2_automation_system.schedule.ScheduleCreateDTO;
+
+import com.a2.a2_automation_system.schedule.ScheduleDTO;
 import com.a2.a2_automation_system.user.User;
 import com.a2.a2_automation_system.user.UserDTO;
 import com.a2.a2_automation_system.user.UserService;
@@ -18,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -99,7 +101,7 @@ public class SportsmanEventsController {
 
     @PostMapping("sportsman_cabinet/event/{eventId}/edit")
     public String editScheduleElement( @Valid SportsmanEventCreateDTO sportsmanEventCreateDTO, @PathVariable Long eventId, RedirectAttributes redirectAttributes, BindingResult result) {
-        String pathRedirect = String.format("redirect:sportsman_cabinet/calendar/event/%s", eventId);
+        String pathRedirect = String.format("redirect:/sportsman_cabinet/event/"+eventId);
         sportsmanEventsService.editEvent(sportsmanEventCreateDTO,eventId);
         redirectAttributes.addFlashAttribute("message", "Отредактрировано");
         return pathRedirect;
@@ -114,6 +116,54 @@ public class SportsmanEventsController {
         return "sportsman_event";
     }
 
+    @PreAuthorize("hasAuthority('CLIENT')")
+    @GetMapping("sportsman_cabinet/event/{eventId}/delete")
+    public String deleteScheduleElement(@PathVariable Long eventId, RedirectAttributes redirectAttributes) {
+        String pathRedirect = String.format("redirect:/sportsman_cabinet/");
+        SportsmanEventsDTO event = sportsmanEventsService.deleteEventById(eventId);
+        String message = String.format("Удалена заметка для %s на %s", event.getSportsman().getName(), event.getEventDate());
+        redirectAttributes.addFlashAttribute("message", message);
+        return pathRedirect;
+    }
+
+    @PreAuthorize("hasAuthority('CLIENT')")
+
+    @GetMapping("sportsman_cabinet/event/{eventId}/deleteConnected")
+    public String deleteScheduleElements(@PathVariable Long eventId, RedirectAttributes redirectAttributes) {
+        String pathRedirect = String.format("redirect:/sportsman_cabinet/");
+        SportsmanEventsDTO event = sportsmanEventsService.deleteEventsInSeries(eventId);
+        String message = String.format("Удалены заметки для %s с %s", event.getSportsman().getName(), event.getEventDate());
+        redirectAttributes.addFlashAttribute("message", message);
+        return pathRedirect;
+    }
+
+    @PostMapping("/sportsman_cabinet/event/{eventId}/trainingProgram")
+    public String addTrainingProgram( @PathVariable Long eventId, @RequestParam String content, RedirectAttributes redirectAttributes){
+        String message = sportsmanEventsService.addEventTrainingProgram(content,eventId);
+        String pathRedirect = String.format("redirect:/sportsman_cabinet/event/"+eventId);
+        redirectAttributes.addFlashAttribute("programMessage",message);
+        return pathRedirect;
+
+    }
+
+    @PostMapping("/sportsman_cabinet/event/{eventId}/food")
+    public String addFood(@PathVariable Long eventId, @RequestParam String contentFood,RedirectAttributes redirectAttributes){
+        String message = sportsmanEventsService.addEventFood(contentFood,eventId);
+        String pathRedirect = String.format("redirect:/sportsman_cabinet/event/"+eventId);
+        redirectAttributes.addFlashAttribute("programMessageFood",message);
+        return pathRedirect;
+
+    }
+
+    @GetMapping("/calendar_sportsman/{groupId}/calendar/{eventId}")
+    public String getScheduleElement(@PathVariable String groupId, @PathVariable Long eventId, Model model) {
+
+        GroupDTO groupDTO = groupService.getGroupById(Long.parseLong(groupId));
+        model.addAttribute("group", groupDTO);
+        model.addAttribute("event", sportsmanEventsService.getEventByID(eventId));
+
+        return "show_event";
+    }
 
 
 }

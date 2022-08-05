@@ -45,10 +45,16 @@
                             <div class="mb-3">
                                 <label for="recipient-phone" class="col-form-label required">Номер телефона:</label>
                                 <input type="text" name="phone" class="form-control" id="recipient-phone" required>
+                                <#if errorPhone?? >
+                                    <span style="color: red">${errorPhone}</span>
+                                </#if>
                             </div>
                             <div class="mb-3">
                                 <label for="recipient-whatsapp" class="col-form-label">WhatsApp:</label>
                                 <input type="text" name="whatsapp" class="form-control" id="recipient-whatsapp">
+                                <#if errorWhatsapp?? >
+                                    <span style="color: red">${errorWhatsapp}</span>
+                                </#if>
                             </div>
                             <div class="mb-3">
                                 <label for="recipient-telegram" class="col-form-label">Telegram:</label>

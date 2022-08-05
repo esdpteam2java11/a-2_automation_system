@@ -6,7 +6,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <h1>Камчибеков Арсен Камчибеков</h1>
+                    <h1>Камчибеков Арсен </h1>
                 </div>
             </div>
         </div><div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -34,7 +34,7 @@
             </div>
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            <img class="person" src="/images/person_5.jpg">
+            <img class="person" src="/images/person_4.JPG">
         </div>
 
         </div>

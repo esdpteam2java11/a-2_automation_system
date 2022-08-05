@@ -1,8 +1,8 @@
 package com.a2.a2_automation_system.group;
 
-import com.a2.a2_automation_system.tariff.OperationType;
-import com.a2.a2_automation_system.tariff.SportsmanPayment;
-import com.a2.a2_automation_system.tariff.SportsmanPaymentRepository;
+import com.a2.a2_automation_system.sportsmanpayments.OperationType;
+import com.a2.a2_automation_system.sportsmanpayments.SportsmanPayment;
+import com.a2.a2_automation_system.sportsmanpayments.SportsmanPaymentRepository;
 import com.a2.a2_automation_system.user.*;
 import com.a2.a2_automation_system.exception.GroupNotFoundException;
 import lombok.RequiredArgsConstructor;

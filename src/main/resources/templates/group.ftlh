@@ -28,7 +28,7 @@
                 <a href="${group.id}/calendar" class="calendar-ref">
                     <button class="bn30">Календарь группы</button>
                 </a>
-                <a href="/">
+                <a href="/admin">
                     <button type="button" class="button-85 ml-5">Назад</button>
                 </a>
             </div>

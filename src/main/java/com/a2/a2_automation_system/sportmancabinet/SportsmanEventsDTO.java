@@ -22,12 +22,14 @@ public class SportsmanEventsDTO {
     private String trainingProgram;
     private String food;
     private String uniqueIdForSerialEvent;
+    private String title;
 
     public static SportsmanEventsDTO from(SportsmanEvents sportsmanEvents){
        return builder()
                 .id(sportsmanEvents.getId())
                 .sportsman(sportsmanEvents.getSportsman())
                 .eventDate(sportsmanEvents.getEventDate())
+                .title(sportsmanEvents.getTitle())
                 .trainingProgram(sportsmanEvents.getTrainingProgram())
                 .food(sportsmanEvents.getFood())
                 .uniqueIdForSerialEvent(sportsmanEvents.getUniqueIdForSerialEvent())

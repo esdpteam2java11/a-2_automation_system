@@ -8,10 +8,10 @@ import com.a2.a2_automation_system.parent.Parent;
 import com.a2.a2_automation_system.parent.ParentRepository;
 import com.a2.a2_automation_system.relationship.Relationship;
 import com.a2.a2_automation_system.relationship.RelationshipRepository;
-import com.a2.a2_automation_system.tariff.OperationType;
-import com.a2.a2_automation_system.tariff.SportsmanPayment;
-import com.a2.a2_automation_system.tariff.SportsmanPaymentDTO;
-import com.a2.a2_automation_system.tariff.SportsmanPaymentRepository;
+import com.a2.a2_automation_system.sportsmanpayments.OperationType;
+import com.a2.a2_automation_system.sportsmanpayments.SportsmanPayment;
+import com.a2.a2_automation_system.sportsmanpayments.SportsmanPaymentDTO;
+import com.a2.a2_automation_system.sportsmanpayments.SportsmanPaymentRepository;
 import com.a2.a2_automation_system.userparam.UserParam;
 import com.a2.a2_automation_system.userparam.UserParamDTO;
 import com.a2.a2_automation_system.userparam.UserParamRepository;
@@ -77,7 +77,7 @@ public class UserService implements UserDetailsService {
     }
 
 
-    public void addTrainer(UserDTO userDTO) {
+    public UserDTO addTrainer(UserDTO userDTO) {
         if (userLoginCheck(userDTO.getLogin())) {
             throw new UserAlreadyRegisteredException();
         }
@@ -93,6 +93,7 @@ public class UserService implements UserDetailsService {
                 .birthDate(userDTO.getBirthDate())
                 .build();
         userRepository.save(trainer);
+       return UserDTO.from(trainer);
     }
 
     public SportsmanDTO getSportsmanDetails(Long id) {

@@ -1,8 +1,6 @@
-package com.a2.a2_automation_system.tariff;
+package com.a2.a2_automation_system.sportsmanpayments;
 
-import com.a2.a2_automation_system.user.SportsmanDTO;
 import com.a2.a2_automation_system.user.User;
-import com.a2.a2_automation_system.userparam.UserParam;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

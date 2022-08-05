@@ -1,6 +1,6 @@
 package com.a2.a2_automation_system.group;
 
-import com.a2.a2_automation_system.tariff.SportsmanPaymentRepository;
+import com.a2.a2_automation_system.sportsmanpayments.SportsmanPaymentRepository;
 import com.a2.a2_automation_system.user.User;
 import com.a2.a2_automation_system.user.UserRepository;
 import lombok.RequiredArgsConstructor;

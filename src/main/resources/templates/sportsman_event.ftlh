@@ -5,14 +5,27 @@
     <table class="table table-dark table-striped">
         <thead>
         <tr>
-            <th scope="col">Занятие для</th>
-            <th scope="col">Дата занятия</th>
+            <th scope="col">Заголовок заметки</th>
+        <tbody>
+        <tr>
+            <td>${event.title}</td>
+            <td></td>
+
+        </tr>
+        </tbody>
+        </tr>
+        </thead>
+
+        <thead>
+        <tr>
+            <th scope="col">Заметка для</th>
+            <th scope="col">Дата заметки</th>
         </tr>
         </thead>
         <tbody>
         <tr>
             <td>${event.sportsman.name}</td>
-            <td><input type="date"  name="eventStartDate" value="${event.eventDate}" min="${.now?date?iso_utc}"></td>
+            <td><input type="date"  name="eventDate" value="${event.eventDate}" min="${.now?date?iso_utc}"></td>
         </tr>
         </tbody>
     </table>
@@ -20,13 +33,13 @@
             <span style="color: red">
                 ${message} </span><br>
         </#if>
-        <button class="bn30 mb-2" type="submit">Редактировать занятие</button>
+        <button class="bn30 mb-2" type="submit">Редактировать заметку</button>
     </form>
                 <form method="get" action="${event.id}/delete">
-                    <button class="bn30 mb-2" type="submit">Удалить занятие</button>
+                    <button class="bn30 mb-2" type="submit">Удалить заметку</button>
                 </form>
                 <form method="get" action="${event.id}/deleteConnected">
-                    <button class="bn30 mb-3" type="submit">Удалить серию занятий</button>
+                    <button class="bn30 mb-3" type="submit">Удалить серию заметок</button>
                 </form>
         <h3>Программа занятий</h3>
         <#if programMessage??>
@@ -47,10 +60,10 @@
                 <button type="submit" class="mt-3 bn30 mb-3">Отправить</button>
             </div>
         </form>
-    <h3>Диета для занятий</h3>
-    <#if programMessage??>
+    <h3>Диета дня</h3>
+    <#if programMessageFood??>
         <span style="color: red">
-                ${programMessage} </span><br>
+                ${programMessageFood} </span><br>
     </#if>
 
     <form action="${event.id}/food" method="post">

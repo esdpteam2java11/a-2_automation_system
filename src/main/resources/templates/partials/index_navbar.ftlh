@@ -29,6 +29,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
         <link rel="stylesheet" href="/css/news.css">
         <link rel="stylesheet" href="/css/questions.css">
+        <link rel="stylesheet" href="/css/addUserForm.css">
 
     </head>
     <body>
@@ -53,7 +54,7 @@
                     <div class="py-1">
                         <div class="row align-items-center">
                             <div class="col-1">
-                                <a href="/"><img src="/images/logo.JPG" alt=""></a>
+                                <a href="/"><img src="/images/log.JPG" alt=""></a>
                             </div>
                             <hr>
                             <div class="col-13">

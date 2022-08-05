@@ -1,0 +1,96 @@
+format_version: 10
+pipelines:
+  Config_pipeline:
+    group: defaultGroup
+    label_template: ${COUNT}
+    lock_behavior: unlockWhenFinished
+    display_order: -1
+    materials:
+      a-2_automation_system:
+        git: https://github.com/esdpteam2java11/a-2_automation_system
+        username: Esdpteam2java11
+        shallow_clone: true
+        auto_update: true
+        branch: development
+        encrypted_password: AES:zysnTHr57Jmr7F2oVQyEtw==:xz01+taQ8SiaYDBGqm7O3g3/p/X8fOmOtCPSPoS0dlcre9EG1hjSCYVopYzBSArQ
+    stages:
+    - Config_stage:
+        fetch_materials: true
+        keep_artifacts: false
+        clean_workspace: false
+        approval:
+          type: success
+          allow_only_on_success: true
+        jobs:
+          Config_job:
+            timeout: 0
+            tasks:
+            - exec:
+                arguments:
+                - -c
+                - docker build . -t $DOCKER_USER/$DOCKER_REPO:$GO_PIPELINE_COUNTER
+                command: sh
+                run_if: passed
+            - exec:
+                arguments:
+                - -c
+                - echo "$DOCKER_PASSWORD" | docker login --username $DOCKER_USER --password-stdin
+                command: sh
+                run_if: passed
+            - exec:
+                arguments:
+                - -c
+                - docker image push $DOCKER_USER/$DOCKER_REPO:$GO_PIPELINE_COUNTER
+                command: sh
+                run_if: passed
+            - exec:
+                arguments:
+                - -c
+                - docker image rm $DOCKER_USER/$DOCKER_REPO:$GO_PIPELINE_COUNTER
+                command: sh
+                run_if: any
+            - exec:
+                arguments:
+                - -c
+                - ssh -T $DEPLOY_USER@$DEPLOY_SERVER "docker compose down"
+                command: sh
+                run_if: passed
+            - exec:
+                arguments:
+                - -c
+                - ssh -T $DEPLOY_USER@$DEPLOY_SERVER "docker images '$DOCKER_USER/$DOCKER_REPO'
+                  -a -q| xargs --no-run-if-empty docker rmi $(docker images '$DOCKER_USER/$DOCKER_REPO'
+                  -a -q) -f"
+                command: sh
+                run_if: any
+            - exec:
+                arguments:
+                - -c
+                - ssh -T $DEPLOY_USER@$DEPLOY_SERVER "echo "$DOCKER_PASSWORD" | docker
+                  login --username $DOCKER_USER --password-stdin && docker pull $DOCKER_USER/$DOCKER_REPO:$GO_PIPELINE_COUNTER"
+                command: sh
+                run_if: passed
+            - exec:
+                arguments:
+                - -c
+                - scp docker-compose.yml  $DEPLOY_USER@$DEPLOY_SERVER:/home/$DEPLOY_USER
+                command: sh
+                run_if: passed
+            - exec:
+                arguments:
+                - -c
+                - env >> .env
+                command: sh
+                run_if: passed
+            - exec:
+                arguments:
+                - -c
+                - scp .env  $DEPLOY_USER@$DEPLOY_SERVER:/home/$DEPLOY_USER
+                command: sh
+                run_if: passed
+            - exec:
+                arguments:
+                - -c
+                - ssh -T $DEPLOY_USER@$DEPLOY_SERVER "docker compose up -d"
+                command: sh
+                run_if: passed

@@ -79,9 +79,10 @@ function deleteSelectedRow(button) {
 
 const addNewParentBtn = document.getElementById("add-new-parent-button")
 
-addNewParentBtn.addEventListener("click", function () {
-    const newTrTag = document.createElement("tr")
-    newTrTag.innerHTML = `<td class="p-0" hidden><input type="hidden" name="p_id" value="0"/></td>
+if (addNewParentBtn != null) {
+    addNewParentBtn.addEventListener("click", function () {
+        const newTrTag = document.createElement("tr")
+        newTrTag.innerHTML = `<td class="p-0" hidden><input type="hidden" name="p_id" value="0"/></td>
                           <td class="p-0 m-0">
                                 <select class="form-control" name="p_kinship" required>
                                     <option value="FATHER">Отец</option>
@@ -104,26 +105,28 @@ addNewParentBtn.addEventListener("click", function () {
                                      <i class="bi bi-x-square"></i>
                                 </button>
                           </td>`
-    relativesTableBody.appendChild(newTrTag)
-})
+        relativesTableBody.appendChild(newTrTag)
+    })
+}
 
-searchRelativeForm.addEventListener("submit", async function (e) {
-    e.preventDefault()
-    searchRelativeBtn.setAttribute("disabled", 'true')
-    try {
-        const myHeaders = new Headers()
-        const requestOptions = {
-            method: 'GET',
-            headers: myHeaders,
-            redirect: 'follow'
-        }
-        const result = await fetch(`/create/parentSearch/` + document.getElementById("surnameSearch").value, requestOptions)
-        const data = await result.json()
-        let tbody = document.querySelector('#search-relative-table>.table-body')
-        for (let i = 0; i < data.length; i++) {
-            var parent = JSON.stringify(data[i]);
-            let newTrTag = document.createElement("tr")
-            newTrTag.innerHTML = `<td class="text-center" hidden>${data[i].id}</td>
+if (searchRelativeForm != null) {
+    searchRelativeForm.addEventListener("submit", async function (e) {
+        e.preventDefault()
+        searchRelativeBtn.setAttribute("disabled", 'true')
+        try {
+            const myHeaders = new Headers()
+            const requestOptions = {
+                method: 'GET',
+                headers: myHeaders,
+                redirect: 'follow'
+            }
+            const result = await fetch(`/create/parentSearch/` + document.getElementById("surnameSearch").value, requestOptions)
+            const data = await result.json()
+            let tbody = document.querySelector('#search-relative-table>.table-body')
+            for (let i = 0; i < data.length; i++) {
+                var parent = JSON.stringify(data[i]);
+                let newTrTag = document.createElement("tr")
+                newTrTag.innerHTML = `<td class="text-center" hidden>${data[i].id}</td>
                                   <td class="text-center">${data[i].kinship}</td>
                                   <td class="text-center">${data[i].surname}</td>
                                   <td class="text-center">${data[i].name}</td>
@@ -132,21 +135,25 @@ searchRelativeForm.addEventListener("submit", async function (e) {
                                         <input type="checkbox" onclick='addSelectedParent(${parent})'>
                                         <label class="form-check-label" for="inlineCheckbox"></label>
                                   </td>`
-            tbody.appendChild(newTrTag)
+                tbody.appendChild(newTrTag)
+            }
+        } finally {
+            searchRelativeForm.reset()
+            searchRelativeBtn.removeAttribute("disabled")
+
         }
-    } finally {
-        searchRelativeForm.reset()
-        searchRelativeBtn.removeAttribute("disabled")
+    })
+}
 
-    }
-})
-
-document.getElementsByClassName("search-relative-modal-close")[0].addEventListener("click", function () {
-    const searchResult = document.querySelector('#search-relative-table>.table-body')
-    while (searchResult.firstElementChild) {
-        searchResult.firstElementChild.remove()
-    }
-})
+const searchRelativeModalClose = document.getElementsByClassName("search-relative-modal-close")
+if (searchRelativeModalClose.length > 0) {
+    searchRelativeModalClose[0].addEventListener("click", function () {
+        const searchResult = document.querySelector('#search-relative-table>.table-body')
+        while (searchResult.firstElementChild) {
+            searchResult.firstElementChild.remove()
+        }
+    })
+}
 
 async function checkIfColorExists(color) {
     let substring = '%23' + color.substring(1, 8);
@@ -182,3 +189,51 @@ async function getGroupPrice(id) {
     }
     document.getElementById('recipient-sum').value = sum
 }
+
+
+//-----------------------------------------------------------------------------------------
+const sportsmanPaymentDetailsTableBody = document.querySelector('#payment-period>.table-body')
+
+function showDetails(value) {
+    const sportsmanPaymentDetails = document.getElementById('sportsman-payment-details')
+    const incomeSum = document.getElementById('income-sum')
+
+    if (value === "SPORTSMAN_PAYMENT") {
+        sportsmanPaymentDetails.style.display = 'block'
+        incomeSum.setAttribute('readonly', 'readonly')
+    } else {
+        sportsmanPaymentDetails.style.display = 'none'
+        incomeSum.removeAttribute('readonly')
+        incomeSum.value = 0
+        while (sportsmanPaymentDetailsTableBody.firstChild) {
+            sportsmanPaymentDetailsTableBody.firstElementChild.remove()
+        }
+    }
+}
+
+function addNewPaymentDetail() {
+    const newTrTag = document.createElement("tr")
+    newTrTag.innerHTML = `<td ><input class="form-control" type="date" name="dateSportsman" required/></td>
+                          <td >
+                                <input class="form-control sum" type="number" 
+                                name="amountSportsman" min="1" required/>
+                          </td>
+                          <td>
+                                <button type="button" class="btn btn-outline-danger py-1 px-2" 
+                                    onclick='deleteSelectedRow(this); setTotalSum()'>
+                                        <i class="bi bi-x-square"></i>
+                                </button>
+                          </td>`
+    sportsmanPaymentDetailsTableBody.appendChild(newTrTag)
+}
+
+function setTotalSum() {
+    let incomeSum = document.getElementById('income-sum')
+    let tableSums = document.getElementsByClassName('sum')
+    let total = 0
+    for (let i = 0; i < tableSums.length; i++) {
+        total += Number(tableSums[i].value)
+    }
+    incomeSum.value = total
+}
+

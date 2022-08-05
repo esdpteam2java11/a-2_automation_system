@@ -24,9 +24,9 @@ public class MoneyMovementController {
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @GetMapping
     public String getMoneyMovements(Model model,
-                                    @RequestParam (required = false) Long userId,
-                                    @RequestParam (required = false) String typeOfFinance,
-                                    @RequestParam (required = false) String operationType,
+                                    @RequestParam(required = false) Long userId,
+                                    @RequestParam(required = false) String typeOfFinance,
+                                    @RequestParam(required = false) String operationType,
                                     @RequestParam(value = "periodStart", required = false) @DateTimeFormat(iso =
                                             DateTimeFormat.ISO.DATE) LocalDate periodStart,
                                     @RequestParam(value = "periodEnd", required = false) @DateTimeFormat(iso =
@@ -49,28 +49,22 @@ public class MoneyMovementController {
         return "add_income";
     }
 
-
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @PostMapping("/{typeOfFinance}")
     public String registerUser(Principal principal, @PathVariable String typeOfFinance,
+                               @RequestParam("moneyOperationType") @Nullable String moneyOperationType,
                                @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
                                @RequestParam("amount") Double amount,
-                               @RequestParam("purpose") @Nullable String purpose,
                                @RequestParam("counterparty") @Nullable Long counterparty,
-                               @RequestParam("moneyOperationType") @Nullable String moneyOperationType,
+                               @RequestParam("purpose") @Nullable String purpose,
 
+                               @RequestParam("dateSportsman") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                               @Nullable List<Date> datesSportsman,
+                               @RequestParam("amountSportsman") @Nullable List<Double> amountSportsman) {
 
-
-                               @RequestParam("dateSportsman") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)  @Nullable List<Date> datesSportsman,
-                               @RequestParam("amountSportsman") @Nullable List<Double> amountsSportsman
-                              ) {
-
-        moneyMovementsService.addMoneyMovement(principal.getName(),typeOfFinance,date,amount,purpose,counterparty,
-                moneyOperationType,datesSportsman,amountsSportsman);
-
+        moneyMovementsService.addMoneyMovement(principal.getName(), typeOfFinance, moneyOperationType,
+                date, amount, counterparty, purpose, datesSportsman, amountSportsman);
         return "redirect:/cash";
     }
-
-
 }
 

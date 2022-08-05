@@ -10,7 +10,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -22,22 +21,24 @@ import java.util.stream.Collectors;
 public class NewsService {
     private final NewsRepository newsRepository;
 
-    public void addNewNews(MultipartFile file, NewsDTO newsDTO) {
+    public NewsDTO addNewNews(MultipartFile file, NewsDTO newsDTO) {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         String path = "upload";
         log.info("Saving news {}", newsDTO);
-        newsRepository.save(News.builder()
+        News news = News.builder()
                 .title(newsDTO.getTitle())
                 .description(newsDTO.getDescription())
                 .image(fileName)
                 .date(LocalDateTime.now())
-                .build());
+                .build();
+        newsRepository.save(news);
         try {
             FileUploadUtil.saveFile(fileName, path, file);
         } catch (IOException e) {
             e.printStackTrace();
             log.error("Did not find the file");
         }
+        return NewsDTO.from(news);
     }
 
     public Page<NewsDTO> getAllNews(Pageable pageable) {
@@ -54,5 +55,27 @@ public class NewsService {
 
     public NewsDTO getOneNews(Long id) {
         return NewsDTO.from(newsRepository.findById(id).orElseThrow(() -> new NewsNotFoundException("Такую новость не нашел")));
+    }
+
+    public void editNews(Long id, NewsDTO newsDTO, MultipartFile file) {
+        News news = newsRepository.findById(id).orElseThrow(() -> new NewsNotFoundException("Такую новость не нашел"));
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        String path = "upload";
+        news.setDate(LocalDateTime.now());
+        news.setTitle(newsDTO.getTitle());
+        news.setDescription(newsDTO.getDescription());
+        news.setImage(fileName);
+        newsRepository.save(news);
+        try {
+            FileUploadUtil.saveFile(fileName, path, file);
+        } catch (IOException e) {
+            e.printStackTrace();
+            log.error("Did not find the file");
+        }
+    }
+
+    public void delete(Long id) {
+        News news = newsRepository.findById(id).orElseThrow(() -> new NewsNotFoundException("Такую новость не нашел"));
+        newsRepository.delete(news);
     }
 }
