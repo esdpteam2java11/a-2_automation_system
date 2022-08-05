@@ -10,7 +10,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -22,22 +21,24 @@ import java.util.stream.Collectors;
 public class NewsService {
     private final NewsRepository newsRepository;
 
-    public void addNewNews(MultipartFile file, NewsDTO newsDTO) {
+    public NewsDTO addNewNews(MultipartFile file, NewsDTO newsDTO) {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         String path = "upload";
         log.info("Saving news {}", newsDTO);
-        newsRepository.save(News.builder()
+        News news = News.builder()
                 .title(newsDTO.getTitle())
                 .description(newsDTO.getDescription())
                 .image(fileName)
                 .date(LocalDateTime.now())
-                .build());
+                .build();
+        newsRepository.save(news);
         try {
             FileUploadUtil.saveFile(fileName, path, file);
         } catch (IOException e) {
             e.printStackTrace();
             log.error("Did not find the file");
         }
+        return NewsDTO.from(news);
     }
 
     public Page<NewsDTO> getAllNews(Pageable pageable) {

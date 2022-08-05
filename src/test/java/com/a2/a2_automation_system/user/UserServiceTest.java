@@ -8,8 +8,13 @@ import com.a2.a2_automation_system.sportsmanpayments.SportsmanPayment;
 import com.a2.a2_automation_system.sportsmanpayments.SportsmanPaymentRepository;
 import com.a2.a2_automation_system.userparam.UserParam;
 import com.a2.a2_automation_system.userparam.UserParamRepository;
+
+import static org.mockito.Mockito.*;
+
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -24,8 +29,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.when;
 
 
 @SpringBootTest
@@ -54,26 +61,29 @@ class UserServiceTest {
     private PasswordEncoder passwordEncoder;
 
 
-    private User user;
+    private User trainer;
 
-
-    @Test
-    void getTrainer() {
-        Long trainerId = 1L;
-        User trainer = User.builder()
-                .id(trainerId)
+    @BeforeEach
+    void setupBeforeEach() {
+        trainer = User.builder()
+                .id(1L)
                 .name("trainer_name1")
                 .surname("trainer_name1")
                 .patronymic("trainer_name1")
-                .password("trainer_name1")
+                .password("trainer_login1")
                 .login("trainer_name1")
                 .phone("+9965553230")
                 .role(Role.EMPLOYEE)
                 .birthDate(new Date())
                 .build();
-        doReturn(Optional.of(trainer)).when(userRepository).findById(trainerId);
-        UserDTO trainerService = userService.getTrainer(trainerId);
-        Assertions.assertThat(trainerId).isEqualTo(trainerService.getId());
+    }
+
+
+    @Test
+    void getTrainer() {
+        doReturn(Optional.of(trainer)).when(userRepository).findById(1L);
+        UserDTO trainerService = userService.getTrainer(1L);
+        Assertions.assertThat(1L).isEqualTo(trainerService.getId());
         Assertions.assertThat(trainer.getName()).isEqualTo(trainerService.getName());
         Assertions.assertThat(trainer.getSurname()).isEqualTo(trainerService.getSurname());
     }
@@ -91,7 +101,7 @@ class UserServiceTest {
         apis.add(user);
         apis.add(user2);
         Page<User> page = new PageImpl<>(apis);
-        Mockito.when(this.userRepository.findAll(Mockito.any(Pageable.class)))
+        when(this.userRepository.findAll(Mockito.any(Pageable.class)))
                 .thenReturn(page);
         Page<UserDTO> apiPageResp = userService.getAllUsers(page.getPageable());
         assertEquals(2L, apiPageResp.getTotalElements());
@@ -107,7 +117,7 @@ class UserServiceTest {
         User user = new User(1L, "studentName_1", "studentSurname_1", "studentPatronymic_1", new Date(), "33-33-33", null, null, "г. Бишкек, ул. Ахунбаева 26", null, null, Role.CLIENT, "student_1", "123", true, Group.builder().build(), new Date());
         List<UserParam> userParamList = List.of(new UserParam());
 
-        Mockito.when(userParamRepository.findByUserId(1L)).thenReturn(userParamList);
+        when(userParamRepository.findByUserId(1L)).thenReturn(userParamList);
 
 
         Assertions.assertThat(userParamList);
@@ -120,9 +130,30 @@ class UserServiceTest {
         User user = new User(1L, "studentName_1", "studentSurname_1", "studentPatronymic_1", new Date(), "33-33-33", null, null, "г. Бишкек, ул. Ахунбаева 26", null, null, Role.CLIENT, "student_1", "123", true, Group.builder().build(), new Date());
         List<SportsmanPayment> sportsmanPayments = List.of(new SportsmanPayment());
 
-        Mockito.when(paymentRepository.findByUserId(1L)).thenReturn(sportsmanPayments);
+        when(paymentRepository.findByUserId(1L)).thenReturn(sportsmanPayments);
 
 
         Assertions.assertThat(sportsmanPayments);
+    }
+
+    @Test
+    void getSelectedUserRole() {
+        doReturn(Optional.of(trainer)).when(userRepository).findById(1L);
+        Role selectedUserRole = userService.getSelectedUserRole(1L);
+        assertEquals(trainer.getRole(), selectedUserRole);
+    }
+
+    @Test
+    void addTrainer() {
+        when(userRepository.save(ArgumentMatchers.any(User.class))).thenReturn(trainer);
+        UserDTO created = userService.addTrainer(UserDTO.from(trainer));
+        Assertions.assertThat(trainer.getName()).isEqualTo(created.getName());
+    }
+
+    @Test
+    void getUserByUsername() {
+        doReturn(Optional.of(trainer)).when(userRepository).findByLogin("trainer_login1");
+        User user = userService.getUserByUsername("trainer_login1");
+        Assertions.assertThat(trainer.getLogin()).isEqualTo(user.getLogin());
     }
 }
