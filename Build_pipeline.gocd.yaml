@@ -1,0 +1,18 @@
+format_version: 10
+pipelines:
+  Build_pipeline:
+    group: defaultGroup
+    template: Build_pipeline
+    label_template: ${COUNT}
+    lock_behavior: unlockWhenFinished
+    display_order: -1
+    materials:
+      Build_material:
+        git: https://github.com/esdpteam2java11/a-2_automation_system
+        username: Esdpteam2java11
+        shallow_clone: true
+        auto_update: true
+        branch: development
+        encrypted_password: AES:uA5UvUqgT+z5AXleFJXADw==:hhKFZBl3FLNlA6O0zt6LJXqUz/HNdIHvC19WQGGyWJG+LAZwWlhLB3IxSk730+LE
+    parameters:
+      name: Build
