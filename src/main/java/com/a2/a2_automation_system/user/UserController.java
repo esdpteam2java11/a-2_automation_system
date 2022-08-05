@@ -278,7 +278,6 @@ public class UserController {
         return "sportsman_story";
     }
 
-
     private boolean isAuthenticated() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || AnonymousAuthenticationToken.class.
@@ -294,6 +293,4 @@ public class UserController {
         model.addAttribute("errorMessage", "У вас нет доступа");
         return "login";
     }
-
-
 }

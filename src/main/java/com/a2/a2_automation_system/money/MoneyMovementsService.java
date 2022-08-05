@@ -33,7 +33,7 @@ public class MoneyMovementsService {
                 .amount(amount)
                 .date(date)
                 .purpose(purpose)
-                .counterparty(userRepository.findById(counterparty).get())
+                .counterparty(userRepository.findById(counterparty).orElseThrow())
                 .moneyOperationType(MoneyOperationType.valueOf(moneyOperationType))
                 .typeOfFinance(TypeOfFinance.valueOf(typeOfFinance))
                 .cashier(userRepository.findByLogin(cashier).get())
@@ -48,6 +48,7 @@ public class MoneyMovementsService {
                                  .operationType(OperationType.PAID)
                                  .user(userRepository.findById(counterparty).get())
                                  .date(dateSportsman.get(i))
+                                 .moneyMovement(movement)
                                  .build());
              }
          }

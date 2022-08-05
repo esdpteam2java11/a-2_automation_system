@@ -1,6 +1,5 @@
 package com.a2.a2_automation_system.money;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
