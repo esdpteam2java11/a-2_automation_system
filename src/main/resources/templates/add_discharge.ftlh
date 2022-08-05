@@ -1,8 +1,8 @@
 <#import "partials/admin_main.ftlh" as main />
 <@main.renderWith >
-    <main class="main-color-sportsman">
+    <main class="main-color main-color-sportsman">
 
-        <div class="container col-xxl-8" style="background-color: white;">
+        <div class="container col-xxl-8 pb-2 mb-5" style="background-color: white;">
             <div class="container" style="background-color: white;">
                 <h3 class="mb-5 pt-3 text-center">Расход денег</h3>
                 <form action="/cash/DISCHARGE" id="discharge" method="post">
@@ -25,6 +25,7 @@
                                        for="payment-date">Дата</label>
                                 <input name="date" type="date"
                                        class="form-control" placeholder="Дата"
+                                       max="${.now?date?iso_utc}"
                                        id="payment-date" required="required"/>
                             </div>
                             <div>
@@ -68,6 +69,7 @@
                                 <div class="col col-lg-8 px-2">
                                     <table id="payment-period"
                                            class="table table-bordered align-middle text-center">
+                                        <caption style="caption-side: top">Детализация по периодам оплаты</caption>
                                         <thead>
                                         <tr>
                                             <th scope="col" style="width: 35%">Дата</th>
@@ -76,6 +78,18 @@
                                         </tr>
                                         </thead>
                                         <tbody class="table-body" onchange="setTotalSum()">
+                                        <tr>
+                                            <td>
+                                                <input class="form-control" type="date" name="dateSportsman"
+                                                       required/>
+                                            </td>
+                                            <td>
+                                                <input class="form-control sum" type="number"
+                                                       name="amountSportsman" min="1" required/>
+                                            </td>
+                                            <td>
+                                            </td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>

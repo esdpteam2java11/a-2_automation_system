@@ -1,7 +1,7 @@
 <#import "partials/admin_main.ftlh" as main />
 <@main.renderWith >
-    <main class="main-color">
-        <div class="container col-xxl-8 pb-2" style="background-color: white;">
+    <main class="main-color main-color-sportsman">
+        <div class="container col-xxl-8 pb-2 mb-5" style="background-color: white;">
             <div class="container" style="background-color: white;">
                 <h2 class="cash-flow-header text-center mb-4 py-4" style="color: black">Кассовые операции</h2>
                 <form action="/cash" method="get">
@@ -94,8 +94,8 @@
                                 <tr>
                                     <#assign link = "/edit/${moneyMovement.id}">
                                     <td hidden>${moneyMovement.id}</td>
-                                    <td><a class="text-decoration-none text-reset" href="${link}">${moneyMovement
-                                            .date}</a></td>
+                                    <td><a class="text-decoration-none text-reset" href="${link}">
+                                            ${moneyMovement.date}</a></td>
                                     <td><a class="text-decoration-none text-reset"
                                            href="${link}">${moneyMovement.counterpartyFIO}</a></td>
                                     <td><a class="text-decoration-none text-reset"

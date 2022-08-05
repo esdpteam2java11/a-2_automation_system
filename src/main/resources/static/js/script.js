@@ -204,9 +204,7 @@ function showDetails(value) {
         sportsmanPaymentDetails.style.display = 'none'
         paymentSum.removeAttribute('readonly')
         paymentSum.value = 0
-        while (sportsmanPaymentDetailsTableBody.firstChild) {
-            sportsmanPaymentDetailsTableBody.firstElementChild.remove()
-        }
+        $(sportsmanPaymentDetailsTableBody).children().slice(1).remove();
     }
 }
 
