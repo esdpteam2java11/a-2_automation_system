@@ -77,7 +77,7 @@ public class UserService implements UserDetailsService {
     }
 
 
-    public void addTrainer(UserDTO userDTO) {
+    public UserDTO addTrainer(UserDTO userDTO) {
         if (userLoginCheck(userDTO.getLogin())) {
             throw new UserAlreadyRegisteredException();
         }
@@ -93,6 +93,7 @@ public class UserService implements UserDetailsService {
                 .birthDate(userDTO.getBirthDate())
                 .build();
         userRepository.save(trainer);
+       return UserDTO.from(trainer);
     }
 
     public SportsmanDTO getSportsmanDetails(Long id) {
