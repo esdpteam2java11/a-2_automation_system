@@ -1,5 +1,6 @@
 format_version: 10
-environment: Test
+environments: 
+  Test:
 pipelines:
   Config_pipeline:
     group: defaultGroup
