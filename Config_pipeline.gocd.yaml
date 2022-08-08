@@ -6,13 +6,6 @@ pipelines:
     label_template: ${COUNT}
     lock_behavior: unlockWhenFinished
     display_order: -1
-    environment_variables:
-      DEPLOY_USER = deployuser
-      DOCKER_USER = esdpteam2java11
-      POSTGRES_USER = postgresA2
-      DEPLOY_SERVER = 206.189.107.187
-      DOCKER_REPO = a-2_automation_system
-      POSTGRES_DB = a-2_automation_system
     materials:
       a-2_automation_system:
         git: https://github.com/esdpteam2java11/a-2_automation_system
