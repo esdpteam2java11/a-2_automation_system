@@ -1,12 +1,10 @@
 package com.a2.a2_automation_system.money;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 public enum TypeOfFinance {
     INCOME("Приход"),
-
     DISCHARGE("Расход");
 
     public final String rusValue;

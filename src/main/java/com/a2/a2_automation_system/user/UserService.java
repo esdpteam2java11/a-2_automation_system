@@ -276,11 +276,11 @@ public class UserService implements UserDetailsService {
         return user.get();
     }
 
-    public List<UserParamDTO> getUserParam(Long id) {
+    public List<UserParamDTO> getUserParams(Long id) {
         return userParamRepository.findByUserId(id).stream().map(UserParamDTO::from).collect(Collectors.toList());
     }
 
-    public List<SportsmanPaymentDTO> getUserPayment(Long id) {
+    public List<SportsmanPaymentDTO> getUserPayments(Long id) {
         return sportsmanPaymentRepository.findByUserId(id).stream().map(SportsmanPaymentDTO::from).collect(Collectors.toList());
     }
 

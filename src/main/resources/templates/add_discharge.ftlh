@@ -1,10 +1,11 @@
 <#import "partials/admin_main.ftlh" as main />
 <@main.renderWith >
     <main class="main-color main-color-sportsman">
+
         <div class="container col-xxl-8 pb-2 mb-5" style="background-color: white;">
             <div class="container" style="background-color: white;">
-                <h3 class="mb-5 pt-3 text-center">Приход денег</h3>
-                <form action="/cash/INCOME" id="income" method="post">
+                <h3 class="mb-5 pt-3 text-center">Расход денег</h3>
+                <form action="/cash/DISCHARGE" id="discharge" method="post">
                     <div class="row">
                         <div class="col-md-4 mb-4">
                             <div>
@@ -67,7 +68,7 @@
                                 <div class="col col-lg-8 px-2">
                                     <table id="payment-period"
                                            class="table table-bordered align-middle text-center">
-                                        <caption style="caption-side: top">Детализация по периодам оплаты</caption>
+                                        <caption style="caption-side: top">Детализация по периодам возврата</caption>
                                         <thead>
                                         <tr>
                                             <th scope="col" style="width: 35%">Дата</th>
@@ -112,7 +113,7 @@
 
     </main>
     <script>
-        $("#money-operation-type option[value='RETURN_SPORTSMAN_PAYMENT']").remove()
+        $("#money-operation-type option[value='SPORTSMAN_PAYMENT']").remove()
     </script>
     <script src="/js/script.js"></script>
 </@main.renderWith>

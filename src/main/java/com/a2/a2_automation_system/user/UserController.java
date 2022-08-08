@@ -270,14 +270,13 @@ public class UserController {
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @GetMapping("/sportsman_story")
     public String getSportsmanStory(Model model, @RequestParam(value = "userId") @Nullable Long userId) {
-        var userParam = userService.getUserParam(userId);
-        var userPayment = userService.getUserPayment(userId);
+        var userParams = userService.getUserParams(userId);
+        var userPayments = userService.getUserPayments(userId);
         model.addAttribute("users", userService.getAllUsers());
-        model.addAttribute("sportsmanParam", userParam);
-        model.addAttribute("sportsmanPayment", userPayment);
+        model.addAttribute("sportsmanParams", userParams);
+        model.addAttribute("sportsmanPayments", userPayments);
         return "sportsman_story";
     }
-
 
     private boolean isAuthenticated() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -294,6 +293,4 @@ public class UserController {
         model.addAttribute("errorMessage", "У вас нет доступа");
         return "login";
     }
-
-
 }
