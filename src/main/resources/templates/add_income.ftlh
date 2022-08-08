@@ -31,8 +31,7 @@
                                 <label class="col-form-label required"
                                        for="payment-sum">Сумма</label>
                                 <input name="amount" type="number" id="payment-sum"
-                                       class="form-control" placeholder="Сумма"
-                                       min="1" required="required"/>
+                                       class="form-control" min="1" value="0" required="required"/>
                             </div>
                         </div>
                         <div class="col-md-8 mb-4">
@@ -79,12 +78,11 @@
                                         <tbody class="table-body" onchange="setTotalSum()">
                                         <tr>
                                             <td>
-                                                <input class="form-control" type="date" name="dateSportsman"
-                                                       required/>
+                                                <input class="form-control" type="date" name="dateSportsman"/>
                                             </td>
                                             <td>
                                                 <input class="form-control sum" type="number"
-                                                       name="amountSportsman" min="1" required/>
+                                                       name="amountSportsman" min="1"/>
                                             </td>
                                             <td>
                                             </td>

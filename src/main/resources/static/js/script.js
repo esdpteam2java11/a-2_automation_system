@@ -194,13 +194,19 @@ async function getGroupPrice(id) {
 
 const sportsmanPaymentDetailsTableBody = document.querySelector('#payment-period>.table-body')
 const paymentSum = document.getElementById('payment-sum')
+const dateSportsmanElements = document.getElementsByName('dateSportsman')
+const amountSportsmanElements = document.getElementsByName('amountSportsman')
 
 function showDetails(value) {
     const sportsmanPaymentDetails = document.getElementById('sportsman-payment-details')
-    if (value === "SPORTSMAN_PAYMENT") {
+    if (value === "SPORTSMAN_PAYMENT" || value === "RETURN_SPORTSMAN_PAYMENT") {
+        dateSportsmanElements.forEach(e => e.required = true)
+        amountSportsmanElements.forEach(e => e.required = true)
         sportsmanPaymentDetails.style.display = 'block'
         paymentSum.setAttribute('readonly', 'readonly')
     } else {
+        dateSportsmanElements.forEach(e => e.removeAttribute('required'))
+        amountSportsmanElements.forEach(e => e.removeAttribute('required'))
         sportsmanPaymentDetails.style.display = 'none'
         paymentSum.removeAttribute('readonly')
         paymentSum.value = 0
