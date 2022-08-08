@@ -68,7 +68,7 @@
                                 <div class="col col-lg-8 px-2">
                                     <table id="payment-period"
                                            class="table table-bordered align-middle text-center">
-                                        <caption style="caption-side: top">Детализация по периодам оплаты</caption>
+                                        <caption style="caption-side: top">Детализация по периодам возврата</caption>
                                         <thead>
                                         <tr>
                                             <th scope="col" style="width: 35%">Дата</th>
