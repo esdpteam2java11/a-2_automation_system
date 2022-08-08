@@ -114,5 +114,8 @@
         </div>
 
     </main>
+    <script>
+        $("#money-operation-type option[value='SPORTSMAN_PAYMENT']").remove()
+    </script>
     <script src="/js/script.js"></script>
 </@main.renderWith>
