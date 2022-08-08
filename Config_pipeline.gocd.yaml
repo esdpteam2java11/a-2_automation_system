@@ -1,4 +1,11 @@
 format_version: 10
+environment_variables:
+   DEPLOY_USER = deployuser
+   DOCKER_USER = esdpteam2java11
+   POSTGRES_USER = postgresA2
+   DEPLOY_SERVER = 206.189.107.187
+   DOCKER_REPO = a-2_automation_system
+   POSTGRES_DB = a-2_automation_system
 pipelines:
   Config_pipeline:
     group: defaultGroup
