@@ -1,6 +1,6 @@
 <#import "partials/admin_main.ftlh" as main />
 <@main.renderWith >
-    <form action="/group/edit" method="post" modelAttribute="group">
+    <form action="/group/${group.id}/edit" method="post" modelAttribute="group">
         <#if _csrf??>
             <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
         </#if>
