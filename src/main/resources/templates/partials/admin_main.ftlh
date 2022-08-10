@@ -78,10 +78,10 @@
                         <a class="nav-link" href="/news">Создать новость</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/sportsman_story">История спортсмена</a>
+                        <button type="button" class="btn nav-link" data-bs-toggle="modal" data-bs-target="#reports">
+                            Отчеты
+                        </button>
                     </li>
-
-
                 </ul>
                 <div class="text-right mr-5">
                     <form class="flex box-128" action="/logout" method="post">
@@ -96,6 +96,30 @@
 
         </div>
     </nav>
+
+    <div class="modal" id="reports" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Список отчетов</h5>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/sportsman_story">История спортсмена</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/all_debts">Отчет по начислениям и
+                                оплатам по всем ученикам</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <#nested>
 
