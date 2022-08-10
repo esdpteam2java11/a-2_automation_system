@@ -155,10 +155,10 @@ public class SportsmanEventsController {
 
     }
 
-    @GetMapping("/calendar_sportsman/{groupId}/calendar/{eventId}")
-    public String getScheduleElement(@PathVariable String groupId, @PathVariable Long eventId, Model model) {
+    @GetMapping("/calendar_sportsman/{id}/calendar/{eventId}")
+    public String getScheduleElement(@PathVariable String id, @PathVariable Long eventId, Model model) {
 
-        GroupDTO groupDTO = groupService.getGroupById(Long.parseLong(groupId));
+        GroupDTO groupDTO = groupService.getGroupById(Long.parseLong(id));
         model.addAttribute("group", groupDTO);
         model.addAttribute("event", sportsmanEventsService.getEventByID(eventId));
 
