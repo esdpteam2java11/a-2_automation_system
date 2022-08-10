@@ -17,7 +17,7 @@
                 Старший брат - Камчибек уулу Эрнест (06.08.1990 г.р.), преподователь-психолог КГТУ им. Арабаева
                 Младший брат - Камчибек уулу Арген (15.08.1998 г.р.) - спортсмен, футболист, студент КТУ Манас.
             </p>
-                <h2 class="h2">Педагогическая деятельность</h2>
+                <h2 class="mb-5 mt-3 text-center">Педагогическая деятельность</h2>
             <p>2000 по 2003 гг. - учился в начальной школе №1;
                 2003 - 2011 гг. - учился и окончил УВК ШЛ №17 им. А.С. Пушкина;
                 2011 -2016 гг. - учился и окончил КГАФКиС с Красным дипломом по специальности - Тренер- преподаватель по специализации Самбо;
@@ -34,16 +34,17 @@
             </div>
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            <img class="person" src="/images/person_4.JPG">
+            <img class="person" src="/images/person_4.jpg">
         </div>
 
         </div>
         <div class="site-section">
             <div class="container">
+                <h2 class="mb-5 mt-3 text-center ">Спортивные достижения</h2>
                 <div class="row">
-                    <h2 class="h">Спортивные достижения</h2>
-                    <div class="col-lg-6 ml-auto">
-                        <h3 class="text-muted">Международные соревнования</h3>
+
+                    <div class="col-lg-6 ml-auto m-auto">
+                        <h3 class="mb-5 mt-3 text-center">Международные соревнования</h3>
                         <ul class="list-groups">
                             <li class="list-group-item">1. Первенство Азии среди молодежи 2013 г. (Южная Корея, г.Сеул) - 2 место;
                             <li class="list-group-item"> 2. Чемпионат Азии среди взрослых 2016 г. (Казахстан, г.Атырау) - 3 место
@@ -55,8 +56,8 @@
 
                         </ul>
                     </div>
-                    <div class="col-lg-6 ml-auto">
-                        <h4 class="text-muted">Республиканские соревнования</h4>
+                    <div class="col-lg-6 ml-auto m-auto">
+                        <h4 class="mb-5 mt-3 text-center">Республиканские соревнования</h4>
                         <ul class="list-groups">
                             <li class="list-group-item">1. Первенство КР среди юниоров в 2010 г. (г.Чолпон-Ата) - 1 место </li>
                             <li class="list-group-item">2. Первенство КР среди юниоров 2011 г. (г.Нарын) - 3 место

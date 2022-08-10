@@ -54,7 +54,7 @@
                     <div class="py-1">
                         <div class="row align-items-center">
                             <div class="col-1">
-                                <a href="/"><img src="/images/log.JPG" alt=""></a>
+                                <a href="/"><img src="/images/log.jpg" alt=""></a>
                             </div>
                             <hr>
                             <div class="col-13">
