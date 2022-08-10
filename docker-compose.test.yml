@@ -5,6 +5,7 @@ services:
     build:
       context: .
     container_name: app
+    command: mvn clean test
     ports:
       - 8080:8080
     depends_on:
