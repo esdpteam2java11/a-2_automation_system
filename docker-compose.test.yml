@@ -5,7 +5,8 @@ services:
     build:
       context: .
     container_name: app
-    command: mvn clean test
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
     ports:
       - 8080:8080
     depends_on:
