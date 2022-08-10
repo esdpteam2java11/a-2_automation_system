@@ -18,8 +18,6 @@ services:
   dbtest:
     image: 'postgres:14.4'
     container_name: db
-    volumes:
-      - db-data:/var/lib/postgresql/data
     ports:
       - 5432:5432
     environment:
