@@ -1,10 +1,10 @@
 version: '3'
 services:
-  apptest:
+  app:
     image: '${DOCKER_USER}/${DOCKER_REPO}/test:${GO_PIPELINE_COUNTER}'
     build:
       context: .
-    container_name: apptest
+    container_name: app
     ports:
       - 8080:8080
     depends_on:
