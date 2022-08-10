@@ -8,4 +8,4 @@ COPY pom.xml .
 RUN mvn dependency:go-offline
 # copy your other files
 COPY ./src ./src
-ENTRYPOINT ["tail", "-f", "/dev/null"]
+ENTRYPOINT ["mvn", "clean", "test"]
