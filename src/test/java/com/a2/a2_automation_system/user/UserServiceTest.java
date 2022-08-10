@@ -8,12 +8,10 @@ import com.a2.a2_automation_system.sportsmanpayments.SportsmanPayment;
 import com.a2.a2_automation_system.sportsmanpayments.SportsmanPaymentRepository;
 import com.a2.a2_automation_system.userparam.UserParam;
 import com.a2.a2_automation_system.userparam.UserParamRepository;
-
-import static org.mockito.Mockito.*;
-
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -23,19 +21,20 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
 
-@SpringBootTest
+@SpringBootTest(classes = {User.class})
+@ExtendWith(SpringExtension.class)
 class UserServiceTest {
 
     @InjectMocks
@@ -83,7 +82,7 @@ class UserServiceTest {
     void getTrainer() {
         doReturn(Optional.of(trainer)).when(userRepository).findById(1L);
         UserDTO trainerService = userService.getTrainer(1L);
-        Assertions.assertThat(1L).isEqualTo(trainerService.getId());
+        Assertions.assertThat(trainerService.getId()).isEqualTo(1L);
         Assertions.assertThat(trainer.getName()).isEqualTo(trainerService.getName());
         Assertions.assertThat(trainer.getSurname()).isEqualTo(trainerService.getSurname());
     }
@@ -152,8 +151,15 @@ class UserServiceTest {
 
     @Test
     void getUserByUsername() {
-        doReturn(Optional.of(trainer)).when(userRepository).findByLogin("trainer_login1");
-        User user = userService.getUserByUsername("trainer_login1");
+        doReturn(Optional.of(trainer)).when(userRepository).findByLogin(trainer.getLogin());
+        User user = userService.getUserByUsername(trainer.getLogin());
+        Assertions.assertThat(trainer.getLogin()).isEqualTo(user.getLogin());
+    }
+
+    @Test
+    void loadUserByUsername() {
+        doReturn(Optional.of(trainer)).when(userRepository).findByLogin(trainer.getLogin());
+        User user = userService.getUserByUsername(trainer.getLogin());
         Assertions.assertThat(trainer.getLogin()).isEqualTo(user.getLogin());
     }
 }
