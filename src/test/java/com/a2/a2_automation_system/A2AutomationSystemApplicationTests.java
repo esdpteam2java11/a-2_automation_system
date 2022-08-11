@@ -10,13 +10,4 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 class A2AutomationSystemApplicationTests {
 
-
-
-    @Test
-     void contextLoads() {
-    }
-
-
-
-
 }
