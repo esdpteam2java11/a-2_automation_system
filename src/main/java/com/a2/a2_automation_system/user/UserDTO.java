@@ -60,12 +60,12 @@ public class UserDTO {
     @JsonProperty("is_active")
     private Boolean isActive;
 
-    private Group groupId;
+    private Long groupId;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfAdmission;
 
     public static UserDTO from(User user) {
-        return builder()
+        return UserDTO.builder()
                 .id(user.getId())
                 .name(user.getName())
                 .surname(user.getSurname())
@@ -80,7 +80,7 @@ public class UserDTO {
                 .login(user.getLogin())
                 .password(user.getPassword())
                 .isActive(user.getIsActive())
-                .groupId(user.getGroup())
+                .groupId(user.getGroup() != null ? user.getGroup().getId() : null)
                 .dateOfAdmission(user.getDateOfAdmission())
                 .build();
     }

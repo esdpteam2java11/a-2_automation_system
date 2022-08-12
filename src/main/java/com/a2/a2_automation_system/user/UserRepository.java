@@ -15,13 +15,16 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 
     Optional<User> findByLogin(String email);
 
+    @Query(value = "select u from User u where u.role <> 'ADMIN'")
     Page<User> findAll(Pageable pageable);
 
     List<User> findAll();
 
     Page<User> findAllByRole(Pageable pageable, Role role);
 
-    Page<User> findAllByIsActive(Pageable pageable, boolean isActive);
+    @Query(value = "select u from User u where u.role <> 'ADMIN' and " +
+            " u.isActive = :isActive")
+    Page<User> findAllByIsActive(Pageable pageable, @Param("isActive") boolean isActive);
 
     Page<User> findAllByIsActiveAndRole(Pageable pageable, boolean isActive, Role role);
 

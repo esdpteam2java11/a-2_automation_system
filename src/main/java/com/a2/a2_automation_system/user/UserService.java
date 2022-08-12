@@ -2,6 +2,7 @@ package com.a2.a2_automation_system.user;
 
 import com.a2.a2_automation_system.exception.UserAlreadyRegisteredException;
 import com.a2.a2_automation_system.exception.UserNotFoundException;
+import com.a2.a2_automation_system.group.Group;
 import com.a2.a2_automation_system.group.GroupRepository;
 import com.a2.a2_automation_system.parent.Kinship;
 import com.a2.a2_automation_system.parent.Parent;
@@ -112,6 +113,7 @@ public class UserService implements UserDetailsService {
                                 List<String> pPatronymics, List<String> pPhones,
                                 List<String> pWhatsapps, List<String> pTelegrams) {
 
+        Group group = groupRepository.findById(userDTO.getGroupId()).orElseThrow();
         User sportsman = User.builder()
                 .surname(userDTO.getSurname())
                 .name(userDTO.getName())
@@ -123,7 +125,7 @@ public class UserService implements UserDetailsService {
                 .address(userDTO.getAddress())
                 .school(userDTO.getSchool())
                 .channels(userDTO.getChannels())
-                .group(userDTO.getGroupId())
+                .group(group)
                 .role(userDTO.getRole())
                 .login(userDTO.getLogin())
                 .dateOfAdmission(userDTO.getDateOfAdmission())
