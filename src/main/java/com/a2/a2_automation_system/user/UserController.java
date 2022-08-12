@@ -107,25 +107,20 @@ public class UserController {
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @GetMapping("/create")
     public String viewCreateUser(Model model) {
+        if (!model.containsAttribute("dto")) {
+            model.addAttribute("dto", new UserDTO());
+        }
         model.addAttribute("groups", groupService.getAllGroups());
         return "add_sportsman";
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @PostMapping("/create")
-    public String registerUser(@RequestParam("surname") String surname, @RequestParam("name") String name,
-                               @RequestParam("patronymic") @Nullable String patronymic,
-                               @RequestParam("birthDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date birthDate,
+    public String registerUser(@Valid UserDTO customerRequestDto,
+                               BindingResult validationResult,
                                @RequestParam("growth") Double growth, @RequestParam("weight") Double weight,
-                               @RequestParam("phone") String phone, @RequestParam("whatsapp") @Nullable String whatsapp,
-                               @RequestParam("telegram") @Nullable String telegram, @RequestParam("address") String address,
-                               @RequestParam("school") @Nullable String school, @RequestParam("channels") @Nullable String channels,
-                               @RequestParam("group") Long groupId,
-                               @RequestParam("dateOfAdmission") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date dateOfAdmission,
                                @RequestParam("sum") Double sum,
                                @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date,
-                               @RequestParam("login") @Nullable String login, @RequestParam("password") @Nullable String password,
-
                                @RequestParam("p_id") @Nullable List<Long> pIds,
                                @RequestParam("p_kinship") @Nullable List<String> pKinships,
                                @RequestParam("p_surname") @Nullable List<String> pSurnames,
@@ -135,26 +130,16 @@ public class UserController {
                                @RequestParam("p_whatsapp") @Nullable List<String> pWhatsapps,
                                @RequestParam("p_telegram") @Nullable List<String> pTelegrams,
                                RedirectAttributes attributes) {
-        if (userService.userLoginCheck(login)) {
-            attributes.addFlashAttribute("login", login);
+            if (userService.userLoginCheck(customerRequestDto.getLogin())) {
+                attributes.addFlashAttribute("dto", customerRequestDto);
+                return "redirect:/create";
+            }
+
+        if (validationResult.hasFieldErrors()) {
+            attributes.addFlashAttribute("errors", validationResult.getFieldErrors());
             return "redirect:/create";
         }
-        if (!Pattern.matches("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$", phone) && !Pattern.matches("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$", whatsapp)
-        && !whatsapp.isEmpty()) {
-            attributes.addFlashAttribute("errorPhone", "Введите цифры в номер телефона");
-            attributes.addFlashAttribute("errorWhatsapp", "Введите цифры в Whatsapp");
-            return "redirect:/create";
-        }
-        if (!Pattern.matches("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$", phone)) {
-            attributes.addFlashAttribute("errorPhone", "Введите цифры в номер телефона");
-            return "redirect:/create";
-        }
-        if (!Pattern.matches("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$", whatsapp)) {
-            attributes.addFlashAttribute("errorWhatsapp", "Введите цифры в WhatsApp");
-            return "redirect:/create";
-        }
-        userService.createSportsman(surname, name, patronymic, birthDate, growth, weight, phone, whatsapp, telegram,
-                address, school, channels, groupId, dateOfAdmission, sum, date, login, password, pIds, pKinships,
+     userService.createSportsman(growth,weight,sum, date,customerRequestDto,  pIds, pKinships,
                 pSurnames, pNames, pPatronymics, pPhones, pWhatsapps, pTelegrams);
 
         return "redirect:/admin";
