@@ -42,15 +42,20 @@
     <body>
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
-            <img src="/images/log.JPG" alt="" width="30" height="24">
-            <a class="nav-link" href="/">Главная</a>
+            <img src="/images/log.jpg" alt="" width="30" height="24">
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+                    aria-expanded="false" aria-label="Toggle navigation" >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"></path></svg>
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Главная</a>
+                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/group/add">Добавить группу</a>
                     </li>
@@ -78,16 +83,17 @@
 
 
                 </ul>
+                <div class="text-right mr-5">
+                    <form class="flex box-128" action="/logout" method="post">
+                        <#if _csrf??>
+                            <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
+                                   value="${(_csrf.token)!'--no-token--'}"/>
+                        </#if>
+                        <button class="bn30">Выйти</button>
+                    </form>
+                </div>
             </div>
-            <div class="text-right mr-5">
-                <form class="flex box-128" action="/logout" method="post">
-                    <#if _csrf??>
-                        <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
-                               value="${(_csrf.token)!'--no-token--'}"/>
-                    </#if>
-                    <button class="bn30">Выйти</button>
-                </form>
-            </div>
+
         </div>
     </nav>
 

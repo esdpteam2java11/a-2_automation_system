@@ -8,7 +8,9 @@
                     <select id="role" name="role" class="select-css">
                         <option value="all">Все</option>
                         <#list roles as role>
-                            <option value="${role}">${role.role}</option>
+                            <#if role.role != 'Администратор'>
+                                <option value="${role}">${role.role}</option>
+                            </#if>
                         </#list>
                     </select>
                     <label for="blocked">Заблокирован</label>
@@ -43,6 +45,7 @@
                 </thead>
                 <tbody>
                 <#list users as user>
+<#--                <#if user.role.role != 'Администратор'>-->
                 <tr>
                     <#assign link = "/edit/${user.id}">
                     <td><a class="text-decoration-none text-reset" href="${link}">${user.surname}</a></td>
@@ -53,11 +56,13 @@
                     <form id="status">
                         <td>
                             <input class="isActive" type="hidden" name="isActive" value="${user.isActive?string}"/>
+                            <input hidden class="role-admin" name="role" value="${user.role.role}">
                             <button id="${user.id}" class="block btn btn-danger" type="submit">Заблокировать</button>
                         </td>
                     </form>
                 </tr>
                 </tbody>
+<#--                </#if>-->
                 </#list>
             </table>
             <#include "partials/pagination.ftlh">
@@ -79,6 +84,12 @@
         const buttons = document.querySelectorAll('.block');
         const form = document.getElementById("status");
         const isActive = document.querySelectorAll('.isActive')
+        const admin = document.querySelectorAll('.role-admin')
+
+        for (let i = 0; i < admin.length; i++) {
+            if (admin[i].value === 'Администратор')
+                buttons[i].remove();
+        }
 
         async function handleClick(e) {
             e.preventDefault()
@@ -110,6 +121,7 @@
         })
 
         changeButton()
+
 
         function changeButton() {
             for (let i = 0; i < isActive.length; i++) {

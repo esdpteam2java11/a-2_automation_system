@@ -1,0 +1,11 @@
+FROM maven:3.6.3-adoptopenjdk-11
+# speed up Maven JVM a bit
+ENV MAVEN_OPTS="-XX:+TieredCompilation -XX:TieredStopAtLevel=1"
+WORKDIR /opt/demo
+# copy just pom.xml
+COPY pom.xml .
+# go-offline using the pom.xml
+RUN mvn dependency:go-offline
+# copy your other files
+COPY ./src ./src
+ENTRYPOINT ["mvn", "test"]

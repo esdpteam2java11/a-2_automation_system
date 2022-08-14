@@ -2,6 +2,7 @@ package com.a2.a2_automation_system.user;
 
 import com.a2.a2_automation_system.exception.UserAlreadyRegisteredException;
 import com.a2.a2_automation_system.exception.UserNotFoundException;
+import com.a2.a2_automation_system.group.Group;
 import com.a2.a2_automation_system.group.GroupRepository;
 import com.a2.a2_automation_system.parent.Kinship;
 import com.a2.a2_automation_system.parent.Parent;
@@ -105,18 +106,33 @@ public class UserService implements UserDetailsService {
         else return SportsmanDTO.from(sportsman, new UserParam(), sportsmanPayment);
     }
 
-    public void createSportsman(String surname, String name, String patronymic, Date birthDate,
-                                Double growth, Double weight,
-                                String phone, String whatsapp, String telegram, String address, String school,
-                                String channels, Long groupId, Date dateOfAdmission, Double sum, Date date,
-                                String login, String password,
+    public UserDTO createSportsman(Double growth, Double weight,
+                                Double sum, Date date,
+                                 UserDTO userDTO,
                                 List<Long> pIds, List<String> pKinships, List<String> pSurnames, List<String> pNames,
                                 List<String> pPatronymics, List<String> pPhones,
                                 List<String> pWhatsapps, List<String> pTelegrams) {
 
-        User sportsman = setUserFields(surname, name, patronymic, birthDate, phone, whatsapp, telegram, address, school,
-                channels, groupId, dateOfAdmission, login, password, new User());
-        sportsman.setRole(Role.CLIENT);
+        Group group = groupRepository.findById(userDTO.getGroupId()).orElseThrow();
+        User sportsman = User.builder()
+                .surname(userDTO.getSurname())
+                .name(userDTO.getName())
+                .patronymic(userDTO.getPatronymic())
+                .birthDate(userDTO.getBirthDate())
+                .phone(userDTO.getPhone())
+                .whatsapp(userDTO.getWhatsapp())
+                .telegram(userDTO.getTelegram())
+                .address(userDTO.getAddress())
+                .school(userDTO.getSchool())
+                .channels(userDTO.getChannels())
+                .group(group)
+                .role(userDTO.getRole())
+                .login(userDTO.getLogin())
+                .dateOfAdmission(userDTO.getDateOfAdmission())
+                .password(encoder.encode(userDTO.getPassword()))
+
+                .build();;
+
 
         userRepository.save(sportsman);
 
@@ -136,6 +152,7 @@ public class UserService implements UserDetailsService {
                 relationshipRepository.save(newRelationship);
             }
         }
+      return   UserDTO.from(sportsman);
     }
 
     public void editSportsman(Long id, String surname, String name, String patronymic, Date birthDate,
@@ -276,11 +293,11 @@ public class UserService implements UserDetailsService {
         return user.get();
     }
 
-    public List<UserParamDTO> getUserParam(Long id) {
+    public List<UserParamDTO> getUserParams(Long id) {
         return userParamRepository.findByUserId(id).stream().map(UserParamDTO::from).collect(Collectors.toList());
     }
 
-    public List<SportsmanPaymentDTO> getUserPayment(Long id) {
+    public List<SportsmanPaymentDTO> getUserPayments(Long id) {
         return sportsmanPaymentRepository.findByUserId(id).stream().map(SportsmanPaymentDTO::from).collect(Collectors.toList());
     }
 

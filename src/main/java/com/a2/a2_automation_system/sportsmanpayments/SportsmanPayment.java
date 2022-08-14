@@ -1,5 +1,6 @@
 package com.a2.a2_automation_system.sportsmanpayments;
 
+import com.a2.a2_automation_system.money.MoneyMovement;
 import com.a2.a2_automation_system.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,23 +19,26 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SportsmanPayment {
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-        @Column(name = "date")
-        private Date date;
+    @Column(name = "date")
+    private Date date;
 
-        @NotNull
-        @ManyToOne
-        @JoinColumn(name = "user_id")
-        private User user;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-        @NotNull
-        private Double amount;
+    @NotNull
+    private Double amount;
 
-        @Enumerated(value = EnumType.STRING)
-        @NotNull
-        private OperationType operationType;
+    @Enumerated(value = EnumType.STRING)
+    @NotNull
+    private OperationType operationType;
 
+    @ManyToOne
+    @JoinColumn(name = "money_id")
+    private MoneyMovement moneyMovement;
 }

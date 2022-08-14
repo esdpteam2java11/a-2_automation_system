@@ -1,12 +1,11 @@
 package com.a2.a2_automation_system.money;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 public enum MoneyOperationType {
-    SPORTSMAN_PAYMENT("Оплата от ученика"),
-
+    SPORTSMAN_PAYMENT("Оплата ученика"),
+    RETURN_SPORTSMAN_PAYMENT("Возврат оплаты ученику"),
     OTHER_OPERATIONS("Прочие операции");
 
     public final String rusValue;

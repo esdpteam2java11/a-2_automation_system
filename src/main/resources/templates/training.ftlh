@@ -3,22 +3,24 @@
 <@main.renderWith >
 
 
-    <div class="row">
 
-        <h3 class="text-muted">Тренировочные группы разделяются по возрасту, по уровню подготовленности: </h3>
-        <ul class="list-group">
+    <div class="col-md-8">
+    <div class="card-body">
+        <h3 class="mb-5 mt-3 text-center">Тренировочные группы разделяются по возрасту, по уровню подготовленности: </h3>
+        <ul class="mb-5 mt-3 text-center list-group">
             <li class="list-group-item">- начинающие</li>
             <li class="list-group-item">- продолжающие</li>
             <li class="list-group-item">- любительские. </li>
 
 
         </ul>
-
     </div>
-    <div class="row">
+    </div>
 
-        <h6 class="text-muted">Вне зависимости от уровня подготовленности, во всех тренировочных группах идет подготовка по следующим направлениям </h6>
-        <ul class="list-group">
+    <div class="col-md-8">
+    <div class="card-body">
+        <h3 class="mb-5 mt-3 text-center">Вне зависимости от уровня подготовленности, во всех тренировочных группах идет подготовка по следующим направлениям </h3>
+        <ul class="mb-5 mt-3 text-center list-group">
             <li class="list-group-item">1.	Теоретическая подготовка;
 
             </li>
@@ -34,6 +36,8 @@
         </ul>
 
     </div>
+    </div>
+
 
 
     <@footer.renderWith>

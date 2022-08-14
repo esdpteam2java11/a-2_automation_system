@@ -1,6 +1,5 @@
 package com.a2.a2_automation_system.sportsmanpayments;
 
-import com.a2.a2_automation_system.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,9 +22,7 @@ public class SportsmanPaymentDTO {
     private Date date;
 
     @NotNull
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    private Long user;
 
     @NotNull
     private Double amount;
@@ -34,15 +31,16 @@ public class SportsmanPaymentDTO {
     @NotNull
     private OperationType operationType;
 
+    private Long moneyMovement;
 
     public static SportsmanPaymentDTO from(SportsmanPayment sportsmanPayment) {
         return builder()
                 .id(sportsmanPayment.getId())
                 .amount(sportsmanPayment.getAmount())
-                .user(sportsmanPayment.getUser())
+                .user(sportsmanPayment.getUser().getId())
                 .date(sportsmanPayment.getDate())
                 .operationType(sportsmanPayment.getOperationType())
+                .moneyMovement(sportsmanPayment.getMoneyMovement().getId())
                 .build();
     }
-
 }

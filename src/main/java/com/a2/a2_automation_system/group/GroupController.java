@@ -77,13 +77,9 @@ public class GroupController {
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
-    @PostMapping("/edit")
-    public String editGroups(@RequestParam Long id, @RequestParam String name,
-                             @RequestParam(required = false) int sum, @RequestParam String color,
-                             @RequestParam User trainer) {
-
-        groupService.editGroup(id, trainer, name, sum, color);
-
+    @PostMapping("/{id}/edit")
+    public String editGroups(@PathVariable Long id, GroupDTO groupDTO) {
+        groupService.editGroup(id, groupDTO);
         return "redirect:/group/all";
     }
 }

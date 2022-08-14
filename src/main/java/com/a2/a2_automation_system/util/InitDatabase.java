@@ -68,7 +68,7 @@ public class InitDatabase {
                                 .trainer(userRepository.findByLogin("manager").orElse(null)).color("#34e059").build());
                 groupRepository.saveAll(groups);
             }
-            for (int i = 0; i < 20; i++) {
+            for (int i = 0; i < 19; i++) {
                 if (userRepository.findByLogin("student_" + i).isEmpty()) {
                     User student = new User();
                     student.setSurname("studentSurname_" + i);

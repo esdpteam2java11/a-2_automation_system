@@ -7,6 +7,11 @@
                 ${message} </span><br>
         </#if>
 
+        <#if error??>
+            <span style="color: red">
+                ${error} </span><br>
+        </#if>
+
         <a href="/group/${group.id}/calendar/events/create"><button class="bn30 mb-5 my-4">Создать занятие</button></a>
     </div>
     <div class="container">

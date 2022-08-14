@@ -33,23 +33,25 @@ public class MoneyMovementsService {
                 .amount(amount)
                 .date(date)
                 .purpose(purpose)
-                .counterparty(userRepository.findById(counterparty).get())
+                .counterparty(userRepository.findById(counterparty).orElseThrow())
                 .moneyOperationType(MoneyOperationType.valueOf(moneyOperationType))
                 .typeOfFinance(TypeOfFinance.valueOf(typeOfFinance))
                 .cashier(userRepository.findByLogin(cashier).get())
                 .build();
         moneyMovementRepository.save(movement);
 
-         if(dateSportsman!=null && dateSportsman.size()>0 && amountSportsman.size()==dateSportsman.size()) {
-             for (int i = 0; i < dateSportsman.size(); i++) {
-                 sportsmanPaymentRepository.save(
-                         SportsmanPayment.builder()
-                                 .amount(amountSportsman.get(i))
-                                 .operationType(OperationType.PAID)
-                                 .user(userRepository.findById(counterparty).get())
-                                 .date(dateSportsman.get(i))
-                                 .build());
-             }
-         }
+        if (dateSportsman != null && dateSportsman.size() > 0 && amountSportsman.size() == dateSportsman.size()) {
+            for (int i = 0; i < dateSportsman.size(); i++) {
+                sportsmanPaymentRepository.save(
+                        SportsmanPayment.builder()
+                                .amount((moneyOperationType.equals(MoneyOperationType.SPORTSMAN_PAYMENT.toString())) ?
+                                        amountSportsman.get(i) : (amountSportsman.get(i))* (-1))
+                                .operationType(OperationType.PAID)
+                                .user(userRepository.findById(counterparty).get())
+                                .date(dateSportsman.get(i))
+                                .moneyMovement(movement)
+                                .build());
+            }
+        }
     }
 }

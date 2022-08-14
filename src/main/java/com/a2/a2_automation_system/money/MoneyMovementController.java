@@ -42,11 +42,11 @@ public class MoneyMovementController {
 
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @GetMapping("/{typeOfFinance}")
-    public String createIncome(Model model) {
-
+    public String createIncome(Model model, @PathVariable String typeOfFinance) {
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("operationTypes", MoneyOperationType.values());
-        return "add_income";
+        if (typeOfFinance.equals("INCOME")) return "add_income";
+        else return "add_discharge";
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")

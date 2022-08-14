@@ -1,5 +1,6 @@
 package com.a2.a2_automation_system.user;
 
+import com.a2.a2_automation_system.group.Group;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -60,11 +61,11 @@ public class UserDTO {
     private Boolean isActive;
 
     private Long groupId;
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfAdmission;
 
     public static UserDTO from(User user) {
-        return builder()
+        return UserDTO.builder()
                 .id(user.getId())
                 .name(user.getName())
                 .surname(user.getSurname())
