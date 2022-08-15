@@ -116,7 +116,7 @@ public class SportsmanEventsService {
     }
 
     public SportsmanEventsDTO getEventById(Long id){
-        return SportsmanEventsDTO.from(sportsmanEventsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Такой задачи с таким id нет")));
+        return SportsmanEventsDTO.from(sportsmanEventsRepository.getSportsmanEventsById(id));
 
     }
 
