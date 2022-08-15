@@ -6,7 +6,7 @@ services:
       context: .
     container_name: app
     volumes:
-      - a2app:/usr/share
+      - a2app:/opt/demo/upload
     ports:
       - 8080:8080
     depends_on:
