@@ -125,7 +125,7 @@ public class ScheduleService {
     }
 
     public ScheduleDTO getEventById(Long eventId) {
-        return ScheduleDTO.from(scheduleRepository.findById(eventId) .orElseThrow(() -> new ResourceNotFoundException("Такой задачи с таким id нет")));
+        return ScheduleDTO.from(scheduleRepository.getById(eventId));
     }
 
     public List<VisitDto> getUsersWhoCame(Long eventId) {

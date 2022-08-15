@@ -109,10 +109,15 @@ public class SportsmanEventsController {
 
     @GetMapping("sportsman_cabinet/event/{id}")
     public String getEventPage(Model model,@PathVariable String id,HttpServletRequest request){
-        SportsmanEventsDTO sportsmanEventsDTO = sportsmanEventsService.getEventById(Long.parseLong(id));
         UserDTO userDTO = UserDTO.from(userService.getUserByUsername(request.getRemoteUser()));
         model.addAttribute("sportsman",userDTO);
-        model.addAttribute("event",sportsmanEventsDTO);
+        try{
+            SportsmanEventsDTO sportsmanEventsDTO = sportsmanEventsService.getEventById(Long.parseLong(id));
+            model.addAttribute("event",sportsmanEventsDTO);
+        }catch (Exception e){
+            return "No_FoundSportsman";
+        }
+
         return "sportsman_event";
     }
 

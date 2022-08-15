@@ -28,7 +28,12 @@ public class ScheduleController {
 
 
         model.addAttribute("group", groupService.getGroupById(groupId));
-        model.addAttribute("event", scheduleService.getEventById(eventId));
+        try{
+            model.addAttribute("event", scheduleService.getEventById(eventId));
+
+        }catch (Exception e){
+            return "No_Found";
+        }
         model.addAttribute("users", groupService.getUsersByGroup(groupId));
         model.addAttribute("visit", scheduleService.getUsersWhoCame(eventId));
         return "event";
