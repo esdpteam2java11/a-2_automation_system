@@ -40,7 +40,7 @@
         </div>
         <div class="site-section">
             <div class="container">
-                <h2 class="mb-5 mt-3 text-center ">Спортивные достижения</h2>
+                <h2 class="col-lg-6 ml-auto m-auto ">Спортивные достижения</h2>
                 <div class="row">
 
                     <div class="col-lg-6 ml-auto m-auto">

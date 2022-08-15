@@ -61,22 +61,41 @@
                     <h2 class="site-section-heading text-center mb-3">Новости</h2>
                 </div>
             </div>
+<#--            <div class="row row-cols-1 row-cols-md-3 g-4">-->
+<#--                <#list news as new>-->
+<#--                <div class="col">-->
+<#--                    <div class="card h-100" style="width: 20rem;">-->
+<#--                        <img src="/upload/${new.image}" class="card-img-top" alt="...">-->
+<#--                        <div class="card-body">-->
+<#--                            <h5 class="card-title">${new.title}</h5>-->
+<#--                            <p class="card-text hide-text">${new.description}</p>-->
+<#--                            <p><a href="/news/${new.id}" class="btn btn-primary text-white px-4"><span-->
+<#--                                            class="caption">Подробнее</span></a></p>-->
+<#--                        </div>-->
+<#--                        <div class="card-footer">-->
+<#--                            <small class="text-muted">${new.date?datetime("yyyy-MM-dd")?string("dd MMMM yyyy")}</small>-->
+<#--                        </div>-->
+<#--                    </div>-->
+<#--                </div>-->
+<#--                </#list>-->
+<#--            </div>-->
+
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 <#list news as new>
-                <div class="col">
-                    <div class="card h-100">
-                        <img src="/upload/${new.image}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">${new.title}</h5>
-                            <p class="card-text hide-text">${new.description}</p>
-                            <p><a href="/news/${new.id}" class="btn btn-primary text-white px-4"><span
+                    <div class="col">
+                        <div class="card h-100" style="width: 20rem;">
+                            <img src="/upload/${new.image}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">${new.title}</h5>
+                                <p class="card-text hide-text">${new.description}</p>
+                            </div>
+                            <p class="text-center"><a href="/news/${new.id}" class="btn btn-primary text-white px-4"><span
                                             class="caption">Подробнее</span></a></p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">${new.date?datetime("yyyy-MM-dd")?string("dd MMMM yyyy")}</small>
+                            <div class="card-footer">
+                                <small>${new.date?datetime("yyyy-MM-dd")?string("dd MMMM yyyy")}</small>
+                            </div>
                         </div>
                     </div>
-                </div>
                 </#list>
             </div>
 
