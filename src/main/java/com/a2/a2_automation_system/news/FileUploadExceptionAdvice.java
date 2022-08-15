@@ -10,7 +10,7 @@ public class FileUploadExceptionAdvice {
 
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     public String handleMaxSizeException(Model model) {
-        model.addAttribute("error", "Файл весит слишком много");
+        model.addAttribute("error", "Файл должен весить не более 5 мб");
         return "add_news";
     }
 }
