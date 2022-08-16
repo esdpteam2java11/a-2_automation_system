@@ -8,9 +8,9 @@ COPY .mvn .mvn
 COPY mvnw .
 COPY pom.xml .
 # go-offline using the pom.xml
-RUN ./mvnw -B dependency:go-offline                          
+RUN mvn -B dependency:go-offline                          
 COPY ./src ./src
-RUN ./mvnw -B package -Dmaven.test.skip=true
+RUN mvn -B package -Dmaven.test.skip=true
 #Stage 2
 # set base image for second stage
 FROM openjdk:11-jre-slim-buster
