@@ -1,11 +1,9 @@
 
-FROM openjdk:11-slim-buster as stage1
-COPY .mvn .mvn
-COPY mvnw .
+FROM maven:3.6.3-adoptopenjdk-11 as stage1
 COPY pom.xml .
-RUN ./mvnw -B dependency:go-offline                          
+RUN  mvn -B dependency:go-offline                          
 COPY src src
-RUN ./mvnw -B package -Dmaven.test.skip=true
+RUN mvn -B package -Dmaven.test.skip=true
 
 FROM openjdk:11-jre-slim-buster
 
