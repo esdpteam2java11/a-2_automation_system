@@ -1,6 +1,9 @@
 #Stage 1
 # initialize build and set base image for first stage
 FROM maven:3.6.3-adoptopenjdk-11 as stage1
+ARG name
+ENV env_name $name
+
 # speed up Maven JVM a bit
 ENV MAVEN_OPTS="-XX:+TieredCompilation -XX:TieredStopAtLevel=1"
 # set working directory
@@ -20,5 +23,5 @@ FROM adoptopenjdk/openjdk11:jre-11.0.6_10-alpine
 # set deployment directory
 WORKDIR /opt/demo
 # copy over the built artifact from the maven image
-COPY --from=stage1 /opt/demo/target/a-2_automation_system-0.0.${GO_PIPELINE_COUNTER}.jar /opt/demo
-CMD ["java", "-jar", "a-2_automation_system-0.0.${GO_PIPELINE_COUNTER}.jar"]
+COPY --from=stage1 /opt/demo/target/a-2_automation_system-0.0.$env_name.jar /opt/demo
+CMD ["java", "-jar", "a-2_automation_system-0.0.$env_name.jar"]
