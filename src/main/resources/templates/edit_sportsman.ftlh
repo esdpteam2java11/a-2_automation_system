@@ -32,7 +32,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="recipient-growth" class="col-form-label required">Рост:</label>
-                                <input type="number" step="0.01" min="0" name="growth" class="form-control"
+                                <input type="number" step="0.01" min="0" name="height" class="form-control"
                                        id="recipient-growth"
                                        value="${(sportsman.height?c)!}" required>
                             </div>
@@ -46,7 +46,7 @@
                         <div class="col-lg-4 mb-2">
                             <div class="mb-3">
                                 <label for="recipient-phone" class="col-form-label required">Номер телефона:</label>
-                                <input type="text" name="phone" class="form-control" id="recipient-phone"
+                                <input type="number" name="phone" class="form-control" id="recipient-phone"
                                        value="${sportsman.phone}" required>
                                 <#if errorPhone?? >
                                     <span style="color: red">${errorPhone}</span>
@@ -54,7 +54,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="recipient-whatsapp" class="col-form-label">WhatsApp:</label>
-                                <input type="text" name="whatsapp" class="form-control" id="recipient-whatsapp"
+                                <input type="number" name="whatsapp" class="form-control" id="recipient-whatsapp"
                                        value="${(sportsman.whatsapp)!}">
                                 <#if errorWhatsapp?? >
                                     <span style="color: red">${errorWhatsapp}</span>
@@ -90,7 +90,7 @@
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="col-form-label required" for="group">Группа:</label>
-                                <select class="form-control" name="group" id="group"
+                                <select class="form-control" name="groupId" id="group"
                                         onchange="getGroupPrice(this.value)" required>
                                     <#list groups as group>
                                         <option value="${group.id}"
@@ -109,7 +109,7 @@
                                 <div class="col-lg-6">
                                     <label for="recipient-sum" class="col-form-label-sm required">Стоимость
                                         занятий:</label>
-                                    <input type="number" min="0" name="sum" class="form-control"
+                                    <input type="number" min="0" name="amount" class="form-control"
                                            id="recipient-sum"
                                            value="${sportsman.amount?c}" required>
                                 </div>
