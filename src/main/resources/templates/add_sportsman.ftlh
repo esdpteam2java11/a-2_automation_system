@@ -33,7 +33,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="recipient-growth" class="col-form-label required">Рост:</label>
-                                <input type="number" step="0.01" min="0" name="growth" class="form-control"
+                                <input type="number" step="0.01" min="0" name="height" class="form-control"
                                        id="recipient-growth"
                                        required>
                             </div>
@@ -103,7 +103,7 @@
                                 <div class="col-lg-6">
                                     <label for="recipient-sum" class="col-form-label-sm required">Стоимость
                                         занятий:</label>
-                                    <input type="number" name="sum" min="0" class="form-control"
+                                    <input type="number" name="amount" min="0" class="form-control"
                                            id="recipient-sum" required>
                                 </div>
                                 <div class="col-lg-6">
