@@ -1,5 +1,6 @@
 <#import "partials/admin_main.ftlh" as main />
 <@main.renderWith >
-    <h1>Ошибка 404</h1>
-    <h2>Такой страницы больше нет!</h1>
+    <h1 class="text-center">Ошибка 404</h1>
+    <h3 class="text-center">Такой страницы больше нет!</h3>
+    <a href="/">Перейдите на главную</a>
 </@main.renderWith>

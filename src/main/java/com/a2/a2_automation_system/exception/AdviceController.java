@@ -1,13 +1,16 @@
 package com.a2.a2_automation_system.exception;
 
-import jdk.jshell.Snippet;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
-import java.util.Date;
+import javax.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
 public class AdviceController {
@@ -20,6 +23,15 @@ public class AdviceController {
 
 
         return new ResponseEntity<ErrorMessage>(message, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public String handle() {
+        return "No_Found";
+    }
+    @ExceptionHandler(Exception.class)
+    public String handleExceptions() {
+       return "No_Found";
     }
 
 }
