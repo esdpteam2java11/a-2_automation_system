@@ -6,7 +6,7 @@ services:
       context: .
     container_name: app
     volumes:
-      - a2app:/usr
+      - a2app:/opt/demo
     ports:
       - 8080:8080
     depends_on:
