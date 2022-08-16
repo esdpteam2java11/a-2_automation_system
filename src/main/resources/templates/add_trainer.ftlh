@@ -21,7 +21,7 @@
                                         </div>
                                         <#if dto.login??>
                                             <p style="color:red">${dto.login} такой логин уже существует! Пожалуйста
-                                                 выберите другой</p>
+                                                выберите другой</p>
                                         </#if>
                                     </div>
                                 </div>
@@ -36,7 +36,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-4">
-                                        <button type="button" id="input-generate" class="button-85 button-user-create">Сгенерировать пароль
+                                        <button type="button" id="input-generate" class="button-85 button-user-create">
+                                            Сгенерировать пароль
                                         </button>
                                     </div>
                                 </div>
@@ -107,7 +108,8 @@
                                 <#if errors?? >
                                     <p style="color: red">Входные данные с ошибками!</p>
                                     <#list errors as fieldError>
-                                        <p style="color: red">${fieldError.field} - ${fieldError.defaultMessage!'-- no message --'}</p>
+                                        <p style="color: red">${fieldError.field}
+                                            - ${fieldError.defaultMessage!'-- no message --'}</p>
                                     </#list>
                                 </#if>
                                 <input type="hidden" id="role" name="role" value="EMPLOYEE">
@@ -122,4 +124,5 @@
             </div>
         </section>
     </form>
+    <script src="/js/script.js"></script>
 </@main.renderWith>
