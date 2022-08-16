@@ -3,7 +3,7 @@ FROM maven:3.6.3-adoptopenjdk-11 as stage1
 WORKDIR /opt/demo
 COPY pom.xml .
 RUN  mvn -B dependency:go-offline                          
-COPY src src
+COPY ./src ./src
 RUN mvn -B package -Dmaven.test.skip=true
 
 FROM openjdk:11-jre-slim-buster
