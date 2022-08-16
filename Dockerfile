@@ -20,5 +20,5 @@ FROM adoptopenjdk/openjdk11:jre-11.0.6_10-alpine
 # set deployment directory
 WORKDIR /opt/demo
 # copy over the built artifact from the maven image
-COPY --from=stage1 /opt/demo/target/a-2_automation_system-0.0.1-SNAPSHOT.jar /opt/demo
-CMD ["java", "-jar", "a-2_automation_system-0.0.1-SNAPSHOT.jar"]
+COPY --from=stage1 /opt/demo/target/a-2_automation_system-0.0.${GO_PIPELINE_COUNTER}.jar /opt/demo
+CMD ["java", "-jar", "a-2_automation_system-0.0.${GO_PIPELINE_COUNTER}.jar"]
