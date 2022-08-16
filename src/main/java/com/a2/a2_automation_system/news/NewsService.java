@@ -23,7 +23,7 @@ public class NewsService {
 
     public NewsDTO addNewNews(MultipartFile file, NewsDTO newsDTO) {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        String path = "upload";
+        String path = "/opt/upload";
         log.info("Saving news {}", newsDTO);
         News news = News.builder()
                 .title(newsDTO.getTitle())
@@ -60,7 +60,7 @@ public class NewsService {
     public void editNews(Long id, NewsDTO newsDTO, MultipartFile file) {
         News news = newsRepository.findById(id).orElseThrow(() -> new NewsNotFoundException("Такую новость не нашел"));
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        String path = "upload";
+        String path = "/opt/upload";
         news.setDate(LocalDateTime.now());
         news.setTitle(newsDTO.getTitle());
         news.setDescription(newsDTO.getDescription());
