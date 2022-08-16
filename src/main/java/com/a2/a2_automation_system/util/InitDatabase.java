@@ -8,7 +8,6 @@ import com.a2.a2_automation_system.sportsmanpayments.SportsmanPaymentRepository;
 import com.a2.a2_automation_system.user.Role;
 import com.a2.a2_automation_system.group.Group;
 import com.a2.a2_automation_system.group.GroupRepository;
-import com.a2.a2_automation_system.parent.ParentRepository;
 import com.a2.a2_automation_system.user.User;
 import com.a2.a2_automation_system.user.UserRepository;
 import org.springframework.boot.CommandLineRunner;
