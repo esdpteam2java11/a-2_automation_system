@@ -22,4 +22,4 @@ WORKDIR /opt/demo
 # copy over the built artifact from the maven image
 COPY --from=stage1 /opt/demo/target/a-2_automation_system-0.0.1-SNAPSHOT.jar /opt/demo
 CMD ["java", "-jar", "a-2_automation_system-0.0.1-SNAPSHOT.jar"]
-CMD ["cd", "/usr"]
+RUN cd /usr
