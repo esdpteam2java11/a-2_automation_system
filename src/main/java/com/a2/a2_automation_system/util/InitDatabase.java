@@ -2,6 +2,8 @@ package com.a2.a2_automation_system.util;
 
 import com.a2.a2_automation_system.schedule.ScheduleRepository;
 
+import com.a2.a2_automation_system.sportsmanpayments.OperationType;
+import com.a2.a2_automation_system.sportsmanpayments.SportsmanPayment;
 import com.a2.a2_automation_system.sportsmanpayments.SportsmanPaymentRepository;
 import com.a2.a2_automation_system.user.Role;
 import com.a2.a2_automation_system.group.Group;
@@ -14,8 +16,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Configuration
@@ -27,7 +28,8 @@ public class InitDatabase {
     }
 
     @Bean
-    CommandLineRunner init(UserRepository userRepository, GroupRepository groupRepository, ParentRepository parentRepository, ScheduleRepository scheduleRepository, SportsmanPaymentRepository sportsmanPaymentRepository) {
+    CommandLineRunner init(UserRepository userRepository, GroupRepository groupRepository,
+                           ScheduleRepository scheduleRepository, SportsmanPaymentRepository sportsmanPaymentRepository) {
         return (args) -> {
             if (userRepository.findByLogin("admin1").isEmpty()) {
                 User admin = new User();
@@ -53,8 +55,8 @@ public class InitDatabase {
                 employee.setIsActive(true);
                 userRepository.save(employee);
             }
-            List<Group> groups = new ArrayList<>();
-            if (groupRepository.findAll().isEmpty()) {
+            List<Group> groups = groupRepository.findAll();
+            if (groups.size() == 0) {
                 groups = List.of(
                         Group.builder().name("Детская группа 1").sum(3000)
                                 .trainer(userRepository.findByLogin("manager").orElse(null)).color("#e03434").build(),
@@ -71,23 +73,28 @@ public class InitDatabase {
             for (int i = 0; i < 19; i++) {
                 if (userRepository.findByLogin("student_" + i).isEmpty()) {
                     User student = new User();
-                    student.setSurname("studentSurname_" + i);
-                    student.setName("studentName_" + i);
-                    student.setPatronymic("studentPatronymic_" + i);
+                    student.setSurname("Фамилия_" + i);
+                    student.setName("Имя_" + i);
+                    student.setPatronymic("Отчество_" + i);
                     student.setPhone("33-33-33");
                     student.setAddress("г. Бишкек, ул. Ахунбаева 26");
-                    student.setBirthDate(new Date());
+                    student.setBirthDate(new SimpleDateFormat("dd/MM/yyyy").parse("01/05/2022"));
                     student.setRole(Role.CLIENT);
                     student.setLogin("student_" + i);
                     student.setPassword(passwordEncoder.encode("123"));
                     student.setIsActive(true);
-                    student.setGroup(groups.get(0));
-                    student.setDateOfAdmission(new Date());
+                    student.setGroup(groups.get((int) (Math.random() * groups.size())));
+                    student.setDateOfAdmission(new SimpleDateFormat("dd/MM/yyyy").parse("01/05/2022"));
                     userRepository.save(student);
+
+                    SportsmanPayment sportsmanPayment = new SportsmanPayment();
+                    sportsmanPayment.setAmount((double) student.getGroup().getSum());
+                    sportsmanPayment.setDate(student.getDateOfAdmission());
+                    sportsmanPayment.setUser(student);
+                    sportsmanPayment.setOperationType(OperationType.ACCRUED);
+                    sportsmanPaymentRepository.save(sportsmanPayment);
                 }
             }
-
-
         };
     }
 }

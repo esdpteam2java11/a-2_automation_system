@@ -5,21 +5,26 @@
             <div class="container" style="background-color: white;">
                 <h2 class="add-sportsman-header text-center mb-5 pt-3" style="color: black">Отчет по начислениям и
                     оплатам по всем ученикам</h2>
-                <div class="row mb-3">
-                    <div class="col my-auto">
-                        <p>Период отчета </p>
-                    </div>
-                    <div class="col">
-                        <div class="d-flex m-2">
-                            <label class="col-form-label mx-2" for="start-date">с: </label>
-                            <input type="date" name="startDate" class="form-control"
-                                   id="start-date" required>
-                            <label class="col-form-label mx-2" for="end-date">по: </label>
-                            <input type="date" name="endDate" class="form-control"
-                                   id="end-date" required>
+                <form action="/all_debts" method="get">
+                    <div class="row mb-3">
+                        <div class="col my-auto">
+                            <p>Период отчета </p>
+                        </div>
+                        <div class="col">
+                            <div class="d-flex m-2">
+                                <label class="col-form-label mx-2" for="start-date">с: </label>
+                                <input type="month" name="startDate" class="form-control"
+                                       id="start-date" style="width: 40%" required>
+                                <label class="col-form-label mx-2" for="end-date">по: </label>
+                                <input type="month" name="endDate" class="form-control"
+                                       id="end-date" max="${.now?date?iso_utc}" style="width: 40%" required>
+                            </div>
+                        </div>
+                        <div class="col text-center">
+                            <button type="submit" class="bn30 my-0" style="margin-top: 20px">Сформировать отчет</button>
                         </div>
                     </div>
-                </div>
+                </form>
                 <div class="row mb-3">
                     <div class="col">
                         <div class="table-responsive">
