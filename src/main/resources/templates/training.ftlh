@@ -20,7 +20,7 @@
     <div class="col-lg-10 m-auto">
     <div class="row">
         <h3 class="mb-5 mt-3 text-center">Вне зависимости от уровня подготовленности, во всех тренировочных группах идет подготовка по следующим направлениям </h3>
-        <ul class="mb-5 mt-3 text-center list-group">
+        <ul class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 list-group">
             <li class="list-group-item">1.	Теоретическая подготовка</li>
             <li class="list-group-item">2.	Физическая подготовка</li>
             <li class="list-group-item">3.	Специально физическая подготовка</li>
