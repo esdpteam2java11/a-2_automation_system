@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.NoSuchElementException;
 
 @ControllerAdvice
 public class AdviceController {
@@ -29,9 +30,9 @@ public class AdviceController {
     public String handle() {
         return "No_Found";
     }
-    @ExceptionHandler(Exception.class)
-    public String handleExceptions() {
-       return "No_Found";
-    }
 
+    @ExceptionHandler(NoSuchElementException.class)
+    public String handleNoSuchElementException() {
+        return "No_Found";
+    }
 }

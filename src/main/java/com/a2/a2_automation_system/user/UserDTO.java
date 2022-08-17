@@ -37,7 +37,6 @@ public class UserDTO {
     @Pattern(regexp = "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$", message = "Нужно вводить цифры")
     private String phone;
 
-    @Pattern(regexp = "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$", message = "Нужно вводить цифры")
     private String whatsapp;
 
     private String telegram;

@@ -32,9 +32,9 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 
     List<User> findByRole(Role role);
 
-    @Query(value = "SELECT u FROM User u WHERE LOWER(u.name) LIKE LOWER(CONCAT('%', :search,'%')) " +
+    @Query(value = "SELECT u FROM User u WHERE u.role <> 'ADMIN' AND (LOWER(u.name) LIKE LOWER(CONCAT('%', :search,'%')) " +
             " OR LOWER(u.surname) LIKE LOWER(CONCAT('%', :search,'%')) " +
-            " OR LOWER(u.patronymic) LIKE LOWER(CONCAT('%', :search,'%'))")
+            " OR LOWER(u.patronymic) LIKE LOWER(CONCAT('%', :search,'%')))")
     Page<User> findUserByNameOrSurnameOrPatronymic(Pageable pageable, @Param("search") String search);
 
     @Query("select u FROM User u where u.group.id= :id")

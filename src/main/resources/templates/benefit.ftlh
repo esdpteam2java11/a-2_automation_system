@@ -5,7 +5,7 @@
 
     <h3 class="mb-5 mt-3 text-center">Что вы приобретаете?</h3>
     <div class="row">
-    <div class="col-xs-6 col-md-6">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
         <ul class="list-group mb-5 mt-3 text-center">
             <li class="list-group-item"><i class="bi bi-check-lg"></i> Получаете знания в области физической культуры и
                 спорта, в частности в направлениях Самбо и Дзюдо.
