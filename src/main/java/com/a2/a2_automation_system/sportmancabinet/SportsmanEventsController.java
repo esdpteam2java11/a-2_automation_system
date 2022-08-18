@@ -31,9 +31,9 @@ public class SportsmanEventsController {
     @GetMapping("/sportsman_cabinet/")
     public String getSportsmanPage(Model model, HttpServletRequest request) {
         UserDTO user = UserDTO.from(userService.getUserByUsername(request.getRemoteUser()));
-        Boolean threeDayAbsence = sportsmanEventsService.getAbsenceThreeDays(request.getRemoteUser());
-        if (threeDayAbsence) {
-            model.addAttribute("absenceMessage", "Вы не присутствовали 3 дня");
+        Boolean threeDayAbsence = groupService.getAbsenceThreeDays(request.getRemoteUser());
+        if(threeDayAbsence){
+            model.addAttribute("absenceMessage","Вы не присутствовали 3 дня");
         }
         model.addAttribute("sportsman", user);
         return "sportsman_cabinet";
