@@ -38,11 +38,10 @@
         </div>
 
         </div>
+    <h2 class="text-center">Спортивные достижения</h2>
         <div class="site-section">
             <div class="container">
-                <h2 class="col-lg-6 ml-auto m-auto ">Спортивные достижения</h2>
                 <div class="row">
-
                     <div class="col-lg-6 ml-auto m-auto">
                         <h3 class="mb-5 mt-3 text-center">Международные соревнования</h3>
                         <ul class="list-groups">
@@ -51,9 +50,6 @@
                             <li class="list-group-item"> 3. Кубок Мира среди студентов 2014 г. (Кипр, г.Лимассол) - 3 место;</li>
                             <li class="list-group-item"> 4. Чемпионат Мира среди студентов 2016 г. (Кипр, г.Никоссия) - 2 место</li>
                             <li class="list-group-item">  5. Азиатские Игры в закрытых помещениях 2017 г. (Туркменистан, г.Ашхабад) - 3 место</li>
-
-
-
                         </ul>
                     </div>
                     <div class="col-lg-6 ml-auto m-auto">
@@ -61,15 +57,12 @@
                         <ul class="list-groups">
                             <li class="list-group-item">1. Первенство КР среди юниоров в 2010 г. (г.Чолпон-Ата) - 1 место </li>
                             <li class="list-group-item">2. Первенство КР среди юниоров 2011 г. (г.Нарын) - 3 место
-
                             <li class="list-group-item"> 3. Первенство КР среди молодежи 2012 г. (г.Бишкек) - 2 место</li>
                             <li class="list-group-item"> 4. Первенство КР среди молодежи 2013 г. (г.Бишкек) - 1 место</li>
                             <li class="list-group-item">  5. Чемпионат КР среди взрослых 2013г. (г.Токмок) - 3 место</li>
                             <li class="list-group-item">  6. Чемпионат КР среди взрослых 2015г. (г.Джалал-Абад) - 2 место</li>
                             <li class="list-group-item">  7. Чемпионат КР среди взрослых 2017г. (г.Бишкек) - 1 место</li>
                             <li class="list-group-item">   8. Чемпионат КР среди взрослых 2018г. (г.Бишкек) - 2 место</li>
-
-
                         </ul>
                     </div>
                 </div>
