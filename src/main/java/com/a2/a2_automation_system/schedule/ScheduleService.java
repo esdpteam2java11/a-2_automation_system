@@ -1,6 +1,6 @@
 package com.a2.a2_automation_system.schedule;
 
-import com.a2.a2_automation_system.exception.ResourceNotFoundException;
+import com.a2.a2_automation_system.exception.GroupNotFoundException;
 import com.a2.a2_automation_system.group.Group;
 import com.a2.a2_automation_system.group.GroupRepository;
 import com.a2.a2_automation_system.group.GroupService;
@@ -13,9 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Array;
 import java.time.DayOfWeek;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -24,7 +22,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
-    private final GroupService groupService;
+    private final GroupRepository groupRepository;
     private final VisitRepository visitRepository;
     private final UserService userService;
 
@@ -52,8 +50,8 @@ public class ScheduleService {
     public List<ScheduleRestDto> getEventsByGroupAndDates(String groupId, String dateStart, String dateEnd) {
         LocalDate start = LocalDate.parse(dateStart.split("%")[0].split("T")[0]);
         LocalDate end = LocalDate.parse(dateEnd.split("%")[0].split("T")[0]);
-        Group group = groupService.getGroupByIdReturnGroup(Long.parseLong(groupId));
-        List<Schedule> events = scheduleRepository.getAllByGroupAndEventDateBetween(group, start, end);
+        var group = groupRepository.findById(Long.parseLong(groupId));
+        List<Schedule> events =  scheduleRepository.getAllByGroupAndEventDateBetween(group.get(),start,end);
         return events.stream().map(ScheduleRestDto::from).collect(Collectors.toList());
 
     }
@@ -202,8 +200,8 @@ public class ScheduleService {
     public List<ScheduleRestDtoForSportsman> getEventsByGroupAndDatesForSportsman(String groupId, String dateStart, String dateEnd) {
         LocalDate start = getLocalDateFromString(dateStart);
         LocalDate end = getLocalDateFromString(dateEnd);
-        Group group = groupService.getGroupByIdReturnGroup(Long.parseLong(groupId));
-        List<Schedule> events = scheduleRepository.getAllByGroupAndEventDateBetween(group, start, end);
+        var group = groupRepository.findById(Long.parseLong(groupId));
+        List<Schedule> events =  scheduleRepository.getAllByGroupAndEventDateBetween(group.get(),start,end);
         return events.stream().map(ScheduleRestDtoForSportsman::from).collect(Collectors.toList());
     }
 
@@ -211,8 +209,8 @@ public class ScheduleService {
         User user = userService.getUserByUsername(username);
         LocalDate start = getLocalDateFromString(dateStart);
         LocalDate end = getLocalDateFromString(dateEnd);
-        Group group = groupService.getGroupByIdReturnGroup(Long.parseLong(groupId));
-        List<Schedule> events = scheduleRepository.getAllByGroupAndEventDateBetween(group, start, end);
+        var group = groupRepository.findById(Long.parseLong(groupId));
+        List<Schedule> events =  scheduleRepository.getAllByGroupAndEventDateBetween(group.get(),start,end);
         List<Visit> visits = visitRepository.getAllByStudent(user);
         List<ScheduleRestDtoForSportsman> eventsDTO = events.stream().map(ScheduleRestDtoForSportsman::from).collect(Collectors.toList());
         List<ScheduleRestDtoForSportsman> modifiedEventsDto = new ArrayList<>();
@@ -231,9 +229,9 @@ public class ScheduleService {
         return eventsDTO;
     }
 
-    public List<Schedule> getListOfLastTreeEvents(Group group, LocalDate localDate) {
+    public List<Schedule> getListOfLastTreeEvents(Group group,LocalDate dateNow,LocalDate dateOfAdmission ) {
         Comparator<Schedule> sortDesc = (schedule1, schedule2) -> schedule2.getEventDate().compareTo(schedule1.getEventDate());
-        List<Schedule> listSchedule = scheduleRepository.getAllByGroupAndEventDateIsLessThan(group, localDate);
+        List<Schedule> listSchedule = scheduleRepository.getAllByGroupAndEventDateBetween(group,dateOfAdmission,dateNow);
         Collections.sort(listSchedule, sortDesc);
         return listSchedule.stream().limit(3).collect(Collectors.toList());
     }

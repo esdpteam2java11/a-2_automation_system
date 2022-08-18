@@ -178,28 +178,4 @@ public class SportsmanEventsService {
         return ScheduleDTO.from(scheduleRepository.findById(eventId) .orElseThrow(() -> new ResourceNotFoundException("Такой задачи с таким id нет")));
     }
 
-    public Boolean getAbsenceThreeDays(String username){
-        LocalDate now = LocalDate.now();
-        User student = userService.getUserByUsername(username);
-        Group group = student.getGroup();
-        var visitListOptional = visitService.getLatestVisit(student);
-        if(visitListOptional.isPresent()){
-            List<Schedule> absenceList = scheduleService.getListOfLastTreeEvents(group,now);
-            if(visitListOptional.get().size()>0){
-                if (absenceList.size()>0){
-                    var schedule = absenceList.stream().filter(sch -> sch.equals(visitListOptional.get().get(0).getSchedule())).findFirst().orElse(null);
-                    if(schedule==null){
-                        return true;
-                    }
-                }
-            } else{
-                if(absenceList.size()==3){
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-
 }
