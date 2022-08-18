@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SportsmanPaymentForPeriodDTO {
+public class SportsmanPaymentForPeriodDTO implements Comparable<SportsmanPaymentForPeriodDTO> {
 
     @NotNull
     private Long sportsmanId;
@@ -54,5 +54,10 @@ public class SportsmanPaymentForPeriodDTO {
                 .startBalance(startBalance)
                 .endBalance(startBalance + amountAccrued - amountPaid)
                 .build();
+    }
+
+    @Override
+    public int compareTo(SportsmanPaymentForPeriodDTO o) {
+        return this.sportsmanFio.compareTo(o.sportsmanFio);
     }
 }

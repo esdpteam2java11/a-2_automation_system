@@ -64,6 +64,7 @@ public class SportsmanPaymentService {
                     accruedTotal, paidTotal, startBalance));
         }
 
+        Collections.sort(sportsmanPaymentForPeriodDTOS);
         return sportsmanPaymentForPeriodDTOS;
     }
 
