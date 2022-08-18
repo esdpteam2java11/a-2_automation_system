@@ -2,17 +2,11 @@ package com.a2.a2_automation_system.sportmancabinet;
 
 import com.a2.a2_automation_system.group.GroupDTO;
 import com.a2.a2_automation_system.group.GroupService;
-
-import com.a2.a2_automation_system.schedule.ScheduleDTO;
 import com.a2.a2_automation_system.user.User;
 import com.a2.a2_automation_system.user.UserDTO;
 import com.a2.a2_automation_system.user.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -37,6 +31,10 @@ public class SportsmanEventsController {
     @GetMapping("/sportsman_cabinet/")
     public String getSportsmanPage(Model model, HttpServletRequest request){
         UserDTO user = UserDTO.from(userService.getUserByUsername(request.getRemoteUser()));
+        Boolean threeDayAbsence = sportsmanEventsService.getAbsenceThreeDays(request.getRemoteUser());
+        if(threeDayAbsence){
+            model.addAttribute("absenceMessage","Вы не присутствовали 3 дня");
+        }
         model.addAttribute("sportsman",user);
         return "sportsman_cabinet";
     }
@@ -162,11 +160,9 @@ public class SportsmanEventsController {
 
     @GetMapping("/calendar_sportsman/{id}/calendar/{eventId}")
     public String getScheduleElement(@PathVariable String id, @PathVariable Long eventId, Model model) {
-
         GroupDTO groupDTO = groupService.getGroupById(Long.parseLong(id));
         model.addAttribute("group", groupDTO);
         model.addAttribute("event", sportsmanEventsService.getEventByID(eventId));
-
         return "show_event";
     }
 

@@ -223,4 +223,11 @@ public class ScheduleService {
         }
         return eventsDTO;
     }
+
+    public List<Schedule> getListOfLastTreeEvents(Group group,LocalDate localDate) {
+        Comparator<Schedule> sortDesc = (schedule1, schedule2) -> schedule2.getEventDate().compareTo(schedule1.getEventDate());
+        List<Schedule> listSchedule = scheduleRepository.getAllByGroupAndEventDateIsLessThan(group,localDate);
+        Collections.sort(listSchedule, sortDesc);
+        return listSchedule.stream().limit(3).collect(Collectors.toList());
+    }
 }
