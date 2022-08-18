@@ -27,15 +27,20 @@ public class SportsmanPaymentForPeriodDTO {
     @NotNull
     private String groupName;
 
-    @NotNull
-    private Double groupPrice;
+    private Double groupPrice = 0.0;
 
-    private Double amountAccrued;
+    private Double amountAccrued = 0.0;
 
-    private Double amountPaid;
+    private Double discount = 0.0;
+
+    private Double amountPaid = 0.0;
+
+    private Double startBalance = 0.0;
+
+    private Double endBalance = 0.0;
 
     public static SportsmanPaymentForPeriodDTO from(User user, Group group, Integer monthsQuantity,
-                                                    Double amountAccrued, Double amountPaid) {
+                                                    Double amountAccrued, Double amountPaid, Double startBalance) {
         return builder()
                 .sportsmanId(user.getId())
                 .sportsmanFio(user.getSurname() + " " + user.getName() + (user.getPatronymic() != null ?
@@ -44,7 +49,10 @@ public class SportsmanPaymentForPeriodDTO {
                 .groupName(group.getName())
                 .groupPrice((double) group.getSum() * monthsQuantity)
                 .amountAccrued(amountAccrued)
+                .discount(amountAccrued - amountPaid)
                 .amountPaid(amountPaid)
+                .startBalance(startBalance)
+                .endBalance(startBalance + amountAccrued - amountPaid)
                 .build();
     }
 }
