@@ -194,7 +194,7 @@ public class UserController {
             model.addAttribute("dto", userService.getTrainer(id));
             return "edit_trainer";
         }
-        return "edit_sportsman";
+        return "redirect:/admin";
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")

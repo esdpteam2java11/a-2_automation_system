@@ -35,4 +35,8 @@ public class AdviceController {
     public String handleNoSuchElementException() {
         return "No_Found";
     }
+    @ExceptionHandler(GroupNotFoundException.class)
+    public String handleGroupNotFoundException() {
+        return "No_Found";
+    }
 }
