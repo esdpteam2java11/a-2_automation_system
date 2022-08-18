@@ -4,10 +4,11 @@
     <h1 class="mb-5 mt-3 text-center">Новости</h1>
     <div class="container">
     <#list page.content as new>
-        <div class="card mb-5" style="max-width: 840px;">
+        <div class="card mb-5">
             <div class="row g-0">
                 <div class="col-md-4">
-                    <a href="/news/${new.id}"><img src="/upload/${new.image}" class="img-fluid rounded-start" alt=""></a>
+                    <a href="/news/${new.id}"><img src="/upload/${new.image}" class="img-fluid rounded-start" alt=""
+                        style="height: 350px; width: 350px;"></a>
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">

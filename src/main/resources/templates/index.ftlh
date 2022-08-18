@@ -84,7 +84,7 @@
                 <#list news as new>
                     <div class="col">
                         <div class="card h-100" style="width: 20rem;">
-                            <img src="/upload/${new.image}" class="card-img-top" alt="...">
+                            <img src="/upload/${new.image}" class="card-img-top" alt="" style="width: 100%; height: 100%; object-fit: cover;">
                             <div class="card-body">
                                 <h5 class="card-title">${new.title}</h5>
                                 <p class="card-text hide-text">${new.description}</p>

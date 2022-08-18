@@ -30,6 +30,7 @@ public class GroupDTO {
 
     @NotNull
     private int sum;
+
     public static GroupDTO from(Group group) {
         return builder()
                 .id(group.getId())

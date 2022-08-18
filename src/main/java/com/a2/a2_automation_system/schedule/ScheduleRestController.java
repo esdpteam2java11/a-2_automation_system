@@ -13,27 +13,26 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class ScheduleRestController {
-  private final ScheduleService scheduleService;
+    private final ScheduleService scheduleService;
 
     @GetMapping("/group/{id}/calendar/events")
-    public List<ScheduleRestDto> getSchedule(@RequestParam String start,@RequestParam String end,@PathVariable String id){
+    public List<ScheduleRestDto> getSchedule(@RequestParam String start, @RequestParam String end, @PathVariable String id) {
         List<ScheduleRestDto> scheduleRestDtoList = new ArrayList<>();
-        if(id.equals("all")){
-            scheduleRestDtoList = scheduleService.getEventsForAll(start,end);
-        }
-        else {
+        if (id.equals("all")) {
+            scheduleRestDtoList = scheduleService.getEventsForAll(start, end);
+        } else {
             scheduleRestDtoList = scheduleService.getEventsByGroupAndDates(id, start, end);
         }
 
         return scheduleRestDtoList;
     }
+
     @GetMapping("/calendar_sportsman/{id}/calendar/events")
-    public List<ScheduleRestDtoForSportsman> getScheduleForSportsman(@RequestParam String start,@RequestParam String end,@PathVariable String id){
+    public List<ScheduleRestDtoForSportsman> getScheduleForSportsman(@RequestParam String start, @RequestParam String end, @PathVariable String id) {
         List<ScheduleRestDtoForSportsman> scheduleRestDtoForSportsman;
-        if(id.equals("all")){
-            scheduleRestDtoForSportsman = scheduleService.getEventsForAllSportsman(start,end);
-        }
-        else {
+        if (id.equals("all")) {
+            scheduleRestDtoForSportsman = scheduleService.getEventsForAllSportsman(start, end);
+        } else {
             scheduleRestDtoForSportsman = scheduleService.getEventsByGroupAndDatesForSportsman(id, start, end);
         }
 
@@ -41,9 +40,9 @@ public class ScheduleRestController {
     }
 
     @GetMapping("/calendar_sportsman/{id}/attendance/calendar/events")
-    public List<ScheduleRestDtoForSportsman> getScheduleAndAttendanceForSportsman(@RequestParam String start, @RequestParam String end, @PathVariable String id, HttpServletRequest request){
-           var scheduleRestDtoForSportsmanList = scheduleService.getEventsByGroupAndDatesForSportsmanAndMarkAttendance(id,start,end, request.getRemoteUser());
-           return scheduleRestDtoForSportsmanList;
+    public List<ScheduleRestDtoForSportsman> getScheduleAndAttendanceForSportsman(@RequestParam String start, @RequestParam String end, @PathVariable String id, HttpServletRequest request) {
+        var scheduleRestDtoForSportsmanList = scheduleService.getEventsByGroupAndDatesForSportsmanAndMarkAttendance(id, start, end, request.getRemoteUser());
+        return scheduleRestDtoForSportsmanList;
     }
 
-    }
+}
