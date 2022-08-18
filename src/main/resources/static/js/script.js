@@ -239,3 +239,9 @@ function setTotalSum() {
     paymentSum.value = total
 }
 
+function clearReport(){
+    const reportTableBody = document.querySelector('#report-table>.table-body')
+    while (reportTableBody.firstElementChild){
+        reportTableBody.firstElementChild.remove()
+    }
+}
