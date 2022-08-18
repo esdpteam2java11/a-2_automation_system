@@ -21,11 +21,11 @@ public class ScheduleRestDtoForSportsman {
     private String url;
     private String textColor;
 
-    public static ScheduleRestDtoForSportsman from(Schedule schedule){
-        LocalDateTime start = LocalDateTime.of(schedule.getEventDate(),schedule.getStartTime());
-        LocalDateTime end = LocalDateTime.of(schedule.getEventDate(),schedule.getEndTime());
-        String title = String.format("%s %s",schedule.getStartTime(),schedule.getGroup().getName());
-        String eventUrl = String.format("/calendar_sportsman/%s/calendar/%s",schedule.getGroup().getId(),schedule.getId());
+    public static ScheduleRestDtoForSportsman from(Schedule schedule) {
+        LocalDateTime start = LocalDateTime.of(schedule.getEventDate(), schedule.getStartTime());
+        LocalDateTime end = LocalDateTime.of(schedule.getEventDate(), schedule.getEndTime());
+        String title = String.format("%s %s", schedule.getStartTime(), schedule.getGroup().getName());
+        String eventUrl = String.format("/calendar_sportsman/%s/calendar/%s", schedule.getGroup().getId(), schedule.getId());
 
         return builder()
                 .id(schedule.getId())

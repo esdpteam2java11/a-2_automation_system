@@ -1,7 +1,5 @@
 package com.a2.a2_automation_system.exception;
 
-import java.util.Date;
-
 public class ErrorMessage {
     private int statusCode;
 

@@ -20,13 +20,13 @@ public class SportsmanEventsRestDTO {
     private String url;
     private Boolean allDay;
 
-    public static SportsmanEventsRestDTO from(SportsmanEvents sportsmanEvents){
+    public static SportsmanEventsRestDTO from(SportsmanEvents sportsmanEvents) {
         return builder()
                 .id(sportsmanEvents.getId())
-                .title(sportsmanEvents.getSportsman().getName())
+                .title(sportsmanEvents.getTitle())
                 .start(sportsmanEvents.getEventDate())
                 .allDay(true)
-                .url("event/"+sportsmanEvents.getId())
+                .url("event/" + sportsmanEvents.getId())
                 .color("blue")
                 .build();
     }

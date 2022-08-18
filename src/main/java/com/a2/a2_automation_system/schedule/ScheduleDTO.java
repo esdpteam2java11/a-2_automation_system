@@ -1,8 +1,6 @@
 package com.a2.a2_automation_system.schedule;
 
 import com.a2.a2_automation_system.group.Group;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +10,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 
 @Data
 @Builder

@@ -1,7 +1,6 @@
 package com.a2.a2_automation_system.sportmancabinet;
 
 import com.a2.a2_automation_system.exception.ResourceNotFoundException;
-
 import com.a2.a2_automation_system.group.Group;
 import com.a2.a2_automation_system.schedule.Schedule;
 import com.a2.a2_automation_system.schedule.ScheduleDTO;
@@ -9,7 +8,6 @@ import com.a2.a2_automation_system.schedule.ScheduleRepository;
 import com.a2.a2_automation_system.schedule.ScheduleService;
 import com.a2.a2_automation_system.user.User;
 import com.a2.a2_automation_system.user.UserService;
-import com.a2.a2_automation_system.visit.Visit;
 import com.a2.a2_automation_system.visit.VisitService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

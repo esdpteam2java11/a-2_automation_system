@@ -28,7 +28,7 @@ public class ScheduleService {
     private final VisitRepository visitRepository;
     private final UserService userService;
 
-    public void addEventFromScheduleCreateDTO(ScheduleCreateDTO scheduleCreateDTO){
+    public void addEventFromScheduleCreateDTO(ScheduleCreateDTO scheduleCreateDTO) {
         Schedule schedule = Schedule.builder()
                 .eventDate(scheduleCreateDTO.getEventStartDate())
                 .startTime(scheduleCreateDTO.getTimeStart())
@@ -37,7 +37,8 @@ public class ScheduleService {
                 .build();
         scheduleRepository.save(schedule);
     }
-    public void addEventFromScheduleDTO(ScheduleDTO scheduleDTO){
+
+    public void addEventFromScheduleDTO(ScheduleDTO scheduleDTO) {
         Schedule schedule = Schedule.builder()
                 .eventDate(scheduleDTO.getEventDate())
                 .startTime(scheduleDTO.getStartTime())
@@ -48,60 +49,66 @@ public class ScheduleService {
         scheduleRepository.save(schedule);
     }
 
-    public List<ScheduleRestDto> getEventsByGroupAndDates(String groupId, String dateStart,String dateEnd){
+    public List<ScheduleRestDto> getEventsByGroupAndDates(String groupId, String dateStart, String dateEnd) {
         LocalDate start = LocalDate.parse(dateStart.split("%")[0].split("T")[0]);
         LocalDate end = LocalDate.parse(dateEnd.split("%")[0].split("T")[0]);
         Group group = groupService.getGroupByIdReturnGroup(Long.parseLong(groupId));
-        List<Schedule> events =  scheduleRepository.getAllByGroupAndEventDateBetween(group,start,end);
+        List<Schedule> events = scheduleRepository.getAllByGroupAndEventDateBetween(group, start, end);
         return events.stream().map(ScheduleRestDto::from).collect(Collectors.toList());
 
     }
 
     @Transactional
-    public void addEventsFromScheduleCreateDto(ScheduleCreateDTO scheduleCreateDTO){
-            if(scheduleCreateDTO.getRecurring()!=null){
-                String uniqueIdForSerial = UUID.randomUUID().toString();
-                if(scheduleCreateDTO.getEventStartDate().isBefore(scheduleCreateDTO.getDateEnd())){
-                   List<LocalDate> list = getDatesForDayOfWeek(scheduleCreateDTO);
-                   for (LocalDate eventDate:list) {
-                       var newScheduleDTO = ScheduleDTO.builder()
-                               .eventDate(eventDate)
-                               .startTime(scheduleCreateDTO.getTimeStart())
-                               .endTime(scheduleCreateDTO.getTimeEnd())
-                               .group(scheduleCreateDTO.getGroup())
-                               .uniqueIdForSerial(uniqueIdForSerial)
-                               .build();
-                       addEventFromScheduleDTO(newScheduleDTO);
-                   }
-                }else {
-                    throw new IllegalArgumentException("Введите правильную дату");
+    public void addEventsFromScheduleCreateDto(ScheduleCreateDTO scheduleCreateDTO) {
+        if (scheduleCreateDTO.getRecurring() != null) {
+            String uniqueIdForSerial = UUID.randomUUID().toString();
+            if (scheduleCreateDTO.getEventStartDate().isBefore(scheduleCreateDTO.getDateEnd())) {
+                List<LocalDate> list = getDatesForDayOfWeek(scheduleCreateDTO);
+                for (LocalDate eventDate : list) {
+                    var newScheduleDTO = ScheduleDTO.builder()
+                            .eventDate(eventDate)
+                            .startTime(scheduleCreateDTO.getTimeStart())
+                            .endTime(scheduleCreateDTO.getTimeEnd())
+                            .group(scheduleCreateDTO.getGroup())
+                            .uniqueIdForSerial(uniqueIdForSerial)
+                            .build();
+                    addEventFromScheduleDTO(newScheduleDTO);
                 }
+            } else {
+                throw new IllegalArgumentException("Введите правильную дату");
             }
-            else {
-                addEventFromScheduleCreateDTO(scheduleCreateDTO);
-            }
+        } else {
+            addEventFromScheduleCreateDTO(scheduleCreateDTO);
+        }
     }
 
-    private List<LocalDate> getDatesForDayOfWeek(ScheduleCreateDTO scheduleCreateDTO){
+    private List<LocalDate> getDatesForDayOfWeek(ScheduleCreateDTO scheduleCreateDTO) {
         List<LocalDate> listOfDates = new ArrayList<>();
         LocalDate startDate = scheduleCreateDTO.getEventStartDate();
         LocalDate endDate = scheduleCreateDTO.getDateEnd();
         LocalDate thisDay = LocalDate.now();
-        for(String day:scheduleCreateDTO.getDayOfWeek()){
-            switch (day){
-                case "MONDAY": thisDay = startDate.with(DayOfWeek.MONDAY);
-                break;
-                case "TUESDAY": thisDay = startDate.with(DayOfWeek.TUESDAY);
+        for (String day : scheduleCreateDTO.getDayOfWeek()) {
+            switch (day) {
+                case "MONDAY":
+                    thisDay = startDate.with(DayOfWeek.MONDAY);
                     break;
-                case "WEDNESDAY": thisDay = startDate.with(DayOfWeek.WEDNESDAY);
+                case "TUESDAY":
+                    thisDay = startDate.with(DayOfWeek.TUESDAY);
                     break;
-                case "THURSDAY": thisDay = startDate.with(DayOfWeek.THURSDAY);
+                case "WEDNESDAY":
+                    thisDay = startDate.with(DayOfWeek.WEDNESDAY);
                     break;
-                case "FRIDAY": thisDay = startDate.with(DayOfWeek.FRIDAY);
+                case "THURSDAY":
+                    thisDay = startDate.with(DayOfWeek.THURSDAY);
                     break;
-                case "SATURDAY": thisDay = startDate.with(DayOfWeek.SATURDAY);
+                case "FRIDAY":
+                    thisDay = startDate.with(DayOfWeek.FRIDAY);
                     break;
-                case "SUNDAY": thisDay = startDate.with(DayOfWeek.SUNDAY);
+                case "SATURDAY":
+                    thisDay = startDate.with(DayOfWeek.SATURDAY);
+                    break;
+                case "SUNDAY":
+                    thisDay = startDate.with(DayOfWeek.SUNDAY);
                     break;
             }
 
@@ -118,10 +125,10 @@ public class ScheduleService {
             startDate = scheduleCreateDTO.getEventStartDate();
 
         }
-        if(Arrays.stream(scheduleCreateDTO.getDayOfWeek()).anyMatch(endDate.getDayOfWeek().toString()::equals)){
+        if (Arrays.stream(scheduleCreateDTO.getDayOfWeek()).anyMatch(endDate.getDayOfWeek().toString()::equals)) {
             listOfDates.add(endDate);
         }
-       return listOfDates;
+        return listOfDates;
     }
 
     public ScheduleDTO getEventById(Long eventId) {
@@ -146,9 +153,9 @@ public class ScheduleService {
     public ScheduleDTO deleteEventsInSeries(Long eventId) {
         Schedule event = scheduleRepository.getById(eventId);
         ScheduleDTO scheduleDTO = ScheduleDTO.from(event);
-        var scheduleList = scheduleRepository.getAllByUniqueIdForSerialEventAndEventDateIsGreaterThanEqual(event.getUniqueIdForSerialEvent(),event.getEventDate());
-        if(scheduleList.isPresent()){
-            for(Schedule ev:scheduleList.get()){
+        var scheduleList = scheduleRepository.getAllByUniqueIdForSerialEventAndEventDateIsGreaterThanEqual(event.getUniqueIdForSerialEvent(), event.getEventDate());
+        if (scheduleList.isPresent()) {
+            for (Schedule ev : scheduleList.get()) {
                 scheduleRepository.delete(ev);
             }
         }
@@ -166,18 +173,18 @@ public class ScheduleService {
     public List<ScheduleRestDto> getEventsForAll(String dateStart, String dateEnd) {
         LocalDate start = getLocalDateFromString(dateStart);
         LocalDate end = getLocalDateFromString(dateEnd);
-        List<Schedule> events =  scheduleRepository.getSchedulesByEventDateBetween(start,end);
+        List<Schedule> events = scheduleRepository.getSchedulesByEventDateBetween(start, end);
         return events.stream().map(ScheduleRestDto::from).collect(Collectors.toList());
     }
 
-    private LocalDate getLocalDateFromString(String date){
+    private LocalDate getLocalDateFromString(String date) {
         return LocalDate.parse(date.split("%")[0].split("T")[0]);
     }
 
-    public String addEventTrainingProgram(String content,Long eventId) {
+    public String addEventTrainingProgram(String content, Long eventId) {
         String message = "Добавлено";
         var event = scheduleRepository.getById(eventId);
-        if(event.getTrainingProgram()!=null){
+        if (event.getTrainingProgram() != null) {
             message = "Изменено";
         }
         event.setTrainingProgram(content);
@@ -188,7 +195,7 @@ public class ScheduleService {
     public List<ScheduleRestDtoForSportsman> getEventsForAllSportsman(String dateStart, String dateEnd) {
         LocalDate start = getLocalDateFromString(dateStart);
         LocalDate end = getLocalDateFromString(dateEnd);
-        List<Schedule> events =  scheduleRepository.getSchedulesByEventDateBetween(start,end);
+        List<Schedule> events = scheduleRepository.getSchedulesByEventDateBetween(start, end);
         return events.stream().map(ScheduleRestDtoForSportsman::from).collect(Collectors.toList());
     }
 
@@ -196,20 +203,20 @@ public class ScheduleService {
         LocalDate start = getLocalDateFromString(dateStart);
         LocalDate end = getLocalDateFromString(dateEnd);
         Group group = groupService.getGroupByIdReturnGroup(Long.parseLong(groupId));
-        List<Schedule> events =  scheduleRepository.getAllByGroupAndEventDateBetween(group,start,end);
+        List<Schedule> events = scheduleRepository.getAllByGroupAndEventDateBetween(group, start, end);
         return events.stream().map(ScheduleRestDtoForSportsman::from).collect(Collectors.toList());
     }
 
-    public List<ScheduleRestDtoForSportsman> getEventsByGroupAndDatesForSportsmanAndMarkAttendance(String groupId, String dateStart, String dateEnd,String username){
+    public List<ScheduleRestDtoForSportsman> getEventsByGroupAndDatesForSportsmanAndMarkAttendance(String groupId, String dateStart, String dateEnd, String username) {
         User user = userService.getUserByUsername(username);
         LocalDate start = getLocalDateFromString(dateStart);
         LocalDate end = getLocalDateFromString(dateEnd);
         Group group = groupService.getGroupByIdReturnGroup(Long.parseLong(groupId));
-        List<Schedule> events =  scheduleRepository.getAllByGroupAndEventDateBetween(group,start,end);
+        List<Schedule> events = scheduleRepository.getAllByGroupAndEventDateBetween(group, start, end);
         List<Visit> visits = visitRepository.getAllByStudent(user);
         List<ScheduleRestDtoForSportsman> eventsDTO = events.stream().map(ScheduleRestDtoForSportsman::from).collect(Collectors.toList());
         List<ScheduleRestDtoForSportsman> modifiedEventsDto = new ArrayList<>();
-        if(visits.size()>0) {
+        if (visits.size() > 0) {
             for (ScheduleRestDtoForSportsman event : eventsDTO) {
                 for (Visit visit : visits) {
                     if (visit.getSchedule().getId() == event.getId()) {
@@ -224,9 +231,9 @@ public class ScheduleService {
         return eventsDTO;
     }
 
-    public List<Schedule> getListOfLastTreeEvents(Group group,LocalDate localDate) {
+    public List<Schedule> getListOfLastTreeEvents(Group group, LocalDate localDate) {
         Comparator<Schedule> sortDesc = (schedule1, schedule2) -> schedule2.getEventDate().compareTo(schedule1.getEventDate());
-        List<Schedule> listSchedule = scheduleRepository.getAllByGroupAndEventDateIsLessThan(group,localDate);
+        List<Schedule> listSchedule = scheduleRepository.getAllByGroupAndEventDateIsLessThan(group, localDate);
         Collections.sort(listSchedule, sortDesc);
         return listSchedule.stream().limit(3).collect(Collectors.toList());
     }
