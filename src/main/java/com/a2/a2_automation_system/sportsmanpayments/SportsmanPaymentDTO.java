@@ -40,7 +40,8 @@ public class SportsmanPaymentDTO {
                 .user(sportsmanPayment.getUser().getId())
                 .date(sportsmanPayment.getDate())
                 .operationType(sportsmanPayment.getOperationType())
-                .moneyMovement(sportsmanPayment.getMoneyMovement().getId())
+                .moneyMovement(sportsmanPayment.getMoneyMovement() != null ?
+                        sportsmanPayment.getMoneyMovement().getId() : null)
                 .build();
     }
 }
