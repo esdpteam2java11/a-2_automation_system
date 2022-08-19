@@ -55,29 +55,58 @@
                                 <thead>
                                 <tr>
                                     <th scope="col" hidden>ID</th>
-                                    <th scope="col">ФИО спортсмена</th>
-                                    <th scope="col">Сумма по тарифу группы за период</th>
-                                    <th scope="col">Сумма по тарифу спортсмена за период</th>
-                                    <th scope="col">Сумма скидки</th>
-                                    <th scope="col">Оплаты за период</th>
-                                    <th scope="col">Остаток долга на начало периода</th>
-                                    <th scope="col">Остаток долга на конец периода</th>
+                                    <th scope="col" class="align-middle" style="width: 28%">ФИО спортсмена</th>
+                                    <th scope="col" class="align-middle" style="width: 12%">Сумма по тарифу группы за
+                                        период
+                                    </th>
+                                    <th scope="col" class="align-middle" style="width: 12%">Сумма по тарифу спортсмена
+                                        за период
+                                    </th>
+                                    <th scope="col" class="align-middle" style="width: 12%">Сумма скидки</th>
+                                    <th scope="col" class="align-middle" style="width: 12%">Оплаты за период</th>
+                                    <th scope="col" class="align-middle" style="width: 12%">Остаток долга на начало
+                                        периода
+                                    </th>
+                                    <th scope="col" class="align-middle" style="width: 12%">Остаток долга на конец
+                                        периода
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody class="table-body">
+                                <#assign groupPriceTotal=0 amountAccrued=0 discount=0 amountPaid=0
+                                startBalance=0 endBalance=0>
                                 <#list (sportsmenPayments)! as sportsmanPayment>
                                     <tr>
                                         <td hidden>${sportsmanPayment.sportsmanId}</td>
                                         <td>${sportsmanPayment.sportsmanFio}</td>
                                         <td>${sportsmanPayment.groupPrice}</td>
+                                        <#assign groupPriceTotal+=sportsmanPayment.groupPrice>
                                         <td>${(sportsmanPayment.amountAccrued)!0}</td>
+                                        <#assign amountAccrued+=sportsmanPayment.amountAccrued>
                                         <td>${sportsmanPayment.groupPrice - sportsmanPayment.amountAccrued}</td>
+                                        <#assign discount+=(sportsmanPayment.groupPrice -
+                                        sportsmanPayment.amountAccrued)>
                                         <td>${(sportsmanPayment.amountPaid)!0}</td>
+                                        <#assign amountPaid+=sportsmanPayment.amountPaid>
                                         <td>${(sportsmanPayment.startBalance)!0}</td>
+                                        <#assign startBalance+=sportsmanPayment.startBalance>
                                         <td>${(sportsmanPayment.endBalance)!0}</td>
+                                        <#assign endBalance+=sportsmanPayment.endBalance>
                                     </tr>
                                 </#list>
                                 </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td hidden></td>
+                                    <td><b>Итого по группе</b></td>
+                                    <td class="total">${groupPriceTotal}</td>
+                                    <td class="total">${amountAccrued}</td>
+                                    <td class="total">${discount}</td>
+                                    <td class="total">${amountPaid}</td>
+                                    <td class="total">${startBalance}</td>
+                                    <td class="total">${endBalance}</td>
+                                </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
