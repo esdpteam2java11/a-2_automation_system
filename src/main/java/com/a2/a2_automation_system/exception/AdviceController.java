@@ -1,13 +1,13 @@
 package com.a2.a2_automation_system.exception;
 
-import jdk.jshell.Snippet;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import java.util.Date;
+import java.util.NoSuchElementException;
 
 @ControllerAdvice
 public class AdviceController {
@@ -22,4 +22,17 @@ public class AdviceController {
         return new ResponseEntity<ErrorMessage>(message, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public String handle() {
+        return "No_Found";
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    public String handleNoSuchElementException() {
+        return "No_Found";
+    }
+    @ExceptionHandler(GroupNotFoundException.class)
+    public String handleGroupNotFoundException() {
+        return "No_Found";
+    }
 }

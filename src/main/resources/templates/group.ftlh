@@ -44,7 +44,7 @@
                 </tr>
                 <#if users??>
                     <#list users as user>
-                        <tr>
+                        <tr style="${user.backgroundColor}">
                             <input type="hidden" value="${user.id}" name="id">
                             <td>${user.fio}</td>
                             <td id="result">${((.now?date?long - user.birthDate?date?long)/(1000*60*60*24*365))?int}</td>

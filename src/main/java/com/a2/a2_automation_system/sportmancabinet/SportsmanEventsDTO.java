@@ -5,9 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 
 @Data
@@ -24,8 +22,8 @@ public class SportsmanEventsDTO {
     private String uniqueIdForSerialEvent;
     private String title;
 
-    public static SportsmanEventsDTO from(SportsmanEvents sportsmanEvents){
-       return builder()
+    public static SportsmanEventsDTO from(SportsmanEvents sportsmanEvents) {
+        return builder()
                 .id(sportsmanEvents.getId())
                 .sportsman(sportsmanEvents.getSportsman())
                 .eventDate(sportsmanEvents.getEventDate())

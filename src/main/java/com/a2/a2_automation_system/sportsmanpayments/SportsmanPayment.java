@@ -38,7 +38,7 @@ public class SportsmanPayment {
     @NotNull
     private OperationType operationType;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "money_id")
     private MoneyMovement moneyMovement;
 }

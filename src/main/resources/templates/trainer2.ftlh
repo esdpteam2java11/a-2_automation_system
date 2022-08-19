@@ -20,6 +20,7 @@
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             <img class="person" src="/images/person_3.jpg">
+            
         </div>
     </div>
     <@footer.renderWith>

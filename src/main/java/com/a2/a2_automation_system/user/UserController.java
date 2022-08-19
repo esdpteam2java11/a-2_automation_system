@@ -4,6 +4,8 @@ import com.a2.a2_automation_system.config.PropertiesService;
 import com.a2.a2_automation_system.group.GroupService;
 import com.a2.a2_automation_system.news.NewsService;
 import com.a2.a2_automation_system.parent.ParentService;
+import com.a2.a2_automation_system.sportsmanpayments.SportsmanPaymentDTO;
+import com.a2.a2_automation_system.userparam.UserParamDTO;
 import com.a2.a2_automation_system.util.PageUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -117,10 +119,9 @@ public class UserController {
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @PostMapping("/create")
     public String registerUser(@Valid UserDTO customerRequestDto,
+                               UserParamDTO userParamDTO,
                                BindingResult validationResult,
-                               @RequestParam("growth") Double growth, @RequestParam("weight") Double weight,
-                               @RequestParam("sum") Double sum,
-                               @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date,
+                               SportsmanPaymentDTO sportsmanPaymentDTO,
                                @RequestParam("p_id") @Nullable List<Long> pIds,
                                @RequestParam("p_kinship") @Nullable List<String> pKinships,
                                @RequestParam("p_surname") @Nullable List<String> pSurnames,
@@ -139,7 +140,7 @@ public class UserController {
             attributes.addFlashAttribute("errors", validationResult.getFieldErrors());
             return "redirect:/create";
         }
-     userService.createSportsman(growth,weight,sum, date,customerRequestDto,  pIds, pKinships,
+     userService.createSportsman(userParamDTO,sportsmanPaymentDTO,customerRequestDto,  pIds, pKinships,
                 pSurnames, pNames, pPatronymics, pPhones, pWhatsapps, pTelegrams);
 
         return "redirect:/admin";
@@ -160,19 +161,9 @@ public class UserController {
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @PostMapping("/edit/{id}")
     public String editSportsman(@PathVariable Long id,
-                                @RequestParam("surname") String surname, @RequestParam("name") String name,
-                                @RequestParam("patronymic") @Nullable String patronymic,
-                                @RequestParam("birthDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date birthDate,
-                                @RequestParam("growth") Double growth, @RequestParam("weight") Double weight,
-                                @RequestParam("phone") String phone, @RequestParam("whatsapp") @Nullable String whatsapp,
-                                @RequestParam("telegram") @Nullable String telegram, @RequestParam("address") String address,
-                                @RequestParam("school") @Nullable String school, @RequestParam("channels") @Nullable String channels,
-                                @RequestParam("group") Long groupId,
-                                @RequestParam("dateOfAdmission") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date dateOfAdmission,
-                                @RequestParam("sum") Double sum,
-                                @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date,
-                                @RequestParam("login") @Nullable String login, @RequestParam("password") @Nullable String password,
-
+                                UserDTO userDTO,
+                                UserParamDTO userParamDTO,
+                                SportsmanPaymentDTO sportsmanPaymentDTO,
                                 @RequestParam("p_id") @Nullable List<Long> pIds,
                                 @RequestParam("p_kinship") @Nullable List<String> pKinships,
                                 @RequestParam("p_surname") @Nullable List<String> pSurnames,
@@ -182,27 +173,12 @@ public class UserController {
                                 @RequestParam("p_whatsapp") @Nullable List<String> pWhatsapps,
                                 @RequestParam("p_telegram") @Nullable List<String> pTelegrams,
                                 RedirectAttributes attributes) {
-        if (userService.checkLogin(login, id)) {
-            attributes.addFlashAttribute("login", login);
+        if (userService.checkLogin(userDTO.getLogin(), id)) {
+            attributes.addFlashAttribute("login", userDTO.getLogin());
             return "redirect:/edit/" + id;
         }
-        boolean validatePhone = Pattern.matches("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$", phone);
-        boolean validateWhatsapp = Pattern.matches("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$", whatsapp);
-        if (!validatePhone && !validateWhatsapp && !whatsapp.isEmpty()) {
-            attributes.addFlashAttribute("errorPhone", "Введите цифры в номер телефона");
-            attributes.addFlashAttribute("errorWhatsapp", "Введите цифры в Whatsapp");
-            return "redirect:/edit/" + id;
-        }
-        if (!validatePhone) {
-            attributes.addFlashAttribute("errorPhone", "Введите цифры в номер телефона");
-            return "redirect:/edit/" + id;
-        }
-        if (!validateWhatsapp) {
-            attributes.addFlashAttribute("errorWhatsapp", "Введите цифры в WhatsApp");
-            return "redirect:/edit/" + id;
-        }
-        userService.editSportsman(id, surname, name, patronymic, birthDate, growth, weight, phone, whatsapp, telegram,
-                address, school, channels, groupId, dateOfAdmission, sum, date, login, password, pIds, pKinships,
+
+        userService.editSportsman(userDTO,id, userParamDTO,    sportsmanPaymentDTO,  pIds, pKinships,
                 pSurnames, pNames, pPatronymics, pPhones, pWhatsapps, pTelegrams);
 
         return "redirect:/admin";
@@ -218,7 +194,7 @@ public class UserController {
             model.addAttribute("dto", userService.getTrainer(id));
             return "edit_trainer";
         }
-        return "edit_sportsman";
+        return "redirect:/admin";
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")

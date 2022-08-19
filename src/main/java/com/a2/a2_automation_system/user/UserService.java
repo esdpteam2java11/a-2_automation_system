@@ -25,6 +25,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -106,8 +107,8 @@ public class UserService implements UserDetailsService {
         else return SportsmanDTO.from(sportsman, new UserParam(), sportsmanPayment);
     }
 
-    public UserDTO createSportsman(Double growth, Double weight,
-                                Double sum, Date date,
+    public UserDTO createSportsman(UserParamDTO userParamDTO,
+                               SportsmanPaymentDTO sportsmanPaymentDTO,
                                  UserDTO userDTO,
                                 List<Long> pIds, List<String> pKinships, List<String> pSurnames, List<String> pNames,
                                 List<String> pPatronymics, List<String> pPhones,
@@ -136,11 +137,19 @@ public class UserService implements UserDetailsService {
 
         userRepository.save(sportsman);
 
-        createSportsmanNewTariff(sum, date, sportsman);
+        sportsmanPaymentRepository.save(SportsmanPayment.builder()
+                .amount(sportsmanPaymentDTO.getAmount())
+                .date(sportsmanPaymentDTO.getDate())
+                .user(sportsman)
+                .operationType(OperationType.ACCRUED)
+                .build());
 
-        UserParam sportsmanParam = new UserParam();
-        setUserParams(growth, weight, sportsmanParam, sportsman);
-        userParamRepository.save(sportsmanParam);
+        userParamRepository.save(UserParam.builder()
+                .height(userParamDTO.getHeight())
+                .weight(userParamDTO.getWeight())
+                .creationDate(new Date())
+                .user(sportsman)
+                .build());
 
         if (pIds != null) {
             List<Parent> parents = setParents(pIds, pKinships, pSurnames, pNames, pPatronymics, pPhones, pWhatsapps,
@@ -155,25 +164,44 @@ public class UserService implements UserDetailsService {
       return   UserDTO.from(sportsman);
     }
 
-    public void editSportsman(Long id, String surname, String name, String patronymic, Date birthDate,
-                              Double growth, Double weight,
-                              String phone, String whatsapp, String telegram, String address, String school,
-                              String channels, Long groupId, Date dateOfAdmission, Double sum, Date date,
-                              String login, String password,
+    public void editSportsman(UserDTO userDTO,Long id,
+                             UserParamDTO userParamDTO,
+                             SportsmanPaymentDTO sportsmanPaymentDTO,
                               List<Long> pIds, List<String> pKinships, List<String> pSurnames, List<String> pNames,
                               List<String> pPatronymics, List<String> pPhones,
                               List<String> pWhatsapps, List<String> pTelegrams) {
 
         User sportsman = userRepository.findById(id).get();
-        setUserFields(surname, name, patronymic, birthDate, phone, whatsapp, telegram, address,
-                school, channels, groupId, dateOfAdmission, login, password, sportsman);
+        sportsman.setSurname(userDTO.getSurname());
+        sportsman.setName(userDTO.getName());
+        sportsman.setPatronymic(userDTO.getPatronymic()== null || userDTO.getPatronymic().isBlank() ? null : userDTO.getPatronymic());
+        sportsman.setBirthDate(userDTO.getBirthDate());
+        sportsman.setPhone(userDTO.getPhone());
+        sportsman.setWhatsapp(userDTO.getWhatsapp() == null || userDTO.getWhatsapp().isBlank() ? null : userDTO.getWhatsapp());
+        sportsman.setTelegram(userDTO.getTelegram() == null || userDTO.getTelegram().isBlank() ? null : userDTO.getTelegram());
+        sportsman.setAddress(userDTO.getAddress());
+        sportsman.setSchool(userDTO.getSchool() == null || userDTO.getSchool().isBlank() ? null :userDTO.getSchool());
+        sportsman.setChannels(userDTO.getChannels() == null || userDTO.getChannels().isBlank() ? null : userDTO.getChannels());
+        sportsman.setGroup(groupRepository.findById(userDTO.getGroupId()).get());
+        sportsman.setDateOfAdmission(userDTO.getDateOfAdmission());
+        sportsman.setLogin(userDTO.getLogin() == null || userDTO.getLogin().isBlank() ? null : userDTO.getLogin());
+        sportsman.setPassword(userDTO.getPassword() == null || userDTO.getPassword().isBlank() ? null : encoder.encode(userDTO.getPassword()));
+
 
         userRepository.save(sportsman);
 
-        createSportsmanNewTariff(sum, date, sportsman);
+        sportsmanPaymentRepository.save(SportsmanPayment.builder()
+                .amount(sportsmanPaymentDTO.getAmount())
+                .date(sportsmanPaymentDTO.getDate())
+                .user(sportsman)
+                .operationType(OperationType.ACCRUED)
+                .build());
 
         UserParam sportsmanParam = new UserParam();
-        setUserParams(growth, weight, sportsmanParam, sportsman);
+        sportsmanParam.setCreationDate(new Date());
+        sportsmanParam.setUser(sportsman);
+        sportsmanParam.setWeight(userParamDTO.getWeight());
+        sportsmanParam.setHeight(userParamDTO.getHeight());
         userParamRepository.save(sportsmanParam);
 
         if (pIds != null) {
@@ -190,42 +218,11 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    private User setUserFields(String surname, String name, String patronymic, Date birthDate,
-                               String phone, String whatsapp, String telegram, String address, String school,
-                               String channels, Long groupId, Date dateOfAdmission, String login, String password,
-                               User sportsman) {
-        sportsman.setSurname(surname);
-        sportsman.setName(name);
-        sportsman.setPatronymic(patronymic == null || patronymic.isBlank() ? null : patronymic);
-        sportsman.setBirthDate(birthDate);
-        sportsman.setPhone(phone);
-        sportsman.setWhatsapp(whatsapp == null || whatsapp.isBlank() ? null : whatsapp);
-        sportsman.setTelegram(telegram == null || telegram.isBlank() ? null : telegram);
-        sportsman.setAddress(address);
-        sportsman.setSchool(school == null || school.isBlank() ? null : school);
-        sportsman.setChannels(channels == null || channels.isBlank() ? null : channels);
-        sportsman.setGroup(groupRepository.findById(groupId).get());
-        sportsman.setDateOfAdmission(dateOfAdmission);
-        sportsman.setLogin(login == null || login.isBlank() ? null : login);
-        sportsman.setPassword(password == null || password.isBlank() ? null : encoder.encode(password));
-        return sportsman;
-    }
 
-    private void setUserParams(Double growth, Double weight, UserParam userParam, User user) {
-        userParam.setCreationDate(new Date());
-        userParam.setUser(user);
-        userParam.setWeight(weight);
-        userParam.setHeight(growth);
-    }
 
-    private void createSportsmanNewTariff(Double sum, Date date, User user) {
-        sportsmanPaymentRepository.save(SportsmanPayment.builder()
-                .amount(sum)
-                .date(date)
-                .user(user)
-                .operationType(OperationType.ACCRUED)
-                .build());
-    }
+
+
+
 
     private List<Parent> setParents(List<Long> pIds, List<String> pKinships, List<String> pSurnames, List<String> pNames,
                                     List<String> pPatronymics, List<String> pPhones,

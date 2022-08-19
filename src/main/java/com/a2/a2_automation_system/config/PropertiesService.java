@@ -6,10 +6,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-    public class PropertiesService {
-        private final SpringDataWebProperties pageableDefaultProps;
-        public int getDefaultPageSize() {
-            return pageableDefaultProps.getPageable().getDefaultPageSize();
-        }
+public class PropertiesService {
+    private final SpringDataWebProperties pageableDefaultProps;
 
+    public int getDefaultPageSize() {
+        return pageableDefaultProps.getPageable().getDefaultPageSize();
     }
+
+}

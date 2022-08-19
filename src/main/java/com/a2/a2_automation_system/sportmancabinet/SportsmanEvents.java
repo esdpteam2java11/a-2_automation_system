@@ -31,15 +31,15 @@ public class SportsmanEvents {
     @Column(name = "event_date")
     private LocalDate eventDate;
 
-    @Column(name="training_program")
+    @Column(name = "training_program")
     private String trainingProgram;
 
     @NotNull
-    @Column(name="title")
+    @Column(name = "title")
     private String title;
 
 
-    @Column(name="food")
+    @Column(name = "food")
     private String food;
 
     @Column(name = "unique_id_for_serial_event")

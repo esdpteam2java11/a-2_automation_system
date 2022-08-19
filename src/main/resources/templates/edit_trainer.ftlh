@@ -125,7 +125,5 @@
             </div>
         </section>
     </form>
-    <script src="/js/generate_password_for_trainer.js">
-
-    </script>
+    <script src="/js/script.js"></script>
 </@main.renderWith>
