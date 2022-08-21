@@ -42,7 +42,6 @@ public class VisitService {
         var listVisit = visitRepository.findAllByStudent(student);
         if(listVisit.isPresent()&&listVisit.get().size()>0) {
             visitList = listVisit.get().stream().filter(visit -> visit.getSchedule().getEventDate().isBefore(dateNow)).collect(Collectors.toList());
-            visitList.addAll(listVisit.get().stream().filter(visit -> visit.getSchedule().getEventDate().isEqual(dateNow)).collect(Collectors.toList()));
             Collections.sort(visitList, sortDesc);
             return Optional.of(visitList);
         }
