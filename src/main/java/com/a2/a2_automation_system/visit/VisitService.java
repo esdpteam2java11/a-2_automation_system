@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -41,7 +42,8 @@ public class VisitService {
         Comparator<Visit> sortDesc = (visit1, visit2) -> visit2.getSchedule().getEventDate().compareTo(visit1.getSchedule().getEventDate());
         var listVisit = visitRepository.findAllByStudent(student);
         if(listVisit.isPresent()&&listVisit.get().size()>0) {
-            visitList = listVisit.get().stream().filter(visit -> visit.getSchedule().getEventDate().isBefore(dateNow)).collect(Collectors.toList());
+            visitList = listVisit.get().stream().filter(visit -> visit.getSchedule().getEventDate().isBefore(dateNow)
+            && visit.getSchedule().getEventDate().isAfter(LocalDate.ofInstant(student.getDateOfAdmission().toInstant(), ZoneId.systemDefault()))).collect(Collectors.toList());
             Collections.sort(visitList, sortDesc);
             return Optional.of(visitList);
         }
