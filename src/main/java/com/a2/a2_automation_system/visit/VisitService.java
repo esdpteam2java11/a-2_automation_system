@@ -10,10 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -38,11 +36,15 @@ public class VisitService {
     }
 
     public Optional<List<Visit>> getLatestVisit(User student){
+        List<Visit> visitList = new ArrayList<>();
+        LocalDate dateNow = LocalDate.now();
         Comparator<Visit> sortDesc = (visit1, visit2) -> visit2.getSchedule().getEventDate().compareTo(visit1.getSchedule().getEventDate());
         var listVisit = visitRepository.findAllByStudent(student);
-        if(listVisit.isPresent()) {
-            Collections.sort(listVisit.get(), sortDesc);
-            return listVisit;
+        if(listVisit.isPresent()&&listVisit.get().size()>0) {
+            visitList = listVisit.get().stream().filter(visit -> visit.getSchedule().getEventDate().isBefore(dateNow)).collect(Collectors.toList());
+            visitList.addAll(listVisit.get().stream().filter(visit -> visit.getSchedule().getEventDate().isEqual(dateNow)).collect(Collectors.toList()));
+            Collections.sort(visitList, sortDesc);
+            return Optional.of(visitList);
         }
         return listVisit;
     }
