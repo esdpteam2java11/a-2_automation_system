@@ -100,20 +100,18 @@ public class GroupService {
         LocalDate dateOfAdmission = LocalDate.ofInstant(student.get().getDateOfAdmission().toInstant(), ZoneId.systemDefault());
         Group group = student.get().getGroup();
         var visitListOptional = visitService.getLatestVisit(student.get());
-        if(visitListOptional.isPresent()){
-            List<Schedule> absenceList = scheduleService.getListOfLastTreeEvents(group,now,dateOfAdmission);
-            if(visitListOptional.get().size()>0){
-                if (absenceList.size()>0){
-                    var schedule = absenceList.stream().filter(sch -> sch.equals(visitListOptional.get().get(0).getSchedule())).findFirst().orElse(null);
-                    if(schedule==null){
+        List<Schedule> eventsList = scheduleService.getListOfLastTreeEvents(group,now,dateOfAdmission);
+        if(visitListOptional.get().size()>0){
+            if (eventsList.size()>0){
+                var schedule = eventsList.stream().filter(sch -> sch.equals(visitListOptional.get().get(0).getSchedule())).findFirst().orElse(null);
+                if(schedule==null){
                         return true;
                     }
                 }
-            } else{
-                if(absenceList.size()==3){
+        } else{
+                if(eventsList.size()==3){
                     return true;
                 }
-            }
         }
         return false;
     }
