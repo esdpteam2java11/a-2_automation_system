@@ -68,6 +68,51 @@ public class SportsmanPaymentService {
         return sportsmanPaymentForPeriodDTOS;
     }
 
+    public List<SportsmanPaymentForMonthDTO> getMonthlySportsmanPayments(YearMonth startYearMonth,
+                                                                         YearMonth endYearMonth, Long userId) {
+
+        LocalDate startLocalDate = startYearMonth.atDay(1);
+        Date startDate = Date.from(startLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        Double groupPrice = (double) userRepository.findById(userId).get().getGroup().getSum();
+        Double startBalance = getStartBalance(userId, startDate, startYearMonth);
+
+        YearMonth nextYearMonth = startYearMonth;
+        Double sportsmanPriceInCurrentMonth = 0.0;
+        Double paidTotalInCurrentMonth;
+
+
+        List<SportsmanPaymentForMonthDTO> sportsmanPaymentForMonthDTOS = new ArrayList<>();
+
+        Optional<SportsmanPayment> startSportsmanPayment =
+                sportsmanPaymentRepository.findUpToYearMonthAccruedAmount(userId,
+                        startYearMonth.getYear(), startYearMonth.getMonthValue());
+        if (startSportsmanPayment.isPresent()) {
+            sportsmanPriceInCurrentMonth = startSportsmanPayment.get().getAmount();
+        }
+
+        while ((endYearMonth.compareTo(nextYearMonth) + 1) != 0) {
+            paidTotalInCurrentMonth = sportsmanPaymentRepository.findTotalPaidAmountForMonth(userId, nextYearMonth.getYear(),
+                    nextYearMonth.getMonthValue());
+
+            Optional<SportsmanPayment> sportsmanPayment =
+                    sportsmanPaymentRepository.findAccruedAmountForPeriod(userId,
+                            nextYearMonth.getYear(), nextYearMonth.getMonthValue());
+            if (sportsmanPayment.isPresent()) {
+                sportsmanPriceInCurrentMonth = sportsmanPayment.get().getAmount();
+            }
+
+            sportsmanPaymentForMonthDTOS.add(SportsmanPaymentForMonthDTO.from(userId, nextYearMonth, groupPrice,
+                    sportsmanPriceInCurrentMonth, paidTotalInCurrentMonth, startBalance));
+
+            startBalance += sportsmanPriceInCurrentMonth - paidTotalInCurrentMonth;
+            nextYearMonth = nextYearMonth.plusMonths(1L);
+        }
+
+        Collections.sort(sportsmanPaymentForMonthDTOS);
+        return sportsmanPaymentForMonthDTOS;
+    }
+
     private Double getStartBalance(Long userId, Date startDate, YearMonth startYearMonth) {
         List<SportsmanPayment> sportsmanPayments = sportsmanPaymentRepository
                 .findAccruedAmountsBeforeDate(userId, startDate);

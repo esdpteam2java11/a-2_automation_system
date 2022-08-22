@@ -60,6 +60,7 @@ public class UserDTO {
     private Boolean isActive;
 
     private Long groupId;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfAdmission;
 

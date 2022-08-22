@@ -7,6 +7,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,9 +17,9 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long> {
     Optional<User> findByLogin(String email);
 
     @Query(value = "select u from User u where u.role <> 'ADMIN'")
-    Page<User> findAll(Pageable pageable);
+    Page<User> findAllByRole(Pageable pageable);
 
-    List<User> findAll();
+    List<User> findAllByRole(Role role);
 
     Page<User> findAllByRole(Pageable pageable, Role role);
 
@@ -39,5 +40,4 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 
     @Query("select u FROM User u where u.group.id= :id")
     List<User> findByGroup(Long id);
-
 }

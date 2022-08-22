@@ -190,6 +190,24 @@ async function getGroupPrice(id) {
     document.getElementById('recipient-sum').value = sum
 }
 
+async function getGroupName(id) {
+    const myHeaders = new Headers()
+    const requestOptions = {
+        method: 'GET',
+        headers: myHeaders
+    }
+    let name;
+    if (id !== undefined) {
+        await fetch(`/groupName/${id}`, requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                name = result;
+            })
+            .catch(error => console.log('error', error))
+    }
+    document.getElementById('group-name').value = name
+}
+
 //-------------------------------------------------------------------------------------------------------
 
 const sportsmanPaymentDetailsTableBody = document.querySelector('#payment-period>.table-body')
@@ -246,6 +264,6 @@ function clearReport() {
     }
     const reportTableTotals = document.getElementsByClassName('total')
     for (let i = 0; i < reportTableTotals.length; i++) {
-        reportTableTotals[i].innerHTML = '0'
+        reportTableTotals[i].innerHTML = ''
     }
 }
