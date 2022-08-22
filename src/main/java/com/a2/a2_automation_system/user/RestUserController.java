@@ -24,4 +24,9 @@ public class RestUserController {
     public void changeSportsmanStatus(@PathVariable(value = "id") Long id) {
         userService.changeIsActive(id);
     }
+
+    @GetMapping("/groupName/{userId}")
+    public String getGroupNameByUser(@PathVariable Long userId){
+        return userService.getGroupNameByUser(userId);
+    }
 }

@@ -25,7 +25,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -66,7 +65,12 @@ public class UserService implements UserDetailsService {
     }
 
     public List<UserShortInfoDTO> getAllUsers() {
-        List<User> users = userRepository.findAll();
+        List<User> users = (List<User>) userRepository.findAll();
+        return users.stream().map(UserShortInfoDTO::from).collect(Collectors.toList());
+    }
+
+    public List<UserShortInfoDTO> getAllUsersByRole(Role role) {
+        List<User> users = userRepository.findAllByRole(role);
         return users.stream().map(UserShortInfoDTO::from).collect(Collectors.toList());
     }
 
@@ -107,9 +111,9 @@ public class UserService implements UserDetailsService {
         else return SportsmanDTO.from(sportsman, new UserParam(), sportsmanPayment);
     }
 
-    public UserDTO createSportsman(UserParamDTO userParamDTO,
-                               SportsmanPaymentDTO sportsmanPaymentDTO,
-                                 UserDTO userDTO,
+    public void createSportsman(UserParamDTO userParamDTO,
+                                SportsmanPaymentDTO sportsmanPaymentDTO,
+                                UserDTO userDTO,
                                 List<Long> pIds, List<String> pKinships, List<String> pSurnames, List<String> pNames,
                                 List<String> pPatronymics, List<String> pPhones,
                                 List<String> pWhatsapps, List<String> pTelegrams) {
@@ -131,9 +135,7 @@ public class UserService implements UserDetailsService {
                 .login(userDTO.getLogin())
                 .dateOfAdmission(userDTO.getDateOfAdmission())
                 .password(encoder.encode(userDTO.getPassword()))
-
-                .build();;
-
+                .build();
 
         userRepository.save(sportsman);
 
@@ -161,7 +163,6 @@ public class UserService implements UserDetailsService {
                 relationshipRepository.save(newRelationship);
             }
         }
-      return   UserDTO.from(sportsman);
     }
 
     public void editSportsman(UserDTO userDTO,Long id,
@@ -186,7 +187,6 @@ public class UserService implements UserDetailsService {
         sportsman.setDateOfAdmission(userDTO.getDateOfAdmission());
         sportsman.setLogin(userDTO.getLogin() == null || userDTO.getLogin().isBlank() ? null : userDTO.getLogin());
         sportsman.setPassword(userDTO.getPassword() == null || userDTO.getPassword().isBlank() ? null : encoder.encode(userDTO.getPassword()));
-
 
         userRepository.save(sportsman);
 
@@ -218,12 +218,6 @@ public class UserService implements UserDetailsService {
         }
     }
 
-
-
-
-
-
-
     private List<Parent> setParents(List<Long> pIds, List<String> pKinships, List<String> pSurnames, List<String> pNames,
                                     List<String> pPatronymics, List<String> pPhones,
                                     List<String> pWhatsapps, List<String> pTelegrams) {
@@ -251,11 +245,7 @@ public class UserService implements UserDetailsService {
 
     public void changeIsActive(Long id) {
         var user = userRepository.findById(id).orElseThrow();
-        if (user.getIsActive()) {
-            user.setIsActive(false);
-        } else {
-            user.setIsActive(true);
-        }
+        user.setIsActive(!user.getIsActive());
         userRepository.save(user);
     }
 
@@ -298,4 +288,14 @@ public class UserService implements UserDetailsService {
         return sportsmanPaymentRepository.findByUserId(id).stream().map(SportsmanPaymentDTO::from).collect(Collectors.toList());
     }
 
+    public String getGroupNameByUser(Long userId) {
+        Long groupId = userRepository.findById(userId).get().getGroup().getId();
+        return groupRepository.findById(groupId).get().getName();
+    }
+
+    public String getUserFio(Long userId){
+        User user = userRepository.findById(userId).get();
+        return user.getSurname() + " " + user.getName() + (user.getPatronymic() != null ?
+                (" " + user.getPatronymic()) : "");
+    }
 }

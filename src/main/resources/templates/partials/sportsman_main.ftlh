@@ -70,7 +70,7 @@
                         <a class="nav-link" href="/calendar_sportsman/all/">График тренировок всех</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="/calendar_sportsman/report/">Отчет об оплате и начислениях</a>
+                    <a class="nav-link" href="/sportsman_debts_for_cabinet">Отчет об оплате и начислениях</a>
                     </li>
 
                     <li class="nav-item">

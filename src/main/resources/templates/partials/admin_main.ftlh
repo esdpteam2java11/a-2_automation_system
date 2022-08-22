@@ -109,7 +109,10 @@
                             <a class="nav-link" href="/sportsman_story">История спортсмена</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/all_debts">Отчет по долгам</a>
+                            <a class="nav-link" href="/all_debts">Отчет об оплате и начислениях по группе</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/sportsman_debts">Отчет об оплате и начислениях по спортсмену</a>
                         </li>
                     </ul>
                 </div>
