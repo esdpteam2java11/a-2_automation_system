@@ -30,17 +30,16 @@ public class SportsmanEventsService {
     private final ScheduleService scheduleService;
     private final VisitService visitService;
 
-    public List<SportsmanEventsRestDTO> getEventsBySportsmanAndDates(String username, String dateStart, String dateEnd){
+    public List<SportsmanEventsRestDTO> getEventsBySportsmanAndDates(String username, String dateStart, String dateEnd) {
         LocalDate start = LocalDate.parse(dateStart.split("%")[0].split("T")[0]);
         LocalDate end = LocalDate.parse(dateEnd.split("%")[0].split("T")[0]);
         User user = userService.getUserByUsername(username);
-        List<SportsmanEvents> events =  sportsmanEventsRepository.getSportsmanEventsBySportsmanAndEventDateBetween(user,start,end);
+        List<SportsmanEvents> events = sportsmanEventsRepository.getSportsmanEventsBySportsmanAndEventDateBetween(user, start, end);
         return events.stream().map(SportsmanEventsRestDTO::from).collect(Collectors.toList());
-
     }
 
     @Transactional
-    public void addEventFromSportsmanEventsDTO(SportsmanEventsDTO sportsmanEventsDTO){
+    public void addEventFromSportsmanEventsDTO(SportsmanEventsDTO sportsmanEventsDTO) {
         SportsmanEvents sportsmanEvents = SportsmanEvents.builder()
                 .eventDate(sportsmanEventsDTO.getEventDate())
                 .sportsman(sportsmanEventsDTO.getSportsman())
@@ -53,21 +52,20 @@ public class SportsmanEventsService {
     }
 
     @Transactional
-    public void createEventsFromScheduleCreateDto(SportsmanEventCreateDTO sportsmanEventCreateDTO,User user) {
-        if(sportsmanEventCreateDTO.getRecurring()!=null){
+    public void createEventsFromScheduleCreateDto(SportsmanEventCreateDTO sportsmanEventCreateDTO, User user) {
+        if (sportsmanEventCreateDTO.getRecurring() != null) {
             String uniqueIdForSerial = UUID.randomUUID().toString();
-             List<LocalDate> list = getDatesForDayOfWeek(sportsmanEventCreateDTO);
-                for (LocalDate eventDate:list) {
-                    SportsmanEventsDTO sportsmanEventsDTO = SportsmanEventsDTO.builder()
-                            .eventDate(eventDate)
-                            .sportsman(user)
-                            .title(sportsmanEventCreateDTO.getTitle())
-                            .uniqueIdForSerialEvent(uniqueIdForSerial)
-                            .build();
-                    addEventFromSportsmanEventsDTO(sportsmanEventsDTO);
-                }
-        }
-        else {
+            List<LocalDate> list = getDatesForDayOfWeek(sportsmanEventCreateDTO);
+            for (LocalDate eventDate : list) {
+                SportsmanEventsDTO sportsmanEventsDTO = SportsmanEventsDTO.builder()
+                        .eventDate(eventDate)
+                        .sportsman(user)
+                        .title(sportsmanEventCreateDTO.getTitle())
+                        .uniqueIdForSerialEvent(uniqueIdForSerial)
+                        .build();
+                addEventFromSportsmanEventsDTO(sportsmanEventsDTO);
+            }
+        } else {
             SportsmanEventsDTO sportsmanEventsDTO = SportsmanEventsDTO.builder()
                     .eventDate(sportsmanEventCreateDTO.getEventDate())
                     .sportsman(user)
@@ -77,26 +75,33 @@ public class SportsmanEventsService {
         }
     }
 
-    private List<LocalDate> getDatesForDayOfWeek(SportsmanEventCreateDTO sportsmanEventCreateDTO){
+    private List<LocalDate> getDatesForDayOfWeek(SportsmanEventCreateDTO sportsmanEventCreateDTO) {
         List<LocalDate> listOfDates = new ArrayList<>();
         LocalDate startDate = sportsmanEventCreateDTO.getEventDate();
         LocalDate endDate = sportsmanEventCreateDTO.getDateEnd();
         LocalDate thisDay = LocalDate.now();
-        for(String day:sportsmanEventCreateDTO.getDayOfWeek()){
-            switch (day){
-                case "MONDAY": thisDay = startDate.with(DayOfWeek.MONDAY);
+        for (String day : sportsmanEventCreateDTO.getDayOfWeek()) {
+            switch (day) {
+                case "MONDAY":
+                    thisDay = startDate.with(DayOfWeek.MONDAY);
                     break;
-                case "TUESDAY": thisDay = startDate.with(DayOfWeek.TUESDAY);
+                case "TUESDAY":
+                    thisDay = startDate.with(DayOfWeek.TUESDAY);
                     break;
-                case "WEDNESDAY": thisDay = startDate.with(DayOfWeek.WEDNESDAY);
+                case "WEDNESDAY":
+                    thisDay = startDate.with(DayOfWeek.WEDNESDAY);
                     break;
-                case "THURSDAY": thisDay = startDate.with(DayOfWeek.THURSDAY);
+                case "THURSDAY":
+                    thisDay = startDate.with(DayOfWeek.THURSDAY);
                     break;
-                case "FRIDAY": thisDay = startDate.with(DayOfWeek.FRIDAY);
+                case "FRIDAY":
+                    thisDay = startDate.with(DayOfWeek.FRIDAY);
                     break;
-                case "SATURDAY": thisDay = startDate.with(DayOfWeek.SATURDAY);
+                case "SATURDAY":
+                    thisDay = startDate.with(DayOfWeek.SATURDAY);
                     break;
-                case "SUNDAY": thisDay = startDate.with(DayOfWeek.SUNDAY);
+                case "SUNDAY":
+                    thisDay = startDate.with(DayOfWeek.SUNDAY);
                     break;
             }
 
@@ -113,20 +118,19 @@ public class SportsmanEventsService {
             startDate = sportsmanEventCreateDTO.getEventDate();
 
         }
-        if(Arrays.stream(sportsmanEventCreateDTO.getDayOfWeek()).anyMatch(endDate.getDayOfWeek().toString()::equals)){
+        if (Arrays.stream(sportsmanEventCreateDTO.getDayOfWeek()).anyMatch(endDate.getDayOfWeek().toString()::equals)) {
             listOfDates.add(endDate);
         }
         return listOfDates;
     }
 
-    public SportsmanEventsDTO getEventById(Long id){
+    public SportsmanEventsDTO getEventById(Long id) {
         return SportsmanEventsDTO.from(sportsmanEventsRepository.getSportsmanEventsById(id));
-
     }
 
-    public void editEvent(SportsmanEventCreateDTO sportsmanEventCreateDTO,Long id) {
-       var event = sportsmanEventsRepository .getSportsmanEventsById(id);
-       event.setEventDate(sportsmanEventCreateDTO.getEventDate());
+    public void editEvent(SportsmanEventCreateDTO sportsmanEventCreateDTO, Long id) {
+        var event = sportsmanEventsRepository.getSportsmanEventsById(id);
+        event.setEventDate(sportsmanEventCreateDTO.getEventDate());
         sportsmanEventsRepository.save(event);
     }
 
@@ -142,9 +146,9 @@ public class SportsmanEventsService {
     public SportsmanEventsDTO deleteEventsInSeries(Long eventId) {
         SportsmanEvents event = sportsmanEventsRepository.getSportsmanEventsById(eventId);
         SportsmanEventsDTO sportsmanEventsDTO = SportsmanEventsDTO.from(event);
-        var sportsmanEventsList = sportsmanEventsRepository.getAllByUniqueIdForSerialEventAndEventDateIsGreaterThanEqual(event.getUniqueIdForSerialEvent(),event.getEventDate());
-        if(sportsmanEventsList.isPresent()){
-            for(SportsmanEvents ev:sportsmanEventsList.get()){
+        var sportsmanEventsList = sportsmanEventsRepository.getAllByUniqueIdForSerialEventAndEventDateIsGreaterThanEqual(event.getUniqueIdForSerialEvent(), event.getEventDate());
+        if (sportsmanEventsList.isPresent()) {
+            for (SportsmanEvents ev : sportsmanEventsList.get()) {
                 sportsmanEventsRepository.delete(ev);
             }
         }
@@ -152,10 +156,10 @@ public class SportsmanEventsService {
     }
 
 
-    public String addEventTrainingProgram(String content,Long eventId) {
+    public String addEventTrainingProgram(String content, Long eventId) {
         String message = "Добавлено";
         var event = sportsmanEventsRepository.getSportsmanEventsById(eventId);
-        if(event.getTrainingProgram()!=null){
+        if (event.getTrainingProgram() != null) {
             message = "Изменено";
         }
         event.setTrainingProgram(content);
@@ -163,10 +167,10 @@ public class SportsmanEventsService {
         return message;
     }
 
-    public String addEventFood(String contentFood,Long eventId) {
+    public String addEventFood(String contentFood, Long eventId) {
         String message = "Добавлено";
         var event = sportsmanEventsRepository.getSportsmanEventsById(eventId);
-        if(event.getFood()!=null){
+        if (event.getFood() != null) {
             message = "Изменено";
         }
         event.setFood(contentFood);
@@ -175,7 +179,7 @@ public class SportsmanEventsService {
     }
 
     public ScheduleDTO getEventByID(Long eventId) {
-        return ScheduleDTO.from(scheduleRepository.findById(eventId) .orElseThrow(() -> new ResourceNotFoundException("Такой задачи с таким id нет")));
+        return ScheduleDTO.from(scheduleRepository.findById(eventId).orElseThrow(() -> new ResourceNotFoundException("Такой задачи с таким id нет")));
     }
 
 }

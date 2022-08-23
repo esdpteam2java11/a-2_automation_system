@@ -3,7 +3,8 @@
     <main class="main-color-sportsman">
         <div class="container col-xxl-8 pb-2 mb-5" style="background-color: white;">
             <div class="container" style="background-color: white;">
-                <h2 class="text-center mb-5 pt-3" style="color: #000000">Отчет об оплате и начислениях по спортсмену</h2>
+                <h2 class="text-center mb-5 pt-3" style="color: #000000">Отчет об оплате и начислениях по
+                    спортсмену</h2>
                 <form action="/sportsman_debts" method="get" id="sportsman_debts-report">
                     <div class="row mb-3">
                         <div class="col-sm-3">

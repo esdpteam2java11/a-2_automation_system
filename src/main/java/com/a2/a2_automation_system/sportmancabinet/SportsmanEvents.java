@@ -1,6 +1,5 @@
 package com.a2.a2_automation_system.sportmancabinet;
 
-
 import com.a2.a2_automation_system.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,7 +36,6 @@ public class SportsmanEvents {
     @NotNull
     @Column(name = "title")
     private String title;
-
 
     @Column(name = "food")
     private String food;

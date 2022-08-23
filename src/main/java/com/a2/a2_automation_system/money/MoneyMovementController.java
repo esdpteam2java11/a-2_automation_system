@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -40,7 +39,6 @@ public class MoneyMovementController {
         return "cash_flow";
     }
 
-
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @GetMapping("/{typeOfFinance}")
     public String createIncome(Model model, @PathVariable String typeOfFinance) {
@@ -54,9 +52,9 @@ public class MoneyMovementController {
     @GetMapping("/view/{id}")
     public String viewMoneyMovement(Model model, @PathVariable Long id) {
         model.addAttribute("moneyMovement", moneyMovementsService.viewMoneyMovement(id));
-        if (moneyMovementsService.isIncome(id)){
+        if (moneyMovementsService.isIncome(id)) {
             return "view_income";
-        }else return "view_discharge";
+        } else return "view_discharge";
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")

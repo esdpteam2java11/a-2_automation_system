@@ -6,7 +6,7 @@
                 <form method="get" action="/admin" id="admin" class="pt-3">
                     <label for="role" class="mx-2">Роль:</label>
                     <select id="role" name="role" class="select-css">
-                        <option value="" selected> </option>
+                        <option value="" selected></option>
                         <#list roles as role>
                             <#if role.role != 'Администратор'>
                                 <option value="${role}">${role.role}</option>
@@ -15,7 +15,7 @@
                     </select>
                     <label for="blocked" class="mx-2">Заблокирован:</label>
                     <select name="isActive" id="blocked" class="select-css">
-                        <option value="" selected> </option>
+                        <option value="" selected></option>
                         <option value="true">Нет</option>
                         <option value="false">Да</option>
                     </select>
@@ -46,7 +46,6 @@
                 </thead>
                 <tbody>
                 <#list users as user>
-<#--                <#if user.role.role != 'Администратор'>-->
                 <tr>
                     <#assign link = "/edit/${user.id}">
                     <td><a class="text-decoration-none text-reset" href="${link}">${user.surname}</a></td>
@@ -63,11 +62,9 @@
                     </form>
                 </tr>
                 </tbody>
-<#--                </#if>-->
                 </#list>
             </table>
             <#include "partials/pagination.ftlh">
-
 
         </div>
     </main>
@@ -106,7 +103,6 @@
             await fetch("/admin/status/" + e.target.id, options)
         }
 
-
         buttons.forEach(b => {
             b.addEventListener('click', function () {
                 if (b.innerHTML === 'Заблокировать') {
@@ -122,7 +118,6 @@
         })
 
         changeButton()
-
 
         function changeButton() {
             for (let i = 0; i < isActive.length; i++) {
@@ -141,7 +136,6 @@
         buttons.forEach(btn => {
             btn.addEventListener('click', handleClick)
         })
-
 
     </script>
 

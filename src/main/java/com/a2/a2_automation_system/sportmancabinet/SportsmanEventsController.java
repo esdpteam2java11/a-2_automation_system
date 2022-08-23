@@ -32,8 +32,8 @@ public class SportsmanEventsController {
     public String getSportsmanPage(Model model, HttpServletRequest request) {
         UserDTO user = UserDTO.from(userService.getUserByUsername(request.getRemoteUser()));
         Boolean threeDayAbsence = groupService.getAbsenceThreeDays(request.getRemoteUser());
-        if(threeDayAbsence){
-            model.addAttribute("absenceMessage","Вы не присутствовали 3 дня");
+        if (threeDayAbsence) {
+            model.addAttribute("absenceMessage", "Вы не присутствовали 3 дня");
         }
         model.addAttribute("sportsman", user);
         return "sportsman_cabinet";
@@ -97,7 +97,6 @@ public class SportsmanEventsController {
         }
     }
 
-
     @PostMapping("sportsman_cabinet/event/{eventId}/edit")
     public String editScheduleElement(@Valid SportsmanEventCreateDTO sportsmanEventCreateDTO, @PathVariable Long eventId, RedirectAttributes redirectAttributes, BindingResult result) {
         String pathRedirect = String.format("redirect:/sportsman_cabinet/event/" + eventId);
@@ -131,7 +130,6 @@ public class SportsmanEventsController {
     }
 
     @PreAuthorize("hasAuthority('CLIENT')")
-
     @GetMapping("sportsman_cabinet/event/{eventId}/deleteConnected")
     public String deleteScheduleElements(@PathVariable Long eventId, RedirectAttributes redirectAttributes) {
         String pathRedirect = String.format("redirect:/sportsman_cabinet/");
@@ -166,6 +164,4 @@ public class SportsmanEventsController {
         model.addAttribute("event", sportsmanEventsService.getEventByID(eventId));
         return "show_event";
     }
-
-
 }

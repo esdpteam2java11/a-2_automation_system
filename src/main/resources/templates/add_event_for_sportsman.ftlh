@@ -48,26 +48,6 @@
         </div>
     </form>
     <script>
-        // function validateForm() {
-        //     let eventStart = new Date(document.forms["eventForm"]["eventDate"].value);
-        //     // let eventEnd = new Date(document.forms["eventForm"]["dateEnd"].value);
-        //     // if (eventEnd!== null && eventEnd < eventStart) {
-        //     //     let span = document.getElementById('messageForDate');
-        //     //     if(span!==null){
-        //     //         span.remove();
-        //     //     }
-        //         //const endDate = document.getElementById("labelForEndDate");
-        //        // const createSpan = document.createElement("span");
-        //        // const checkbox = document.getElementsByName("dayOfWeek[]");
-        //         console.log(checkbox.values());
-        //         createSpan.setAttribute('class','flex flex-v-center');
-        //         createSpan.setAttribute('style','color:red');
-        //         createSpan.setAttribute('id','messageForDate');
-        //         createSpan.innerHTML = '&nbsp;неправильная дата';
-        //         endDate.append(createSpan);
-        //         return false;
-        //     }
-        // }
         const checkbox = document.getElementById('recurring');
         checkbox.addEventListener('click',handleClick,false);
         function handleClick(e) {

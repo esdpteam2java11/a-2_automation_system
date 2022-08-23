@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface SportsmanEventsRepository extends JpaRepository<SportsmanEvents, Long> {
+
     List<SportsmanEvents> getSportsmanEventsBySportsmanAndEventDateBetween(User user, LocalDate startDate, LocalDate endDate);
 
     SportsmanEvents getSportsmanEventsById(Long id);

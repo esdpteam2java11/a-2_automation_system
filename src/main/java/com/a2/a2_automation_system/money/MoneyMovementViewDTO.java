@@ -2,8 +2,6 @@ package com.a2.a2_automation_system.money;
 
 import com.a2.a2_automation_system.sportsmanpayments.SportsmanPayment;
 import com.a2.a2_automation_system.sportsmanpayments.SportsmanPaymentViewInMoneyMovementDTO;
-import com.a2.a2_automation_system.user.SportsmanDTO;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -48,18 +46,12 @@ public class MoneyMovementViewDTO {
     private List<SportsmanPaymentViewInMoneyMovementDTO> sportsmanPaymentDTOList;
 
     public static MoneyMovementViewDTO from(MoneyMovement moneyMovement,
-                                            List<SportsmanPayment>sportsmanPayments) {
+                                            List<SportsmanPayment> sportsmanPayments) {
         return builder()
                 .id(moneyMovement.getId())
                 .date(moneyMovement.getDate())
-                .counterpartyFIO(moneyMovement.getCounterparty().getSurname() + " " +
-                        moneyMovement.getCounterparty().getName() +
-                        (moneyMovement.getCounterparty().getPatronymic() != null ?
-                                (" " + moneyMovement.getCounterparty().getPatronymic()) : ""))
-                .cashierFIO(moneyMovement.getCashier().getSurname() + " " +
-                        moneyMovement.getCashier().getName() +
-                        (moneyMovement.getCashier().getPatronymic() != null ?
-                                (" " + moneyMovement.getCashier().getPatronymic()) : ""))
+                .counterpartyFIO(moneyMovement.getCounterparty().getFIO())
+                .cashierFIO(moneyMovement.getCashier().getFIO())
                 .purpose(moneyMovement.getPurpose())
                 .typeOfFinance(moneyMovement.getTypeOfFinance())
                 .amount(moneyMovement.getAmount())

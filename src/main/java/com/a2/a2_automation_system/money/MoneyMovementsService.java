@@ -49,14 +49,14 @@ public class MoneyMovementsService {
                 LocalDate localDate = dateSportsman.get(i).atDay(1);
                 Date dateOfMonth = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
                 sportsmanPaymentRepository.save(
-                SportsmanPayment.builder()
-                        .amount((moneyOperationType.equals(MoneyOperationType.SPORTSMAN_PAYMENT.toString())) ?
-                                amountSportsman.get(i) : (amountSportsman.get(i)) * (-1))
-                        .operationType(OperationType.PAID)
-                        .user(userRepository.findById(counterparty).get())
-                        .date(dateOfMonth)
-                        .moneyMovement(movement)
-                        .build());
+                        SportsmanPayment.builder()
+                                .amount((moneyOperationType.equals(MoneyOperationType.SPORTSMAN_PAYMENT.toString())) ?
+                                        amountSportsman.get(i) : (amountSportsman.get(i)) * (-1))
+                                .operationType(OperationType.PAID)
+                                .user(userRepository.findById(counterparty).get())
+                                .date(dateOfMonth)
+                                .moneyMovement(movement)
+                                .build());
             }
         }
     }

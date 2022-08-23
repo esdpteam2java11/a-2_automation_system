@@ -1,6 +1,5 @@
 package com.a2.a2_automation_system.sportmancabinet;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

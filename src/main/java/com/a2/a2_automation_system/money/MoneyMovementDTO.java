@@ -43,10 +43,7 @@ public class MoneyMovementDTO {
         return builder()
                 .id(moneyMovement.getId())
                 .date(moneyMovement.getDate())
-                .counterpartyFIO(moneyMovement.getCounterparty().getSurname() + " " +
-                        moneyMovement.getCounterparty().getName() +
-                        (moneyMovement.getCounterparty().getPatronymic() != null ?
-                                (" " + moneyMovement.getCounterparty().getPatronymic()) : ""))
+                .counterpartyFIO(moneyMovement.getCounterparty().getFIO())
                 .purpose(moneyMovement.getPurpose())
                 .typeOfFinance(moneyMovement.getTypeOfFinance())
                 .amount(moneyMovement.getAmount())

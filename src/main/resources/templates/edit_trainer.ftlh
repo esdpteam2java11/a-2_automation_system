@@ -76,7 +76,6 @@
                                     </div>
                                 </div>
 
-
                                 <div class="form-outline mb-4">
                                     <label class="form-label required" for="address_input">Адрес</label>
                                     <input type="text" name="address" value="${(dto.address)!''}" id="address_input"
@@ -108,7 +107,8 @@
                                 <#if errors?? >
                                     <p style="color: red">Входные данные с ошибками!</p>
                                     <#list errors as fieldError>
-                                        <p style="color: red">${fieldError.field} - ${fieldError.defaultMessage!'-- no message --'}</p>
+                                        <p style="color: red">${fieldError.field}
+                                            - ${fieldError.defaultMessage!'-- no message --'}</p>
                                     </#list>
                                 </#if>
                                 <input type="hidden" id="role" name="role" value="EMPLOYEE">

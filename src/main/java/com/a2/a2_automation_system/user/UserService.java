@@ -49,15 +49,19 @@ public class UserService implements UserDetailsService {
     }
 
     public Page<UserDTO> getUsersWithFilter(Pageable pageable, String role, Boolean isActive) {
-        if ((isActive != null && role != null) && !role.equals("all")) {
+        if ((isActive != null && role != null && !role.equals("")) && !role.equals("all")) {
             return userRepository.findAllByIsActiveAndRole(pageable, isActive, Role.valueOf(role)).map(UserDTO::from);
         } else if (isActive != null) {
             return userRepository.findAllByIsActive(pageable, isActive).map(UserDTO::from);
-        } else if (role != null) {
-            return userRepository.findAllByRole(pageable, Role.valueOf(role)).map(UserDTO::from);
+        } else if (role != null && !role.equals("")) {
+            return userRepository.findAllByRoleExceptAdmin(pageable, Role.valueOf(role)).map(UserDTO::from);
         } else {
-            return userRepository.findAll(pageable).map(UserDTO::from);
+            return userRepository.findAllExceptAdmin(pageable).map(UserDTO::from);
         }
+    }
+
+    public Page<UserDTO> getUserBySearch(Pageable pageable, String search) {
+        return userRepository.findUserByNameOrSurnameOrPatronymic(pageable, search).map(UserDTO::from);
     }
 
     public Page<UserDTO> getAllUsers(Pageable pageable) {
@@ -74,14 +78,9 @@ public class UserService implements UserDetailsService {
         return users.stream().map(UserShortInfoDTO::from).collect(Collectors.toList());
     }
 
-    public Page<UserDTO> getUserBySearch(Pageable pageable, String search) {
-        return userRepository.findUserByNameOrSurnameOrPatronymic(pageable, search).map(UserDTO::from);
-    }
-
     public boolean userLoginCheck(String login) {
         return userRepository.existsByLogin(login);
     }
-
 
     public UserDTO addTrainer(UserDTO userDTO) {
         if (userLoginCheck(userDTO.getLogin())) {
@@ -99,7 +98,7 @@ public class UserService implements UserDetailsService {
                 .birthDate(userDTO.getBirthDate())
                 .build();
         userRepository.save(trainer);
-       return UserDTO.from(trainer);
+        return UserDTO.from(trainer);
     }
 
     public SportsmanDTO getSportsmanDetails(Long id) {
@@ -165,9 +164,9 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public void editSportsman(UserDTO userDTO,Long id,
-                             UserParamDTO userParamDTO,
-                             SportsmanPaymentDTO sportsmanPaymentDTO,
+    public void editSportsman(UserDTO userDTO, Long id,
+                              UserParamDTO userParamDTO,
+                              SportsmanPaymentDTO sportsmanPaymentDTO,
                               List<Long> pIds, List<String> pKinships, List<String> pSurnames, List<String> pNames,
                               List<String> pPatronymics, List<String> pPhones,
                               List<String> pWhatsapps, List<String> pTelegrams) {
@@ -175,13 +174,13 @@ public class UserService implements UserDetailsService {
         User sportsman = userRepository.findById(id).get();
         sportsman.setSurname(userDTO.getSurname());
         sportsman.setName(userDTO.getName());
-        sportsman.setPatronymic(userDTO.getPatronymic()== null || userDTO.getPatronymic().isBlank() ? null : userDTO.getPatronymic());
+        sportsman.setPatronymic(userDTO.getPatronymic() == null || userDTO.getPatronymic().isBlank() ? null : userDTO.getPatronymic());
         sportsman.setBirthDate(userDTO.getBirthDate());
         sportsman.setPhone(userDTO.getPhone());
         sportsman.setWhatsapp(userDTO.getWhatsapp() == null || userDTO.getWhatsapp().isBlank() ? null : userDTO.getWhatsapp());
         sportsman.setTelegram(userDTO.getTelegram() == null || userDTO.getTelegram().isBlank() ? null : userDTO.getTelegram());
         sportsman.setAddress(userDTO.getAddress());
-        sportsman.setSchool(userDTO.getSchool() == null || userDTO.getSchool().isBlank() ? null :userDTO.getSchool());
+        sportsman.setSchool(userDTO.getSchool() == null || userDTO.getSchool().isBlank() ? null : userDTO.getSchool());
         sportsman.setChannels(userDTO.getChannels() == null || userDTO.getChannels().isBlank() ? null : userDTO.getChannels());
         sportsman.setGroup(groupRepository.findById(userDTO.getGroupId()).get());
         sportsman.setDateOfAdmission(userDTO.getDateOfAdmission());
@@ -190,19 +189,26 @@ public class UserService implements UserDetailsService {
 
         userRepository.save(sportsman);
 
-        sportsmanPaymentRepository.save(SportsmanPayment.builder()
-                .amount(sportsmanPaymentDTO.getAmount())
-                .date(sportsmanPaymentDTO.getDate())
-                .user(sportsman)
-                .operationType(OperationType.ACCRUED)
-                .build());
+        if (!sportsmanPaymentRepository.existsByUserAndAmountAndDateAndOperationType(
+                sportsman, sportsmanPaymentDTO.getAmount(),
+                sportsmanPaymentDTO.getDate(), OperationType.ACCRUED)) {
+            sportsmanPaymentRepository.save(SportsmanPayment.builder()
+                    .amount(sportsmanPaymentDTO.getAmount())
+                    .date(sportsmanPaymentDTO.getDate())
+                    .user(sportsman)
+                    .operationType(OperationType.ACCRUED)
+                    .build());
+        }
 
-        UserParam sportsmanParam = new UserParam();
-        sportsmanParam.setCreationDate(new Date());
-        sportsmanParam.setUser(sportsman);
-        sportsmanParam.setWeight(userParamDTO.getWeight());
-        sportsmanParam.setHeight(userParamDTO.getHeight());
-        userParamRepository.save(sportsmanParam);
+        if (!userParamRepository.existsByUserAndHeightAndWeightAndCreationDate(sportsman,
+                userParamDTO.getHeight(), userParamDTO.getWeight(), userParamDTO.getCreationDate())) {
+            UserParam sportsmanParam = new UserParam();
+            sportsmanParam.setCreationDate(new Date());
+            sportsmanParam.setUser(sportsman);
+            sportsmanParam.setWeight(userParamDTO.getWeight());
+            sportsmanParam.setHeight(userParamDTO.getHeight());
+            userParamRepository.save(sportsmanParam);
+        }
 
         if (pIds != null) {
             List<Parent> parents = setParents(pIds, pKinships, pSurnames, pNames, pPatronymics, pPhones, pWhatsapps,
@@ -293,7 +299,7 @@ public class UserService implements UserDetailsService {
         return groupRepository.findById(groupId).get().getName();
     }
 
-    public String getUserFio(Long userId){
+    public String getUserFio(Long userId) {
         User user = userRepository.findById(userId).get();
         return user.getSurname() + " " + user.getName() + (user.getPatronymic() != null ?
                 (" " + user.getPatronymic()) : "");

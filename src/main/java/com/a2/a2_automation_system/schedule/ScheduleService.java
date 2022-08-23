@@ -51,7 +51,7 @@ public class ScheduleService {
         LocalDate start = LocalDate.parse(dateStart.split("%")[0].split("T")[0]);
         LocalDate end = LocalDate.parse(dateEnd.split("%")[0].split("T")[0]);
         var group = groupRepository.findById(Long.parseLong(groupId));
-        List<Schedule> events =  scheduleRepository.getAllByGroupAndEventDateBetween(group.get(),start,end);
+        List<Schedule> events = scheduleRepository.getAllByGroupAndEventDateBetween(group.get(), start, end);
         return events.stream().map(ScheduleRestDto::from).collect(Collectors.toList());
 
     }
@@ -137,7 +137,6 @@ public class ScheduleService {
         return visitRepository.findAllByScheduleId(eventId).stream().map(VisitDto::from).collect(Collectors.toList());
     }
 
-
     @Transactional
     public ScheduleDTO deleteEventById(Long eventId) {
         Schedule event = scheduleRepository.getById(eventId);
@@ -145,7 +144,6 @@ public class ScheduleService {
         scheduleRepository.delete(event);
         return scheduleDTO;
     }
-
 
     @Transactional
     public ScheduleDTO deleteEventsInSeries(Long eventId) {
@@ -201,7 +199,7 @@ public class ScheduleService {
         LocalDate start = getLocalDateFromString(dateStart);
         LocalDate end = getLocalDateFromString(dateEnd);
         var group = groupRepository.findById(Long.parseLong(groupId));
-        List<Schedule> events =  scheduleRepository.getAllByGroupAndEventDateBetween(group.get(),start,end);
+        List<Schedule> events = scheduleRepository.getAllByGroupAndEventDateBetween(group.get(), start, end);
         return events.stream().map(ScheduleRestDtoForSportsman::from).collect(Collectors.toList());
     }
 
@@ -210,7 +208,7 @@ public class ScheduleService {
         LocalDate start = getLocalDateFromString(dateStart);
         LocalDate end = getLocalDateFromString(dateEnd);
         var group = groupRepository.findById(Long.parseLong(groupId));
-        List<Schedule> events =  scheduleRepository.getAllByGroupAndEventDateBetween(group.get(),start,end);
+        List<Schedule> events = scheduleRepository.getAllByGroupAndEventDateBetween(group.get(), start, end);
         List<Visit> visits = visitRepository.getAllByStudent(user);
         List<ScheduleRestDtoForSportsman> eventsDTO = events.stream().map(ScheduleRestDtoForSportsman::from).collect(Collectors.toList());
         List<ScheduleRestDtoForSportsman> modifiedEventsDto = new ArrayList<>();
@@ -229,9 +227,9 @@ public class ScheduleService {
         return eventsDTO;
     }
 
-    public List<Schedule> getListOfLastTreeEvents(Group group,LocalDate dateNow,LocalDate dateOfAdmission ) {
+    public List<Schedule> getListOfLastTreeEvents(Group group, LocalDate dateNow, LocalDate dateOfAdmission) {
         Comparator<Schedule> sortDesc = (schedule1, schedule2) -> schedule2.getEventDate().compareTo(schedule1.getEventDate());
-        List<Schedule> listSchedule = scheduleRepository.getAllByGroupAndEventDateBetween(group,dateOfAdmission,dateNow);
+        List<Schedule> listSchedule = scheduleRepository.getAllByGroupAndEventDateBetween(group, dateOfAdmission, dateNow);
         Collections.sort(listSchedule, sortDesc);
         return listSchedule.stream().limit(3).collect(Collectors.toList());
     }

@@ -12,7 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,9 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.Date;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 
@@ -42,7 +39,6 @@ public class UserController {
     private final GroupService groupService;
     private final ParentService parentService;
     private final NewsService newsService;
-
 
     @GetMapping("/login")
     public String login(@RequestParam(required = false, defaultValue = "false") Boolean error, Model model) {
@@ -74,11 +70,11 @@ public class UserController {
         PageUtil.constructPageable(page, propertiesService.getDefaultPageSize(), model, uri, role, isActive);
         if (!search.isEmpty()) {
             Page<UserDTO> searchUserByNameOrSurnameOrPatronymic = userService.getUserBySearch(pageable, search);
-            PageUtil.constructPageable(searchUserByNameOrSurnameOrPatronymic, propertiesService.getDefaultPageSize(), model, uri + "?" + "search=" + search, role, isActive);
+            PageUtil.constructPageable(searchUserByNameOrSurnameOrPatronymic, propertiesService.getDefaultPageSize(),
+                    model, uri + "?" + "search=" + search, role, isActive);
         }
         return "admin";
     }
-
 
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @GetMapping("/add/trainer")
@@ -131,21 +127,20 @@ public class UserController {
                                @RequestParam("p_whatsapp") @Nullable List<String> pWhatsapps,
                                @RequestParam("p_telegram") @Nullable List<String> pTelegrams,
                                RedirectAttributes attributes) {
-            if (userService.userLoginCheck(customerRequestDto.getLogin())) {
-                attributes.addFlashAttribute("dto", customerRequestDto);
-                return "redirect:/create";
-            }
+        if (userService.userLoginCheck(customerRequestDto.getLogin())) {
+            attributes.addFlashAttribute("dto", customerRequestDto);
+            return "redirect:/create";
+        }
 
         if (validationResult.hasFieldErrors()) {
             attributes.addFlashAttribute("errors", validationResult.getFieldErrors());
             return "redirect:/create";
         }
-     userService.createSportsman(userParamDTO,sportsmanPaymentDTO,customerRequestDto,  pIds, pKinships,
+        userService.createSportsman(userParamDTO, sportsmanPaymentDTO, customerRequestDto, pIds, pKinships,
                 pSurnames, pNames, pPatronymics, pPhones, pWhatsapps, pTelegrams);
 
         return "redirect:/admin";
     }
-
 
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @GetMapping("/edit/{id}")
@@ -178,7 +173,7 @@ public class UserController {
             return "redirect:/edit/" + id;
         }
 
-        userService.editSportsman(userDTO,id, userParamDTO,    sportsmanPaymentDTO,  pIds, pKinships,
+        userService.editSportsman(userDTO, id, userParamDTO, sportsmanPaymentDTO, pIds, pKinships,
                 pSurnames, pNames, pPatronymics, pPhones, pWhatsapps, pTelegrams);
 
         return "redirect:/admin";
@@ -233,7 +228,7 @@ public class UserController {
     public String getSportsmanStory(Model model, @RequestParam(value = "userId") @Nullable Long userId) {
         var userParams = userService.getUserParams(userId);
         var userPayments = userService.getUserPayments(userId);
-        model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("users", userService.getAllUsersByRole(Role.CLIENT));
         model.addAttribute("sportsmanParams", userParams);
         model.addAttribute("sportsmanPayments", userPayments);
         return "sportsman_story";

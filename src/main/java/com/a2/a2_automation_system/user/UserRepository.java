@@ -7,7 +7,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,11 +16,12 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long> {
     Optional<User> findByLogin(String email);
 
     @Query(value = "select u from User u where u.role <> 'ADMIN'")
-    Page<User> findAllByRole(Pageable pageable);
+    Page<User> findAllExceptAdmin(Pageable pageable);
 
     List<User> findAllByRole(Role role);
 
-    Page<User> findAllByRole(Pageable pageable, Role role);
+    @Query(value = "select u from User u where u.role <> 'ADMIN' and u.role= :role")
+    Page<User> findAllByRoleExceptAdmin(Pageable pageable, Role role);
 
     @Query(value = "select u from User u where u.role <> 'ADMIN' and " +
             " u.isActive = :isActive")
