@@ -8,7 +8,7 @@ services:
     volumes:
       - a2app:/opt/upload/
     ports:
-      - 80:80
+      - 80:8080
     depends_on:
       - db
     environment:
