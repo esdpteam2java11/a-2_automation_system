@@ -234,7 +234,7 @@ function showDetails(value) {
 
 function addNewPaymentDetail() {
     const newTrTag = document.createElement("tr")
-    newTrTag.innerHTML = `<td ><input class="form-control" type="date" name="dateSportsman" required/></td>
+    newTrTag.innerHTML = `<td ><input class="form-control" type="month" name="dateSportsman" required/></td>
                           <td >
                                 <input class="form-control sum" type="number" 
                                 name="amountSportsman" min="1" required/>
