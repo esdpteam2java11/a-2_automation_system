@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.Date;
 import java.util.List;
 
@@ -50,6 +51,22 @@ public class MoneyMovementController {
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
+    @GetMapping("/view/{id}")
+    public String viewMoneyMovement(Model model, @PathVariable Long id) {
+        model.addAttribute("moneyMovement", moneyMovementsService.viewMoneyMovement(id));
+        if (moneyMovementsService.isIncome(id)){
+            return "view_income";
+        }else return "view_discharge";
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
+    @PostMapping("/view/{id}")
+    public String deleteMoneyMovement(@PathVariable Long id) {
+        moneyMovementsService.deleteMoneyMovement(id);
+        return "redirect:/cash";
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @PostMapping("/{typeOfFinance}")
     public String registerUser(Principal principal, @PathVariable String typeOfFinance,
                                @RequestParam("moneyOperationType") @Nullable String moneyOperationType,
@@ -58,8 +75,7 @@ public class MoneyMovementController {
                                @RequestParam("counterparty") @Nullable Long counterparty,
                                @RequestParam("purpose") @Nullable String purpose,
 
-                               @RequestParam("dateSportsman") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-                               @Nullable List<Date> datesSportsman,
+                               @RequestParam("dateSportsman") @Nullable List<YearMonth> datesSportsman,
                                @RequestParam("amountSportsman") @Nullable List<Double> amountSportsman) {
 
         moneyMovementsService.addMoneyMovement(principal.getName(), typeOfFinance, moneyOperationType,
