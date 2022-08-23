@@ -3,31 +3,32 @@
     <main class="main-color">
         <div class="container" style="background-color: white; ">
             <div class="admin-search text-center">
-                <form method="get" action="/admin" id="admin">
-                    <label for="role">Роль:</label>
+                <form method="get" action="/admin" id="admin" class="pt-3">
+                    <label for="role" class="mx-2">Роль:</label>
                     <select id="role" name="role" class="select-css">
-                        <option value="all">Все</option>
+                        <option value="" selected> </option>
                         <#list roles as role>
                             <#if role.role != 'Администратор'>
                                 <option value="${role}">${role.role}</option>
                             </#if>
                         </#list>
                     </select>
-                    <label for="blocked">Заблокирован</label>
+                    <label for="blocked" class="mx-2">Заблокирован:</label>
                     <select name="isActive" id="blocked" class="select-css">
+                        <option value="" selected> </option>
                         <option value="true">Нет</option>
                         <option value="false">Да</option>
                     </select>
-                    <label for="search">Поиск по ФИО</label>
+                    <label for="search" class="mx-2">Поиск по ФИО</label>
                     <input id="search" type="text" name="search" class="search-in-admin" \>
-                    <button type="submit" class="bn30" style="margin-top: 20px">Искать</button>
+                    <button type="submit" class="bn30 mx-2" style="margin-top: 20px">Искать</button>
                 </form>
                 <div class="buttons-in-admin">
                     <a href="/add/trainer">
-                        <button class="bn30">Создать тренера</button>
+                        <button class="bn30 mx-2">Создать тренера</button>
                     </a>
                     <a href="/create">
-                        <button class="bn30">Создать спортсмена</button>
+                        <button class="bn30 mx-2">Создать спортсмена</button>
                     </a>
                 </div>
 
