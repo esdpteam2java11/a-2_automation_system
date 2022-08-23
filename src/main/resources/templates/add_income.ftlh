@@ -78,7 +78,7 @@
                                         <tbody class="table-body" onchange="setTotalSum()">
                                         <tr>
                                             <td>
-                                                <input class="form-control" type="date" name="dateSportsman"/>
+                                                <input class="form-control" type="month" name="dateSportsman"/>
                                             </td>
                                             <td>
                                                 <input class="form-control sum" type="number"
