@@ -13,7 +13,7 @@
                                        for="money-operation-type">Вид операции:</label>
                                 <select class="form-control" name="moneyOperationType"
                                         id="money-operation-type"
-                                        onchange="showDetails(this.value)">
+                                        onchange="showDetails(this.value)" required>
                                     <option hidden disabled selected value> -- выберите операцию --</option>
                                     <#list operationTypes as operationType>
                                         <option value="${operationType}">${operationType.rusValue}</option>
@@ -39,7 +39,7 @@
                             <div>
                                 <label class="col-form-label required"
                                        for="counterparty">Контрагент</label>
-                                <select class="js-selectize" name="counterparty" id="counterparty">
+                                <select class="js-selectize" name="counterparty" id="counterparty" required>
                                     <option value=""></option>
                                     <#list users as user>
                                         <option value="${user.id}">${user.fio}</option>
