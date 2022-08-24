@@ -6,7 +6,7 @@
             <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
         </#if>
         <div>
-            <h2 class="text-center mt-3 mb-3">Форма создания занятия или занятий для спортсмена:</h2>
+            <h2 class="text-center mt-3 mb-3">Форма создания заметок для спортсмена:</h2>
             <h3 class="text-center mb-5">${sportsman.name}</h3>
         </div>
 
@@ -41,7 +41,7 @@
             </#if>
 
             <label class="flex flex-v-center" for="recurring" id="reoccurringLabel">
-                Повторяющиеся занятие:
+                Повторяющиеся заметки:
                 <input type="checkbox" name="recurring" id="recurring">
             </label>
 

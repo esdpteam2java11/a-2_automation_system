@@ -95,8 +95,8 @@ if (addNewParentBtn != null) {
                                 </select>
                           </td>
                           <td class="p-0 m-0"><input class="form-control" type="text" name="p_surname" required/></td>
-                          <td class="p-0 m-0"><input class="form-control" type="text" name="p_patronymic" value=" "/></td>
                           <td class="p-0 m-0"><input class="form-control" type="text" name="p_name" required/></td>
+                          <td class="p-0 m-0"><input class="form-control" type="text" name="p_patronymic" value=" "/></td>
                           <td class="p-0 m-0"><input class="form-control" type="text" name="p_phone" required/></td>
                           <td class="p-0 m-0"><input class="form-control" type="text" name="p_whatsapp" value=" "/></td>
                           <td class="p-0 m-0"><input class="form-control" type="text" name="p_telegram" value=" "/></td>

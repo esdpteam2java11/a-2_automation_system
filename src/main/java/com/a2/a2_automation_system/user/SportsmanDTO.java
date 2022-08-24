@@ -13,6 +13,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 @Data
@@ -33,7 +35,7 @@ public class SportsmanDTO {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonProperty("birth_date")
-    private Date birthDate;
+    private LocalDate birthDate;
 
     @NotBlank
     private String phone;
@@ -62,7 +64,7 @@ public class SportsmanDTO {
 
     private Long groupId;
 
-    private Date dateOfAdmission;
+    private LocalDate dateOfAdmission;
 
     private Double weight;
 
@@ -70,7 +72,7 @@ public class SportsmanDTO {
 
     private Double amount;
 
-    private Date tariffDate;
+    private LocalDate tariffDate;
 
     public static SportsmanDTO from(User user, UserParam userParam, SportsmanPayment sportsmanPayment) {
         return builder()
@@ -78,7 +80,7 @@ public class SportsmanDTO {
                 .name(user.getName())
                 .surname(user.getSurname())
                 .patronymic(user.getPatronymic())
-                .birthDate(user.getBirthDate())
+                .birthDate(user.getBirthDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
                 .phone(user.getPhone())
                 .whatsapp(user.getWhatsapp())
                 .telegram(user.getTelegram())
@@ -89,11 +91,11 @@ public class SportsmanDTO {
                 .password(user.getPassword())
                 .isActive(user.getIsActive())
                 .groupId(user.getGroup() != null ? user.getGroup().getId() : null)
-                .dateOfAdmission(user.getDateOfAdmission())
+                .dateOfAdmission(user.getDateOfAdmission().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
                 .weight(userParam.getWeight())
                 .height(userParam.getHeight())
                 .amount(sportsmanPayment.getAmount())
-                .tariffDate(sportsmanPayment.getDate())
+                .tariffDate(sportsmanPayment.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
                 .build();
     }
 }

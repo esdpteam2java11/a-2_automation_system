@@ -16,12 +16,10 @@ public interface UserParamRepository extends CrudRepository<UserParam, Long> {
     List<UserParam> findByUserId(Long id);
 
     @Query(value = "select * from user_params up where up.user_id = ?1 and up.creation_date <= ?2 " +
-            "order by up.creation_date desc limit 1",
-            nativeQuery = true)
+            "order by up.creation_date desc limit 1", nativeQuery = true)
     Optional<UserParam> findUpToDateParamsByUser(Long userId, Date date);
 
-    Boolean existsByUserAndHeightAndWeightAndCreationDate(@NotNull User user,
-                                                          @NotNull Double height,
-                                                          @NotNull Double weight,
-                                                          @NotNull Date creationDate);
+    @Query(value = "select * from user_params up where up.user_id = ?1 and up.height = ?2 " +
+            "and up.weight = ?3 and up.creation_date = ?4 ", nativeQuery = true)
+    List<UserParam> getEqualParam(User user, Double height, Double weight, Date creationDate);
 }

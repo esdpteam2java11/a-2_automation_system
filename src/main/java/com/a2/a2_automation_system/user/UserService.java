@@ -25,6 +25,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -110,6 +111,7 @@ public class UserService implements UserDetailsService {
         else return SportsmanDTO.from(sportsman, new UserParam(), sportsmanPayment);
     }
 
+    @Transactional
     public void createSportsman(UserParamDTO userParamDTO,
                                 SportsmanPaymentDTO sportsmanPaymentDTO,
                                 UserDTO userDTO,
@@ -145,10 +147,17 @@ public class UserService implements UserDetailsService {
                 .operationType(OperationType.ACCRUED)
                 .build());
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date date =  calendar.getTime();
+
         userParamRepository.save(UserParam.builder()
                 .height(userParamDTO.getHeight())
                 .weight(userParamDTO.getWeight())
-                .creationDate(new Date())
+                .creationDate(date)
                 .user(sportsman)
                 .build());
 
@@ -164,6 +173,7 @@ public class UserService implements UserDetailsService {
         }
     }
 
+    @Transactional
     public void editSportsman(UserDTO userDTO, Long id,
                               UserParamDTO userParamDTO,
                               SportsmanPaymentDTO sportsmanPaymentDTO,
@@ -200,10 +210,20 @@ public class UserService implements UserDetailsService {
                     .build());
         }
 
-        if (!userParamRepository.existsByUserAndHeightAndWeightAndCreationDate(sportsman,
-                userParamDTO.getHeight(), userParamDTO.getWeight(), userParamDTO.getCreationDate())) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date date =  calendar.getTime();
+
+        List<UserParam> userParams = userParamRepository.getEqualParam(sportsman, userParamDTO.getHeight(),
+                userParamDTO.getWeight(), date);
+
+        if (userParams.size() == 0) {
+
             UserParam sportsmanParam = new UserParam();
-            sportsmanParam.setCreationDate(new Date());
+            sportsmanParam.setCreationDate(date);
             sportsmanParam.setUser(sportsman);
             sportsmanParam.setWeight(userParamDTO.getWeight());
             sportsmanParam.setHeight(userParamDTO.getHeight());
