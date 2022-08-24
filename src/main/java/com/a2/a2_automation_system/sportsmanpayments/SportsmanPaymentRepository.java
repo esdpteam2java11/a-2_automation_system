@@ -1,9 +1,11 @@
 package com.a2.a2_automation_system.sportsmanpayments;
 
+import com.a2.a2_automation_system.user.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -47,4 +49,13 @@ public interface SportsmanPaymentRepository extends PagingAndSortingRepository<S
     Double findTotalPaidAmountToDate(Long user, Date date);
 
     List<SportsmanPayment> findByUserId(Long id);
+
+    Boolean existsByUserAndAmountAndDateAndOperationType(@NotNull User user,
+                                                         @NotNull Double amount,
+                                                         @NotNull Date date,
+                                                         @NotNull OperationType operationType);
+
+    List<SportsmanPayment> findAllByMoneyMovementId(Long id);
+
+    void deleteAllByMoneyMovementId(Long id);
 }

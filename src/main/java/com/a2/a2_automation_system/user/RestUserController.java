@@ -3,7 +3,6 @@ package com.a2.a2_automation_system.user;
 import com.a2.a2_automation_system.parent.ParentDTO;
 import com.a2.a2_automation_system.parent.ParentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +25,7 @@ public class RestUserController {
     }
 
     @GetMapping("/groupName/{userId}")
-    public String getGroupNameByUser(@PathVariable Long userId){
+    public String getGroupNameByUser(@PathVariable Long userId) {
         return userService.getGroupNameByUser(userId);
     }
 }

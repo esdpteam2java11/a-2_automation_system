@@ -1,6 +1,5 @@
 package com.a2.a2_automation_system.parent;
 
-
 public enum Kinship {
     FATHER("Отец"),
     MOTHER("Мать"),
@@ -16,12 +15,12 @@ public enum Kinship {
         this.kinship = kinship;
     }
 
-    public String getKinship(){
+    public String getKinship() {
         return this.kinship;
     }
 
-    public static Kinship getKinshipByKinshipName(String name){
-        for (Kinship k:Kinship.values()) {
+    public static Kinship getKinshipByKinshipName(String name) {
+        for (Kinship k : Kinship.values()) {
             if (k.getKinship().equalsIgnoreCase(name)) return k;
         }
         return null;

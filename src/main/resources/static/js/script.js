@@ -95,8 +95,8 @@ if (addNewParentBtn != null) {
                                 </select>
                           </td>
                           <td class="p-0 m-0"><input class="form-control" type="text" name="p_surname" required/></td>
-                          <td class="p-0 m-0"><input class="form-control" type="text" name="p_patronymic" value=" "/></td>
                           <td class="p-0 m-0"><input class="form-control" type="text" name="p_name" required/></td>
+                          <td class="p-0 m-0"><input class="form-control" type="text" name="p_patronymic" value=" "/></td>
                           <td class="p-0 m-0"><input class="form-control" type="text" name="p_phone" required/></td>
                           <td class="p-0 m-0"><input class="form-control" type="text" name="p_whatsapp" value=" "/></td>
                           <td class="p-0 m-0"><input class="form-control" type="text" name="p_telegram" value=" "/></td>
@@ -234,7 +234,7 @@ function showDetails(value) {
 
 function addNewPaymentDetail() {
     const newTrTag = document.createElement("tr")
-    newTrTag.innerHTML = `<td ><input class="form-control" type="date" name="dateSportsman" required/></td>
+    newTrTag.innerHTML = `<td ><input class="form-control" type="month" name="dateSportsman" required/></td>
                           <td >
                                 <input class="form-control sum" type="number" 
                                 name="amountSportsman" min="1" required/>

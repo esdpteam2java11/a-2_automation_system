@@ -28,7 +28,7 @@
                             <div class="mb-3">
                                 <label for="recipient-birthDate" class="col-form-label required">Дата рождения:</label>
                                 <input type="date" name="birthDate" class="form-control" id="recipient-birthDate"
-                                       value="${sportsman.birthDate?date?iso_utc}" required>
+                                       value="${sportsman.birthDate}" required>
                             </div>
                             <div class="mb-3">
                                 <label for="recipient-growth" class="col-form-label required">Рост:</label>
@@ -102,7 +102,7 @@
                                 <label for="recipient-dateOfAdmission" class="col-form-label required">Дата зачисления в
                                     группу:</label>
                                 <input type="date" name="dateOfAdmission" class="form-control"
-                                       id="recipient-dateOfAdmission" value="${sportsman.dateOfAdmission?date?iso_utc}"
+                                       id="recipient-dateOfAdmission" value="${sportsman.dateOfAdmission}"
                                        required>
                             </div>
                             <div class="mb-3 row">
@@ -117,7 +117,7 @@
                                     <label for="recipient-sum-date" class="col-form-label-sm required">Дата начала
                                         тарифа:</label>
                                     <input type="date" name="date" class="form-control" id="recipient-sum-date"
-                                           value="${sportsman.tariffDate?date?iso_utc}" required>
+                                           value="${sportsman.tariffDate}" required>
                                 </div>
                             </div>
                         </div>
@@ -176,15 +176,25 @@
                                             <td class="p-0" hidden><input type="hidden" name="p_id" value="${parent
                                                 .id}"></td>
                                             <td class="text-center p-0 m-0"><input class="form-control" type="hidden"
-                                                                        name="p_kinship"
-                                                       value="${parent.kinshipName}">${parent.kinship}</input></td>
-                                            <td class="p-0 m-0"><input class="form-control" type="text" name="p_surname" value="${parent.surname}"></td>
-                                            <td class="p-0 m-0"><input class="form-control" type="text" name="p_name" value="${parent.name}"></td>
-                                            <td class="p-0 m-0"><input class="form-control" type="text" name="p_patronymic" value="${(parent.patronymic)!}">
+                                                                                   name="p_kinship"
+                                                                                   value="${parent.kinshipName}">${parent.kinship}</input>
                                             </td>
-                                            <td class="p-0 m-0"><input class="form-control" type="text" name="p_phone" value="${parent.phone}"></td>
-                                            <td class="p-0 m-0"><input class="form-control" type="text" name="p_whatsapp" value="${(parent.whatsapp)!}"></td>
-                                            <td class="p-0 m-0"><input class="form-control" type="text" name="p_telegram" value="${(parent.telegram)!}"></td>
+                                            <td class="p-0 m-0"><input class="form-control" type="text" name="p_surname"
+                                                                       value="${parent.surname}"></td>
+                                            <td class="p-0 m-0"><input class="form-control" type="text" name="p_name"
+                                                                       value="${parent.name}"></td>
+                                            <td class="p-0 m-0"><input class="form-control" type="text"
+                                                                       name="p_patronymic"
+                                                                       value="${(parent.patronymic)!}">
+                                            </td>
+                                            <td class="p-0 m-0"><input class="form-control" type="text" name="p_phone"
+                                                                       value="${parent.phone}"></td>
+                                            <td class="p-0 m-0"><input class="form-control" type="text"
+                                                                       name="p_whatsapp" value="${(parent.whatsapp)!}">
+                                            </td>
+                                            <td class="p-0 m-0"><input class="form-control" type="text"
+                                                                       name="p_telegram" value="${(parent.telegram)!}">
+                                            </td>
                                             <td class="text-center p-0 m-0">
                                                 <button type="button" class="btn btn-outline-danger py-1 px-2"
                                                         onclick='deleteSelectedRow(this)'>

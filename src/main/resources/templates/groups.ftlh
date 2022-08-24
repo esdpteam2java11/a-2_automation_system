@@ -13,7 +13,7 @@
         </table>
         <div class="text-center buttons-groups">
             <a href="/group/add">
-                <button type="button"  class="button-85">Добавить группу</button>
+                <button type="button" class="button-85">Добавить группу</button>
             </a>
 
             <a href="/admin">

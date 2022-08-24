@@ -101,8 +101,8 @@ public class NewsController {
 
     @ExceptionHandler(AccessDeniedException.class)
     @ResponseStatus(FORBIDDEN)
-    private String handleForbidden(Model model){
-        model.addAttribute("errorMessage","У вас нет доступа");
+    private String handleForbidden(Model model) {
+        model.addAttribute("errorMessage", "У вас нет доступа");
         return "login";
     }
 }

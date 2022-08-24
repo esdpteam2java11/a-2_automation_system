@@ -33,9 +33,7 @@
         </div>
     </div>
 
-
     <@footer.renderWith>
     </@footer.renderWith>
-
 
 </@main.renderWith>

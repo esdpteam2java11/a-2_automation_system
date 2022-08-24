@@ -2,32 +2,26 @@
 <#import "partials/footer.ftlh" as footer />
 <@main.renderWith >
 
-
-    <!-- <div style="height: 113px;"></div> -->
     <div class="slide-one-item home-slider owl-carousel">
 
         <div class="site-blocks-cover inner-page" style="background-image: url(/images/hero_b1_1.jpg);" data-aos="fade"
              data-stellar-background-ratio="0.5">
-            <!-- <div class="container"> -->
             <div class="row align-items-center justify-content-center">
                 <div class="col-md-7 text-center" data-aos="fade">
                     <h1>Будь лучшим!</h1>
                     <span class="caption d-block text-white">#постоянство</span>
                 </div>
             </div>
-            <!-- </div> -->
         </div>
 
         <div class="site-blocks-cover inner-page" style="background-image: url(/images/hero_bg_2.jpg);" data-aos="fade"
              data-stellar-background-ratio="0.5">
-            <!-- <div class="container"> -->
             <div class="row align-items-center justify-content-center">
                 <div class="col-md-7 text-center" data-aos="fade">
                     <h1>Верь в себя!</h1>
                     <span class="caption d-block text-white">#постоянство</span>
                 </div>
             </div>
-            <!-- </div> -->
         </div>
     </div>
 
@@ -61,35 +55,19 @@
                     <h2 class="site-section-heading text-center mb-3">Новости</h2>
                 </div>
             </div>
-<#--            <div class="row row-cols-1 row-cols-md-3 g-4">-->
-<#--                <#list news as new>-->
-<#--                <div class="col">-->
-<#--                    <div class="card h-100" style="width: 20rem;">-->
-<#--                        <img src="/upload/${new.image}" class="card-img-top" alt="...">-->
-<#--                        <div class="card-body">-->
-<#--                            <h5 class="card-title">${new.title}</h5>-->
-<#--                            <p class="card-text hide-text">${new.description}</p>-->
-<#--                            <p><a href="/news/${new.id}" class="btn btn-primary text-white px-4"><span-->
-<#--                                            class="caption">Подробнее</span></a></p>-->
-<#--                        </div>-->
-<#--                        <div class="card-footer">-->
-<#--                            <small class="text-muted">${new.date?datetime("yyyy-MM-dd")?string("dd MMMM yyyy")}</small>-->
-<#--                        </div>-->
-<#--                    </div>-->
-<#--                </div>-->
-<#--                </#list>-->
-<#--            </div>-->
 
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 <#list news as new>
                     <div class="col">
                         <div class="card h-100" style="width: 20rem;">
-                            <img src="/upload/${new.image}" class="card-img-top" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+                            <img src="/upload/${new.image}" class="card-img-top" alt=""
+                                 style="width: 100%; height: 100%; object-fit: cover;">
                             <div class="card-body">
                                 <h5 class="card-title">${new.title}</h5>
                                 <p class="card-text hide-text">${new.description}</p>
                             </div>
-                            <p class="text-center"><a href="/news/${new.id}" class="btn btn-primary text-white px-4"><span
+                            <p class="text-center"><a href="/news/${new.id}"
+                                                      class="btn btn-primary text-white px-4"><span
                                             class="caption">Подробнее</span></a></p>
                             <div class="card-footer">
                                 <small>${new.date?datetime("yyyy-MM-dd")?string("dd MMMM yyyy")}</small>
@@ -99,17 +77,11 @@
                 </#list>
             </div>
 
-
-
         </div>
     </div>
-    </div>
-
 
     <div class="site-section block-14 bg-light nav-direction-white">
-
         <div class="container">
-
             <div class="row mb-5">
                 <div class="col-md-12">
                     <h2 class="site-section-heading-red text-center">Тренеры</h2>
@@ -151,9 +123,6 @@
         </div>
     </div>
 
-
     <@footer.renderWith>
-
     </@footer.renderWith>
-    </div>
 </@main.renderWith>

@@ -81,7 +81,6 @@ public class SportsmanPaymentService {
         Double sportsmanPriceInCurrentMonth = 0.0;
         Double paidTotalInCurrentMonth;
 
-
         List<SportsmanPaymentForMonthDTO> sportsmanPaymentForMonthDTOS = new ArrayList<>();
 
         Optional<SportsmanPayment> startSportsmanPayment =

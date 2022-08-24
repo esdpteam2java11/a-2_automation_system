@@ -11,7 +11,6 @@
                     <input type="text" name="title" class="form-control text-center" id="recipient-title" required
                            value="${news.title}"
                            style="width: 300px; display: block; margin:auto;">
-
                 </div>
                 <div class="mb-3">
                     <label for="message-text" class="col-form-label">Описание: </label>

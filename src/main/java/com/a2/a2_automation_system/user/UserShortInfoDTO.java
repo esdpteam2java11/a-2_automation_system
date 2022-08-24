@@ -22,8 +22,7 @@ public class UserShortInfoDTO {
     public static UserShortInfoDTO from(User user) {
         return builder()
                 .id(user.getId())
-                .fio(user.getSurname() + " " + user.getName() + (user.getPatronymic() != null ?
-                        (" " + user.getPatronymic()) : ""))
+                .fio(user.getFIO())
                 .birthDate(user.getBirthDate())
                 .phone(user.getPhone())
                 .backgroundColor("")
@@ -33,8 +32,7 @@ public class UserShortInfoDTO {
     public static UserShortInfoDTO fromBackground(User user) {
         return builder()
                 .id(user.getId())
-                .fio(user.getSurname() + " " + user.getName() + (user.getPatronymic() != null ?
-                        (" " + user.getPatronymic()) : ""))
+                .fio(user.getFIO())
                 .birthDate(user.getBirthDate())
                 .phone(user.getPhone())
                 .backgroundColor("background-color:#FF0000")

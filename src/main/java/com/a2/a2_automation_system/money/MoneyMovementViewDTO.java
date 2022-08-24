@@ -1,6 +1,7 @@
 package com.a2.a2_automation_system.money;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.a2.a2_automation_system.sportsmanpayments.SportsmanPayment;
+import com.a2.a2_automation_system.sportsmanpayments.SportsmanPaymentViewInMoneyMovementDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,21 +12,25 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MoneyMovementDTO {
+public class MoneyMovementViewDTO {
 
     private Long id;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonProperty("event_date")
     private LocalDate date;
 
     @NotNull
     private String counterpartyFIO;
+
+    @NotNull
+    private String cashierFIO;
 
     private String purpose;
 
@@ -35,19 +40,24 @@ public class MoneyMovementDTO {
 
     private Double amount;
 
-    @Enumerated(value = EnumType.STRING)
     @NotNull
-    private MoneyOperationType moneyOperationType;
+    private String moneyOperationType;
 
-    public static MoneyMovementDTO from(MoneyMovement moneyMovement) {
+    private List<SportsmanPaymentViewInMoneyMovementDTO> sportsmanPaymentDTOList;
+
+    public static MoneyMovementViewDTO from(MoneyMovement moneyMovement,
+                                            List<SportsmanPayment> sportsmanPayments) {
         return builder()
                 .id(moneyMovement.getId())
                 .date(moneyMovement.getDate())
                 .counterpartyFIO(moneyMovement.getCounterparty().getFIO())
+                .cashierFIO(moneyMovement.getCashier().getFIO())
                 .purpose(moneyMovement.getPurpose())
                 .typeOfFinance(moneyMovement.getTypeOfFinance())
                 .amount(moneyMovement.getAmount())
-                .moneyOperationType(moneyMovement.getMoneyOperationType())
+                .moneyOperationType(moneyMovement.getMoneyOperationType().getRusValue())
+                .sportsmanPaymentDTOList(sportsmanPayments.stream().
+                        map(SportsmanPaymentViewInMoneyMovementDTO::from).collect(Collectors.toList()))
                 .build();
     }
 }

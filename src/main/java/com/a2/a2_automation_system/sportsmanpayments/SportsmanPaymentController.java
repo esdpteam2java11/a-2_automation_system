@@ -2,7 +2,6 @@ package com.a2.a2_automation_system.sportsmanpayments;
 
 import com.a2.a2_automation_system.group.GroupService;
 import com.a2.a2_automation_system.user.Role;
-import com.a2.a2_automation_system.user.User;
 import com.a2.a2_automation_system.user.UserDTO;
 import com.a2.a2_automation_system.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -44,9 +43,9 @@ public class SportsmanPaymentController {
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @GetMapping("/sportsman_debts")
     public String getSportsmanDebtsReport(Model model,
-                                    @RequestParam @Nullable YearMonth startDate,
-                                    @RequestParam @Nullable YearMonth endDate,
-                                    @RequestParam @Nullable Long userId) {
+                                          @RequestParam @Nullable YearMonth startDate,
+                                          @RequestParam @Nullable YearMonth endDate,
+                                          @RequestParam @Nullable Long userId) {
         model.addAttribute("users", userService.getAllUsersByRole(Role.CLIENT));
         if (startDate != null && endDate != null && userId != null) {
             String title = String.format("Отчет по спортсмену \"%s\" за период с %s по %s.",

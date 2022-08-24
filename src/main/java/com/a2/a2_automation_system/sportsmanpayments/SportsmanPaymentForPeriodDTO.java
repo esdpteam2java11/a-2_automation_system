@@ -43,8 +43,7 @@ public class SportsmanPaymentForPeriodDTO implements Comparable<SportsmanPayment
                                                     Double amountAccrued, Double amountPaid, Double startBalance) {
         return builder()
                 .sportsmanId(user.getId())
-                .sportsmanFio(user.getSurname() + " " + user.getName() + (user.getPatronymic() != null ?
-                        (" " + user.getPatronymic()) : ""))
+                .sportsmanFio(user.getFIO())
                 .groupId(group.getId())
                 .groupName(group.getName())
                 .groupPrice((double) group.getSum() * monthsQuantity)

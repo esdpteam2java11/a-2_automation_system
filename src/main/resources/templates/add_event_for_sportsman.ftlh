@@ -6,7 +6,7 @@
             <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
         </#if>
         <div>
-            <h2 class="text-center mt-3 mb-3">Форма создания занятия или занятий для спортсмена:</h2>
+            <h2 class="text-center mt-3 mb-3">Форма создания заметок для спортсмена:</h2>
             <h3 class="text-center mb-5">${sportsman.name}</h3>
         </div>
 
@@ -41,33 +41,13 @@
             </#if>
 
             <label class="flex flex-v-center" for="recurring" id="reoccurringLabel">
-                Повторяющиеся занятие:
+                Повторяющиеся заметки:
                 <input type="checkbox" name="recurring" id="recurring">
             </label>
 
         </div>
     </form>
     <script>
-        // function validateForm() {
-        //     let eventStart = new Date(document.forms["eventForm"]["eventDate"].value);
-        //     // let eventEnd = new Date(document.forms["eventForm"]["dateEnd"].value);
-        //     // if (eventEnd!== null && eventEnd < eventStart) {
-        //     //     let span = document.getElementById('messageForDate');
-        //     //     if(span!==null){
-        //     //         span.remove();
-        //     //     }
-        //         //const endDate = document.getElementById("labelForEndDate");
-        //        // const createSpan = document.createElement("span");
-        //        // const checkbox = document.getElementsByName("dayOfWeek[]");
-        //         console.log(checkbox.values());
-        //         createSpan.setAttribute('class','flex flex-v-center');
-        //         createSpan.setAttribute('style','color:red');
-        //         createSpan.setAttribute('id','messageForDate');
-        //         createSpan.innerHTML = '&nbsp;неправильная дата';
-        //         endDate.append(createSpan);
-        //         return false;
-        //     }
-        // }
         const checkbox = document.getElementById('recurring');
         checkbox.addEventListener('click',handleClick,false);
         function handleClick(e) {

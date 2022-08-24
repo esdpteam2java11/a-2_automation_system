@@ -16,6 +16,8 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
     List<Schedule> getAllByGroupAndEventDateBetween(Group group, LocalDate startDate, LocalDate endDate);
 
     Schedule getById(Long id);
-    Optional<List<Schedule>> getAllByUniqueIdForSerialEventAndEventDateIsGreaterThanEqual(String id,LocalDate startDate);
-    List<Schedule> getSchedulesByEventDateBetween(LocalDate startDate,LocalDate endDate);
+
+    Optional<List<Schedule>> getAllByUniqueIdForSerialEventAndEventDateIsGreaterThanEqual(String id, LocalDate startDate);
+
+    List<Schedule> getSchedulesByEventDateBetween(LocalDate startDate, LocalDate endDate);
 }
