@@ -134,7 +134,7 @@
                             <div class="mb-3">
                                 <label for="input-password" class="col-form-label required">Пароль:</label>
                                 <input type="password" name="password" class="form-control" id="input-password"
-                                       value="${sportsman.password?has_content?then('******', '')}" autocomplete="on">
+                                       value="${(sportsman.password)!}" onfocus="clearInput()">
                             </div>
                             <div class="mb-3">
                                 <label> </label>

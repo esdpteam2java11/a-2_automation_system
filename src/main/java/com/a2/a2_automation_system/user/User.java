@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -107,6 +108,10 @@ public class User implements UserDetails {
         return (this.surname != null ? this.surname : "") +
                 (this.name != null ? (" " + this.name) : "") +
                 (this.patronymic != null ? (" " + this.patronymic) : "");
+    }
+
+    public Boolean isPasswordTheSame(String pwd) {
+        return this.password.equals(pwd);
     }
 }
 

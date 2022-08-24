@@ -15,10 +15,17 @@ if (generatePassBtn != null) {
 if (generatePassBtn != null) {
     generatePassBtn.addEventListener("click", function () {
         const inputPassword = document.querySelector("#input-password")
-        inputPassword.value = (generatePassword())
+        inputPassword.value = generatePassword()
         inputPassword.removeAttribute("type")
         inputPassword.setAttribute("type", "text")
     })
+}
+
+function clearInput(){
+    const inputPassword = document.querySelector("#input-password")
+    inputPassword.value = ''
+    inputPassword.removeAttribute("type")
+    inputPassword.setAttribute("type", "text")
 }
 
 function generatePassword() {

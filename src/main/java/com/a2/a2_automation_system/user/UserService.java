@@ -152,7 +152,7 @@ public class UserService implements UserDetailsService {
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
-        Date date =  calendar.getTime();
+        Date date = calendar.getTime();
 
         userParamRepository.save(UserParam.builder()
                 .height(userParamDTO.getHeight())
@@ -195,7 +195,11 @@ public class UserService implements UserDetailsService {
         sportsman.setGroup(groupRepository.findById(userDTO.getGroupId()).get());
         sportsman.setDateOfAdmission(userDTO.getDateOfAdmission());
         sportsman.setLogin(userDTO.getLogin() == null || userDTO.getLogin().isBlank() ? null : userDTO.getLogin());
-        sportsman.setPassword(userDTO.getPassword() == null || userDTO.getPassword().isBlank() ? null : encoder.encode(userDTO.getPassword()));
+
+        if (!sportsman.isPasswordTheSame(userDTO.getPassword())) {
+            sportsman.setPassword(userDTO.getPassword() == null || userDTO.getPassword().isBlank() ? null :
+                    encoder.encode(userDTO.getPassword()));
+        }
 
         userRepository.save(sportsman);
 
@@ -215,7 +219,7 @@ public class UserService implements UserDetailsService {
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
-        Date date =  calendar.getTime();
+        Date date = calendar.getTime();
 
         List<UserParam> userParams = userParamRepository.getEqualParam(sportsman, userParamDTO.getHeight(),
                 userParamDTO.getWeight(), date);
@@ -282,7 +286,12 @@ public class UserService implements UserDetailsService {
     public void editTrainer(Long id, UserDTO userDTO) {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("Такой тренер не найден"));
         user.setLogin(userDTO.getLogin());
-        user.setPassword(encoder.encode(userDTO.getPassword()));
+
+        if (!user.isPasswordTheSame(userDTO.getPassword())) {
+            user.setPassword(userDTO.getPassword() == null || userDTO.getPassword().isBlank() ? null :
+                    encoder.encode(userDTO.getPassword()));
+        }
+
         user.setSurname(userDTO.getSurname());
         user.setName(userDTO.getName());
         user.setPatronymic(userDTO.getPatronymic());
