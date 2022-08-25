@@ -4,7 +4,8 @@
         <div class="container col-xxl-8" style="background-color: white;">
             <div class="container">
                 <h2 class="add-sportsman-header text-center mb-5">Редактирование анкеты спортсмена</h2>
-                <form action="/edit/${sportsman.id}" id="add-sportsman" method="post">
+                <form action="/edit/${sportsman.id}" id="add-sportsman" method="post"
+                      onsubmit="fillEmptyParentFields(this)">
                     <div class="row border border-secondary mb-3">
 
                         <div class="col-lg-4 mb-2">
@@ -125,7 +126,7 @@
                             <div class="mb-3">
                                 <label for="recipient-login" class="col-form-label required">Логин:</label>
                                 <input type="text" name="login" class="form-control" id="recipient-login"
-                                       value="${(sportsman.login)!}">
+                                       value="${(sportsman.login)!}" required>
                             </div>
                             <#if login??>
                                 <p style="color:red">${login} такой логин уже существует! Пожалуйста
@@ -134,7 +135,7 @@
                             <div class="mb-3">
                                 <label for="input-password" class="col-form-label required">Пароль:</label>
                                 <input type="password" name="password" class="form-control" id="input-password"
-                                       value="${(sportsman.password)!}" onfocus="clearInput()">
+                                       value="${(sportsman.password)!}" onfocus="clearInput()" required>
                             </div>
                             <div class="mb-3">
                                 <label> </label>
@@ -183,17 +184,19 @@
                                                                        value="${parent.surname}"></td>
                                             <td class="p-0 m-0"><input class="form-control" type="text" name="p_name"
                                                                        value="${parent.name}"></td>
-                                            <td class="p-0 m-0"><input class="form-control" type="text"
-                                                                       name="p_patronymic"
-                                                                       value="${(parent.patronymic)!}">
+                                            <td class="p-0 m-0"><input class="form-control non-required-input"
+                                                                       type="text" name="p_patronymic"
+                                                                       value="${(parent.patronymic)!" "}">
                                             </td>
                                             <td class="p-0 m-0"><input class="form-control" type="text" name="p_phone"
                                                                        value="${parent.phone}"></td>
-                                            <td class="p-0 m-0"><input class="form-control" type="text"
-                                                                       name="p_whatsapp" value="${(parent.whatsapp)!}">
+                                            <td class="p-0 m-0"><input class="form-control non-required-input"
+                                                                       type="text" name="p_whatsapp"
+                                                                       value="${(parent.whatsapp)!" "}">
                                             </td>
-                                            <td class="p-0 m-0"><input class="form-control" type="text"
-                                                                       name="p_telegram" value="${(parent.telegram)!}">
+                                            <td class="p-0 m-0"><input class="form-control non-required-input"
+                                                                       type="text" name="p_telegram"
+                                                                       value="${(parent.telegram)!" "}">
                                             </td>
                                             <td class="text-center p-0 m-0">
                                                 <button type="button" class="btn btn-outline-danger py-1 px-2"
@@ -209,7 +212,8 @@
                         </div>
                     </div>
                     <div class="text-center mb-5">
-                        <button type="submit" class="custom-btn btn-1" id="button">Редактировать спортсмена</button>
+                        <button type="submit" class="custom-btn btn-1" id="button">
+                            Редактировать спортсмена</button>
                         <a href="/admin" class="bn5 ml-5">Назад</a>
                     </div>
                 </form>
@@ -223,8 +227,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="searchRelativeModalLabel">Поиск родственника</h5>
-                        <button type="button" class="search-relative-modal-close btn-close p-2" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
+                        <button type="button" class="btn btn-secondary search-relative-modal-close" data-bs-dismiss="modal">Закрыть</button>
                     </div>
                     <div class="modal-body">
                         <form action="" id="search-relative-frm" method="get">

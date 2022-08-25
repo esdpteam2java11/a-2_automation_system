@@ -147,12 +147,7 @@ public class UserService implements UserDetailsService {
                 .operationType(OperationType.ACCRUED)
                 .build());
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        Date date = calendar.getTime();
+        Date date = getCurrentDateWithStartTime();
 
         userParamRepository.save(UserParam.builder()
                 .height(userParamDTO.getHeight())
@@ -214,18 +209,11 @@ public class UserService implements UserDetailsService {
                     .build());
         }
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        Date date = calendar.getTime();
-
+        Date date = getCurrentDateWithStartTime();
         List<UserParam> userParams = userParamRepository.getEqualParam(sportsman, userParamDTO.getHeight(),
                 userParamDTO.getWeight(), date);
 
         if (userParams.size() == 0) {
-
             UserParam sportsmanParam = new UserParam();
             sportsmanParam.setCreationDate(date);
             sportsmanParam.setUser(sportsman);
@@ -237,6 +225,7 @@ public class UserService implements UserDetailsService {
         if (pIds != null) {
             List<Parent> parents = setParents(pIds, pKinships, pSurnames, pNames, pPatronymics, pPhones, pWhatsapps,
                     pTelegrams);
+
             for (Parent parent : parents) {
                 if (!relationshipRepository.existsByParentIdAndStudentId(parent.getId(), sportsman.getId())) {
                     Relationship newRelationship = new Relationship();
@@ -245,7 +234,18 @@ public class UserService implements UserDetailsService {
                     relationshipRepository.save(newRelationship);
                 }
             }
-        }
+
+            List<Relationship> relationships = relationshipRepository.findRelationshipByStudentId(sportsman.getId());
+            for (Relationship relationship : relationships) {
+                int counter = 0;
+                for (Parent parent : parents) {
+                    if (parent.getId().equals(relationship.getParent().getId()))
+                        counter++;
+                }
+                if (counter == 0) relationshipRepository.delete(relationship);
+            }
+
+        } else relationshipRepository.deleteAllByStudentId(sportsman.getId());
     }
 
     private List<Parent> setParents(List<Long> pIds, List<String> pKinships, List<String> pSurnames, List<String> pNames,
@@ -263,10 +263,12 @@ public class UserService implements UserDetailsService {
             parent.setSurname(pSurnames.get(i));
             parent.setName(pNames.get(i));
             parent.setPatronymic(pPatronymics.get(i) == null || pPatronymics.get(i).trim().isBlank() ? null :
-                    pPatronymics.get(i));
+                    pPatronymics.get(i).trim());
             parent.setPhone(pPhones.get(i));
-            parent.setWhatsapp(pWhatsapps.get(i) == null || pWhatsapps.get(i).trim().isBlank() ? null : pWhatsapps.get(i));
-            parent.setTelegram(pTelegrams.get(i) == null || pTelegrams.get(i).trim().isBlank() ? null : pTelegrams.get(i));
+            parent.setWhatsapp(pWhatsapps.get(i) == null || pWhatsapps.get(i).trim().isBlank() ? null :
+                    pWhatsapps.get(i).trim());
+            parent.setTelegram(pTelegrams.get(i) == null || pTelegrams.get(i).trim().isBlank() ? null :
+                    pTelegrams.get(i).trim());
             parentRepository.save(parent);
             parents.add(parent);
         }
@@ -332,5 +334,14 @@ public class UserService implements UserDetailsService {
         User user = userRepository.findById(userId).get();
         return user.getSurname() + " " + user.getName() + (user.getPatronymic() != null ?
                 (" " + user.getPatronymic()) : "");
+    }
+
+    private Date getCurrentDateWithStartTime() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime();
     }
 }
