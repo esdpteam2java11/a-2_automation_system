@@ -29,10 +29,9 @@
                                     <div class="col-md-6 mb-4">
                                         <label class="form-label required" for="password_input">Пароль</label>
                                         <div class="form-outline">
-                                            <input name="password" value="${(dto.password)!''}" type="text"
-                                                   id="input-password"
-                                                   class="form-control form-control-lg" placeholder="Пароль"
-                                                   required="required"/>
+                                            <input name="password" value="${(dto.password)!}" type="password"
+                                                   id="input-password" class="form-control form-control-lg"
+                                                   required="required" onfocus="clearInput()"/>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-4">

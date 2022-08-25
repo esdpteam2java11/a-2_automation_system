@@ -15,10 +15,17 @@ if (generatePassBtn != null) {
 if (generatePassBtn != null) {
     generatePassBtn.addEventListener("click", function () {
         const inputPassword = document.querySelector("#input-password")
-        inputPassword.value = (generatePassword())
+        inputPassword.value = generatePassword()
         inputPassword.removeAttribute("type")
         inputPassword.setAttribute("type", "text")
     })
+}
+
+function clearInput() {
+    const inputPassword = document.querySelector("#input-password")
+    inputPassword.value = ''
+    inputPassword.removeAttribute("type")
+    inputPassword.setAttribute("type", "text")
 }
 
 function generatePassword() {
@@ -56,16 +63,25 @@ function addSelectedParent(parent) {
     }
     if (!isExists) {
         let newTrTag = document.createElement("tr")
-        newTrTag.innerHTML = `<td class="p-0" hidden><input type="hidden" name="p_id" value="${parent.id}">${parent.id}</input></td>
-                                  <td class="p-0 m-0"><input class="form-control" type="hidden" name="p_kinship" value="${parent.kinshipName}">${parent.kinship}</input></td>
-                                  <td class="p-0 m-0"><input class="form-control" type="hidden" name="p_surname" value="${parent.surname}">${parent.surname}</input></td>
-                                  <td class="p-0 m-0"><input class="form-control" type="hidden" name="p_name" value="${parent.name}">${parent.name}</input></td>
-                                  <td class="p-0 m-0"><input class="form-control" type="hidden" name="p_patronymic" value="${parent.patronymic != null ? parent.patronymic : ""}">${parent.patronymic != null ? parent.patronymic : ""}</input></td>
-                                  <td class="p-0 m-0"><input class="form-control" type="hidden" name="p_phone" value="${parent.phone}">${parent.phone}</input></td>
-                                  <td class="p-0 m-0"<input class="form-control" type="hidden" name="p_whatsapp" value="${parent.whatsapp != null ? parent.whatsapp : ""}">${parent.whatsapp != null ? parent.whatsapp : ""}</input></td>
-                                  <td class="p-0 m-0"><input class="form-control" type="hidden" name="p_telegram" value="${parent.telegram != null ? parent.telegram : ""}">${parent.telegram != null ? parent.telegram : ""}</input></td>
-                                  <td class="text-center p-0 m-0">
-                                        <button type="button" class="btn btn-outline-danger py-1 px-2" onclick='deleteSelectedRow(this)'>
+        newTrTag.innerHTML = `<td class="p-0" hidden><input type="hidden" name="p_id" 
+                                    value="${parent.id}"></td>
+                              <td class="p-0 m-0 text-center align-middle"><input class="form-control" type="hidden" name="p_kinship"
+                                    value="${parent.kinshipName}">${parent.kinship}</input></td>                                    
+                              <td class="p-0 m-0 text-center"><input class="form-control" name="p_surname" 
+                                    value="${parent.surname}" required></td>                            
+                              <td class="p-0 m-0 text-center"><input class="form-control" name="p_name" 
+                                    value="${parent.name}" required></td>
+                              <td class="p-0 m-0 text-center"><input class="form-control" name="p_patronymic" 
+                                    value="${parent.patronymic != null ? parent.patronymic : " "}"></td>
+                              <td class="p-0 m-0 text-center"><input class="form-control" name="p_phone" 
+                                    value="${parent.phone}" required></td>
+                              <td class="p-0 m-0 text-center"><input class="form-control" name="p_whatsapp" 
+                                    value="${parent.whatsapp != null ? parent.whatsapp : " "}"></td>
+                              <td class="p-0 m-0 text-center"><input class="form-control" name="p_telegram" 
+                                    value="${parent.telegram != null ? parent.telegram : " "}"></td>
+                              <td class="text-center align-middle p-0 m-0">
+                                        <button type="button" class="btn btn-outline-danger py-1 px-2" 
+                                            onclick='deleteSelectedRow(this)'>
                                             <i class="bi bi-x-square"></i>
                                         </button>
                                   </td>`
@@ -100,7 +116,7 @@ if (addNewParentBtn != null) {
                           <td class="p-0 m-0"><input class="form-control" type="text" name="p_phone" required/></td>
                           <td class="p-0 m-0"><input class="form-control" type="text" name="p_whatsapp" value=" "/></td>
                           <td class="p-0 m-0"><input class="form-control" type="text" name="p_telegram" value=" "/></td>
-                          <td class="text-center p-0 m-0">
+                          <td class="text-center align-middle p-0 m-0">
                                 <button type="button" class="btn btn-outline-danger py-1 px-2" onclick='deleteSelectedRow(this)'>
                                      <i class="bi bi-x-square"></i>
                                 </button>
@@ -265,5 +281,13 @@ function clearReport() {
     const reportTableTotals = document.getElementsByClassName('total')
     for (let i = 0; i < reportTableTotals.length; i++) {
         reportTableTotals[i].innerHTML = ''
+    }
+}
+
+function fillEmptyParentFields() {
+    const nonRequiredInputs = document.getElementsByClassName('non-required-input')
+    for (let i = 0; i < nonRequiredInputs.length; i++) {
+        if (nonRequiredInputs[i].value === "")
+            nonRequiredInputs[i].value = " "
     }
 }

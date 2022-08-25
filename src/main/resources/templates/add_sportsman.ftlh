@@ -85,7 +85,7 @@
                             <div class="mb-3">
                                 <label class="col-form-label required" for="group">Группа:</label>
                                 <select class="form-control" value="${(dto.groupId)!''}"    name="groupId" id="group"
-                                        onchange="getGroupPrice(this.value)">
+                                        onchange="getGroupPrice(this.value)" required>
                                     <option hidden disabled selected value> -- выберите группу --</option>
                                     <#list groups as group>
                                         <option name="${group.name}" value="${group.id}"
@@ -119,7 +119,8 @@
                             <div class="mb-3">
 
                                 <label for="recipient-login" class="col-form-label required">Логин:</label>
-                                <input type="text"  value="${(dto.login)!''}" name="login" class="form-control" id="recipient-login">
+                                <input type="text"  value="${(dto.login)!''}" name="login" class="form-control"
+                                       id="recipient-login" required>
                                 <#if dto.login??>
                                     <p style="color:red">${dto.login} такой логин уже существует! Пожалуйста
                                         выберите другой</p>
@@ -133,7 +134,8 @@
                             </#if>
                             <div class="mb-3">
                                 <label for="input-password" class="col-form-label required">Пароль:</label>
-                                <input type="text" value="${(dto.password)!''}" name="password" class="form-control" id="input-password">
+                                <input type="text" value="${(dto.password)!''}" name="password" class="form-control"
+                                       id="input-password" required>
                             </div>
                             <div class="mb-3">
                                 <button type="button" id="input-generate" class="button-85">Сгенерировать
@@ -189,8 +191,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="searchRelativeModalLabel">Поиск родственника</h5>
-                        <button type="button" class="search-relative-modal-close btn-close p-2" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
+                        <button type="button" class="btn btn-secondary search-relative-modal-close" data-bs-dismiss="modal">Закрыть</button>
                     </div>
                     <div class="modal-body">
                         <form action="" id="search-relative-frm" method="get">

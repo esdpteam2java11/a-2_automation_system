@@ -10,4 +10,6 @@ public interface RelationshipRepository extends PagingAndSortingRepository<Relat
     List<Relationship> findRelationshipByStudentId(Long id);
 
     Boolean existsByParentIdAndStudentId(Long parentId, Long studentId);
+
+    void deleteAllByStudentId(Long id);
 }
