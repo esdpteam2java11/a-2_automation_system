@@ -25,7 +25,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -50,15 +50,19 @@ public class UserService implements UserDetailsService {
     }
 
     public Page<UserDTO> getUsersWithFilter(Pageable pageable, String role, Boolean isActive) {
-        if ((isActive != null && role != null) && !role.equals("all")) {
+        if ((isActive != null && role != null && !role.equals("")) && !role.equals("all")) {
             return userRepository.findAllByIsActiveAndRole(pageable, isActive, Role.valueOf(role)).map(UserDTO::from);
         } else if (isActive != null) {
             return userRepository.findAllByIsActive(pageable, isActive).map(UserDTO::from);
-        } else if (role != null) {
-            return userRepository.findAllByRole(pageable, Role.valueOf(role)).map(UserDTO::from);
+        } else if (role != null && !role.equals("")) {
+            return userRepository.findAllByRoleExceptAdmin(pageable, Role.valueOf(role)).map(UserDTO::from);
         } else {
-            return userRepository.findAll(pageable).map(UserDTO::from);
+            return userRepository.findAllExceptAdmin(pageable).map(UserDTO::from);
         }
+    }
+
+    public Page<UserDTO> getUserBySearch(Pageable pageable, String search) {
+        return userRepository.findUserByNameOrSurnameOrPatronymic(pageable, search).map(UserDTO::from);
     }
 
     public Page<UserDTO> getAllUsers(Pageable pageable) {
@@ -66,18 +70,18 @@ public class UserService implements UserDetailsService {
     }
 
     public List<UserShortInfoDTO> getAllUsers() {
-        List<User> users = userRepository.findAll();
+        List<User> users = (List<User>) userRepository.findAll();
         return users.stream().map(UserShortInfoDTO::from).collect(Collectors.toList());
     }
 
-    public Page<UserDTO> getUserBySearch(Pageable pageable, String search) {
-        return userRepository.findUserByNameOrSurnameOrPatronymic(pageable, search).map(UserDTO::from);
+    public List<UserShortInfoDTO> getAllUsersByRole(Role role) {
+        List<User> users = userRepository.findAllByRole(role);
+        return users.stream().map(UserShortInfoDTO::from).collect(Collectors.toList());
     }
 
     public boolean userLoginCheck(String login) {
         return userRepository.existsByLogin(login);
     }
-
 
     public UserDTO addTrainer(UserDTO userDTO) {
         if (userLoginCheck(userDTO.getLogin())) {
@@ -95,7 +99,7 @@ public class UserService implements UserDetailsService {
                 .birthDate(userDTO.getBirthDate())
                 .build();
         userRepository.save(trainer);
-       return UserDTO.from(trainer);
+        return UserDTO.from(trainer);
     }
 
     public SportsmanDTO getSportsmanDetails(Long id) {
@@ -107,9 +111,10 @@ public class UserService implements UserDetailsService {
         else return SportsmanDTO.from(sportsman, new UserParam(), sportsmanPayment);
     }
 
-    public UserDTO createSportsman(UserParamDTO userParamDTO,
-                               SportsmanPaymentDTO sportsmanPaymentDTO,
-                                 UserDTO userDTO,
+    @Transactional
+    public void createSportsman(UserParamDTO userParamDTO,
+                                SportsmanPaymentDTO sportsmanPaymentDTO,
+                                UserDTO userDTO,
                                 List<Long> pIds, List<String> pKinships, List<String> pSurnames, List<String> pNames,
                                 List<String> pPatronymics, List<String> pPhones,
                                 List<String> pWhatsapps, List<String> pTelegrams) {
@@ -131,9 +136,7 @@ public class UserService implements UserDetailsService {
                 .login(userDTO.getLogin())
                 .dateOfAdmission(userDTO.getDateOfAdmission())
                 .password(encoder.encode(userDTO.getPassword()))
-
-                .build();;
-
+                .build();
 
         userRepository.save(sportsman);
 
@@ -144,10 +147,12 @@ public class UserService implements UserDetailsService {
                 .operationType(OperationType.ACCRUED)
                 .build());
 
+        Date date = getCurrentDateWithStartTime();
+
         userParamRepository.save(UserParam.builder()
                 .height(userParamDTO.getHeight())
                 .weight(userParamDTO.getWeight())
-                .creationDate(new Date())
+                .creationDate(date)
                 .user(sportsman)
                 .build());
 
@@ -161,12 +166,12 @@ public class UserService implements UserDetailsService {
                 relationshipRepository.save(newRelationship);
             }
         }
-      return   UserDTO.from(sportsman);
     }
 
-    public void editSportsman(UserDTO userDTO,Long id,
-                             UserParamDTO userParamDTO,
-                             SportsmanPaymentDTO sportsmanPaymentDTO,
+    @Transactional
+    public void editSportsman(UserDTO userDTO, Long id,
+                              UserParamDTO userParamDTO,
+                              SportsmanPaymentDTO sportsmanPaymentDTO,
                               List<Long> pIds, List<String> pKinships, List<String> pSurnames, List<String> pNames,
                               List<String> pPatronymics, List<String> pPhones,
                               List<String> pWhatsapps, List<String> pTelegrams) {
@@ -174,39 +179,53 @@ public class UserService implements UserDetailsService {
         User sportsman = userRepository.findById(id).get();
         sportsman.setSurname(userDTO.getSurname());
         sportsman.setName(userDTO.getName());
-        sportsman.setPatronymic(userDTO.getPatronymic()== null || userDTO.getPatronymic().isBlank() ? null : userDTO.getPatronymic());
+        sportsman.setPatronymic(userDTO.getPatronymic() == null || userDTO.getPatronymic().isBlank() ? null : userDTO.getPatronymic());
         sportsman.setBirthDate(userDTO.getBirthDate());
         sportsman.setPhone(userDTO.getPhone());
         sportsman.setWhatsapp(userDTO.getWhatsapp() == null || userDTO.getWhatsapp().isBlank() ? null : userDTO.getWhatsapp());
         sportsman.setTelegram(userDTO.getTelegram() == null || userDTO.getTelegram().isBlank() ? null : userDTO.getTelegram());
         sportsman.setAddress(userDTO.getAddress());
-        sportsman.setSchool(userDTO.getSchool() == null || userDTO.getSchool().isBlank() ? null :userDTO.getSchool());
+        sportsman.setSchool(userDTO.getSchool() == null || userDTO.getSchool().isBlank() ? null : userDTO.getSchool());
         sportsman.setChannels(userDTO.getChannels() == null || userDTO.getChannels().isBlank() ? null : userDTO.getChannels());
         sportsman.setGroup(groupRepository.findById(userDTO.getGroupId()).get());
         sportsman.setDateOfAdmission(userDTO.getDateOfAdmission());
         sportsman.setLogin(userDTO.getLogin() == null || userDTO.getLogin().isBlank() ? null : userDTO.getLogin());
-        sportsman.setPassword(userDTO.getPassword() == null || userDTO.getPassword().isBlank() ? null : encoder.encode(userDTO.getPassword()));
 
+        if (!sportsman.isPasswordTheSame(userDTO.getPassword())) {
+            sportsman.setPassword(userDTO.getPassword() == null || userDTO.getPassword().isBlank() ? null :
+                    encoder.encode(userDTO.getPassword()));
+        }
 
         userRepository.save(sportsman);
 
-        sportsmanPaymentRepository.save(SportsmanPayment.builder()
-                .amount(sportsmanPaymentDTO.getAmount())
-                .date(sportsmanPaymentDTO.getDate())
-                .user(sportsman)
-                .operationType(OperationType.ACCRUED)
-                .build());
+        if (!sportsmanPaymentRepository.existsByUserAndAmountAndDateAndOperationType(
+                sportsman, sportsmanPaymentDTO.getAmount(),
+                sportsmanPaymentDTO.getDate(), OperationType.ACCRUED)) {
+            sportsmanPaymentRepository.save(SportsmanPayment.builder()
+                    .amount(sportsmanPaymentDTO.getAmount())
+                    .date(sportsmanPaymentDTO.getDate())
+                    .user(sportsman)
+                    .operationType(OperationType.ACCRUED)
+                    .build());
+        }
 
-        UserParam sportsmanParam = new UserParam();
-        sportsmanParam.setCreationDate(new Date());
-        sportsmanParam.setUser(sportsman);
-        sportsmanParam.setWeight(userParamDTO.getWeight());
-        sportsmanParam.setHeight(userParamDTO.getHeight());
-        userParamRepository.save(sportsmanParam);
+        Date date = getCurrentDateWithStartTime();
+        List<UserParam> userParams = userParamRepository.getEqualParam(sportsman, userParamDTO.getHeight(),
+                userParamDTO.getWeight(), date);
+
+        if (userParams.size() == 0) {
+            UserParam sportsmanParam = new UserParam();
+            sportsmanParam.setCreationDate(date);
+            sportsmanParam.setUser(sportsman);
+            sportsmanParam.setWeight(userParamDTO.getWeight());
+            sportsmanParam.setHeight(userParamDTO.getHeight());
+            userParamRepository.save(sportsmanParam);
+        }
 
         if (pIds != null) {
             List<Parent> parents = setParents(pIds, pKinships, pSurnames, pNames, pPatronymics, pPhones, pWhatsapps,
                     pTelegrams);
+
             for (Parent parent : parents) {
                 if (!relationshipRepository.existsByParentIdAndStudentId(parent.getId(), sportsman.getId())) {
                     Relationship newRelationship = new Relationship();
@@ -215,14 +234,19 @@ public class UserService implements UserDetailsService {
                     relationshipRepository.save(newRelationship);
                 }
             }
-        }
+
+            List<Relationship> relationships = relationshipRepository.findRelationshipByStudentId(sportsman.getId());
+            for (Relationship relationship : relationships) {
+                int counter = 0;
+                for (Parent parent : parents) {
+                    if (parent.getId().equals(relationship.getParent().getId()))
+                        counter++;
+                }
+                if (counter == 0) relationshipRepository.delete(relationship);
+            }
+
+        } else relationshipRepository.deleteAllByStudentId(sportsman.getId());
     }
-
-
-
-
-
-
 
     private List<Parent> setParents(List<Long> pIds, List<String> pKinships, List<String> pSurnames, List<String> pNames,
                                     List<String> pPatronymics, List<String> pPhones,
@@ -239,10 +263,12 @@ public class UserService implements UserDetailsService {
             parent.setSurname(pSurnames.get(i));
             parent.setName(pNames.get(i));
             parent.setPatronymic(pPatronymics.get(i) == null || pPatronymics.get(i).trim().isBlank() ? null :
-                    pPatronymics.get(i));
+                    pPatronymics.get(i).trim());
             parent.setPhone(pPhones.get(i));
-            parent.setWhatsapp(pWhatsapps.get(i) == null || pWhatsapps.get(i).trim().isBlank() ? null : pWhatsapps.get(i));
-            parent.setTelegram(pTelegrams.get(i) == null || pTelegrams.get(i).trim().isBlank() ? null : pTelegrams.get(i));
+            parent.setWhatsapp(pWhatsapps.get(i) == null || pWhatsapps.get(i).trim().isBlank() ? null :
+                    pWhatsapps.get(i).trim());
+            parent.setTelegram(pTelegrams.get(i) == null || pTelegrams.get(i).trim().isBlank() ? null :
+                    pTelegrams.get(i).trim());
             parentRepository.save(parent);
             parents.add(parent);
         }
@@ -251,11 +277,7 @@ public class UserService implements UserDetailsService {
 
     public void changeIsActive(Long id) {
         var user = userRepository.findById(id).orElseThrow();
-        if (user.getIsActive()) {
-            user.setIsActive(false);
-        } else {
-            user.setIsActive(true);
-        }
+        user.setIsActive(!user.getIsActive());
         userRepository.save(user);
     }
 
@@ -266,7 +288,12 @@ public class UserService implements UserDetailsService {
     public void editTrainer(Long id, UserDTO userDTO) {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("Такой тренер не найден"));
         user.setLogin(userDTO.getLogin());
-        user.setPassword(encoder.encode(userDTO.getPassword()));
+
+        if (!user.isPasswordTheSame(userDTO.getPassword())) {
+            user.setPassword(userDTO.getPassword() == null || userDTO.getPassword().isBlank() ? null :
+                    encoder.encode(userDTO.getPassword()));
+        }
+
         user.setSurname(userDTO.getSurname());
         user.setName(userDTO.getName());
         user.setPatronymic(userDTO.getPatronymic());
@@ -298,4 +325,23 @@ public class UserService implements UserDetailsService {
         return sportsmanPaymentRepository.findByUserId(id).stream().map(SportsmanPaymentDTO::from).collect(Collectors.toList());
     }
 
+    public String getGroupNameByUser(Long userId) {
+        Long groupId = userRepository.findById(userId).get().getGroup().getId();
+        return groupRepository.findById(groupId).get().getName();
+    }
+
+    public String getUserFio(Long userId) {
+        User user = userRepository.findById(userId).get();
+        return user.getSurname() + " " + user.getName() + (user.getPatronymic() != null ?
+                (" " + user.getPatronymic()) : "");
+    }
+
+    private Date getCurrentDateWithStartTime() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime();
+    }
 }

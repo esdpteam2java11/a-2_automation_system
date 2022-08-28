@@ -1,6 +1,5 @@
 package com.a2.a2_automation_system.schedule;
 
-
 import com.a2.a2_automation_system.group.GroupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -14,7 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
-
 @Controller
 @RequiredArgsConstructor
 public class ScheduleController {
@@ -24,23 +22,23 @@ public class ScheduleController {
     @GetMapping("/group/{groupId}/calendar/event/{eventId}")
     public String getScheduleElement(@PathVariable Long groupId, @PathVariable Long eventId, Model model) {
 
-
         model.addAttribute("group", groupService.getGroupById(groupId));
-        try{
+        try {
             model.addAttribute("event", scheduleService.getEventById(eventId));
 
-        }catch (Exception e){
+        } catch (Exception e) {
             return "No_Found";
         }
         model.addAttribute("users", groupService.getUsersByGroup(groupId));
         model.addAttribute("visit", scheduleService.getUsersWhoCame(eventId));
         return "event";
     }
+
     @PostMapping("/group/{groupId}/calendar/event/{eventId}/trainingProgram")
-    public String addTrainingProgram(@PathVariable Long groupId,@PathVariable Long eventId, @RequestParam String content,RedirectAttributes redirectAttributes){
-        String message = scheduleService.addEventTrainingProgram(content,eventId);
-        String pathRedirect = String.format("redirect:/group/%s/calendar/event/%s",groupId,eventId);
-        redirectAttributes.addFlashAttribute("programMessage",message);
+    public String addTrainingProgram(@PathVariable Long groupId, @PathVariable Long eventId, @RequestParam String content, RedirectAttributes redirectAttributes) {
+        String message = scheduleService.addEventTrainingProgram(content, eventId);
+        String pathRedirect = String.format("redirect:/group/%s/calendar/event/%s", groupId, eventId);
+        redirectAttributes.addFlashAttribute("programMessage", message);
         return pathRedirect;
 
     }
@@ -48,13 +46,13 @@ public class ScheduleController {
     @GetMapping("/group/{groupId}/calendar/event/{eventId}/delete")
     public String deleteScheduleElement(@PathVariable Long groupId, @PathVariable Long eventId, RedirectAttributes redirectAttributes) {
         String pathRedirect = String.format("redirect:/group/%s/calendar", groupId);
-        try{
+        try {
             ScheduleDTO event = scheduleService.deleteEventById(eventId);
             String message = String.format("Удалено занятие для %s на %s", event.getGroup().getName(), event.getEventDate());
             redirectAttributes.addFlashAttribute("message", message);
-        }catch (RuntimeException e){
-            String error ="Невозможно удалить занятие с отметками о посещении!";
-            redirectAttributes.addFlashAttribute("error",error);
+        } catch (RuntimeException e) {
+            String error = "Невозможно удалить занятие с отметками о посещении!";
+            redirectAttributes.addFlashAttribute("error", error);
         }
 
         return pathRedirect;
@@ -64,13 +62,13 @@ public class ScheduleController {
     public String deleteScheduleElements(@PathVariable Long groupId, @PathVariable Long eventId, RedirectAttributes redirectAttributes) {
         String pathRedirect = String.format("redirect:/group/%s/calendar", groupId);
 
-        try{
-        ScheduleDTO event = scheduleService.deleteEventsInSeries(eventId);
-        String message = String.format("Удалены занятия для %s с %s", event.getGroup().getName(), event.getEventDate());
-        redirectAttributes.addFlashAttribute("message", message);
-        }catch (RuntimeException e){
-            String error ="Невозможно удалить занятие с отметками о посещении!";
-            redirectAttributes.addFlashAttribute("error",error);
+        try {
+            ScheduleDTO event = scheduleService.deleteEventsInSeries(eventId);
+            String message = String.format("Удалены занятия для %s с %s", event.getGroup().getName(), event.getEventDate());
+            redirectAttributes.addFlashAttribute("message", message);
+        } catch (RuntimeException e) {
+            String error = "Невозможно удалить занятие с отметками о посещении!";
+            redirectAttributes.addFlashAttribute("error", error);
         }
         return pathRedirect;
     }
@@ -120,6 +118,5 @@ public class ScheduleController {
         scheduleService.addEventsFromScheduleCreateDto(scheduleCreateDTO);
         return pathRedirect;
     }
-
 
 }

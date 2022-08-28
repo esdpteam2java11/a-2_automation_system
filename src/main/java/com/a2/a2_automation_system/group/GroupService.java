@@ -3,7 +3,6 @@ package com.a2.a2_automation_system.group;
 import com.a2.a2_automation_system.exception.GroupNotFoundException;
 import com.a2.a2_automation_system.schedule.Schedule;
 import com.a2.a2_automation_system.schedule.ScheduleService;
-import com.a2.a2_automation_system.sportmancabinet.SportsmanEventsService;
 import com.a2.a2_automation_system.sportsmanpayments.OperationType;
 import com.a2.a2_automation_system.sportsmanpayments.SportsmanPayment;
 import com.a2.a2_automation_system.sportsmanpayments.SportsmanPaymentRepository;
@@ -66,11 +65,9 @@ public class GroupService {
         var users = userRepository.findByGroup(id);
         for (User u : users) {
             UserShortInfoDTO userDto;
-            if(getAbsenceThreeDays(u.getLogin()))
-            {
+            if (getAbsenceThreeDays(u.getLogin())) {
                 userDto = UserShortInfoDTO.fromBackground(u);
-            }
-            else{
+            } else {
                 userDto = UserShortInfoDTO.from(u);
             }
 
@@ -82,10 +79,6 @@ public class GroupService {
         return userShortInfoDTOList;
     }
 
-    public Group getGroupByIdReturnGroup(Long id) {
-        return groupRepository.findById(id).orElseThrow(() -> new GroupNotFoundException("Группа не найдена"));
-    }
-
     public void editGroup(Long id, GroupDTO groupDTO) {
         Group group = groupRepository.findById(id).orElseThrow(() -> new GroupNotFoundException("Группа не найдена"));
         group.setName(groupDTO.getName());
@@ -94,27 +87,20 @@ public class GroupService {
         group.setSum(groupDTO.getSum());
         groupRepository.save(group);
     }
-    public Boolean getAbsenceThreeDays(String username){
+
+    public Boolean getAbsenceThreeDays(String username) {
         LocalDate now = LocalDate.now();
         var student = userRepository.findByLogin(username);
         LocalDate dateOfAdmission = LocalDate.ofInstant(student.get().getDateOfAdmission().toInstant(), ZoneId.systemDefault());
         Group group = student.get().getGroup();
         var visitListOptional = visitService.getLatestVisit(student.get());
-        if(visitListOptional.isPresent()){
-            List<Schedule> absenceList = scheduleService.getListOfLastTreeEvents(group,now,dateOfAdmission);
-            if(visitListOptional.get().size()>0){
-                if (absenceList.size()>0){
-                    var schedule = absenceList.stream().filter(sch -> sch.equals(visitListOptional.get().get(0).getSchedule())).findFirst().orElse(null);
-                    if(schedule==null){
-                        return true;
-                    }
-                }
-            } else{
-                if(absenceList.size()==3){
-                    return true;
-                }
+        List<Schedule> eventsList = scheduleService.getListOfLastTreeEvents(group, now, dateOfAdmission);
+        if (visitListOptional.get().size() > 0) {
+            if (eventsList.size() > 0) {
+                var schedule = eventsList.stream().filter(sch -> sch.equals(visitListOptional.get().get(0).getSchedule())).findFirst().orElse(null);
+                return schedule == null;
             }
-        }
+        } else return eventsList.size() == 3;
         return false;
     }
 

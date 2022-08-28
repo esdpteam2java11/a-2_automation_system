@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class IndexController {
 
-
     @GetMapping("/club")
     public String getClub() {
         return "club";
@@ -35,6 +34,5 @@ public class IndexController {
     public String getBenefit() {
         return "benefit";
     }
-
 
 }

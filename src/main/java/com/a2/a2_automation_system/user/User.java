@@ -60,7 +60,6 @@ public class User implements UserDetails {
     @NotNull
     private Role role;
 
-
     private String login;
 
     private String password;
@@ -103,6 +102,16 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public String getFIO() {
+        return (this.surname != null ? this.surname : "") +
+                (this.name != null ? (" " + this.name) : "") +
+                (this.patronymic != null ? (" " + this.patronymic) : "");
+    }
+
+    public Boolean isPasswordTheSame(String pwd) {
+        return this.password.equals(pwd);
     }
 }
 

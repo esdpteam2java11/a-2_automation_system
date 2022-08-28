@@ -1,6 +1,5 @@
 package com.a2.a2_automation_system.user;
 
-import com.a2.a2_automation_system.group.Group;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -9,8 +8,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Data
@@ -60,6 +57,7 @@ public class UserDTO {
     private Boolean isActive;
 
     private Long groupId;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfAdmission;
 

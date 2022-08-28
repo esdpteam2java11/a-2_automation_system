@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -33,12 +32,9 @@ public class UserParam {
     private User user;
 
     @NotNull
-//    @Size(min = 10, message = "Вес должен быть больше или равно 10")
     private Double weight;
 
     @NotNull
-//    @Size(min = 20, message = "Рост должен быть больше или равно 20")
     private Double height;
-
 
 }

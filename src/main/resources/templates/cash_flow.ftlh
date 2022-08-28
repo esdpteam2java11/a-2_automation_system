@@ -24,7 +24,7 @@
                                 <div class="row m-2">
                                     <label class="col-sm-6 col-form-label" for="type-of-finance">Тип движения:</label>
                                     <select class="form-control col-sm-6" name="typeOfFinance" id="type-of-finance">
-                                        <option selected value> -- все --</option>
+                                        <option selected value> -- все -- </option>
                                         <#list typesOfFinance as typeOfFinance>
                                             <option value="${typeOfFinance}">${typeOfFinance.rusValue}</option>
                                         </#list>
@@ -92,7 +92,7 @@
                         <#if moneyMovements?size!=0>
                             <#list moneyMovements as moneyMovement>
                                 <tr>
-                                    <#assign link = "/edit/${moneyMovement.id}">
+                                    <#assign link = "/cash/view/${moneyMovement.id}">
                                     <td hidden>${moneyMovement.id}</td>
                                     <td><a class="text-decoration-none text-reset" href="${link}">
                                             ${moneyMovement.date}</a></td>

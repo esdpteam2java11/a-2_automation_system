@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -17,7 +16,7 @@ public class ScheduleRestController {
 
     @GetMapping("/group/{id}/calendar/events")
     public List<ScheduleRestDto> getSchedule(@RequestParam String start, @RequestParam String end, @PathVariable String id) {
-        List<ScheduleRestDto> scheduleRestDtoList = new ArrayList<>();
+        List<ScheduleRestDto> scheduleRestDtoList;
         if (id.equals("all")) {
             scheduleRestDtoList = scheduleService.getEventsForAll(start, end);
         } else {
@@ -41,8 +40,7 @@ public class ScheduleRestController {
 
     @GetMapping("/calendar_sportsman/{id}/attendance/calendar/events")
     public List<ScheduleRestDtoForSportsman> getScheduleAndAttendanceForSportsman(@RequestParam String start, @RequestParam String end, @PathVariable String id, HttpServletRequest request) {
-        var scheduleRestDtoForSportsmanList = scheduleService.getEventsByGroupAndDatesForSportsmanAndMarkAttendance(id, start, end, request.getRemoteUser());
-        return scheduleRestDtoForSportsmanList;
+        return scheduleService.getEventsByGroupAndDatesForSportsmanAndMarkAttendance(id, start, end, request.getRemoteUser());
     }
 
 }

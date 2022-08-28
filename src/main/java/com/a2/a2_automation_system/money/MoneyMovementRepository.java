@@ -19,4 +19,6 @@ public interface MoneyMovementRepository extends JpaRepository<MoneyMovement, Lo
                                            String typeOfFinance,
                                            String operationType,
                                            LocalDate periodStart, LocalDate periodEnd);
+
+    Boolean existsByIdAndTypeOfFinance(Long id, TypeOfFinance typeOfFinance);
 }

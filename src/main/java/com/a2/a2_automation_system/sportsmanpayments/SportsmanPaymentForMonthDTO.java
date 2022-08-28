@@ -1,31 +1,24 @@
 package com.a2.a2_automation_system.sportsmanpayments;
 
-import com.a2.a2_automation_system.group.Group;
-import com.a2.a2_automation_system.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import java.time.YearMonth;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SportsmanPaymentForPeriodDTO implements Comparable<SportsmanPaymentForPeriodDTO> {
+public class SportsmanPaymentForMonthDTO implements Comparable<SportsmanPaymentForMonthDTO> {
 
     @NotNull
     private Long sportsmanId;
 
     @NotNull
-    private String sportsmanFio;
-
-    @NotNull
-    private Long groupId;
-
-    @NotNull
-    private String groupName;
+    private YearMonth yearMonth;
 
     private Double groupPrice = 0.0;
 
@@ -39,14 +32,13 @@ public class SportsmanPaymentForPeriodDTO implements Comparable<SportsmanPayment
 
     private Double endBalance = 0.0;
 
-    public static SportsmanPaymentForPeriodDTO from(User user, Group group, Integer monthsQuantity,
-                                                    Double amountAccrued, Double amountPaid, Double startBalance) {
+    public static SportsmanPaymentForMonthDTO from(Long userId, YearMonth yearMonth, Double groupPrice,
+                                                   Double amountAccrued,
+                                                   Double amountPaid, Double startBalance) {
         return builder()
-                .sportsmanId(user.getId())
-                .sportsmanFio(user.getFIO())
-                .groupId(group.getId())
-                .groupName(group.getName())
-                .groupPrice((double) group.getSum() * monthsQuantity)
+                .sportsmanId(userId)
+                .yearMonth(yearMonth)
+                .groupPrice(groupPrice)
                 .amountAccrued(amountAccrued)
                 .discount(amountAccrued - amountPaid)
                 .amountPaid(amountPaid)
@@ -56,7 +48,7 @@ public class SportsmanPaymentForPeriodDTO implements Comparable<SportsmanPayment
     }
 
     @Override
-    public int compareTo(SportsmanPaymentForPeriodDTO o) {
-        return this.sportsmanFio.compareTo(o.sportsmanFio);
+    public int compareTo(SportsmanPaymentForMonthDTO o) {
+        return this.yearMonth.compareTo(o.yearMonth);
     }
 }
