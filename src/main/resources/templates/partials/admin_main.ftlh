@@ -78,6 +78,9 @@
                         <a class="nav-link" href="/news">Создать новость</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="/password">Пароль</a>
+                    </li>
+                    <li class="nav-item">
                         <button type="button" class="btn nav-link" data-bs-toggle="modal" data-bs-target="#reports">
                             Отчеты
                         </button>

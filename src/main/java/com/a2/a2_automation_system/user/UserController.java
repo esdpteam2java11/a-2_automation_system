@@ -45,6 +45,21 @@ public class UserController {
         model.addAttribute("error", error);
         return "login";
     }
+    @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
+    @GetMapping("/password")
+    public String passwordReset(Model model,HttpServletRequest request) {
+        User user = userService.getUserByUsername(request.getRemoteUser());
+        model.addAttribute("user",user.getLogin());
+        return "reset_password";
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
+    @PostMapping("/password")
+    public String passwordResetPost(Model model,HttpServletRequest request,@Valid UserPasswordDTO userPasswordDTO, BindingResult validationResult) {
+        User user = userService.getUserByUsername(request.getRemoteUser());
+        model.addAttribute("user",user.getLogin());
+        return "reset_password";
+    }
 
     @GetMapping
     public String getIndex(Model model, HttpServletResponse response) {
