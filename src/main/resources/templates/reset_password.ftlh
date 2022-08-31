@@ -1,6 +1,6 @@
 <#import "partials/admin_main.ftlh" as main />
 <@main.renderWith >
-    <form action="/group/add" method="post">
+    <form action="password" method="post">
         <#if _csrf??>
             <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
         </#if>
@@ -37,8 +37,14 @@
                                     <#if errors?? >
                                         <p>Входные данные с ошибками!</p>
                                         <#list errors as fieldError>
-                                            <p>${fieldError.field} - ${fieldError.defaultMessage!'-- no message --'}</p>
+                                            <p style="color:red">${fieldError.field} - ${fieldError.defaultMessage!'-- no message --'}</p>
                                         </#list>
+                                    </#if>
+                                    <#if passwordConfirm?? >
+                                        <p style="color:red">${passwordConfirm}</p>
+                                    </#if>
+                                    <#if passwordChange??>
+                                        <p style="color:red">${passwordChange}</p>
                                     </#if>
                                     <div class="button">
                                         <button type="submit" class="custom-btn btn-1">Поменять</button>

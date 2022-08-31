@@ -55,10 +55,29 @@ public class UserController {
 
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @PostMapping("/password")
-    public String passwordResetPost(Model model,HttpServletRequest request,@Valid UserPasswordDTO userPasswordDTO, BindingResult validationResult) {
+    public String passwordResetPost(HttpServletRequest request,
+                                    @Valid UserPasswordDTO userPasswordDTO,
+                                    BindingResult validationResult,RedirectAttributes attributes) {
         User user = userService.getUserByUsername(request.getRemoteUser());
-        model.addAttribute("user",user.getLogin());
-        return "reset_password";
+        if(validationResult.hasFieldErrors()){
+            attributes.addFlashAttribute("user",user.getLogin());
+            attributes.addFlashAttribute("errors",validationResult.getFieldErrors());
+            return "redirect:/password";
+        }
+        if(!userService.checkPassword(userPasswordDTO)){
+            attributes.addFlashAttribute("user",user.getLogin());
+            attributes.addFlashAttribute("passwordConfirm","Пароли не совпадают!");
+            return "redirect:/password";
+        }
+        if(userService.changePassword(userPasswordDTO,user)) {
+            attributes.addFlashAttribute("user",user.getLogin());
+            attributes.addFlashAttribute("passwordChange", "Пароль был изменен можете нажать 'Назад'");
+            return "redirect:/password";
+        }
+        attributes.addFlashAttribute("user",user.getLogin());
+        attributes.addFlashAttribute("passwordConfirm", "Пароль не был изменен попробуйте еще раз");
+        return "redirect:/password";
+
     }
 
     @GetMapping

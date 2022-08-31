@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Data
 @Builder
@@ -14,9 +15,11 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class UserPasswordDTO {
 
+    @Size(min = 6,message = "минимальная длина 6 символов")
     @NotBlank
     private String newPassword;
 
+    @Size(min = 6,message = "минимальная длина 6 символов")
     @NotBlank
     private String confirmPassword;
 }
