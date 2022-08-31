@@ -23,14 +23,14 @@ public class InitDatabase {
     @Bean
     CommandLineRunner init(UserRepository userRepository, GroupRepository groupRepository) {
         return (args) -> {
-            if (userRepository.findByLogin("admin").isEmpty()) {
+            if (userRepository.findByLogin("admina2bishkek").isEmpty()) {
                 User admin = new User();
                 admin.setSurname("admin");
                 admin.setName("admin");
                 admin.setPhone("000000");
                 admin.setAddress("г. Бишкек");
                 admin.setRole(Role.ADMIN);
-                admin.setLogin("admin");
+                admin.setLogin("admina2bishkek");
                 admin.setPassword(passwordEncoder.encode("123"));
                 admin.setIsActive(true);
                 userRepository.save(admin);

@@ -344,4 +344,21 @@ public class UserService implements UserDetailsService {
         calendar.set(Calendar.MILLISECOND, 0);
         return calendar.getTime();
     }
+
+    public boolean checkPassword(UserPasswordDTO userPasswordDTO) {
+        if(userPasswordDTO.getNewPassword().equals(userPasswordDTO.getConfirmPassword())){
+            return true;
+        }
+        return false;
+    }
+
+    @Transactional
+    public boolean changePassword(UserPasswordDTO userPasswordDTO,User user) {
+        if(checkPassword(userPasswordDTO)){
+            user.setPassword(encoder.encode(userPasswordDTO.getNewPassword()));
+            userRepository.save(user);
+            return true;
+        }
+        return false;
+    }
 }
